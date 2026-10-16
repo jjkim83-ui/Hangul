@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="한글 놀이터">
-<meta name="theme-color" content="#E4DCF4">
+<meta name="theme-color" content="#F4F2EC">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -58,12 +58,135 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid #2B2C
 .range{width:100%;accent-color:#7E68E0;height:28px}
 input::placeholder{color:#8486B5}
 @media (prefers-reduced-motion: reduce){.blob,.float,.float2,.pop{animation:none}.tile,.press{transition:none}}
+/*SA-THEME*/
+/* ==========================================================================
+   한글 놀이터 — "문방구 Sticker Arcade" theme
+   Loaded after each page's own styles; restyles the shared building blocks
+   (.puff tiles/buttons, .frost panels, blobs, fonts) without touching markup.
+   ========================================================================== */
+:root{
+  --ink:#16131F; --paper:#FFFFFF; --mist:#F4F2EC; --violet:#6A47F2; --violet-d:#4C2BD6; --violet-l:#B9A8FF;
+  --red:#EC4027; --lime:#4CC46A; --sun:#FFDD3C; --sky:#4FB8FF; --gum:#F05AB4;
+  --b:3px solid var(--ink);
+}
+
+/* page background: dot grid instead of drifting blobs */
+.sa-root{background:var(--mist) !important;color:var(--ink) !important;isolation:isolate}
+/* poster decor: big flat shapes, hatching, polka dots, giant outlined type (behind everything) */
+.sa-decor{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.sa-decor i{position:absolute;display:block}
+.sa-decor .d-type{left:-40px;bottom:-150px;font-family:'Jua',sans-serif;font-weight:800;font-size:560px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(22,19,31,.16);letter-spacing:-20px;white-space:nowrap;font-style:normal}
+.sa-decor .d-blob{right:-120px;top:-150px;width:560px;height:470px;border-radius:58% 42% 55% 45%/48% 60% 40% 52%;background:repeating-linear-gradient(-45deg,var(--violet) 0 5px,transparent 5px 11px);opacity:.9;transform:rotate(-12deg)}
+.sa-decor .d-dots{left:-90px;bottom:-110px;width:430px;height:330px;background:var(--lime) radial-gradient(#FFFFFF 7px,transparent 7.5px) 0 0/34px 34px;transform:rotate(14deg);clip-path:polygon(0 18%,74% 0,100% 64%,30% 100%)}
+.sa-decor .d-star{left:20px;top:96px;width:250px;height:250px;background:var(--sun);clip-path:polygon(50% 0,59% 26%,85% 12%,73% 39%,100% 46%,74% 58%,90% 84%,62% 74%,52% 100%,42% 74%,14% 88%,28% 60%,0 50%,27% 40%,12% 14%,40% 25%);transform:rotate(8deg)}
+.sa-decor .d-tri{right:300px;bottom:-40px;width:140px;height:180px;background:var(--ink);clip-path:polygon(0 0,100% 60%,20% 100%)}
+.blob{display:none !important}
+
+/* fonts: display text heavy, never faux-bold */
+[style*="'Jua'"]{font-weight:800 !important;letter-spacing:-.2px}
+h1,h2{font-weight:800 !important}
+
+/* sticker surfaces */
+.puff{background:var(--c) !important;border:var(--b) !important;box-shadow:0 4px 0 var(--ink) !important;box-sizing:border-box}
+.puff::before,.puff::after{display:none !important}
+.puff .puff{box-shadow:0 2px 0 var(--ink) !important;border-width:2.5px !important}
+.p-white{--c:var(--paper)}
+.p-lav{--c:var(--violet-l)}
+.p-coral{--c:var(--red);color:#FFFFFF}
+.p-mint{--c:var(--lime)}
+.p-butter{--c:var(--sun)}
+.p-blue{--c:var(--sky)}
+.p-pink{--c:var(--gum)}
+.p-holo{--c:var(--lime)}
+.p-ghost,.p-ghost.puff{--c:transparent;border-color:transparent !important;box-shadow:none !important}
+.flat{box-shadow:none !important}
+.frost,.frost-strong{background:var(--paper) !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;border:var(--b) !important;box-shadow:0 6px 0 var(--ink) !important;box-sizing:border-box}
+.frost .frost{box-shadow:0 3px 0 var(--ink) !important}
+.ico{filter:none !important}
+.sw{box-shadow:0 0 0 3px var(--ink) !important}
+.sw-on{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink) !important}
+input[type="text"],input:not([type]),input[type="password"],input[type="tel"]{border:var(--b) !important;box-shadow:inset 0 3px 0 rgba(28,24,56,.08) !important;background:#FFFFFF !important}
+
+/* white text sits on colour: give it an ink outline so it stays readable */
+[style*="color: #FFFFFF"],[style*="color:#FFFFFF"],[style*="color: #fff;"]{-webkit-text-stroke:1.2px var(--ink);paint-order:stroke fill;text-shadow:2px 2px 0 var(--ink) !important}
+.p-coral{text-shadow:none}
+.p-coral > span,.p-coral{-webkit-text-stroke:0}
+
+/* gradient-clipped "glossy" display words become solid ink */
+[style*="background-clip: text"]{-webkit-text-fill-color:currentColor}
+
+/* motion: quick, tactile, no hover floating */
+.tile{transition:transform .14s cubic-bezier(.3,1.6,.6,1),box-shadow .14s !important}
+.tile:hover{transform:translateY(-4px) rotate(-.5deg) !important;box-shadow:0 8px 0 var(--ink) !important}
+.tile:active{transform:translateY(4px) !important;box-shadow:0 0 0 var(--ink) !important}
+.press{transition:transform .1s cubic-bezier(.3,1.6,.6,1),box-shadow .1s !important}
+.press:hover{transform:translateY(-2px) !important}
+.press:active{transform:translateY(3px) !important;box-shadow:0 1px 0 var(--ink) !important}
+.float,.float2{animation:none !important}
+
+/* focus ring */
+button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(--violet) !important;outline-offset:3px}
+
+/* ---------- hub (menu) ---------- */
+.sa-onv{color:var(--ink)}
+.sa-onv-sub{color:var(--ink);opacity:.65}
+.sa-violet h1{color:#FFFFFF;text-shadow:3px 3px 0 var(--ink)}
+.sa-violet h1 + * , .sa-violet .sa-sub-on{color:#FFFFFF}
+.sa-nolja{font-family:'Jua',sans-serif;font-weight:800;font-size:150px;line-height:1;color:var(--red);-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:8px 8px 0 var(--ink);transform:rotate(-4deg);letter-spacing:-3px;flex-shrink:0;margin-left:-6px}
+.sa-nolja-sm{font-size:118px;-webkit-text-stroke:4px var(--ink);text-shadow:6px 6px 0 var(--ink)}
+.sa-tag{height:38px;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;padding:0 13px;border:var(--b);border-radius:6px;background:var(--ink);color:#FFFFFF;font-weight:800;font-size:17px}
+.sa-tag[style*="background"]{color:var(--ink)}
+.sa-tag b{font-family:'Jua',sans-serif;font-size:19px}
+.sa-me{position:relative;width:330px;height:190px;flex-shrink:0;border:var(--b);border-radius:22px;background:var(--paper);box-shadow:0 6px 0 var(--ink);display:flex;align-items:center;gap:18px;padding:0 22px;box-sizing:border-box}
+.sa-me > div:first-child > span{background-color:var(--sky) !important}
+.sa-rank{position:absolute;right:-14px;top:-20px;width:80px;height:80px;border:var(--b);border-radius:50%;background:var(--lime);place-items:center;transform:rotate(10deg);box-shadow:0 4px 0 var(--ink);font-family:'Jua',sans-serif;font-size:28px}
+.sa-edit{position:absolute;right:-4px;bottom:-2px;z-index:3;width:40px;height:40px;border:var(--b);border-radius:50%;background:var(--sun);box-shadow:0 3px 0 var(--ink);display:grid;place-items:center;padding:0;cursor:pointer}
+.sa-games{flex:1;min-height:0;display:grid;gap:22px;padding-bottom:8px}
+.sa-card{position:relative;display:flex;flex-direction:column;border:var(--b);border-radius:22px;background:var(--paper);box-shadow:0 7px 0 var(--ink);overflow:hidden;text-decoration:none;color:var(--ink)}
+.sa-art{position:relative;flex:1;min-height:0;border-bottom:var(--b);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.sa-art-in{position:relative;width:240px;height:186px;flex-shrink:0}
+.sa-foot{height:92px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 16px 0 20px;box-sizing:border-box}
+.sa-gname{font-family:'Jua',sans-serif;font-weight:800;font-size:30px;line-height:1;white-space:nowrap}
+.sa-gsub{font-weight:650;font-size:15px;opacity:.6;margin-top:6px;white-space:nowrap}
+.sa-play{margin-left:auto;width:54px;height:54px;flex-shrink:0;border:var(--b);border-radius:50%;background:var(--red);display:grid;place-items:center;box-shadow:0 3px 0 var(--ink)}
+.sa-play svg{margin-left:3px}
+.sa-pips{position:absolute;right:12px;top:12px;gap:3px;background:var(--paper);border:var(--b);border-radius:10px;padding:4px 7px}
+.sa-t{position:absolute;display:grid;place-items:center;border:var(--b);border-radius:12px;box-shadow:0 5px 0 var(--ink);font-family:'Jua',sans-serif;font-weight:800;color:var(--ink);box-sizing:border-box}
+.sa-o{position:absolute;height:34px;border:var(--b);border-radius:9px;display:flex;align-items:center;gap:7px;padding:0 10px;font-family:'Archivo',sans-serif;font-weight:800;font-size:15px;white-space:nowrap;box-sizing:border-box}
+.sa-o i{font-style:normal;width:20px;height:20px;border-radius:5px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:'Jua',sans-serif;font-size:12px}
+.sa-ow{position:absolute;font-family:'Jua',sans-serif;font-weight:800;font-size:32px;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--ink);white-space:nowrap}
+/* class mode: 3 x 2 smaller cards */
+.sa-games[style*="repeat(3"] .sa-foot{height:70px}
+.sa-games[style*="repeat(3"] .sa-gname{font-size:25px}
+.sa-games[style*="repeat(3"] .sa-gsub{font-size:13px;margin-top:4px}
+.sa-games[style*="repeat(3"] .sa-play{width:46px;height:46px}
+.sa-games[style*="repeat(3"] .sa-art-in{transform:scale(.55)}
+
+/* welcome screen */
+.sa-welcome{background:var(--mist) !important}
+.sa-welcome h1{font-size:64px !important}
+
+/* ---------- games ---------- */
+.sa-prompt{position:relative;border:var(--b);border-radius:24px;box-shadow:0 7px 0 var(--ink);background:var(--violet) repeating-linear-gradient(-45deg,rgba(255,255,255,.09) 0 4px,transparent 4px 12px)}
+.sa-ask{font-family:'Jua',sans-serif;font-weight:800;font-size:20px;color:#FFFFFF}
+.sa-bigword{color:#FFFFFF;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink);letter-spacing:1px}
+.sa-key{width:58px;height:58px;flex-shrink:0;border-radius:12px;background:var(--ink);color:#FFFFFF;display:grid;place-items:center;font-family:'Jua',sans-serif;font-weight:800;font-size:28px;position:relative;z-index:1}
+.dim{opacity:1 !important;--c:#E9E7EF !important;color:rgba(22,19,31,.42) !important;box-shadow:0 2px 0 rgba(22,19,31,.35) !important;border-color:rgba(22,19,31,.35) !important}
+.dim .sa-key{background:rgba(22,19,31,.35)}
+.dim *{color:inherit !important}
+
+/* calmer decor on game pages: the menu keeps the full poster */
+.sa-root:not(.sa-hub) .sa-decor .d-dots,.sa-root:not(.sa-hub) .sa-decor .d-tri{display:none}
+.sa-root:not(.sa-hub) .sa-decor .d-star{left:auto;right:-60px;top:auto;bottom:-70px;width:220px;height:220px}
+
+/*/SA-THEME*/
 </style>
-<style>html,body{margin:0;height:100%;overflow:hidden;background:#E4DCF4}</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#F4F2EC}</style>
 </head>
 <body>
 <template id="dc-view">
-<div class="{{rootCls}}" style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 30px 84px 50px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 22px; overflow: hidden">
+<div class="sa-root sa-hub {{rootCls}}" style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 30px 84px 50px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 22px; overflow: hidden">
+  <div class="sa-decor" aria-hidden="true"><i class="d-type">한글</i><i class="d-blob"></i><i class="d-dots"></i><i class="d-star"></i><i class="d-tri"></i></div>
   <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
     <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
     <span class="blob blob2" style="left: 620px; top: -160px; width: 600px; height: 440px; background: #FFA797"></span>
@@ -74,10 +197,9 @@ input::placeholder{color:#8486B5}
 
   <header style="height: 58px; display: flex; align-items: center; justify-content: space-between">
     <div style="display: flex; align-items: center; gap: 14px">
-      <span class="puff p-lav" aria-hidden="true" style="width: 50px; height: 50px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px; color: #FFFFFF; text-shadow: 0 2px 4px rgba(80,50,180,.35)">한</span>
+      <span class="puff p-white" aria-hidden="true" style="width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 30px; color: #FF4D3D; transform: rotate(-6deg)">한</span>
       <div>
-        <div style="font-family: 'Jua', sans-serif; font-size: 28px; line-height: 1">한글 놀이터</div>
-        <div style="font-size: 14px; font-weight: 800; color: #4A4C80; margin-top: 3px; white-space: nowrap">Koreanisch-Spielplatz · Korean Playground</div>
+        <div class="sa-onv" style="font-family: 'Jua', sans-serif; font-size: 30px; line-height: 1">한글 놀이터</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 16px">
@@ -110,12 +232,60 @@ input::placeholder{color:#8486B5}
     </div>
   </header>
 
-  <div style="height: 180px; display: flex; align-items: center; gap: 34px">
-    <div aria-hidden="true" style="position: relative; font-family: 'Jua', sans-serif; font-size: 144px; line-height: 1; flex-shrink: 0; padding-bottom: 6px">
-      <span style="color: #D85B4E; text-shadow: 0 3px 0 #D85B4E, 0 6px 0 #C94F43, 0 18px 26px rgba(238,116,102,.45)">놀자!</span>
-      <span style="position: absolute; left: 0; top: 0; background: linear-gradient(175deg, #FFD0C9 0%, #F59184 32%, #EE7466 60%, #E2685A 100%); -webkit-background-clip: text; background-clip: text; color: transparent">놀자!</span>
-      <span style="position: absolute; left: 0; top: 0; background: radial-gradient(30% 22% at 22% 24%, rgba(255,255,255,.95), rgba(255,255,255,0) 70%), radial-gradient(22% 18% at 70% 22%, rgba(255,255,255,.75), rgba(255,255,255,0) 70%); -webkit-background-clip: text; background-clip: text; color: transparent">놀자!</span>
+  <sc-if value="{{classMode}}" hint-placeholder-val="{{ false }}">
+  <div style="height: 214px; flex-shrink: 0; position: relative; display: flex; align-items: center; gap: 30px">
+    <div aria-hidden="true" class="sa-nolja">놀자!</div>
+    <div style="flex: 1; min-width: 0">
+      <h1 class="sa-onv" style="margin: 0; font-family: 'Jua', sans-serif; font-size: 46px; line-height: 1.05">{{whoTitle}}</h1>
+      <div class="sa-onv-sub" style="margin-top: 6px; font-size: 16px; font-weight: 600">Hallo {{meName}} · heute {{chapNo}}</div>
+      <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap">
+        <span class="sa-tag" style="background: var(--lime)"><b>{{chapNo}}</b> {{chapTitle}}</span>
+        <span class="sa-tag"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg> 오늘 {{todayStars}}</span>
+        <span class="sa-tag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1838" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="#4FC3FF"></circle><path d="M12 9v4l3 2M9.5 2.5h5"></path></svg> {{minLeft}}분 남음</span>
+      </div>
     </div>
+    <div class="sa-me">
+      <div style="position: relative; width: 118px; height: 118px; flex-shrink: 0">
+        <span style="position: relative; z-index: 1; width: 112px; height: 112px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: block; background: {{meAv.inner}}; box-shadow: 0 0 0 3px #1C1838; margin: 3px">
+              <svg viewBox="0 4 120 116" width="112" height="112" aria-hidden="true" style="display: block">
+                <path d="{{meAv.hairBack}}" fill="{{meAv.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M53 68L53 92L67 92L67 68Z" fill="{{meAv.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M20 122C22 101 36 89 60 89C84 89 98 101 100 122Z" fill="{{meAv.shirtCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{meAv.shirtLines}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{meAv.ears}}" fill="{{meAv.skin}}" stroke="#1E1E24" stroke-width="2.4"></path>
+                <path d="{{meAv.head}}" fill="{{meAv.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{meAv.blush}}" fill="#F49AA8" opacity="0.6"></path>
+                <path d="{{meAv.brows}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{meAv.eyesFill}}" fill="#1E1E24"></path>
+                <path d="{{meAv.eyesStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{meAv.eyesWhite}}" fill="#FFFFFF"></path>
+                <path d="{{meAv.noseStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{meAv.noseFill}}" fill="#1E1E24"></path>
+                <path d="{{meAv.mouthFill}}" fill="#1E1E24" stroke="#1E1E24" stroke-width="1.6" stroke-linejoin="round"></path>
+                <path d="{{meAv.mouthWhite}}" fill="#FFFFFF"></path>
+                <path d="{{meAv.tongue}}" fill="#F27A8A"></path>
+                <path d="{{meAv.mouthStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{meAv.hairFront}}" fill="{{meAv.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{meAv.glasses}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linejoin="round"></path>
+                <path d="{{meAv.accStroke}}" fill="none" stroke="#1E1E24" stroke-width="4" stroke-linecap="round"></path>
+                <path d="{{meAv.accFill}}" fill="{{meAv.accCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{meAv.accFill2}}" fill="{{meAv.acc2Col}}" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+        <button type="button" onClick="{{editMe}}" aria-label="꾸미기 · Bearbeiten · Edit me" class="sa-edit"><svg viewBox="0 0 24 24" width="20" height="20" fill="#1C1838" aria-hidden="true"><path d="M15.2 4.3a2.4 2.4 0 0 1 3.4 0l1.1 1.1a2.4 2.4 0 0 1 0 3.4L9.4 19.1 4 20l.9-5.4Z"></path></svg></button>
+      </div>
+      <div style="min-width: 0">
+        <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">{{meName}}</div>
+        <div style="display: flex; align-items: center; gap: 6px; margin-top: 10px; font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 46px; line-height: 1; font-stretch: 110%"><svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg>{{weekStars}}</div>
+        <div style="font-weight: 700; font-size: 14px; opacity: .65; margin-top: 6px; white-space: nowrap">이번 주 · diese Woche</div>
+      </div>
+      <div class="sa-rank" style="display: {{rankShow}}">{{meRank}}</div>
+    </div>
+  </div>
+  </sc-if>
+  <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+  <div style="height: 180px; display: flex; align-items: center; gap: 34px">
+    <div aria-hidden="true" class="sa-nolja sa-nolja-sm">놀자!</div>
     <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
       <div>
         <div style="display: flex; align-items: center; gap: 16px">
@@ -195,87 +365,34 @@ input::placeholder{color:#8486B5}
     </div>
   </div>
 
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 38px 40px; padding-bottom: 6px">
+  </sc-if>
+  <div class="sa-games" style="grid-template-columns: repeat({{gridCols}}, minmax(0, 1fr))">
     <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
-    <a href="memory.html" onClick="{{tileGo}}" class="tile puff p-lav" style="grid-column: span 2; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
-      <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 6px; top: 14px; width: 64px; height: 78px; border-radius: 18px; transform: rotate(-9deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">사과</span></span><span class="puff p-blue float" style="position: absolute; left: 64px; top: 30px; width: 64px; height: 78px; border-radius: 18px; transform: rotate(8deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 40px; color: #FFFFFF"><span style="position: relative; z-index: 1">?</span></span></div>
-      <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <div>
-          <h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 28px; line-height: 1.05; color: #2B2C6B; white-space: nowrap">카드 짝맞추기</h2>
-          <p style="margin: 3px 0 0; font-size: 13px; font-weight: 800; color: #3A3B78">Memory · Card match</p>
-        </div>
-        <span class="puff p-coral" style="align-self: flex-start; height: 46px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 6px; display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
-          <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></span>
-          <span style="position: relative; z-index: 1">시작 · Start</span>
-        </span>
-      </div>
+    <a href="memory.html" onClick="{{tileGo}}" class="tile sa-card">
+      <div class="sa-art" style="background: var(--violet-l)"><div class="sa-art-in"><span class="sa-t" style="left: 30px; top: 28px; width: 92px; height: 112px; background: #FFFFFF; transform: rotate(-8deg); font-size: 30px;">사과</span><span class="sa-t" style="left: 118px; top: 44px; width: 92px; height: 112px; background: var(--sun); transform: rotate(7deg); font-size: 54px;">?</span></div></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">카드 짝맞추기</div><div class="sa-gsub">Memory</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     </sc-if>
-    <a href="quiz.html" onClick="{{tileGo}}" class="tile puff p-butter" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
-      <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 14px; top: 16px; width: 104px; height: 58px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 40px; border-radius: 30px; color: #9E88E9"><span style="position: relative; z-index: 1">?</span></span><span class="puff p-mint float" style="position: absolute; left: 4px; top: 86px; width: 58px; height: 26px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 1px; border-radius: 999px"><span style="position: relative; z-index: 1"></span></span><span class="puff p-pink float" style="position: absolute; left: 70px; top: 86px; width: 58px; height: 26px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 1px; border-radius: 999px"><span style="position: relative; z-index: 1"></span></span></div>
-      <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <div>
-          <h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 28px; line-height: 1.05; color: #2B2C6B; white-space: nowrap">단어 퀴즈</h2>
-          <p style="margin: 3px 0 0; font-size: 13px; font-weight: 800; color: #3A3B78">Wortquiz · Word quiz</p>
-        </div>
-        <span class="puff p-coral" style="align-self: flex-start; height: 46px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 6px; display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
-          <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></span>
-          <span style="position: relative; z-index: 1">시작 · Start</span>
-        </span>
-      </div>
+    <a href="quiz.html" onClick="{{tileGo}}" class="tile sa-card">
+      <div class="sa-art" style="background: var(--sun)"><div class="sa-art-in"><span class="sa-t" style="left: 20px; top: 22px; width: 150px; height: 62px; background: #FFFFFF; transform: rotate(-4deg); font-size: 30px;">솔직하다</span><span class="sa-o" style="left: 34px; top: 104px; background: var(--lime); transform: rotate(2deg)"><i>가</i>ehrlich sein</span><span class="sa-o" style="left: 66px; top: 146px; background: #FFFFFF; transform: rotate(-2deg)"><i>나</i>mutig sein</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipquiz0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipoquiz0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipquiz1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipoquiz1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipquiz2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipoquiz2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">단어 퀴즈</div><div class="sa-gsub">Wortquiz</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <a href="crossword.html" onClick="{{tileGo}}" class="tile puff p-mint" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
-      <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 8px; top: 18px; width: 52px; height: 52px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px"><span style="position: relative; z-index: 1">한</span></span><span class="puff p-white float" style="position: absolute; left: 66px; top: 18px; width: 52px; height: 52px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px"><span style="position: relative; z-index: 1">글</span></span><span class="puff p-coral float" style="position: absolute; left: 66px; top: 76px; width: 52px; height: 52px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px; color: #FFFFFF"><span style="position: relative; z-index: 1">사</span></span></div>
-      <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <div>
-          <h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 28px; line-height: 1.05; color: #2B2C6B; white-space: nowrap">십자말풀이</h2>
-          <p style="margin: 3px 0 0; font-size: 13px; font-weight: 800; color: #2E4F45">Kreuzworträtsel · Crossword</p>
-        </div>
-        <span class="puff p-coral" style="align-self: flex-start; height: 46px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 6px; display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
-          <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></span>
-          <span style="position: relative; z-index: 1">시작 · Start</span>
-        </span>
-      </div>
+    <a href="crossword.html" onClick="{{tileGo}}" class="tile sa-card">
+      <div class="sa-art" style="background: var(--lime)"><div class="sa-art-in"><span class="sa-t" style="left: 30px; top: 26px; width: 62px; height: 62px; background: #FFFFFF; transform: rotate(0deg); font-size: 40px;">외</span><span class="sa-t" style="left: 98px; top: 26px; width: 62px; height: 62px; background: var(--sun); transform: rotate(0deg); font-size: 40px;">모</span><span class="sa-t" style="left: 98px; top: 94px; width: 62px; height: 62px; background: #FFFFFF; transform: rotate(0deg); font-size: 40px;">습</span><span class="sa-t" style="left: 166px; top: 94px; width: 62px; height: 62px; background: transparent; transform: rotate(0deg); font-size: 40px; border-style: dashed; box-shadow: none"></span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipcrossword0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipocrossword0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipcrossword1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipocrossword1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipcrossword2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipocrossword2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">십자말풀이</div><div class="sa-gsub">Kreuzworträtsel</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <a href="syllables.html" onClick="{{tileGo}}" class="tile puff p-pink" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
-      <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 0px; top: 60px; width: 50px; height: 50px; border-radius: 18px; transform: rotate(-8deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">첫</span></span><span class="puff p-lav float" style="position: absolute; left: 42px; top: 12px; width: 50px; height: 50px; border-radius: 18px; transform: rotate(6deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">인</span></span><span class="puff p-butter float" style="position: absolute; left: 82px; top: 56px; width: 50px; height: 50px; border-radius: 18px; transform: rotate(-4deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">상</span></span></div>
-      <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <div>
-          <h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 28px; line-height: 1.05; color: #2B2C6B; white-space: nowrap">글자 조각</h2>
-          <p style="margin: 3px 0 0; font-size: 13px; font-weight: 800; color: #5A2A44">Silbenpuzzle · Syllables</p>
-        </div>
-        <span class="puff p-coral" style="align-self: flex-start; height: 46px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 6px; display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
-          <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></span>
-          <span style="position: relative; z-index: 1">시작 · Start</span>
-        </span>
-      </div>
+    <a href="syllables.html" onClick="{{tileGo}}" class="tile sa-card">
+      <div class="sa-art" style="background: var(--gum)"><div class="sa-art-in"><span class="sa-t" style="left: 24px; top: 20px; width: 64px; height: 64px; background: #FFFFFF; transform: rotate(-9deg); font-size: 40px;">솔</span><span class="sa-t" style="left: 116px; top: 40px; width: 64px; height: 64px; background: var(--sky); transform: rotate(7deg); font-size: 40px;">직</span><span class="sa-t" style="left: 50px; top: 104px; width: 64px; height: 64px; background: var(--lime); transform: rotate(5deg); font-size: 40px;">하</span><span class="sa-t" style="left: 146px; top: 112px; width: 64px; height: 64px; background: #FFFFFF; transform: rotate(-6deg); font-size: 40px;">다</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipsyllables0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{piposyllables0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipsyllables1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{piposyllables1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipsyllables2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{piposyllables2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">글자 조각</div><div class="sa-gsub">Silbenpuzzle</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <a href="chosung.html" onClick="{{tileGo}}" class="tile puff p-blue" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
-      <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 2px; top: 40px; width: 42px; height: 52px; border-radius: 18px; transform: rotate(-6deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px"><span style="position: relative; z-index: 1">ㅊ</span></span><span class="puff p-white float" style="position: absolute; left: 45px; top: 40px; width: 42px; height: 52px; border-radius: 18px; transform: rotate(3deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px"><span style="position: relative; z-index: 1">ㅇ</span></span><span class="puff p-white float" style="position: absolute; left: 88px; top: 40px; width: 42px; height: 52px; border-radius: 18px; transform: rotate(-3deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px"><span style="position: relative; z-index: 1">ㅅ</span></span><span style="position: absolute; left: 0; right: 0; top: 104px; text-align: center; font-family: 'Jua', sans-serif; font-size: 18px; color: #1F3D6B">= 첫인상?</span></div>
-      <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <div>
-          <h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 28px; line-height: 1.05; color: #2B2C6B; white-space: nowrap">초성 퀴즈</h2>
-          <p style="margin: 3px 0 0; font-size: 13px; font-weight: 800; color: #1F3D6B">Anfangslaute · Initial consonants</p>
-        </div>
-        <span class="puff p-coral" style="align-self: flex-start; height: 46px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 6px; display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
-          <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></span>
-          <span style="position: relative; z-index: 1">시작 · Start</span>
-        </span>
-      </div>
+    <a href="chosung.html" onClick="{{tileGo}}" class="tile sa-card">
+      <div class="sa-art" style="background: var(--sky)"><div class="sa-art-in"><span class="sa-t" style="left: 8px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅅ</span><span class="sa-t" style="left: 64px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅈ</span><span class="sa-t" style="left: 120px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅎ</span><span class="sa-t" style="left: 176px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㄷ</span><span class="sa-ow" style="left: 14px; top: 122px">= 솔직하다?</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipchosung0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipochosung0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipchosung1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipochosung1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipchosung2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipochosung2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">초성 퀴즈</div><div class="sa-gsub">Anfangslaute</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
-    <a href="race.html" onClick="{{tileRace}}" class="tile puff p-coral" style="grid-column: span 2; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px; opacity: {{raceOp}}">
-      <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 10px; top: 20px; width: 84px; height: 84px; border-radius: 18px; transform: rotate(-10deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 1px; border-radius: 24px"><span style="position: relative; z-index: 1"></span></span><span style="position: absolute; left: 22px; top: 32px; width: 60px; height: 60px; transform: rotate(-10deg); display: grid; grid-template-columns: repeat(3, 1fr); place-items: center"><span style="width:12px;height:12px;border-radius:50%;background:#2B2C6B"></span><span></span><span style="width:12px;height:12px;border-radius:50%;background:#2B2C6B"></span><span></span><span style="width:12px;height:12px;border-radius:50%;background:#2B2C6B"></span><span></span><span style="width:12px;height:12px;border-radius:50%;background:#2B2C6B"></span><span></span><span style="width:12px;height:12px;border-radius:50%;background:#2B2C6B"></span></span><span class="float2" style="position: absolute; left: 88px; top: 70px; font-size: 40px">🏁</span></div>
-      <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <div>
-          <h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 31px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 2px 3px rgba(160,40,30,.35)">보드게임</h2>
-          <p style="margin: 3px 0 0; font-size: 13px; font-weight: 800; color: #FFFFFF">Würfelrennen · Dice race</p>
-        </div>
-        <span class="puff p-coral" style="align-self: flex-start; height: 46px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 6px; display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
-          <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></span>
-          <span style="position: relative; z-index: 1">{{raceLabel}}</span>
-        </span>
-      </div>
+    <a href="race.html" onClick="{{tileRace}}" class="tile sa-card">
+      <div class="sa-art" style="background: var(--red)"><div class="sa-art-in"><span class="sa-t" style="left: 40px; top: 30px; width: 104px; height: 104px; background: #FFFFFF; transform: rotate(-10deg); display: grid; grid-template-columns: repeat(3, 1fr); padding: 16px; box-sizing: border-box; place-items: center"><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i></span><span style="position: absolute; left: 150px; top: 84px; font-size: 52px">🏁</span></div></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">보드게임</div><div class="sa-gsub">Würfelrennen</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     </sc-if>
   </div>
@@ -284,13 +401,8 @@ input::placeholder{color:#8486B5}
     <div class="puff p-coral pop" style="position: absolute; left: 50%; top: 300px; transform: translateX(-50%); z-index: 6; border-radius: 999px; padding: 14px 30px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 24px; text-shadow: 0 2px 3px rgba(160,40,30,.35); white-space: nowrap"><span style="position: relative; z-index: 1">{{nudgeText}}</span></div>
   </sc-if>
   <sc-if value="{{showWelcome}}" hint-placeholder-val="{{ false }}">
-  <div style="position: absolute; inset: 0; z-index: 4; isolation: isolate; background: #E4DCF4; display: flex; flex-direction: column; align-items: center; padding: 34px 56px 40px; box-sizing: border-box; gap: 18px; overflow: hidden">
-    <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
-      <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
-      <span class="blob blob2" style="left: 620px; top: -160px; width: 600px; height: 440px; background: #FFA797"></span>
-      <span class="blob blob3" style="left: 260px; top: 330px; width: 640px; height: 420px; background: #8AD9B6"></span>
-      <span class="blob" style="left: 900px; top: 380px; width: 480px; height: 400px; background: #FFD46E; animation-delay: -11s"></span>
-    </div>
+  <div class="sa-welcome" style="position: absolute; inset: 0; z-index: 4; isolation: isolate; background: #E4DCF4; display: flex; flex-direction: column; align-items: center; padding: 34px 56px 40px; box-sizing: border-box; gap: 18px; overflow: hidden">
+    <div class="sa-decor" aria-hidden="true"><i class="d-type">한글</i><i class="d-blob"></i><i class="d-dots"></i><i class="d-star" style="left: auto; right: 120px; top: 380px"></i><i class="d-tri"></i></div>
     <div style="display: flex; align-items: center; gap: 14px">
       <span class="puff p-lav" aria-hidden="true" style="width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 30px; color: #FFFFFF; text-shadow: 0 2px 4px rgba(80,50,180,.35)">한</span>
       <div>
@@ -988,7 +1100,19 @@ class Component extends DCLogic {
       notMe: () => { if (C) { C.logout(); this.syncClass(); this.setState({ wstep: 'pick', overlay: null }); this.play('tap'); } },
       rootCls: s.motion ? '' : 'still',
       players, selLabel: C ? classLabel : selLabel, tapSound,
-      gameSpan: C ? '3' : '2',
+      gridCols: C ? '4' : '3',
+      ...(() => {   // student hero + per-game star tries
+        const me = C && C.me(); if (!me) return { pipsShow: 'none' };
+        const t = C.today(me.id), wr = wkRows.find(r => r.student.id === me.id);
+        const st = C.settings(), title = st.chapterTitle || '', m = title.match(/^(\d+과)\s*(.*)$/);
+        const out = { meAv: this.build(me.cfg), meName: me.name, weekStars: wr ? wr.stars : 0,
+          meRank: wr && wr.stars > 0 ? wr.rank + '등' : '', rankShow: wr && wr.stars > 0 ? 'grid' : 'none',
+          chapNo: m ? m[1] : title, chapTitle: m ? m[2] : '', todayStars: '★' + t.stars,
+          minLeft: Math.max(0, Math.ceil(C.RULES.dailyMinutes - t.minutes)), pipsShow: 'flex' };
+        ['quiz', 'crossword', 'syllables', 'chosung'].forEach(g => { const used = t.rounds[g] || 0;
+          for (let n = 0; n < 3; n++) { out['pip' + g + n] = n < used ? 'block' : 'none'; out['pipo' + g + n] = n < used ? 'none' : 'block'; } });
+        return out;
+      })(),
       classMode: !!C, notClass: !C, nudge: !!s.nudge,
       nudgeText: s.nudge === 'pick' ? '먼저 오늘 온 학생을 골라요 · Zuerst Schüler wählen · Pick who is here first' : s.nudge === 'race' ? '🎲 보드게임은 수업 때 같이 해요! · In class together' : '먼저 내 그림을 눌러요! · Zuerst dich antippen · Tap yourself first',
       roomMode: !!this.R, canManage: !C && !this.R,
