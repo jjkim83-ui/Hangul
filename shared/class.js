@@ -182,9 +182,9 @@
       const timeUp = t.minutes >= RULES.dailyMinutes;
       const canEarn = left > 0 && !timeUp;
       let line;
-      if (timeUp) line = '⏰ 오늘 시간 끝! 연습만 돼요 · Zeit um, nur Übung · Time is up, practice only';
-      else if (!left) line = '오늘 이 게임 별은 다 받았어요 · Heute keine Sterne mehr hier · No more stars here today';
-      else line = '⭐ 별 받을 수 있는 판 ' + left + '/' + RULES.roundsPerGame + ' · ' + Math.ceil(t.timeLeft) + '분 남음 · min left';
+      if (timeUp) line = '⏰ 오늘 시간 끝! 연습만 돼요 · Zeit um, nur Übung';
+      else if (!left) line = '오늘 이 게임 별은 다 받았어요 · Heute keine Sterne mehr hier';
+      else line = '⭐ 별 받을 수 있는 판 ' + left + '/' + RULES.roundsPerGame + ' · ' + Math.ceil(t.timeLeft) + '분 남음';
       return { canEarn, line, roundsLeft: left, minutesLeft: t.timeLeft };
     },
     _start: {},
@@ -204,8 +204,8 @@
       if (online) SB.post('plays', { id: play.id, class_id: CONFIG.classId, student_id: play.sid, game, stars, acc: play.acc, dur, day: play.day, week: play.week, at: play.at, counted, note: '' }).catch(e => { syncError = String(e.message || e); emit(); });
       const starStr = '★'.repeat(stars) + '☆'.repeat(3 - stars);
       const line = counted
-        ? starStr + '  +' + stars + ' 별 · Sterne · stars — ' + me.name
-        : starStr + '  연습 판 · Übungsrunde · practice round (오늘 별은 끝 · no stars today)';
+        ? starStr + '  +' + stars + ' 별 · Sterne — ' + me.name
+        : starStr + '  연습 판 · Übungsrunde (오늘 별은 끝)';
       return { stars, counted, line, starStr };
     },
 

@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="한글 놀이터">
-<meta name="theme-color" content="#F4F2EC">
+<meta name="theme-color" content="#ECE8DE">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -205,6 +205,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 .sa-gsub{color:#FFFFFF;opacity:.62}
 .sa-play{border:0;box-shadow:0 4px 0 #B52A16}
 .sa-pips{border:0;background:var(--ink)}
+.sa-pipt{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#FFFFFF;white-space:nowrap;line-height:18px}
 .sa-me{border:0;box-shadow:var(--hair),0 6px 0 var(--paper-d),var(--soft)}
 .sa-rank{border:0;box-shadow:0 4px 0 #2F9A4C}
 .sa-edit{border:0;box-shadow:0 3px 0 #D9B315}
@@ -216,9 +217,48 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 /* empty syllable slots: dashed ink outline so kids can see where tiles go */
 .slot-empty{background:#F2EFE7 !important;box-shadow:inset 0 0 0 2.5px rgba(22,19,31,.35) !important;border:2.5px dashed rgba(22,19,31,.0) !important;outline:2.5px dashed rgba(22,19,31,.45);outline-offset:-6px}
 
+/*R2-PATCH*/
+/* P1-1 letterbox matches the paper */
+html,body{background:#ECE8DE !important}
+/* P1-2 retire old navy/lavender-grey text + icon strokes */
+[style*="color: #2B2C6B"],[style*="color:#2B2C6B"]{color:var(--ink) !important}
+[style*="color: #4A4C80"],[style*="color:#4A4C80"],[style*="color: #8486B5"]{color:rgba(22,19,31,.62) !important}
+svg[stroke="#2B2C6B"]{stroke:var(--ink)} svg[fill="#2B2C6B"]{fill:var(--ink)}
+/* P1-2b remaining legacy tints */
+[style*="color: #6A4A00"],[style*="color: #5B5DA8"],[style*="color: #3A3B78"],[style*="color: #2E4F45"],[style*="color: #5A4A12"],[style*="color: #5A5C8E"],[style*="color: #3A3C78"],[style*="color: #3A2E7A"],[style*="color: #1F4A3A"],[style*="color: #7E68E0"]{color:rgba(22,19,31,.72) !important}
+[style*="color: #B23A2E"],[style*="color: #E2685A"]{color:var(--red) !important}
+[style*="color: #2E7A57"]{color:#1F7A3D !important}
+a,a:hover{color:var(--ink) !important}
+input::placeholder{color:rgba(22,19,31,.42) !important}
+/* P1-3 icon "coins" inside controls: drop the nested circle, keep the bare icon */
+.frost > .puff[aria-hidden="true"][style*="border-radius: 50%"],
+.puff > .puff[aria-hidden="true"][style*="border-radius: 50%"]{background:transparent !important;box-shadow:none !important;width:28px !important}
+/* P1-4 pastel lavender -> saturated mid-violet (ink text 6.2:1) */
+:root{--violet-l:#9C84FF}
+.p-lav{--c:#9C84FF;--d:#7556F0}
+/* P1-5 selected = solid violet + white text (one meaning, everywhere) */
+[aria-pressed="true"].puff{--c:var(--violet) !important;--d:var(--violet-d) !important;color:#fff !important;box-shadow:0 5px 0 var(--violet-d) !important}
+[aria-pressed="true"].puff [style*="color"],[aria-pressed="true"].puff span,[aria-pressed="true"].puff div{color:#fff !important}
+[aria-pressed="true"].puff .puff,[aria-pressed="true"].puff .puff *{color:var(--ink) !important}
+[aria-pressed="true"].puff > svg,[aria-pressed="true"].puff > svg *{stroke:#fff !important}
+/* P1-6 overlay scrim: neutral ink, not navy-lavender */
+[style*="background: rgba(43,44,107"]{background:rgba(22,19,31,.55) !important}
+/* P1-7 text on red is white; text on sky/green is ink */
+.p-coral,.p-coral [style*="color"]{color:#fff !important}
+.p-blue [style*="color: #FFFFFF"],.p-mint [style*="color: #FFFFFF"],.p-blue[style*="color: #FFFFFF"],.p-mint[style*="color: #FFFFFF"]{color:var(--ink) !important;text-shadow:none !important}
+/* P1-8 no sticky hover on touch */
+@media (hover:none){.tile:hover,.press:hover,.sa-card:hover{transform:none !important}.tile:hover{box-shadow:0 5px 0 var(--d) !important}}
+/* P1-9 decor type: quieter, menu only */
+.sa-decor .d-type{-webkit-text-stroke-color:rgba(22,19,31,.07)}
+.sa-root:not(.sa-hub) .sa-decor .d-type{display:none}
+/* P1-10 result title: poster type, not gold gloss */
+span[style*="background-clip: text"][style*="#FFF8D9"]{display:none !important}
+span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink) !important}
+/*/R2-PATCH*/
+
 /*/SA-THEME*/
 </style>
-<style>html,body{margin:0;height:100%;overflow:hidden;background:#F4F2EC}</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
 </head>
 <body>
 <template id="dc-view">
@@ -235,19 +275,18 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
       <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
       </span>
-      메뉴 · Menu
-    </a>
+      메뉴</a>
     <div style="flex: 1; min-width: 0">
       <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">순위표 🏆</div>
-      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Rangliste · Scoreboard — {{chapter}}</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Rangliste — {{chapter}}</div>
     </div>
     <div class="frost" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 8px; display: flex; align-items: center; gap: 8px">
-      <button type="button" onClick="{{prevWeek}}" aria-label="지난 주 · previous week" class="puff p-white press" style="width: 42px; height: 42px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 20px; color: #2B2C6B; opacity: {{prevOp}}"><span style="position: relative; z-index: 1">◀</span></button>
+      <button type="button" onClick="{{prevWeek}}" aria-label="지난 주 · vorige Woche" class="puff p-white press" style="width: 42px; height: 42px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 20px; color: #2B2C6B; opacity: {{prevOp}}"><span style="position: relative; z-index: 1">◀</span></button>
       <span style="min-width: 190px; text-align: center; line-height: 1.1">
         <span style="display: block; font-family: 'Jua', sans-serif; font-size: 20px">{{weekTitle}}</span>
         <span style="display: block; font-size: 12px; font-weight: 800; color: #4A4C80">{{weekRange}}</span>
       </span>
-      <button type="button" onClick="{{nextWeek}}" aria-label="다음 주 · next week" class="puff p-white press" style="width: 42px; height: 42px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 20px; color: #2B2C6B; opacity: {{nextOp}}"><span style="position: relative; z-index: 1">▶</span></button>
+      <button type="button" onClick="{{nextWeek}}" aria-label="다음 주 · nächste Woche" class="puff p-white press" style="width: 42px; height: 42px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 20px; color: #2B2C6B; opacity: {{nextOp}}"><span style="position: relative; z-index: 1">▶</span></button>
     </div>
   </header>
 
@@ -338,11 +377,11 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
         <div style="position: relative; z-index: 1; font-size: 14px; font-weight: 800; color: #6A4A00">{{crownNone}}</div>
       </div>
       <div class="frost" style="flex: 1; border-radius: 30px; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 800; line-height: 1.4">
-        <div style="font-family: 'Jua', sans-serif; font-size: 21px">별 받는 법 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; color: #4A4C80">So gibt's Sterne · How stars work</span></div>
-        <div>⭐ 한 판에 별 1~3개 — 잘할수록 많이! · 1–3 per round</div>
-        <div>🎮 게임마다 하루 {{perGame}}판까지 · {{perGame}} rounds per game a day</div>
-        <div>⏱ 하루 {{minutes}}분 · {{minutes}} minutes a day</div>
-        <div>👑 매주 1등이 왕관! · Weekly winner gets the crown</div>
+        <div style="font-family: 'Jua', sans-serif; font-size: 21px">별 받는 법 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; color: #4A4C80">So gibt's Sterne</span></div>
+        <div>⭐ 한 판에 별 1~3개 — 잘할수록 많이!</div>
+        <div>🎮 게임마다 하루 {{perGame}}판까지 · {{perGame}} Runden pro Spiel und Tag</div>
+        <div>⏱ 하루 {{minutes}}분 · {{minutes}} Minuten pro Tag</div>
+        <div>👑 매주 1등이 왕관!</div>
         <div style="margin-top: auto; font-size: 12px; color: #4A4C80">{{syncNote}}</div>
       </div>
     </aside>
@@ -468,18 +507,18 @@ class Component extends DCLogic {
       nextWeek: () => { if (i > 0) this.setState({ wk: weeks[i - 1] }); },
       rows: rows.map(r => ({
         ...this.build(r.student.cfg), name: r.student.name, stars: r.stars, rank: r.stars > 0 ? (['🥇', '🥈', '🥉'][r.rank - 1] || r.rank) : '–',
-        sub: r.days + '일 · Tage · days  ·  ' + Math.round(r.minutes) + '분',
+        sub: r.days + '일 · Tage  ·  ' + Math.round(r.minutes) + '분',
         pct: Math.round(r.stars / max * 100),
         cls: me && me.id === r.student.id ? 'p-lav' : 'p-white',
-        rankCls: r.rank === 1 && r.stars > 0 ? 'p-butter' : r.rank === 2 ? 'p-blue' : r.rank === 3 ? 'p-pink' : 'p-white',
+        rankCls: r.stars <= 0 ? 'p-white' : r.rank === 1 ? 'p-butter' : r.rank === 2 ? 'p-blue' : r.rank === 3 ? 'p-pink' : 'p-white',
         crown: crownIds.indexOf(r.student.id) >= 0 ? 'block' : 'none'
       })),
       crownTitle: s.wk === cur ? '지난 주 왕관 👑' : '이 주의 왕관 👑',
-      crownSub: s.wk === cur ? 'Krone der letzten Woche · Last week\'s crown' : 'Krone dieser Woche · Crown of this week',
+      crownSub: s.wk === cur ? 'Krone der letzten Woche' : 'Krone dieser Woche',
       crowns: crownIds.map(id => { const st = C.students().find(x => x.id === id); return st ? { ...this.build(st.cfg), name: st.name } : null; }).filter(Boolean),
-      crownNone: crownIds.length ? '' : '아직 없어요 · Noch keine · None yet',
+      crownNone: crownIds.length ? '' : '아직 없어요 · Noch keine',
       perGame: C.RULES.roundsPerGame, minutes: C.RULES.dailyMinutes,
-      syncNote: C.demo ? '미리보기 · Vorschau · Preview data' : (C.online ? (C.syncError() ? '⚠ 연결 문제 · Verbindungsproblem: ' + C.syncError() : '🟢 온라인 · online — 모두 같은 순위표') : '이 기기에만 저장 · Nur auf diesem Gerät · this device only')
+      syncNote: C.demo ? '미리보기 · Vorschau' : (C.online ? (C.syncError() ? '⚠ 연결 문제 · Verbindungsproblem: ' + C.syncError() : '🟢 온라인 · online — 모두 같은 순위표') : '이 기기에만 저장 · Nur auf diesem Gerät')
     };
   }
 }

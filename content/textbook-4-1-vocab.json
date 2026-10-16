@@ -89,9 +89,12 @@
     ],
     [
      "짝",
-     "Sitznachbar(in)",
+     "Banknachbar(in)",
      "desk partner",
-     "교실에서 나란히 옆에 앉는 친구"
+     "교실에서 나란히 옆에 앉는 친구",
+     {
+      "g": "짝꿍"
+     }
     ],
     [
      "첫인상",
@@ -137,26 +140,41 @@
     ],
     [
      "이사 오다/가다",
-     "her-/wegziehen",
-     "to move in/away",
-     "살던 집을 옮겨 다른 곳으로 가다"
+     "umziehen",
+     "to move (house)",
+     "살던 집을 떠나 새집으로 옮기다",
+     {
+      "g": "이사하다"
+     }
     ],
     [
      "사이좋게 지내다",
-     "gut miteinander auskommen",
+     "sich gut verstehen",
      "to get along well",
-     "다투지 않고 친하게 어울리다"
+     "서로 다투지 않고 친하다",
+     {
+      "g": "사이좋다"
+     }
     ],
     [
      "고개를 숙이다",
-     "den Kopf neigen",
+     "den Kopf neigen (leicht verbeugen)",
      "to bow one's head",
-     "머리를 앞으로 낮게 내리다"
+     "머리를 앞으로 낮게 내리다",
+     {
+      "games": [
+       "quiz",
+       "syllables",
+       "chosung",
+       "memory",
+       "race"
+      ]
+     }
     ],
     [
      "공손하다",
-     "höflich sein",
-     "to be polite",
+     "höflich (respektvoll) sein",
+     "to be polite, respectful",
      "웃어른께 말과 행동이 예의 바르다"
     ],
     [
@@ -173,9 +191,21 @@
     ],
     [
      "뽑다/뽑히다",
-     "wählen / gewählt werden",
-     "to pick / be chosen",
-     "여럿 중에서 고르다 / 골라지다"
+     "(aus)wählen",
+     "to pick, choose",
+     "여럿 가운데서 하나를 고르다",
+     {
+      "g": "뽑다"
+     }
+    ],
+    [
+     "뽑다/뽑히다",
+     "gewählt werden",
+     "to be chosen",
+     "여럿 가운데서 골라지다",
+     {
+      "g": "뽑히다"
+     }
     ],
     [
      "창피하다",
@@ -185,9 +215,18 @@
     ],
     [
      "허리를 굽히다",
-     "sich verbeugen",
-     "to bow (from the waist)",
-     "몸의 가운데를 숙여 깊이 절하다"
+     "sich tief verbeugen",
+     "to bow deeply (from the waist)",
+     "몸을 앞으로 깊이 접어서 절하다",
+     {
+      "games": [
+       "quiz",
+       "syllables",
+       "chosung",
+       "memory",
+       "race"
+      ]
+     }
     ]
    ]
   },
@@ -285,19 +324,35 @@
      "꿈을 갖다(가지다)",
      "einen Traum haben",
      "to have a dream",
-     "되고 싶은 미래를 마음에 품다"
+     "되고 싶은 미래를 마음에 품다",
+     {
+      "g": "꿈을 갖다",
+      "games": [
+       "quiz",
+       "syllables",
+       "chosung",
+       "memory",
+       "race"
+      ]
+     }
     ],
     [
      "흥미가 있다/생기다",
-     "Interesse haben/bekommen",
-     "to be/become interested",
-     "어떤 일이 즐겁고 궁금하게 느껴지다"
+     "Spass an etwas, Interesse",
+     "interest, fun (in sth)",
+     "어떤 일이 재미있어서 더 해 보고 싶은 마음",
+     {
+      "g": "흥미"
+     }
     ],
     [
      "관심이 있다/많다",
-     "sich interessieren",
-     "to be interested in",
-     "어떤 것에 마음이 끌리고 알고 싶다"
+     "Interesse (für jemanden oder etwas)",
+     "interest (in sb/sth)",
+     "어떤 것에 마음이 끌려 더 알고 싶은 마음",
+     {
+      "g": "관심"
+     }
     ],
     [
      "대통령",
@@ -337,7 +392,7 @@
     ],
     [
      "운영하다",
-     "betreiben",
+     "(einen Laden, eine Firma) führen",
      "to run (a business)",
      "가게나 회사를 맡아 꾸려 나가다"
     ],
@@ -345,7 +400,16 @@
      "이색 직업",
      "ungewöhnlicher Beruf",
      "unusual job",
-     "흔하지 않은 특별한 일"
+     "흔하지 않은 특별한 일",
+     {
+      "games": [
+       "quiz",
+       "syllables",
+       "chosung",
+       "memory",
+       "race"
+      ]
+     }
     ],
     [
      "체험하다",
@@ -387,9 +451,21 @@
     ],
     [
      "머리가 길다/짧다",
-     "lange/kurze Haare haben",
-     "to have long/short hair",
-     "헤어스타일이 어깨 아래까지 또는 귀 위까지이다"
+     "lange Haare",
+     "long hair",
+     "어깨 아래까지 내려오는 헤어스타일",
+     {
+      "g": "긴 머리"
+     }
+    ],
+    [
+     "머리가 길다/짧다",
+     "kurze Haare",
+     "short hair",
+     "귀나 목 위까지 오는 헤어스타일",
+     {
+      "g": "짧은 머리"
+     }
     ],
     [
      "곱슬머리",
@@ -411,45 +487,84 @@
     ],
     [
      "얼굴이 갸름하다",
-     "ein schmales Gesicht haben",
-     "to have a slim face",
-     "턱 선이 좁고 약간 길쭉한 모양이다"
+     "schmal (und länglich) sein (Gesicht)",
+     "slim, oval (face)",
+     "얼굴이 좁고 조금 길쭉하다",
+     {
+      "g": "갸름하다"
+     }
     ],
     [
      "얼굴이 둥글다",
-     "ein rundes Gesicht haben",
-     "to have a round face",
-     "동그란 달처럼 생긴 모양이다"
+     "rund sein",
+     "to be round",
+     "동그란 달처럼 생기다",
+     {
+      "g": "둥글다"
+     }
     ],
     [
      "이마가 좁다/넓다",
-     "eine schmale/breite Stirn haben",
-     "to have a narrow/wide forehead",
-     "눈썹 위 부분이 작거나 크다"
+     "Stirn",
+     "forehead",
+     "눈썹 위, 머리카락 아래의 얼굴 부분",
+     {
+      "g": "이마"
+     }
     ],
     [
      "눈썹이 진하다",
-     "dichte Augenbrauen haben",
-     "to have thick eyebrows",
-     "이마 아래 털이 짙고 뚜렷하다"
+     "Augenbrauen",
+     "eyebrows",
+     "눈 위에 가로로 난 털",
+     {
+      "g": "눈썹"
+     }
+    ],
+    [
+     "눈썹이 진하다",
+     "dicht, kräftig (Farbe, Augenbrauen)",
+     "thick, dark (colour, eyebrows)",
+     "색이나 털이 짙고 뚜렷하다",
+     {
+      "g": "진하다"
+     }
     ],
     [
      "키가 크다/작다",
-     "gross/klein sein",
-     "to be tall/short",
-     "몸의 높이가 높거나 낮다"
+     "gross sein",
+     "to be tall",
+     "몸의 높이가 높다",
+     {
+      "g": "키가 크다"
+     }
+    ],
+    [
+     "키가 크다/작다",
+     "klein sein",
+     "to be short",
+     "몸의 높이가 낮다",
+     {
+      "g": "키가 작다"
+     }
     ],
     [
      "보조개가 있다/생기다",
-     "Grübchen haben",
-     "to have dimples",
-     "웃을 때 볼에 쏙 들어가는 곳이 있다"
+     "Grübchen",
+     "dimple",
+     "웃을 때 볼에 쏙 들어가는 곳",
+     {
+      "g": "보조개"
+     }
     ],
     [
      "쌍꺼풀이 있다/없다",
-     "eine (keine) Lidfalte haben",
-     "to have (no) double eyelids",
-     "눈두덩에 접힌 선이 있거나 없다"
+     "Lidfalte (doppeltes Augenlid)",
+     "double eyelid",
+     "눈두덩에 접힌 선",
+     {
+      "g": "쌍꺼풀"
+     }
     ],
     [
      "긁다",
@@ -459,15 +574,21 @@
     ],
     [
      "머리띠를 하다",
-     "einen Haarreif tragen",
-     "to wear a headband",
-     "이마 위로 둥근 헤어밴드를 끼우다"
+     "Haarreif",
+     "headband",
+     "이마 위로 둥글게 끼우는 헤어밴드",
+     {
+      "g": "머리띠"
+     }
     ],
     [
      "머리를 묶다",
-     "die Haare zusammenbinden",
-     "to tie one's hair",
-     "고무줄로 긴 헤어를 하나로 모아 매다"
+     "(zusammen)binden",
+     "to tie",
+     "끈이나 고무줄로 하나로 모아 매다",
+     {
+      "g": "묶다"
+     }
     ],
     [
      "묘사",
@@ -479,7 +600,17 @@
      "안경을 끼다/쓰다",
      "eine Brille tragen",
      "to wear glasses",
-     "잘 보이도록 렌즈를 눈 앞에 걸다"
+     "잘 보이도록 렌즈를 눈 앞에 걸다",
+     {
+      "g": "안경을 쓰다",
+      "games": [
+       "quiz",
+       "syllables",
+       "chosung",
+       "memory",
+       "race"
+      ]
+     }
     ],
     [
      "옆구리",
@@ -489,9 +620,12 @@
     ],
     [
      "주름이 있다/생기다",
-     "Falten haben/bekommen",
-     "to have/get wrinkles",
-     "피부에 접힌 줄이 나타나다"
+     "Falte(n)",
+     "wrinkle",
+     "피부에 생기는 접힌 줄",
+     {
+      "g": "주름"
+     }
     ],
     [
      "판단하다",
@@ -539,9 +673,9 @@
     ],
     [
      "내성적이다",
-     "introvertiert sein",
+     "introvertiert (zurückhaltend) sein",
      "to be introverted",
-     "조용하고 생각을 속으로 간직하는 편이다"
+     "자기 마음을 밖으로 잘 드러내지 않는 편이다"
     ],
     [
      "외향적이다",
@@ -563,15 +697,27 @@
     ],
     [
      "솔직하다",
-     "ehrlich sein",
-     "to be honest",
-     "거짓 없이 있는 그대로 말하다"
+     "offen und ehrlich sein",
+     "to be frank, honest",
+     "생각을 숨기지 않고 있는 그대로 말하다"
     ],
     [
      "겁이 없다/많다",
-     "mutig / ängstlich sein",
-     "to be fearless / easily scared",
-     "무서워하지 않다 / 잘 무서워하다"
+     "ängstlich sein (schnell Angst haben)",
+     "to be easily scared",
+     "작은 일에도 쉽게 무서워하다",
+     {
+      "g": "겁이 많다"
+     }
+    ],
+    [
+     "겁이 없다/많다",
+     "furchtlos sein (vor nichts Angst haben)",
+     "to be fearless",
+     "무서운 것이 거의 없다",
+     {
+      "g": "겁이 없다"
+     }
     ],
     [
      "활발하다",
@@ -581,39 +727,53 @@
     ],
     [
      "얌전하다",
-     "brav sein",
-     "to be well-behaved",
-     "차분하고 조용하게 행동하다"
+     "brav (ruhig und anständig) sein",
+     "to be well-behaved, calm",
+     "떠들지 않고 차분하게 행동하다"
     ],
     [
      "고집이 세다",
-     "stur sein",
-     "to be stubborn",
-     "자기 생각을 끝까지 바꾸지 않다"
+     "Sturheit, Dickkopf",
+     "stubbornness",
+     "자기 생각을 끝까지 바꾸지 않으려는 마음",
+     {
+      "g": "고집"
+     }
     ],
     [
      "성격이 급하다",
-     "ungeduldig sein",
-     "to be impatient",
-     "기다리지 못하고 서두르다"
+     "ungeduldig sein (alles schnell wollen)",
+     "to be impatient, hasty",
+     "기다리지 못하고 빨리빨리 하려고 하다",
+     {
+      "g": "급하다"
+     }
     ],
     [
      "덜렁대다",
-     "schusselig sein",
-     "to be scatterbrained",
-     "침착하지 못해 물건을 잘 잊어버리다"
+     "schusselig (zerstreut) sein",
+     "to be scatterbrained, careless",
+     "차분하지 못해서 실수를 자주 하고 물건을 잘 잃어버리다",
+     {
+      "alt": [
+       "덜렁거리다"
+      ]
+     }
     ],
     [
      "이해심이 많다",
-     "verständnisvoll sein",
-     "to be understanding",
-     "남의 마음을 잘 알아주고 너그럽다"
+     "Verständnis (für andere)",
+     "understanding (for others)",
+     "남의 마음과 사정을 잘 알아주는 마음",
+     {
+      "g": "이해심"
+     }
     ],
     [
      "조용하다",
-     "ruhig sein",
+     "still, ruhig sein",
      "to be quiet",
-     "시끄럽지 않고 소리가 없다"
+     "말이 적고 시끄럽게 떠들지 않다"
     ],
     [
      "닮다",
@@ -635,21 +795,24 @@
     ],
     [
      "이상형",
-     "Idealtyp",
-     "ideal type",
+     "Traumtyp (Idealtyp)",
+     "ideal type, dream type",
      "마음속에 그리는 가장 좋아하는 사람의 모습"
     ],
     [
      "잔소리하다",
-     "nörgeln",
-     "to nag",
-     "같은 말을 자꾸 되풀이하며 꾸짖다"
+     "Gemecker, Nörgelei",
+     "nagging",
+     "같은 말을 자꾸 되풀이하며 꾸짖는 말",
+     {
+      "g": "잔소리"
+     }
     ],
     [
      "해결하다",
-     "lösen",
-     "to solve",
-     "문제를 잘 풀어 끝내다"
+     "(ein Problem) lösen",
+     "to solve (a problem)",
+     "어려운 문제를 잘 풀어서 끝내다"
     ],
     [
      "형제",
@@ -723,7 +886,7 @@
     ],
     [
      "편식",
-     "wählerisches Essen",
+     "heikel sein beim Essen",
      "picky eating",
      "좋아하는 반찬만 골라 먹음"
     ],
@@ -765,9 +928,21 @@
     ],
     [
      "몸에 좋다/나쁘다",
-     "gesund/ungesund sein",
-     "to be good/bad for you",
-     "건강에 도움이 되거나 해가 되다"
+     "gesund sein (gut für den Körper)",
+     "to be good for you",
+     "건강에 도움이 되다",
+     {
+      "g": "몸에 좋다"
+     }
+    ],
+    [
+     "몸에 좋다/나쁘다",
+     "ungesund sein",
+     "to be bad for you",
+     "건강에 해가 되다",
+     {
+      "g": "몸에 나쁘다"
+     }
     ],
     [
      "건강식품",
@@ -783,9 +958,9 @@
     ],
     [
      "비결",
-     "Geheimnis (Rezept)",
+     "Geheimrezept, Trick",
      "secret (to success)",
-     "남이 모르는 좋은 방법"
+     "남이 잘 모르는 좋은 방법"
     ],
     [
      "영양소",
@@ -857,15 +1032,30 @@
     ],
     [
      "규칙적/불규칙적",
-     "regelmässig/unregelmässig",
-     "regular/irregular",
-     "정해진 때에 맞춰 하는지 아닌지"
+     "regelmässig",
+     "regular",
+     "정해진 때에 맞춰 늘 똑같이 하는",
+     {
+      "g": "규칙적"
+     }
+    ],
+    [
+     "규칙적/불규칙적",
+     "unregelmässig",
+     "irregular",
+     "정해진 때 없이 들쭉날쭉한",
+     {
+      "g": "불규칙적"
+     }
     ],
     [
      "방이 지저분하다",
-     "das Zimmer ist unordentlich",
-     "the room is messy",
-     "내 공간이 어지럽고 더럽다"
+     "unordentlich, schmutzig sein",
+     "to be messy",
+     "물건이 어지럽게 널려 있고 더럽다",
+     {
+      "g": "지저분하다"
+     }
     ],
     [
      "다리를 꼬다",
@@ -875,27 +1065,52 @@
     ],
     [
      "늦잠을 자다",
-     "verschlafen",
-     "to oversleep",
-     "아침 해가 높이 뜰 때까지 깨지 않다"
+     "zu langes Schlafen (Verschlafen)",
+     "sleeping in",
+     "아침에 너무 늦게까지 자는 잠",
+     {
+      "g": "늦잠"
+     }
     ],
     [
      "꾸준히 운동하다",
-     "regelmässig Sport treiben",
-     "to exercise regularly",
-     "쉬지 않고 계속 몸을 움직여 단련하다"
+     "beständig, immer dranbleiben",
+     "steadily",
+     "쉬지 않고 조금씩 계속해서",
+     {
+      "g": "꾸준히"
+     }
     ],
     [
      "늦게(일찍) 자다/일어나다",
-     "spät (früh) schlafen/aufstehen",
-     "to sleep/get up late (early)",
-     "밤에 잠들고 아침에 깨는 때가 이르거나 느리다"
+     "früh aufstehen",
+     "to get up early",
+     "아침에 이른 시간에 잠에서 깨다",
+     {
+      "g": "일찍 일어나다"
+     }
+    ],
+    [
+     "늦게(일찍) 자다/일어나다",
+     "spät schlafen gehen",
+     "to go to bed late",
+     "밤늦은 시간에 잠자리에 들다",
+     {
+      "g": "늦게 자다"
+     }
     ],
     [
      "뇌",
      "Gehirn",
      "brain",
-     "머릿속에서 생각을 맡는 기관"
+     "머릿속에서 생각을 맡는 기관",
+     {
+      "games": [
+       "quiz",
+       "memory",
+       "race"
+      ]
+     }
     ],
     [
      "단백질",
@@ -905,7 +1120,7 @@
     ],
     [
      "물질",
-     "Stoff",
+     "Substanz, Stoff",
      "substance",
      "무언가를 이루는 재료나 성분"
     ],
@@ -923,7 +1138,7 @@
     ],
     [
      "적당히",
-     "in Massen",
+     "mit Mass (nicht zu viel, nicht zu wenig)",
      "in moderation",
      "너무 많지도 모자라지도 않게"
     ],
@@ -975,7 +1190,7 @@
      "메달을 따다",
      "eine Medaille gewinnen",
      "to win a medal",
-     "시합에서 이겨 금·은·동을 받다"
+     "시합에서 이겨 금, 은, 동 가운데 하나를 받다"
     ],
     [
      "순위",
@@ -1015,7 +1230,7 @@
     ],
     [
      "우승하다",
-     "Meister werden",
+     "das Turnier gewinnen (Erster werden)",
      "to win the championship",
      "대회에서 일등을 하다"
     ],
@@ -1027,9 +1242,9 @@
     ],
     [
      "기록하다",
-     "einen Rekord aufstellen",
-     "to set a record",
-     "가장 좋은 결과를 세우다 / 적어 두다"
+     "aufschreiben; einen Rekord aufstellen",
+     "to record; to set a record",
+     "잊지 않도록 적어 두다"
     ],
     [
      "각오",
@@ -1051,8 +1266,8 @@
     ],
     [
      "성적",
-     "Leistung",
-     "results",
+     "Noten, Resultate",
+     "grades, results",
      "시험이나 시합의 결과"
     ],
     [
@@ -1105,7 +1320,7 @@
     ],
     [
      "흥미진진하다",
-     "sehr spannend sein",
+     "mitreissend, superspannend sein",
      "to be thrilling",
      "무척 신나고 다음이 궁금하다"
     ]
@@ -1155,7 +1370,7 @@
     ],
     [
      "받다",
-     "fangen",
+     "fangen (einen Ball)",
      "to catch",
      "날아오는 공을 손으로 잡다"
     ],
@@ -1173,9 +1388,18 @@
     ],
     [
      "다리에 걸다",
-     "ans Bein hängen",
+     "(das Gummiband) ans Bein hängen",
      "to hook on the leg",
-     "끈을 무릎이나 발목에 감아 두다"
+     "끈을 무릎이나 발목에 감아 두다",
+     {
+      "games": [
+       "quiz",
+       "syllables",
+       "chosung",
+       "memory",
+       "race"
+      ]
+     }
     ],
     [
      "선을 긋다",
@@ -1191,9 +1415,12 @@
     ],
     [
      "순서를 정하다",
-     "die Reihenfolge festlegen",
-     "to decide the order",
-     "누가 먼저 할지 차례를 매기다"
+     "Reihenfolge",
+     "order, turn",
+     "누가 먼저 하고 누가 나중에 할지의 차례",
+     {
+      "g": "순서"
+     }
     ],
     [
      "줄을 넘다",
@@ -1298,7 +1525,7 @@
      "관광하다",
      "besichtigen",
      "to go sightseeing",
-     "다른 지방의 경치나 명소를 구경하다"
+     "다른 지방의 경치나 유명한 곳을 둘러보다"
     ],
     [
      "구경하다",
@@ -1338,15 +1565,21 @@
     ],
     [
      "경치가 좋다",
-     "eine schöne Aussicht haben",
-     "to have great scenery",
-     "산과 바다가 보이는 모습이 아름답다"
+     "Landschaft, Aussicht",
+     "scenery",
+     "산이나 바다처럼 눈앞에 펼쳐진 아름다운 모습",
+     {
+      "g": "경치"
+     }
     ],
     [
      "가슴이 설레다",
-     "aufgeregt sein (vor Freude)",
-     "to be excited",
-     "기대돼서 마음이 두근거리다"
+     "Herzklopfen haben (vor Vorfreude)",
+     "to be excited, thrilled",
+     "좋은 일을 기다리며 마음이 두근거리다",
+     {
+      "g": "설레다"
+     }
     ],
     [
      "대문",
@@ -1454,7 +1687,7 @@
     ],
     [
      "전시",
-     "Ausstellung",
+     "Ausstellung (das Ausstellen)",
      "exhibition",
      "작품을 여러 사람에게 보여 줌"
     ],
@@ -1478,15 +1711,18 @@
     ],
     [
      "대신(에)",
-     "stattdessen",
+     "stattdessen, anstatt",
      "instead",
-     "어떤 것을 바꾸어 다른 것으로"
+     "어떤 것을 바꾸어 다른 것으로",
+     {
+      "g": "대신"
+     }
     ],
     [
      "맨손",
      "blosse Hände",
      "bare hands",
-     "장갑을 끼지 않은 그대로의 두 주먹"
+     "장갑도 끼지 않고 도구도 들지 않은 그대로의 상태"
     ],
     [
      "멀미",
@@ -1508,15 +1744,21 @@
     ],
     [
      "자리(를) 잡다",
-     "einen Platz finden",
-     "to find a spot",
-     "앉거나 머물 곳을 차지하다"
+     "Platz (Sitzplatz)",
+     "seat, spot",
+     "앉거나 머무를 수 있는 곳",
+     {
+      "g": "자리"
+     }
     ],
     [
      "활기(가) 넘치다",
-     "voller Leben sein",
-     "to be full of life",
-     "힘이 가득하고 신나 보이다"
+     "Schwung, Lebensfreude",
+     "liveliness, energy",
+     "힘이 넘치고 생생한 기운",
+     {
+      "g": "활기"
+     }
     ],
     [
      "힘들어하다",
@@ -1558,9 +1800,12 @@
     ],
     [
      "예의이다/예의가 아니다",
-     "höflich/unhöflich sein",
-     "to be polite/impolite",
-     "바른 태도인지 아닌지"
+     "Höflichkeit, Anstand",
+     "politeness, manners",
+     "다른 사람을 대할 때 지키는 바른 태도",
+     {
+      "g": "예의"
+     }
     ],
     [
      "행동",
@@ -1576,9 +1821,12 @@
     ],
     [
      "큰 소리로 떠들다",
-     "laut reden",
+     "laut schwatzen, Lärm machen",
      "to chatter loudly",
-     "시끄럽게 마구 이야기하다"
+     "시끄럽게 마구 이야기하다",
+     {
+      "g": "떠들다"
+     }
     ],
     [
      "머리를 만지다",
@@ -1590,7 +1838,16 @@
      "눈을 쳐다보다",
      "in die Augen schauen",
      "to look someone in the eyes",
-     "상대의 얼굴 정면을 똑바로 바라보다"
+     "상대의 얼굴 정면을 똑바로 향하다",
+     {
+      "games": [
+       "quiz",
+       "syllables",
+       "chosung",
+       "memory",
+       "race"
+      ]
+     }
     ],
     [
      "코를 풀다",
@@ -1600,9 +1857,12 @@
     ],
     [
      "팔꿈치를 대다",
-     "die Ellbogen aufstützen",
-     "to rest one's elbows",
-     "식탁 위에 관절 부분을 기대어 올려놓다"
+     "Ellbogen",
+     "elbow",
+     "팔의 가운데에서 굽혀지는 부분",
+     {
+      "g": "팔꿈치"
+     }
     ],
     [
      "가리키다",
@@ -1614,7 +1874,10 @@
      "고장(이) 나다",
      "kaputtgehen",
      "to break down",
-     "기계가 망가져 작동하지 않다"
+     "기계가 망가져 움직이지 않다",
+     {
+      "g": "고장 나다"
+     }
     ],
     [
      "교통 체증",
@@ -1654,7 +1917,7 @@
     ],
     [
      "행운",
-     "Glück",
+     "Glück (Zufallsglück)",
      "good luck",
      "우연히 찾아온 좋은 일"
     ],
@@ -1764,7 +2027,7 @@
     ],
     [
      "당황하다",
-     "verlegen sein",
+     "durcheinander sein (nicht wissen, was tun)",
      "to be flustered",
      "갑자기 일이 생겨 어쩔 줄 모르다"
     ],
@@ -1772,7 +2035,10 @@
      "깜짝 놀라다",
      "erschrecken",
      "to be startled",
-     "갑작스러운 일에 크게 겁먹다"
+     "갑작스러운 일에 크게 겁먹다",
+     {
+      "g": "놀라다"
+     }
     ],
     [
      "다행히",
@@ -1796,7 +2062,7 @@
      "빨개지다",
      "rot werden",
      "to turn red",
-     "얼굴이나 사과처럼 붉게 되다"
+     "부끄럽거나 더울 때 얼굴이 붉게 되다"
     ],
     [
      "진찰하다",

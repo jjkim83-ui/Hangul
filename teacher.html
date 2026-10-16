@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="한글 놀이터">
-<meta name="theme-color" content="#F4F2EC">
+<meta name="theme-color" content="#ECE8DE">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -205,6 +205,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 .sa-gsub{color:#FFFFFF;opacity:.62}
 .sa-play{border:0;box-shadow:0 4px 0 #B52A16}
 .sa-pips{border:0;background:var(--ink)}
+.sa-pipt{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#FFFFFF;white-space:nowrap;line-height:18px}
 .sa-me{border:0;box-shadow:var(--hair),0 6px 0 var(--paper-d),var(--soft)}
 .sa-rank{border:0;box-shadow:0 4px 0 #2F9A4C}
 .sa-edit{border:0;box-shadow:0 3px 0 #D9B315}
@@ -216,9 +217,48 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 /* empty syllable slots: dashed ink outline so kids can see where tiles go */
 .slot-empty{background:#F2EFE7 !important;box-shadow:inset 0 0 0 2.5px rgba(22,19,31,.35) !important;border:2.5px dashed rgba(22,19,31,.0) !important;outline:2.5px dashed rgba(22,19,31,.45);outline-offset:-6px}
 
+/*R2-PATCH*/
+/* P1-1 letterbox matches the paper */
+html,body{background:#ECE8DE !important}
+/* P1-2 retire old navy/lavender-grey text + icon strokes */
+[style*="color: #2B2C6B"],[style*="color:#2B2C6B"]{color:var(--ink) !important}
+[style*="color: #4A4C80"],[style*="color:#4A4C80"],[style*="color: #8486B5"]{color:rgba(22,19,31,.62) !important}
+svg[stroke="#2B2C6B"]{stroke:var(--ink)} svg[fill="#2B2C6B"]{fill:var(--ink)}
+/* P1-2b remaining legacy tints */
+[style*="color: #6A4A00"],[style*="color: #5B5DA8"],[style*="color: #3A3B78"],[style*="color: #2E4F45"],[style*="color: #5A4A12"],[style*="color: #5A5C8E"],[style*="color: #3A3C78"],[style*="color: #3A2E7A"],[style*="color: #1F4A3A"],[style*="color: #7E68E0"]{color:rgba(22,19,31,.72) !important}
+[style*="color: #B23A2E"],[style*="color: #E2685A"]{color:var(--red) !important}
+[style*="color: #2E7A57"]{color:#1F7A3D !important}
+a,a:hover{color:var(--ink) !important}
+input::placeholder{color:rgba(22,19,31,.42) !important}
+/* P1-3 icon "coins" inside controls: drop the nested circle, keep the bare icon */
+.frost > .puff[aria-hidden="true"][style*="border-radius: 50%"],
+.puff > .puff[aria-hidden="true"][style*="border-radius: 50%"]{background:transparent !important;box-shadow:none !important;width:28px !important}
+/* P1-4 pastel lavender -> saturated mid-violet (ink text 6.2:1) */
+:root{--violet-l:#9C84FF}
+.p-lav{--c:#9C84FF;--d:#7556F0}
+/* P1-5 selected = solid violet + white text (one meaning, everywhere) */
+[aria-pressed="true"].puff{--c:var(--violet) !important;--d:var(--violet-d) !important;color:#fff !important;box-shadow:0 5px 0 var(--violet-d) !important}
+[aria-pressed="true"].puff [style*="color"],[aria-pressed="true"].puff span,[aria-pressed="true"].puff div{color:#fff !important}
+[aria-pressed="true"].puff .puff,[aria-pressed="true"].puff .puff *{color:var(--ink) !important}
+[aria-pressed="true"].puff > svg,[aria-pressed="true"].puff > svg *{stroke:#fff !important}
+/* P1-6 overlay scrim: neutral ink, not navy-lavender */
+[style*="background: rgba(43,44,107"]{background:rgba(22,19,31,.55) !important}
+/* P1-7 text on red is white; text on sky/green is ink */
+.p-coral,.p-coral [style*="color"]{color:#fff !important}
+.p-blue [style*="color: #FFFFFF"],.p-mint [style*="color: #FFFFFF"],.p-blue[style*="color: #FFFFFF"],.p-mint[style*="color: #FFFFFF"]{color:var(--ink) !important;text-shadow:none !important}
+/* P1-8 no sticky hover on touch */
+@media (hover:none){.tile:hover,.press:hover,.sa-card:hover{transform:none !important}.tile:hover{box-shadow:0 5px 0 var(--d) !important}}
+/* P1-9 decor type: quieter, menu only */
+.sa-decor .d-type{-webkit-text-stroke-color:rgba(22,19,31,.07)}
+.sa-root:not(.sa-hub) .sa-decor .d-type{display:none}
+/* P1-10 result title: poster type, not gold gloss */
+span[style*="background-clip: text"][style*="#FFF8D9"]{display:none !important}
+span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink) !important}
+/*/R2-PATCH*/
+
 /*/SA-THEME*/
 </style>
-<style>html,body{margin:0;height:100%;overflow:hidden;background:#F4F2EC}</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
 </head>
 <body>
 <template id="dc-view">
@@ -235,16 +275,15 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
       <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
       </span>
-      메뉴 · Menu
-    </a>
+      메뉴</a>
     <div style="flex: 1; min-width: 0">
       <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">선생님 화면</div>
-      <div style="font-size: 14px; font-weight: 800; color: #4A4C80; margin-top: 4px; white-space: nowrap">Teacher view · {{syncNote}}</div>
+      <div style="font-size: 14px; font-weight: 800; color: #4A4C80; margin-top: 4px; white-space: nowrap">Lehreransicht · {{syncNote}}</div>
     </div>
     <sc-if value="{{loggedIn}}" hint-placeholder-val="{{ true }}">
-      <button type="button" onClick="{{startRoom}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">🎓 수업 모드로 · To class mode</span></button>
+      <button type="button" onClick="{{startRoom}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">🎓 수업 모드로</span></button>
       <a href="board.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 22px; display: flex; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B">🏆 순위표</a>
-      <button type="button" onClick="{{logout}}" class="puff p-white press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B"><span style="position: relative; z-index: 1">로그아웃 · Logout</span></button>
+      <button type="button" onClick="{{logout}}" class="puff p-white press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B"><span style="position: relative; z-index: 1">로그아웃</span></button>
     </sc-if>
   </header>
 
@@ -264,12 +303,12 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
     <div style="flex: 1; min-height: 0; display: flex; gap: 24px">
       <section class="frost" style="flex: 1; min-width: 0; border-radius: 38px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
         <div style="display: flex; align-items: baseline; gap: 10px; padding: 0 6px">
-          <div style="font-family: 'Jua', sans-serif; font-size: 22px">학생 · Schüler · Students</div>
-          <div style="font-size: 13px; font-weight: 800; color: #4A4C80">이번 주 · this week · 이름 고치기 / 별 더하기·빼기</div>
+          <div style="font-family: 'Jua', sans-serif; font-size: 22px">학생 · Schüler</div>
+          <div style="font-size: 13px; font-weight: 800; color: #4A4C80">이번 주 · 이름 고치기 / 별 더하기·빼기</div>
         </div>
         <sc-for list="{{studs}}" as="t" hint-placeholder-count="6">
           <div class="puff {{t.cls}}" style="flex: 1; min-height: 0; max-height: 76px; border-radius: 28px; padding: 0 12px 0 8px; display: flex; align-items: center; gap: 10px">
-            <button type="button" onClick="{{t.focus}}" aria-label="기록 보기 · show plays" style="border: none; background: none; padding: 0; cursor: pointer"><span style="position: relative; z-index: 1; width: 50px; height: 50px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: block; background: {{t.inner}}; box-shadow: 0 0 0 2.5px #FFFFFF">
+            <button type="button" onClick="{{t.focus}}" aria-label="기록 보기 · Verlauf" style="border: none; background: none; padding: 0; cursor: pointer"><span style="position: relative; z-index: 1; width: 50px; height: 50px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: block; background: {{t.inner}}; box-shadow: 0 0 0 2.5px #FFFFFF">
               <svg viewBox="0 4 120 116" width="50" height="50" aria-hidden="true" style="display: block">
                 <path d="{{t.hairBack}}" fill="{{t.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
                 <path d="M53 68L53 92L67 92L67 68Z" fill="{{t.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
@@ -295,18 +334,18 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
                 <path d="{{t.accFill2}}" fill="{{t.acc2Col}}" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"></path>
               </svg>
             </span></button>
-            <span style="position: relative; z-index: 1; width: 190px; flex-shrink: 0"><input class="rowin" type="text" maxlength="10" value="{{t.draft}}" onChange="{{t.onName}}" aria-label="이름 · name"></span>
-            <button type="button" onClick="{{t.saveName}}" class="puff {{t.saveCls}} press" style="height: 40px; border: none; border-radius: 999px; padding: 0 12px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 15px; color: #2B2C6B"><span style="position: relative; z-index: 1">{{t.saveLabel}}</span></button>
+            <span style="position: relative; z-index: 1; width: 190px; flex-shrink: 0"><input class="rowin" type="text" maxlength="10" value="{{t.draft}}" onChange="{{t.onName}}" onKeyDown="{{t.nameKey}}" aria-label="이름 · Name"></span>
+            <button type="button" onClick="{{t.saveName}}" class="puff {{t.saveCls}} press" style="height: 40px; border: none; border-radius: 999px; padding: 0 12px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 15px; color: #2B2C6B; white-space: nowrap; flex-shrink: 0"><span style="position: relative; z-index: 1">{{t.saveLabel}}</span></button>
             <span style="position: relative; z-index: 1; flex: 1; text-align: right; font-family: 'Jua', sans-serif; font-size: 26px; font-variant-numeric: tabular-nums">★ {{t.stars}}</span>
-            <button type="button" onClick="{{t.minus}}" aria-label="별 1개 빼기 · minus one star" class="puff p-white press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">−</span></button>
-            <button type="button" onClick="{{t.plus}}" aria-label="별 1개 더하기 · plus one star" class="puff p-mint press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">+</span></button>
+            <button type="button" onClick="{{t.minus}}" aria-label="별 1개 빼기 · minus ein Stern" class="puff p-white press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">−</span></button>
+            <button type="button" onClick="{{t.plus}}" aria-label="별 1개 더하기 · plus ein Stern" class="puff p-mint press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">+</span></button>
           </div>
         </sc-for>
       </section>
 
       <aside style="width: 420px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px">
         <div class="frost" style="border-radius: 32px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
-          <div style="font-family: 'Jua', sans-serif; font-size: 21px">이번 단원 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">Lektion · Chapter — {{chapterNow}}</span></div>
+          <div style="font-family: 'Jua', sans-serif; font-size: 21px">이번 단원 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">Lektion — {{chapterNow}}</span></div>
           <div style="display: flex; flex-wrap: wrap; gap: 6px">
             <sc-for list="{{lessons}}" as="l" hint-placeholder-count="16">
               <button type="button" onClick="{{l.pick}}" aria-pressed="{{l.pressed}}" class="puff press {{l.cls}}" style="width: 44px; height: 40px; border: none; border-radius: 14px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 18px; color: #2B2C6B"><span style="position: relative; z-index: 1">{{l.n}}</span></button>
@@ -318,14 +357,14 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
           </div>
         </div>
         <div class="frost" style="flex: 1; min-height: 0; border-radius: 32px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-          <div style="font-family: 'Jua', sans-serif; font-size: 21px">{{focusTitle}} <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">기록 · Verlauf · Recent plays</span></div>
+          <div style="font-family: 'Jua', sans-serif; font-size: 21px">{{focusTitle}} <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">기록 · Verlauf</span></div>
           <div class="scroll" style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 6px">
             <sc-for list="{{plays}}" as="g" hint-placeholder-count="5">
               <div style="display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 16px; background: rgba(255,255,255,.6); font-size: 14px; font-weight: 800">
                 <span style="width: 92px; flex-shrink: 0; color: #4A4C80">{{g.when}}</span>
                 <span style="flex: 1; min-width: 0; font-family: 'Jua', sans-serif; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{g.what}}</span>
                 <span style="flex-shrink: 0; font-family: 'Jua', sans-serif; font-size: 16px">{{g.stars}}</span>
-                <button type="button" onClick="{{g.del}}" aria-label="지우기 · delete" class="puff p-white press" style="width: 30px; height: 30px; border: none; border-radius: 50%; cursor: pointer; font-size: 13px; color: #B23A2E"><span style="position: relative; z-index: 1">✕</span></button>
+                <button type="button" onClick="{{g.del}}" aria-label="지우기 · Löschen" class="puff {{g.delCls}} press" style="min-width: 30px; height: 30px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; font-size: 13px; font-weight: 800; color: #B23A2E; white-space: nowrap"><span style="position: relative; z-index: 1">{{g.delMark}}</span></button>
               </div>
             </sc-for>
             <div style="font-size: 14px; font-weight: 800; color: #4A4C80">{{playsNone}}</div>
@@ -442,11 +481,11 @@ class Component extends DCLogic {
 
   submitPin() {
     const C = this.C, pin = (this.state.pin || '').trim();
-    if (pin.length < 4) { this.setState({ loginMsg: 'PIN은 4자리 이상 · mind. 4 Ziffern · at least 4 digits' }); return; }
+    if (pin.length < 4) { this.setState({ loginMsg: 'PIN은 4자리 이상 · mind. 4 Ziffern' }); return; }
     if (C.demo) return;
     const enter = () => { if (C.setRoom && C.setRoom(true)) window.location.href = 'index.html'; };
     if (!C.hasPin()) { C.setPin(pin).then(ok => { this.setState({ pin: '', loginMsg: '' }); if (ok !== false) enter(); }); return; }
-    C.teacherLogin(pin).then(r => { this.setState({ pin: '', loginMsg: r.ok ? '' : r.offline ? '서버에 연결할 수 없어요 · Keine Verbindung · Can\'t reach the scoreboard server' : 'PIN이 틀려요 · Falsche PIN · Wrong PIN' }); if (r.ok) enter(); });
+    C.teacherLogin(pin).then(r => { this.setState({ pin: '', loginMsg: r.ok ? '' : r.offline ? '서버에 연결할 수 없어요 · Keine Verbindung · Can\'t reach the scoreboard server' : 'PIN이 틀려요 · Falsche PIN' }); if (r.ok) enter(); });
   }
   renderVals() {
     const C = this.C, s = this.state;
@@ -460,10 +499,12 @@ class Component extends DCLogic {
       return {
         ...this.build(st.cfg), draft, stars: r.stars,
         cls: s.focus === st.id ? 'p-lav' : 'p-white',
-        saveCls: changed ? 'p-coral' : (s.saved[st.id] ? 'p-mint' : 'p-white'),
-        saveLabel: changed ? '저장 · Save' : (s.saved[st.id] ? '✓' : '이름'),
-        onName: (e) => this.setState({ drafts: { ...this.state.drafts, [st.id]: e.target.value.slice(0, 10) } }),
-        saveName: () => { if (!changed) return; C.renameStudent(st.id, draft); const d = { ...this.state.drafts }; delete d[st.id]; this.setState({ drafts: d, saved: { ...this.state.saved, [st.id]: true } }); },
+        saveCls: s.dupFor === st.id ? 'p-pink' : changed ? 'p-coral' : (s.saved[st.id] ? 'p-mint' : 'p-white'),
+        saveLabel: s.dupFor === st.id ? '이미 있는 이름' : changed ? '저장' : (s.saved[st.id] ? '✓' : '이름'),
+        onName: (e) => this.setState({ dupFor: null, drafts: { ...this.state.drafts, [st.id]: e.target.value.slice(0, 10) } }),
+        dup: s.dupFor === st.id,
+        nameKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); setTimeout(() => { const b = e.target.parentNode && e.target.parentNode.nextElementSibling; if (b) b.click(); }, 0); } },
+        saveName: () => { if (!changed) return; if (C.students().some(o => o.id !== st.id && o.name.trim() === draft.trim())) { this.setState({ dupFor: st.id }); return; } C.renameStudent(st.id, draft.trim()); this.setState({ dupFor: null }); const d = { ...this.state.drafts }; delete d[st.id]; this.setState({ drafts: d, saved: { ...this.state.saved, [st.id]: true } }); },
         plus: () => C.adjust(st.id, 1, '선생님 +1'),
         minus: () => C.adjust(st.id, -1, '선생님 −1'),
         focus: () => this.setState({ focus: st.id })
@@ -489,17 +530,18 @@ class Component extends DCLogic {
       const d = new Date(p.at);
       return {
         when: (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'),
-        what: (G[p.game] || p.game) + (p.game === 'teacher' ? ' ' + (p.note || '') : (p.counted ? ' · ' + Math.round((p.acc || 0) * 100) + '%' : ' · 연습')) + ' · ' + Math.round((p.dur || 0) / 60) + '분',
+        what: p.game === 'teacher' ? '선생님 조정 · Lehrkraft' : (G[p.game] || p.game) + (p.counted ? ' · ' + Math.round((p.acc || 0) * 100) + '%' : ' · 연습') + ' · ' + Math.round((p.dur || 0) / 60) + '분',
         stars: (p.counted || p.game === 'teacher') ? (p.stars > 0 ? '+' : '') + p.stars + '★' : '—',
-        del: () => C.removePlay(p.id)
+        delMark: this.state.armDel === p.id ? '지울까요?' : '✕', delCls: this.state.armDel === p.id ? 'p-coral' : 'p-white',
+        del: () => { if (this.state.armDel === p.id) { C.removePlay(p.id); this.setState({ armDel: null }); } else { this.setState({ armDel: p.id }); clearTimeout(this._armT); this._armT = setTimeout(() => this.setState({ armDel: null }), 3000); } }
       };
     });
     return {
-      syncNote: C.demo ? '미리보기 · preview' : (C.online ? (C.syncError() ? '⚠ ' + C.syncError() : '🟢 온라인 · online') : '이 기기에만 저장 · this device only'),
+      syncNote: C.demo ? '미리보기' : (C.online ? (C.syncError() ? '⚠ ' + C.syncError() : '🟢 온라인') : '이 기기에만 저장'),
       loggedIn, showLogin: !loggedIn,
       loginTitle: C.hasPin() ? '선생님 PIN' : '선생님 PIN 만들기',
-      loginSub: C.hasPin() ? 'PIN을 넣으면 수업 모드로 가요 · PIN → Klassenmodus · PIN opens class mode' : '처음이에요! 4자리 이상 PIN을 정해요 · Erstmal eine PIN festlegen · Create a PIN first',
-      loginBtn: C.hasPin() ? '들어가기 · Login' : 'PIN 저장 · Save PIN',
+      loginSub: C.hasPin() ? 'PIN을 넣으면 수업 모드로 가요 · PIN → Klassenmodus' : '처음이에요! 4자리 이상 PIN을 정해요 · Erstmal eine PIN festlegen',
+      loginBtn: C.hasPin() ? '들어가기 · Anmelden' : 'PIN 저장',
       pin: s.pin, loginMsg: s.loginMsg,
       onPin: (e) => this.setState({ pin: e.target.value.replace(/\D/g, '').slice(0, 8), loginMsg: '' }),
       pinKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.submitPin(); } },
@@ -508,12 +550,12 @@ class Component extends DCLogic {
       startRoom: () => { if (C.setRoom && C.setRoom(true)) window.location.href = 'index.html'; },
       studs, lessons,
       chapterNow: C.settings().chapterTitle || titleFor(curLessons),
-      lessonNote: pickChanged && !pick.length ? '단원을 하나 이상 골라요 · Mindestens eine Lektion · Pick at least one' : pickChanged ? '바뀐 단원: ' + titleFor(pick) + ' · 저장을 눌러요' : '게임에 나오는 단원 · Lektion in den Spielen',
+      lessonNote: pickChanged && !pick.length ? '단원을 하나 이상 골라요 · Mindestens eine Lektion' : pickChanged ? '바뀐 단원: ' + titleFor(pick) + ' · 저장을 눌러요' : '게임에 나오는 단원 · Lektion in den Spielen',
       lessonBtnCls: pickChanged && !pick.length ? 'p-white' : pickChanged ? 'p-coral' : (s.lessonSaved ? 'p-mint' : 'p-white'),
-      lessonBtn: pickChanged ? '저장 · Save' : (s.lessonSaved ? '✓ 저장됨' : '저장됨 · Saved'),
+      lessonBtn: pickChanged ? '저장' : (s.lessonSaved ? '✓ 저장됨' : '저장됨'),
       saveLessons: () => { if (!pickChanged || !pick.length) return; C.setLessons(pick, titleFor(pick)); this.setState({ pick: null, lessonSaved: true }); },
       focusTitle: fs.name,
-      plays, playsNone: plays.length ? '' : '아직 기록이 없어요 · Noch nichts gespielt · No plays yet',
+      plays, playsNone: plays.length ? '' : '아직 기록이 없어요 · Noch nichts gespielt',
       newPin: s.newPin, onNewPin: (e) => this.setState({ newPin: e.target.value.replace(/\D/g, '').slice(0, 8), pinMsg: '' }),
       pinBtn: s.pinMsg || 'PIN 바꾸기',
       changePin: () => { const p = this.state.newPin; if (p.length < 4) { this.setState({ pinMsg: '4자리 이상' }); return; } C.setPin(p).then(ok => this.setState({ newPin: '', pinMsg: ok ? '✓ 바뀜' : '실패' })); }

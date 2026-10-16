@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="한글 놀이터">
-<meta name="theme-color" content="#F4F2EC">
+<meta name="theme-color" content="#ECE8DE">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -214,6 +214,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 .sa-gsub{color:#FFFFFF;opacity:.62}
 .sa-play{border:0;box-shadow:0 4px 0 #B52A16}
 .sa-pips{border:0;background:var(--ink)}
+.sa-pipt{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#FFFFFF;white-space:nowrap;line-height:18px}
 .sa-me{border:0;box-shadow:var(--hair),0 6px 0 var(--paper-d),var(--soft)}
 .sa-rank{border:0;box-shadow:0 4px 0 #2F9A4C}
 .sa-edit{border:0;box-shadow:0 3px 0 #D9B315}
@@ -225,9 +226,48 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 /* empty syllable slots: dashed ink outline so kids can see where tiles go */
 .slot-empty{background:#F2EFE7 !important;box-shadow:inset 0 0 0 2.5px rgba(22,19,31,.35) !important;border:2.5px dashed rgba(22,19,31,.0) !important;outline:2.5px dashed rgba(22,19,31,.45);outline-offset:-6px}
 
+/*R2-PATCH*/
+/* P1-1 letterbox matches the paper */
+html,body{background:#ECE8DE !important}
+/* P1-2 retire old navy/lavender-grey text + icon strokes */
+[style*="color: #2B2C6B"],[style*="color:#2B2C6B"]{color:var(--ink) !important}
+[style*="color: #4A4C80"],[style*="color:#4A4C80"],[style*="color: #8486B5"]{color:rgba(22,19,31,.62) !important}
+svg[stroke="#2B2C6B"]{stroke:var(--ink)} svg[fill="#2B2C6B"]{fill:var(--ink)}
+/* P1-2b remaining legacy tints */
+[style*="color: #6A4A00"],[style*="color: #5B5DA8"],[style*="color: #3A3B78"],[style*="color: #2E4F45"],[style*="color: #5A4A12"],[style*="color: #5A5C8E"],[style*="color: #3A3C78"],[style*="color: #3A2E7A"],[style*="color: #1F4A3A"],[style*="color: #7E68E0"]{color:rgba(22,19,31,.72) !important}
+[style*="color: #B23A2E"],[style*="color: #E2685A"]{color:var(--red) !important}
+[style*="color: #2E7A57"]{color:#1F7A3D !important}
+a,a:hover{color:var(--ink) !important}
+input::placeholder{color:rgba(22,19,31,.42) !important}
+/* P1-3 icon "coins" inside controls: drop the nested circle, keep the bare icon */
+.frost > .puff[aria-hidden="true"][style*="border-radius: 50%"],
+.puff > .puff[aria-hidden="true"][style*="border-radius: 50%"]{background:transparent !important;box-shadow:none !important;width:28px !important}
+/* P1-4 pastel lavender -> saturated mid-violet (ink text 6.2:1) */
+:root{--violet-l:#9C84FF}
+.p-lav{--c:#9C84FF;--d:#7556F0}
+/* P1-5 selected = solid violet + white text (one meaning, everywhere) */
+[aria-pressed="true"].puff{--c:var(--violet) !important;--d:var(--violet-d) !important;color:#fff !important;box-shadow:0 5px 0 var(--violet-d) !important}
+[aria-pressed="true"].puff [style*="color"],[aria-pressed="true"].puff span,[aria-pressed="true"].puff div{color:#fff !important}
+[aria-pressed="true"].puff .puff,[aria-pressed="true"].puff .puff *{color:var(--ink) !important}
+[aria-pressed="true"].puff > svg,[aria-pressed="true"].puff > svg *{stroke:#fff !important}
+/* P1-6 overlay scrim: neutral ink, not navy-lavender */
+[style*="background: rgba(43,44,107"]{background:rgba(22,19,31,.55) !important}
+/* P1-7 text on red is white; text on sky/green is ink */
+.p-coral,.p-coral [style*="color"]{color:#fff !important}
+.p-blue [style*="color: #FFFFFF"],.p-mint [style*="color: #FFFFFF"],.p-blue[style*="color: #FFFFFF"],.p-mint[style*="color: #FFFFFF"]{color:var(--ink) !important;text-shadow:none !important}
+/* P1-8 no sticky hover on touch */
+@media (hover:none){.tile:hover,.press:hover,.sa-card:hover{transform:none !important}.tile:hover{box-shadow:0 5px 0 var(--d) !important}}
+/* P1-9 decor type: quieter, menu only */
+.sa-decor .d-type{-webkit-text-stroke-color:rgba(22,19,31,.07)}
+.sa-root:not(.sa-hub) .sa-decor .d-type{display:none}
+/* P1-10 result title: poster type, not gold gloss */
+span[style*="background-clip: text"][style*="#FFF8D9"]{display:none !important}
+span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink) !important}
+/*/R2-PATCH*/
+
 /*/SA-THEME*/
 </style>
-<style>html,body{margin:0;height:100%;overflow:hidden;background:#F4F2EC}</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
 </head>
 <body>
 <template id="dc-view">
@@ -244,11 +284,10 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
       <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
       </span>
-      메뉴 · Menu
-    </a>
+      메뉴</a>
     <div style="flex: 1; min-width: 0">
       <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">주사위 보드게임 🎲</div>
-      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Würfelrennen · Dice board race</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Würfelrennen</div>
     </div>
     <button type="button" onClick="{{openSetup}}" class="frost press" style="height: 56px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 20px 0 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit">
       <span class="puff p-butter" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
@@ -256,7 +295,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
       </span>
       <span style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.05">
         <span style="font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap">{{poolLabel}}</span>
-        <span style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Einstellen · Setup</span>
+        <span style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Einstellen</span>
       </span>
     </button>
     <div class="puff p-mint" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 22px 0 18px; display: flex; align-items: center; gap: 10px">
@@ -354,7 +393,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
             </span>
           <div style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 30px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 3px 0 rgba(40,90,180,.35), 0 8px 14px rgba(40,90,180,.4)">{{cur.name}} 차례!</div>
         </div>
-        <button type="button" onClick="{{roll}}" aria-label="주사위 굴리기 · würfeln · roll the die" class="puff p-white press" style="width: 124px; height: 124px; border: none; border-radius: 32px; cursor: pointer; padding: 0; opacity: {{rollOp}}">
+        <button type="button" onClick="{{roll}}" aria-label="주사위 굴리기 · würfeln" class="puff p-white press" style="width: 124px; height: 124px; border: none; border-radius: 32px; cursor: pointer; padding: 0; opacity: {{rollOp}}">
           <span class="die {{dieCls}}" style="position: relative; z-index: 1; display: block; width: 124px; height: 124px">
             <sc-for list="{{pips}}" as="d" hint-placeholder-count="5">
               <span style="position: absolute; left: {{d.x}}px; top: {{d.y}}px; width: 22px; height: 22px; border-radius: 50%; background: #2B2C6B; box-shadow: inset 0 2px 3px rgba(255,255,255,.35)"></span>
@@ -402,7 +441,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
   </div>
 
   <sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
-    <div style="position: absolute; inset: 0; z-index: 8; background: rgba(43,44,107,.3); display: flex; align-items: center; justify-content: center">
+    <div style="position: absolute; inset: 0; z-index: 30; background: rgba(43,44,107,.3); display: flex; align-items: center; justify-content: center">
       <div class="frost frost-strong pop" style="border-radius: 48px; padding: 32px 48px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
         <div aria-hidden="true" style="position: relative; font-family: 'Jua', sans-serif; font-size: 100px; line-height: 1">
           <span style="color: #F1CD62; text-shadow: 0 3px 0 #E8B93E, 0 6px 0 #D9A62A, 0 18px 24px rgba(230,190,70,.5)">골인!</span>
@@ -414,24 +453,24 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
             <div>{{r.line}}</div>
           </sc-for>
         </div>
-        <button type="button" onClick="{{restart}}" class="puff p-coral press" style="margin-top: 8px; height: 62px; border: none; border-radius: 999px; padding: 0 28px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 24px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">한 번 더 · Nochmal · Again</span></button>
+        <button type="button" onClick="{{restart}}" class="puff p-coral press" style="margin-top: 8px; height: 62px; border: none; border-radius: 999px; padding: 0 28px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 24px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">한 번 더 · Nochmal</span></button>
       </div>
     </div>
   </sc-if>
   <sc-if value="{{setup}}" hint-placeholder-val="{{ true }}">
-    <div style="position: absolute; inset: 0; z-index: 5; background: rgba(43,44,107,.34); display: flex; align-items: center; justify-content: center">
-      <div class="frost frost-strong pop" role="dialog" aria-label="게임 준비 · Game setup" style="width: 760px; box-sizing: border-box; border-radius: 46px; padding: 28px 34px 30px; display: flex; flex-direction: column; gap: 18px">
+    <div style="position: absolute; inset: 0; z-index: 30; background: rgba(43,44,107,.34); display: flex; align-items: center; justify-content: center">
+      <div class="frost frost-strong pop" role="dialog" aria-label="게임 준비 · Spiel einstellen" style="width: 760px; box-sizing: border-box; border-radius: 46px; padding: 28px 34px 30px; display: flex; flex-direction: column; gap: 18px">
         <div style="display: flex; align-items: baseline; gap: 14px">
           <div style="font-family: 'Jua', sans-serif; font-size: 36px; line-height: 1">게임 준비</div>
-          <div style="font-size: 15px; font-weight: 800; color: #4A4C80">Spiel einstellen · Game setup</div>
+          <div style="font-size: 15px; font-weight: 800; color: #4A4C80">Spiel einstellen</div>
         </div>
         <div class="frost" style="border-radius: 30px; padding: 14px 16px 14px 20px; display: flex; flex-direction: column; gap: 10px">
           <div style="display: flex; align-items: center; gap: 12px">
             <div style="flex: 1; line-height: 1.15">
               <div style="font-family: 'Jua', sans-serif; font-size: 21px">오늘의 단어 <span style="font-family: 'Jua', sans-serif; color: #5B5DA8">{{poolCount}}</span></div>
-              <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Heutige Wörter · Today's words</div>
+              <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Heutige Wörter</div>
             </div>
-            <a href="words.html" class="puff p-white press" style="height: 44px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">단어장에서 바꾸기 · Ändern · Change</span></a>
+            <a href="words.html" class="puff p-white press" style="height: 44px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: {{vocabDisp}}; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">단어장에서 바꾸기 · Ändern</span></a>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 8px">
             <sc-for list="{{poolChips}}" as="ch" hint-placeholder-count="2">
@@ -471,9 +510,9 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
         <div style="display: flex; align-items: center; gap: 12px; margin-top: 2px">
           <div style="flex: 1; font-size: 14px; font-weight: 800; color: #4A4C80; line-height: 1.4">{{setupNote}}</div>
           <sc-if value="{{canClose}}" hint-placeholder-val="{{ false }}">
-            <button type="button" onClick="{{closeSetup}}" class="puff p-white press" style="height: 62px; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 20px"><span style="position: relative; z-index: 1">계속하기 · Weiter · Continue</span></button>
+            <button type="button" onClick="{{closeSetup}}" class="puff p-white press" style="height: 62px; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 20px"><span style="position: relative; z-index: 1">계속하기 · Weiter</span></button>
           </sc-if>
-          <button type="button" onClick="{{startGame}}" class="puff p-coral press" style="height: 62px; border: none; border-radius: 999px; padding: 0 30px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 23px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">시작! · Los! · Start</span></button>
+          <button type="button" onClick="{{startGame}}" class="puff p-coral press" style="height: 62px; border: none; border-radius: 999px; padding: 0 30px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 23px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">시작! · Los!</span></button>
         </div>
       </div>
     </div>
@@ -532,21 +571,23 @@ class Component extends DCLogic {
       const seen = {}, words = [];
       chosen.forEach(L => lw(L).forEach(x => {
         if (sel.off[x.key]) return;
-        const ko = x.w[0];
+        const meta = (x.w[4] && typeof x.w[4] === 'object') ? x.w[4] : {};   // game form, games list, accepted alternatives
+        if (meta.games && meta.games.indexOf('race') < 0) return;
+        const ko = meta.g || x.w[0];
         if (seen[ko]) return;
         seen[ko] = true;
-        words.push({ ko, de: x.w[1], en: x.w[2], hint: x.w[3] || '', lesson: x.from });
+        words.push({ ko, de: x.w[1], en: x.w[2], hint: x.w[3] || '', lesson: x.from, tb: meta.g && meta.g !== x.w[0] ? x.w[0] : '', alt: meta.alt || [] });
       }));
       return {
         words, sample: false,
         label: chosen.length ? (chosen.length > 3 ? chosen.slice(0, 2).map(L => L.n + '과').join(' · ') + ' 외 ' + (chosen.length - 2) + '개' : chosen.map(L => L.n + '과').join(' · ')) : '—',
         chips: chosen.map(L => ({ label: L.n + '과 ' + L.theme[0], cls: L.unit ? UNIT_CLS[L.unit] : 'p-white' })),
-        note: chosen.length ? '단어장에서 고른 단어로 해요 · Wörter aus dem Wortschatz · Words from the word pool' : '오늘의 단어장이 비어 있어요 · Keine Lektion gewählt · No lessons picked yet'
+        note: chosen.length ? '단어장에서 고른 단어로 해요 · Wörter aus dem Wortschatz' : '오늘의 단어장이 비어 있어요 · Keine Lektion gewählt'
       };
     });
   }
   samplePool(note) {
-    return { words: this.sampleWords(), sample: true, label: '예시 · Sample', chips: [{ label: '예시 단어 · Beispiel · Sample', cls: 'p-white' }], note };
+    return { words: this.sampleWords(), sample: true, label: '예시', chips: [{ label: '예시 단어 · Beispiel', cls: 'p-white' }], note };
   }
   usableWords(min) {
     const p = this.state.pool;
@@ -568,17 +609,17 @@ class Component extends DCLogic {
   refreshPool() {
     this.loadPool()
       .then(pool => { this.setState({ pool }); if (this.onPool) this.onPool(pool); })
-      .catch(() => { const pool = this.samplePool('단어장을 못 불러와서 예시 단어를 써요 · Beispielwörter · Using sample words'); this.setState({ pool }); if (this.onPool) this.onPool(pool); });
+      .catch(() => { const pool = this.samplePool('단어장을 못 불러와서 예시 단어를 써요 · Beispielwörter'); this.setState({ pool }); if (this.onPool) this.onPool(pool); });
   }
   poolVals(min) {
     const p = this.state.pool;
     if (!p) return { poolCount: '…', poolChips: [], poolNote: '단어장을 불러오는 중… · Lädt … · Loading…', poolLabel: '…', poolReady: false };
     const short = !p.sample && p.words.length < min;
     return {
-      poolCount: p.words.length + '개 · words',
+      poolCount: p.words.length + '개',
       poolChips: p.chips,
-      poolNote: short ? ('단어가 ' + min + '개보다 적어서 예시 단어로 해요 · Zu wenige Wörter, Beispielwörter · Too few words, using samples') : p.note,
-      poolLabel: short ? '예시 · Sample' : p.label,
+      poolNote: short ? ('단어가 ' + min + '개보다 적어서 예시 단어로 해요 · Zu wenige Wörter, Beispielwörter') : p.note,
+      poolLabel: short ? '예시' : p.label,
       poolReady: true
     };
   }
@@ -607,7 +648,7 @@ class Component extends DCLogic {
   }
   fresh(len, demo) {
     return { pos: this.ROSTER.map((p, i) => demo ? [3, 7, 1, 0, 0, 0][i] || 0 : 0), turn: 0, phase: 'roll', rolled: 0, q: null, chosen: null, hopId: -1, rounds: 1,
-      msg: '주사위를 굴려요! · Würfeln! · Roll the die!', winnerIdx: -1 };
+      msg: '주사위를 굴려요! · Würfeln!', winnerIdx: -1 };
   }
   startGame() {
     clearTimeout(this.timer);
@@ -631,7 +672,7 @@ class Component extends DCLogic {
     if (s.setup || s.phase !== 'roll') return;
     const n = 1 + Math.floor(Math.random() * 6);
     this.sfx('tap');
-    this.setState({ phase: 'rolling', rolled: n, msg: '데구르르… · Würfelt … · Rolling…' });
+    this.setState({ phase: 'rolling', rolled: n, msg: '데구르르… · Würfelt …' });
     this.timer = setTimeout(() => this.setState({ phase: 'question', q: this.makeQ(), chosen: null, msg: '맞히면 ' + n + '칸 앞으로! · Richtig = ' + n + ' Felder vor' }), 750);
   }
   choose(k) {
@@ -673,7 +714,7 @@ class Component extends DCLogic {
   nextTurn() {
     const s = this.state, nt = (s.turn + 1) % this.ROSTER.length;
     this.setState({ phase: 'roll', turn: nt, q: null, chosen: null, rounds: s.rounds + (nt === 0 ? 1 : 0),
-      msg: this.ROSTER[nt].name + ' 차례! 주사위를 굴려요 · würfeln · roll' });
+      msg: this.ROSTER[nt].name + ' 차례! 주사위를 굴려요 · würfeln' });
   }
   build(cfg) {
     const C = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
@@ -750,14 +791,15 @@ class Component extends DCLogic {
     if (!Array.isArray(h.roster) || !h.roster.length) return DEF;
     const sel = h.sel || {};
     const list = (h.order || []).filter(id => sel[id]).map(id => h.roster.find(p => p.id === id)).filter(Boolean);
+    if (!list.length) { try { const CPr = window.ClassPlay; if (CPr && CPr.roomOn && CPr.roomOn()) { window.location.href = 'index.html'; } } catch (e) {} }
     return list.length ? list.map(p => ({ name: p.name, en: p.name, cfg: p.cfg })) : DEF;
   }
   zeros() { return this.ROSTER.map(() => 0); }
   winnerOf(scores) {
-    if (this.ROSTER.length === 1) return this.ROSTER[0].name + ' 님 ' + scores[0] + '점! · ' + scores[0] + ' Punkte · points';
+    if (this.ROSTER.length === 1) return scores[0] + '점! · ' + scores[0] + ' Punkte';
     const max = Math.max.apply(null, scores);
     const top = this.ROSTER.filter((p, i) => scores[i] === max);
-    return top.length > 1 ? '무승부! · Unentschieden · Draw' : top[0].name + ' 님 우승! · gewinnt · wins';
+    return top.length > 1 ? top.map(p => p.name).join(' · ') + ' 공동 1등! · ' + (top.length === this.ROSTER.length ? 'Unentschieden' : 'gemeinsam Platz 1') : top[0].name + ' 우승! · gewinnt';
   }
   sfx(name) {
     const h = this.loadHub();
@@ -815,7 +857,7 @@ class Component extends DCLogic {
     const C = this.cp(); if (C) C.start(this.GAME);
   }
   classSize(own) { const C = this.cp(); return C ? C.RULES.roundSize[this.GAME] : own; }
-  renderVals() { const v = this.renderVals1(); v.asideCls = v.players && v.players.length > 3 ? 'many' : ''; return v; }
+  renderVals() { const v = this.renderVals1(); v.asideCls = v.players && v.players.length > 3 ? 'many' : ''; v.vocabDisp = (window.ClassPlay && window.ClassPlay.studentMode && window.ClassPlay.studentMode()) ? 'none' : 'flex'; return v; }
   renderVals1() {
     const s = this.state;
     const len = s.len;
@@ -823,7 +865,7 @@ class Component extends DCLogic {
     const COLORS = ['p-white', 'p-white', 'p-blue', 'p-white', 'p-lav', 'p-white'];
     const squares = cells.map((c, k) => {
       const kind = this.kind(k, len);
-      const M = { start: ['p-mint', '출발', 'Start', 24], goal: ['p-butter', '🏁', 'Ziel', 30], star: ['p-butter', '⭐', '+2', 26], back: ['p-pink', '⏪', '−2', 26], plain: [COLORS[k % 6], String(k), '', 22] }[kind];
+      const M = { start: ['p-mint', '출발', 'Los', 24], goal: ['p-butter', '🏁', 'Ziel', 30], star: ['p-lav', '⭐', '+2', 26], back: ['p-pink', '⏪', '−2', 26], plain: [COLORS[k % 6], String(k), '', 22] }[kind];
       return { x: c.x, y: c.y, w: c.w, h: c.h, cls: M[0], icon: M[1], sub: M[2], fs: M[3], subInk: '#4A4C80' };
     });
     const by = {};
@@ -854,11 +896,11 @@ class Component extends DCLogic {
     const studentHere = !!(C && C.studentMode && C.studentMode());
     const pv = this.poolVals(4);
     return {
-      ...pv, squares, pieces, pips,
+      ...pv, squares, pieces: s.setup ? [] : pieces, pips,
       roundLabel: (s.rounds || 1) + '바퀴 · Runde ' + (s.rounds || 1),
       asking: s.phase === 'question' && !!q,
       askLabel: kd ? '뜻은? · Bedeutung?' : '한국어로? · Auf Koreanisch?',
-      rolled: s.rolled, word, wordFs: word.length <= 5 ? 64 : word.length <= 10 ? 48 : 36, wordSub: q && !kd ? q.w.en : '',
+      rolled: s.rolled, word, wordFs: word.length <= 5 ? 64 : word.length <= 10 ? 48 : 36, wordSub: '',
       opts,
       dieCls: s.phase === 'rolling' ? 'rolling' : '',
       rollOp: s.phase === 'roll' ? '1' : '0.55',
@@ -867,27 +909,27 @@ class Component extends DCLogic {
       cur: { ...this.build(cp.cfg), name: cp.name },
       players: this.ROSTER.map((p, i) => ({ ...this.build(p.cfg), name: p.name, pos: (s.pos[i] >= len - 1 ? '🏁' : s.pos[i] + '/' + (len - 1)), rowCls: i === s.turn && !done ? 'puff p-butter' : '' })),
       msg: s.msg, done,
-      winner: s.winnerIdx >= 0 ? this.ROSTER[s.winnerIdx].name + ' 님 우승! · gewinnt · wins' : '',
+      winner: s.winnerIdx >= 0 ? this.ROSTER[s.winnerIdx].name + ' 우승! · gewinnt' : '',
       ranking,
       restart: () => { clearTimeout(this.timer); this.setState({ setup: true, started: false }); },
       setup: s.setup, canClose: s.started && !done,
       openSetup: () => this.setState({ setup: true }),
       closeSetup: () => this.setState({ setup: false }),
       startGame: () => this.startGame(),
-      opt1Title: '판 크기', opt1Sub: 'Spielbrett · Board',
+      opt1Title: '판 크기', opt1Sub: 'Spielbrett',
       opt1: this.seg([
-        { v: 20, label: '짧게 20칸', sub: 'kurz · short' },
-        { v: 30, label: '보통 30칸', sub: 'mittel · medium' },
-        { v: 40, label: '길게 40칸', sub: 'lang · long' }
+        { v: 20, label: '짧게 20칸', sub: 'kurz' },
+        { v: 30, label: '보통 30칸', sub: 'mittel' },
+        { v: 40, label: '길게 40칸', sub: 'lang' }
       ], s.len, 'len'),
-      opt2Title: '문제', opt2Sub: 'Fragen · Questions',
+      opt2Title: '문제', opt2Sub: 'Fragen',
       opt2: this.seg([
         { v: 'kd', label: '한 → 독', sub: 'KO → DE' },
         { v: 'dk', label: '독 → 한', sub: 'DE → KO' },
-        { v: 'mix', label: '섞기', sub: 'Gemischt · Mixed' }
+        { v: 'mix', label: '섞기', sub: 'Gemischt' }
       ], s.dir, 'dir'),
-      setupNote: studentHere ? '🎓 수업 시간 게임이에요 — 여기서는 별이 없어요 · Klassenspiel, keine Sterne · class game, no stars'
-        : '주사위 → 문제 → 맞히면 앞으로! ⭐ +2칸, ⏪ −2칸, 🏁 먼저 도착하면 우승 · First to the flag wins'
+      setupNote: studentHere ? '🎓 수업 시간 게임이에요 — 여기서는 별이 없어요 · Klassenspiel, keine Sterne'
+        : '주사위 → 문제 → 맞히면 앞으로! ⭐ +2칸, ⏪ −2칸, 🏁 먼저 도착하면 우승'
     };
   }
 }

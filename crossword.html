@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="한글 놀이터">
-<meta name="theme-color" content="#F4F2EC">
+<meta name="theme-color" content="#ECE8DE">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -203,6 +203,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 .sa-gsub{color:#FFFFFF;opacity:.62}
 .sa-play{border:0;box-shadow:0 4px 0 #B52A16}
 .sa-pips{border:0;background:var(--ink)}
+.sa-pipt{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#FFFFFF;white-space:nowrap;line-height:18px}
 .sa-me{border:0;box-shadow:var(--hair),0 6px 0 var(--paper-d),var(--soft)}
 .sa-rank{border:0;box-shadow:0 4px 0 #2F9A4C}
 .sa-edit{border:0;box-shadow:0 3px 0 #D9B315}
@@ -214,9 +215,48 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
 /* empty syllable slots: dashed ink outline so kids can see where tiles go */
 .slot-empty{background:#F2EFE7 !important;box-shadow:inset 0 0 0 2.5px rgba(22,19,31,.35) !important;border:2.5px dashed rgba(22,19,31,.0) !important;outline:2.5px dashed rgba(22,19,31,.45);outline-offset:-6px}
 
+/*R2-PATCH*/
+/* P1-1 letterbox matches the paper */
+html,body{background:#ECE8DE !important}
+/* P1-2 retire old navy/lavender-grey text + icon strokes */
+[style*="color: #2B2C6B"],[style*="color:#2B2C6B"]{color:var(--ink) !important}
+[style*="color: #4A4C80"],[style*="color:#4A4C80"],[style*="color: #8486B5"]{color:rgba(22,19,31,.62) !important}
+svg[stroke="#2B2C6B"]{stroke:var(--ink)} svg[fill="#2B2C6B"]{fill:var(--ink)}
+/* P1-2b remaining legacy tints */
+[style*="color: #6A4A00"],[style*="color: #5B5DA8"],[style*="color: #3A3B78"],[style*="color: #2E4F45"],[style*="color: #5A4A12"],[style*="color: #5A5C8E"],[style*="color: #3A3C78"],[style*="color: #3A2E7A"],[style*="color: #1F4A3A"],[style*="color: #7E68E0"]{color:rgba(22,19,31,.72) !important}
+[style*="color: #B23A2E"],[style*="color: #E2685A"]{color:var(--red) !important}
+[style*="color: #2E7A57"]{color:#1F7A3D !important}
+a,a:hover{color:var(--ink) !important}
+input::placeholder{color:rgba(22,19,31,.42) !important}
+/* P1-3 icon "coins" inside controls: drop the nested circle, keep the bare icon */
+.frost > .puff[aria-hidden="true"][style*="border-radius: 50%"],
+.puff > .puff[aria-hidden="true"][style*="border-radius: 50%"]{background:transparent !important;box-shadow:none !important;width:28px !important}
+/* P1-4 pastel lavender -> saturated mid-violet (ink text 6.2:1) */
+:root{--violet-l:#9C84FF}
+.p-lav{--c:#9C84FF;--d:#7556F0}
+/* P1-5 selected = solid violet + white text (one meaning, everywhere) */
+[aria-pressed="true"].puff{--c:var(--violet) !important;--d:var(--violet-d) !important;color:#fff !important;box-shadow:0 5px 0 var(--violet-d) !important}
+[aria-pressed="true"].puff [style*="color"],[aria-pressed="true"].puff span,[aria-pressed="true"].puff div{color:#fff !important}
+[aria-pressed="true"].puff .puff,[aria-pressed="true"].puff .puff *{color:var(--ink) !important}
+[aria-pressed="true"].puff > svg,[aria-pressed="true"].puff > svg *{stroke:#fff !important}
+/* P1-6 overlay scrim: neutral ink, not navy-lavender */
+[style*="background: rgba(43,44,107"]{background:rgba(22,19,31,.55) !important}
+/* P1-7 text on red is white; text on sky/green is ink */
+.p-coral,.p-coral [style*="color"]{color:#fff !important}
+.p-blue [style*="color: #FFFFFF"],.p-mint [style*="color: #FFFFFF"],.p-blue[style*="color: #FFFFFF"],.p-mint[style*="color: #FFFFFF"]{color:var(--ink) !important;text-shadow:none !important}
+/* P1-8 no sticky hover on touch */
+@media (hover:none){.tile:hover,.press:hover,.sa-card:hover{transform:none !important}.tile:hover{box-shadow:0 5px 0 var(--d) !important}}
+/* P1-9 decor type: quieter, menu only */
+.sa-decor .d-type{-webkit-text-stroke-color:rgba(22,19,31,.07)}
+.sa-root:not(.sa-hub) .sa-decor .d-type{display:none}
+/* P1-10 result title: poster type, not gold gloss */
+span[style*="background-clip: text"][style*="#FFF8D9"]{display:none !important}
+span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink) !important}
+/*/R2-PATCH*/
+
 /*/SA-THEME*/
 </style>
-<style>html,body{margin:0;height:100%;overflow:hidden;background:#F4F2EC}</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
 </head>
 <body>
 <template id="dc-view">
@@ -235,11 +275,10 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
       <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14 6 8 12 14 18"></polyline></svg>
       </span>
-      메뉴 · Menu
-    </a>
+      메뉴</a>
     <div style="flex: 1; min-width: 0">
       <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">십자말풀이</div>
-      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Kreuzworträtsel · Crossword</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Kreuzworträtsel</div>
     </div>
     <button type="button" onClick="{{openSetup}}" class="frost press" style="height: 56px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 20px 0 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit">
       <span class="puff p-butter" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
@@ -247,13 +286,13 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
       </span>
       <span style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.05">
         <span style="font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap">{{poolLabel}}</span>
-        <span style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Einstellen · Setup</span>
+        <span style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Einstellen</span>
       </span>
     </button>
     <div class="puff p-mint" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 22px 0 18px; display: flex; align-items: center; gap: 10px">
       <span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: #3FAE7E; box-shadow: inset 0 2px 2px rgba(255,255,255,.6), 0 2px 3px rgba(30,120,80,.35)"></span>
       <span style="font-family: 'Jua', sans-serif; font-size: 20px">푼 문제 {{solvedLabel}}</span>
-      <span style="font-size: 14px; font-weight: 800; color: #2E4F45">Gelöst · Solved</span>
+      <span style="font-size: 14px; font-weight: 800; color: #2E4F45">Gelöst</span>
     </div>
   </header>
 
@@ -280,12 +319,12 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
             <div style="font-family: 'Jua', sans-serif; font-size: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{selDe}}</div>
             <div style="font-size: 13px; font-weight: 800; color: #4A4C80; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{selDir}} · {{selLen}}칸 · {{selEn}}</div>
           </div>
-          <button type="button" onClick="{{hint}}" class="puff p-butter press" style="height: 42px; border: none; border-radius: 999px; padding: 0 14px; flex-shrink: 0; font-family: 'Jua', sans-serif; font-size: 17px; color: #2B2C6B; cursor: pointer">힌트 · Hint</button>
-          <button type="button" onClick="{{pass}}" class="puff p-white press" style="height: 42px; border: none; border-radius: 999px; padding: 0 14px; flex-shrink: 0; font-family: 'Jua', sans-serif; font-size: 17px; color: #2B2C6B; cursor: pointer">패스 · Pass</button>
+          <button type="button" onClick="{{hint}}" class="puff p-butter press" style="height: 42px; border: none; border-radius: 999px; padding: 0 14px; flex-shrink: 0; font-family: 'Jua', sans-serif; font-size: 17px; color: #2B2C6B; cursor: pointer">힌트</button>
+          <button type="button" onClick="{{pass}}" class="puff p-white press" style="height: 42px; border: none; border-radius: 999px; padding: 0 14px; flex-shrink: 0; font-family: 'Jua', sans-serif; font-size: 17px; color: #2B2C6B; cursor: pointer">패스</button>
         </div>
         <div style="font-family: 'Jua', sans-serif; font-size: 19px; line-height: 1.2; color: #3A3C78; padding: 0 4px">{{selKo}}</div>
         <div style="display: flex; gap: 12px">
-          <label for="cw-answer" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">정답 · Antwort · Answer</label>
+          <label for="cw-answer" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">정답 · Antwort</label>
           <input id="cw-answer" type="text" value="{{guess}}" onChange="{{onGuess}}" onKeyDown="{{onKey}}" placeholder="정답 · Antwort" autocomplete="off" style="flex: 1; min-width: 0; height: 56px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 18px; background: rgba(255,255,255,.88); box-shadow: inset 0 3px 6px rgba(43,44,107,.14), inset 0 -1px 0 rgba(255,255,255,.9), 0 0 0 1.5px rgba(255,255,255,.8); font-family: 'Jua', sans-serif; font-size: 24px; color: #2B2C6B">
           <button type="button" onClick="{{submit}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 18px 0 8px; display: flex; align-items: center; gap: 8px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 20px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
             <span class="puff p-white" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A">
@@ -293,9 +332,9 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
             </span>
             확인
           </button>
-          <button type="button" onClick="{{openKb}}" aria-label="화면 키보드 · Bildschirmtastatur · On-screen keyboard" class="puff p-lav press" style="width: 56px; height: 56px; flex-shrink: 0; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1">⌨️</span></button>
+          <button type="button" onClick="{{openKb}}" aria-label="화면 키보드 · Bildschirmtastatur" class="puff p-lav press" style="width: 56px; height: 56px; flex-shrink: 0; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1">⌨️</span></button>
           <sc-if value="{{hasMic}}" hint-placeholder-val="{{ true }}">
-          <button type="button" onClick="{{listen}}" aria-label="말해서 입력 · Sprechen · Say it" class="puff {{micCls}} press" style="width: 56px; height: 56px; flex-shrink: 0; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1">🎤</span></button>
+          <button type="button" onClick="{{listen}}" aria-label="말해서 입력 · Sprechen" class="puff {{micCls}} press" style="width: 56px; height: 56px; flex-shrink: 0; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1">🎤</span></button>
           </sc-if>
 
         </div>
@@ -303,7 +342,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
     </div>
 
     <div class="frost" style="width: 290px; flex-shrink: 0; box-sizing: border-box; border-radius: 34px; padding: 16px 14px; display: flex; flex-direction: column; gap: 7px; overflow-y: auto">
-      <div style="font-family: 'Jua', sans-serif; font-size: 20px; padding-left: 4px">가로 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">Waagerecht · Across</span></div>
+      <div style="font-family: 'Jua', sans-serif; font-size: 20px; padding-left: 4px">가로 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">Waagerecht</span></div>
       <sc-for list="{{across}}" as="w" hint-placeholder-count="4">
         <button type="button" onClick="{{w.pick}}" aria-pressed="{{w.pressed}}" class="puff press {{w.cls}}" style="height: 50px; flex-shrink: 0; border: none; border-radius: 999px; padding: 0 14px 0 6px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit; text-align: left">
           <span style="position: relative; z-index: 1; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; background: rgba(255,255,255,.85); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900">{{w.num}}</span>
@@ -314,7 +353,7 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
           <span style="position: relative; z-index: 1; flex-shrink: 0; font-size: 13px; font-weight: 900; color: #4A4C80; text-align: right; line-height: 1.1">{{w.tail}}</span>
         </button>
       </sc-for>
-      <div style="font-family: 'Jua', sans-serif; font-size: 20px; padding-left: 4px; margin-top: 6px">세로 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">Senkrecht · Down</span></div>
+      <div style="font-family: 'Jua', sans-serif; font-size: 20px; padding-left: 4px; margin-top: 6px">세로 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">Senkrecht</span></div>
       <sc-for list="{{down}}" as="w" hint-placeholder-count="4">
         <button type="button" onClick="{{w.pick}}" aria-pressed="{{w.pressed}}" class="puff press {{w.cls}}" style="height: 50px; flex-shrink: 0; border: none; border-radius: 999px; padding: 0 14px 0 6px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit; text-align: left">
           <span style="position: relative; z-index: 1; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; background: rgba(255,255,255,.85); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900">{{w.num}}</span>
@@ -399,25 +438,25 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
         <sc-if value="{{classOn}}" hint-placeholder-val="{{ false }}">
           <div class="puff p-butter" style="border-radius: 999px; padding: 10px 24px; font-family: 'Jua', sans-serif; font-size: 24px; color: #6A4A00"><span style="position: relative; z-index: 1">{{classLine}}</span></div>
         </sc-if>
-        <div style="font-size: 16px; font-weight: 800; color: #4A4C80">Alles gelöst! · Puzzle solved!</div>
-        <button type="button" onClick="{{restart}}" class="puff p-coral press" style="margin-top: 8px; height: 62px; border: none; border-radius: 999px; padding: 0 28px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 24px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">한 번 더 · Nochmal · Again</button>
+        <div style="font-size: 16px; font-weight: 800; color: #4A4C80">Alles gelöst!</div>
+        <button type="button" onClick="{{restart}}" class="puff p-coral press" style="margin-top: 8px; height: 62px; border: none; border-radius: 999px; padding: 0 28px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 24px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">한 번 더 · Nochmal</button>
       </div>
     </div>
   </sc-if>
   <sc-if value="{{setup}}" hint-placeholder-val="{{ true }}">
     <div style="position: absolute; inset: 0; z-index: 5; background: rgba(43,44,107,.34); display: flex; align-items: center; justify-content: center">
-      <div class="frost frost-strong pop" role="dialog" aria-label="게임 준비 · Game setup" style="width: 760px; box-sizing: border-box; border-radius: 46px; padding: 28px 34px 30px; display: flex; flex-direction: column; gap: 18px">
+      <div class="frost frost-strong pop" role="dialog" aria-label="게임 준비 · Spiel einstellen" style="width: 760px; box-sizing: border-box; border-radius: 46px; padding: 28px 34px 30px; display: flex; flex-direction: column; gap: 18px">
         <div style="display: flex; align-items: baseline; gap: 14px">
           <div style="font-family: 'Jua', sans-serif; font-size: 36px; line-height: 1">게임 준비</div>
-          <div style="font-size: 15px; font-weight: 800; color: #4A4C80">Spiel einstellen · Game setup</div>
+          <div style="font-size: 15px; font-weight: 800; color: #4A4C80">Spiel einstellen</div>
         </div>
         <div class="frost" style="border-radius: 30px; padding: 14px 16px 14px 20px; display: flex; flex-direction: column; gap: 10px">
           <div style="display: flex; align-items: center; gap: 12px">
             <div style="flex: 1; line-height: 1.15">
               <div style="font-family: 'Jua', sans-serif; font-size: 21px">오늘의 단어 <span style="font-family: 'Jua', sans-serif; color: #5B5DA8">{{poolCount}}</span></div>
-              <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Heutige Wörter · Today's words</div>
+              <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Heutige Wörter</div>
             </div>
-            <a href="words.html" class="puff p-white press" style="height: 44px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">단어장에서 바꾸기 · Ändern · Change</span></a>
+            <a href="words.html" class="puff p-white press" style="height: 44px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: {{vocabDisp}}; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">단어장에서 바꾸기 · Ändern</span></a>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 8px">
             <sc-for list="{{poolChips}}" as="ch" hint-placeholder-count="2">
@@ -457,9 +496,9 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
         <div style="display: flex; align-items: center; gap: 12px; margin-top: 2px">
           <div style="flex: 1; font-size: 14px; font-weight: 800; color: #4A4C80; line-height: 1.4">{{setupNote}}</div>
           <sc-if value="{{canClose}}" hint-placeholder-val="{{ false }}">
-            <button type="button" onClick="{{closeSetup}}" class="puff p-white press" style="height: 62px; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 20px"><span style="position: relative; z-index: 1">계속하기 · Weiter · Continue</span></button>
+            <button type="button" onClick="{{closeSetup}}" class="puff p-white press" style="height: 62px; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 20px"><span style="position: relative; z-index: 1">계속하기 · Weiter</span></button>
           </sc-if>
-          <button type="button" onClick="{{startGame}}" class="puff p-coral press" style="height: 62px; border: none; border-radius: 999px; padding: 0 30px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 23px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">만들기 · Erstellen · Create</span></button>
+          <button type="button" onClick="{{startGame}}" class="puff p-coral press" style="height: 62px; border: none; border-radius: 999px; padding: 0 30px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 23px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">만들기 · Erstellen</span></button>
         </div>
       </div>
     </div>
@@ -475,8 +514,8 @@ input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !im
         <sc-if value="{{hasMic}}" hint-placeholder-val="{{ true }}">
         <button type="button" onClick="{{listen}}" class="puff {{micCls}} press" style="height: 58px; align-self: flex-end; border: none; border-radius: 999px; padding: 0 20px; cursor: pointer; color: {{micInk}}; font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap"><span style="position: relative; z-index: 1">{{micLabel}}</span></button>
         </sc-if>
-        <button type="button" onClick="{{kbSubmit}}" class="puff p-coral press" style="height: 58px; align-self: flex-end; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 21px; white-space: nowrap; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">확인 · Check</span></button>
-        <button type="button" onClick="{{closeKb}}" aria-label="닫기 · Schliessen · Close" class="puff p-white press" style="width: 58px; height: 58px; align-self: flex-end; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 24px; color: #2B2C6B"><span style="position: relative; z-index: 1">✕</span></button>
+        <button type="button" onClick="{{kbSubmit}}" class="puff p-coral press" style="height: 58px; align-self: flex-end; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 21px; white-space: nowrap; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">확인</span></button>
+        <button type="button" onClick="{{closeKb}}" aria-label="닫기 · Schliessen" class="puff p-white press" style="width: 58px; height: 58px; align-self: flex-end; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 24px; color: #2B2C6B"><span style="position: relative; z-index: 1">✕</span></button>
       </div>
       <sc-if value="{{micMsg}}" hint-placeholder-val="{{ false }}"><div style="text-align: center; font-size: 14px; font-weight: 800; color: #B23A2E">{{micMsg}}</div></sc-if>
       <sc-for list="{{kbRows}}" as="r" hint-placeholder-count="4">
@@ -559,21 +598,23 @@ class Component extends DCLogic {
       const seen = {}, words = [];
       chosen.forEach(L => lw(L).forEach(x => {
         if (sel.off[x.key]) return;
-        const ko = x.w[0];
+        const meta = (x.w[4] && typeof x.w[4] === 'object') ? x.w[4] : {};   // game form, games list, accepted alternatives
+        if (meta.games && meta.games.indexOf('crossword') < 0) return;
+        const ko = meta.g || x.w[0];
         if (seen[ko]) return;
         seen[ko] = true;
-        words.push({ ko, de: x.w[1], en: x.w[2], hint: x.w[3] || '', lesson: x.from });
+        words.push({ ko, de: x.w[1], en: x.w[2], hint: x.w[3] || '', lesson: x.from, tb: meta.g && meta.g !== x.w[0] ? x.w[0] : '', alt: meta.alt || [] });
       }));
       return {
         words, sample: false,
         label: chosen.length ? (chosen.length > 3 ? chosen.slice(0, 2).map(L => L.n + '과').join(' · ') + ' 외 ' + (chosen.length - 2) + '개' : chosen.map(L => L.n + '과').join(' · ')) : '—',
         chips: chosen.map(L => ({ label: L.n + '과 ' + L.theme[0], cls: L.unit ? UNIT_CLS[L.unit] : 'p-white' })),
-        note: chosen.length ? '단어장에서 고른 단어로 해요 · Wörter aus dem Wortschatz · Words from the word pool' : '오늘의 단어장이 비어 있어요 · Keine Lektion gewählt · No lessons picked yet'
+        note: chosen.length ? '단어장에서 고른 단어로 해요 · Wörter aus dem Wortschatz' : '오늘의 단어장이 비어 있어요 · Keine Lektion gewählt'
       };
     });
   }
   samplePool(note) {
-    return { words: this.sampleWords(), sample: true, label: '예시 · Sample', chips: [{ label: '예시 단어 · Beispiel · Sample', cls: 'p-white' }], note };
+    return { words: this.sampleWords(), sample: true, label: '예시', chips: [{ label: '예시 단어 · Beispiel', cls: 'p-white' }], note };
   }
   usableWords(min) {
     const p = this.state.pool;
@@ -593,17 +634,17 @@ class Component extends DCLogic {
   refreshPool() {
     this.loadPool()
       .then(pool => { this.setState({ pool }); if (this.onPool) this.onPool(pool); })
-      .catch(() => { const pool = this.samplePool('단어장을 못 불러와서 예시 단어를 써요 · Beispielwörter · Using sample words'); this.setState({ pool }); if (this.onPool) this.onPool(pool); });
+      .catch(() => { const pool = this.samplePool('단어장을 못 불러와서 예시 단어를 써요 · Beispielwörter'); this.setState({ pool }); if (this.onPool) this.onPool(pool); });
   }
   poolVals(min) {
     const p = this.state.pool;
     if (!p) return { poolCount: '…', poolChips: [], poolNote: '단어장을 불러오는 중… · Lädt … · Loading…', poolLabel: '…', poolReady: false };
     const short = !p.sample && p.words.length < min;
     return {
-      poolCount: p.words.length + '개 · words',
+      poolCount: p.words.length + '개',
       poolChips: p.chips,
-      poolNote: short ? ('단어가 ' + min + '개보다 적어서 예시 단어로 해요 · Zu wenige Wörter, Beispielwörter · Too few words, using samples') : p.note,
-      poolLabel: short ? '예시 · Sample' : p.label,
+      poolNote: short ? ('단어가 ' + min + '개보다 적어서 예시 단어로 해요 · Zu wenige Wörter, Beispielwörter') : p.note,
+      poolLabel: short ? '예시' : p.label,
       poolReady: true
     };
   }
@@ -621,7 +662,7 @@ class Component extends DCLogic {
     return {
       solved: demo ? { a1: 0, a3: 1 } : {},
       sel: demo ? 'd2' : (this.WORDS[0] ? this.WORDS[0].id : ''), guess: '', turn: 0, scores: demo && this.ROSTER.length === 2 ? [30, 20] : this.zeros(), hintUsed: false, revealed: [],
-      msg: '단서를 고르고 정답을 써요 · Hinweis wählen, Antwort tippen · Pick a clue, type the answer'
+      msg: '단서를 고르고 정답을 써요 · Hinweis wählen, Antwort tippen'
     };
   }
   // ---------- generator: one cell = one syllable ----------
@@ -643,10 +684,14 @@ class Component extends DCLogic {
     if (c1 - c0 + 1 > MAXC || r1 - r0 + 1 > MAXR) return -1;
     return cross;
   }
+  nde(d) { return String(d || '').toLowerCase().replace(/\([^)]*\)/g, '').replace(/\/-?\w+/g, '').replace(/\s+sein$/, '').replace(/\s+/g, ' ').trim(); }
   bestSpot(list, G, used, usedDe, MAXC, MAXR) {
     let best = null;
+    const usedKo = Object.keys(used);
     for (const w of list) {
-      if (used[w.ko] || usedDe[w.de]) continue;
+      if (used[w.ko] || usedDe[this.nde(w.de)]) continue;
+      // no answer hidden inside another answer (성격 / 성격이 급하다)
+      if (usedKo.some(u => u.indexOf(w.ko) >= 0 || w.ko.indexOf(u) >= 0)) continue;
       const syl = Array.from(w.ko);
       for (let i = 0; i < syl.length; i++) {
         const spots = G.by[syl[i]];
@@ -676,7 +721,7 @@ class Component extends DCLogic {
         G.r0 = Math.min(G.r0, rr); G.r1 = Math.max(G.r1, rr); G.c0 = Math.min(G.c0, cc); G.c1 = Math.max(G.c1, cc);
       });
       placed.push({ w, r, c, dir, bridge });
-      used[w.ko] = true; usedDe[w.de] = true;
+      used[w.ko] = true; usedDe[this.nde(w.de)] = true;
     };
     const first = prim.slice(0, 6).sort((a, b) => b.ko.length - a.ko.length)[0];
     if (!first) return { placed, G };
@@ -720,7 +765,7 @@ class Component extends DCLogic {
     this.ROWS = G.r1 - G.r0 + 1; this.COLS = G.c1 - G.c0 + 1;
     this.WORDS = placed.map(p => {
       const num = starts[p.r + ',' + p.c];
-      return { id: p.dir + num, num, dir: p.dir, r: p.r - G.r0, c: p.c - G.c0, ans: Array.from(p.w.ko), de: p.w.de, ko: p.w.hint, en: p.w.en, bridge: p.bridge, spaced: !!p.w.spaced };
+      return { id: p.dir + num, num, dir: p.dir, r: p.r - G.r0, c: p.c - G.c0, ans: Array.from(p.w.ko), de: p.w.de, ko: p.w.hint, en: p.w.en, bridge: p.bridge, spaced: !!p.w.spaced, tb: p.w.tb || '' };
     }).sort((a, b) => a.num - b.num);
     const br = placed.filter(p => p.bridge).length;
     return { placed: placed.length, bridges: br, short: placed.length < target, eligible: prim.length };
@@ -730,9 +775,9 @@ class Component extends DCLogic {
     const words = this.usableWords(4);
     const res = this.generate(words, this.classSize(this.state.target), this.state.bridge);
     let note;
-    if (res.short) note = res.placed + '/' + this.state.target + '개만 들어갔어요 — 다시 만들거나 과를 더해 보세요 · Nur ' + res.placed + ' Wörter passten · Only ' + res.placed + ' fit';
-    else if (res.bridges) note = res.placed + '개 배치, 그중 사전 단어 ' + res.bridges + '개 · davon ' + res.bridges + ' Brückenwörter · incl. ' + res.bridges + ' bridge words';
-    else note = res.placed + '개 모두 오늘의 단어 · Alle aus dem Wortschatz · All from today\'s words';
+    if (res.short) note = res.placed + '/' + this.state.target + '개만 들어갔어요 — 다시 만들거나 과를 더해 보세요 · Nur ' + res.placed + ' Wörter passten';
+    else if (res.bridges) note = res.placed + '개 배치, 그중 사전 단어 ' + res.bridges + '개 · davon ' + res.bridges + ' Brückenwörter';
+    else note = res.placed + '개 모두 오늘의 단어 · Alle aus dem Wortschatz\'s words';
     this.setState({ ...this.fresh(false), setup: false, started: true, lastNote: note, msg: note });
   }
   cellsOf(w) {
@@ -757,7 +802,7 @@ class Component extends DCLogic {
     if (s.setup || s.solved[s.sel] !== undefined) return;
     const w = this.word(s.sel);
     const g = (s.guess || '').replace(/\s+/g, '');
-    if (!g) { this.setState({ msg: '먼저 정답을 써 주세요 · Bitte zuerst eine Antwort tippen · Type an answer first' }); return; }
+    if (!g) { this.setState({ msg: '먼저 정답을 써 주세요 · Bitte zuerst eine Antwort tippen' }); return; }
     const p = this.ROSTER[s.turn];
     const turn = (s.turn + 1) % this.ROSTER.length;
     if (g === w.ans.join('')) {
@@ -772,14 +817,14 @@ class Component extends DCLogic {
       });
       const scores = s.scores.slice(); scores[s.turn] += pts + bonus;
       const msg = bonus
-        ? ('정답! ' + p.name + ' +' + pts + ', 보너스 +' + bonus + ' · Richtig + Bonus! · Correct + bonus!')
-        : ('정답! ' + p.name + ' +' + pts + ' · Richtig! · Correct!');
+        ? ('정답! ' + p.name + ' +' + pts + ', 보너스 +' + bonus + ' · Richtig + Bonus!')
+        : ('정답! ' + p.name + ' +' + pts + ' · Richtig!' + (w.tb ? ' · 📖 ' + w.tb : ''));
       this.setState({ solved, scores, turn, guess: '', hintUsed: false, sel: this.nextOpen(solved, w.id), msg });
     } else {
       this.sfx('miss');
       this._wrong = (this._wrong || 0) + 1;
       const solo = this.ROSTER.length === 1;
-      this.setState({ turn, guess: '', hintUsed: false, msg: solo ? '아쉬워요! 다시 해 봐요 · Leider falsch · Not quite — try again' : '아쉬워요! 다음 차례 · Leider falsch · Not quite — next turn' });
+      this.setState({ turn, guess: '', hintUsed: false, msg: solo ? '아쉬워요! 다시 해 봐요 · Leider falsch' : '아쉬워요! 다음 차례 · Leider falsch' });
     }
   }
   hint() {
@@ -791,7 +836,7 @@ class Component extends DCLogic {
     this.sfx('select');
     this._hints = (this._hints || 0) + 1;
     this._hinted = Object.assign({}, this._hinted, { [s.sel]: true });   // the half-points penalty sticks to this word
-    this.setState({ revealed: s.revealed.concat([k]), hintUsed: true, msg: '힌트를 썼어요 — 이 문제는 점수 절반 · Hinweis: halbe Punkte · Hint used: half points' });
+    this.setState({ revealed: s.revealed.concat([k]), hintUsed: true, msg: '힌트를 썼어요 — 이 문제는 점수 절반 · Hinweis: halbe Punkte' });
   }
   build(cfg) {
     const C = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
@@ -868,14 +913,15 @@ class Component extends DCLogic {
     if (!Array.isArray(h.roster) || !h.roster.length) return DEF;
     const sel = h.sel || {};
     const list = (h.order || []).filter(id => sel[id]).map(id => h.roster.find(p => p.id === id)).filter(Boolean);
+    if (!list.length) { try { const CPr = window.ClassPlay; if (CPr && CPr.roomOn && CPr.roomOn()) { window.location.href = 'index.html'; } } catch (e) {} }
     return list.length ? list.map(p => ({ name: p.name, en: p.name, cfg: p.cfg })) : DEF;
   }
   zeros() { return this.ROSTER.map(() => 0); }
   winnerOf(scores) {
-    if (this.ROSTER.length === 1) return this.ROSTER[0].name + ' 님 ' + scores[0] + '점! · ' + scores[0] + ' Punkte · points';
+    if (this.ROSTER.length === 1) return scores[0] + '점! · ' + scores[0] + ' Punkte';
     const max = Math.max.apply(null, scores);
     const top = this.ROSTER.filter((p, i) => scores[i] === max);
-    return top.length > 1 ? '무승부! · Unentschieden · Draw' : top[0].name + ' 님 우승! · gewinnt · wins';
+    return top.length > 1 ? top.map(p => p.name).join(' · ') + ' 공동 1등! · ' + (top.length === this.ROSTER.length ? 'Unentschieden' : 'gemeinsam Platz 1') : top[0].name + ' 우승! · gewinnt';
   }
   sfx(name) {
     const h = this.loadHub();
@@ -987,8 +1033,8 @@ class Component extends DCLogic {
     rows[2].keys.unshift({ label: '⇧', w: '96', cls: s.kbShift ? 'p-lav' : 'p-white', ink: '#2B2C6B', press: () => this.setState({ kbShift: !this.state.kbShift }) });
     rows[2].keys.push({ label: '⌫', w: '96', cls: 'p-pink', ink: '#2B2C6B', press: () => this.setState({ guess: this.hgBack(this.state.guess || '') }) });
     rows.push({ keys: [
-      { label: '띄어쓰기 · Leertaste · Space', w: '360', cls: 'p-white', ink: '#2B2C6B', press: () => this.setState({ guess: (this.state.guess || '') + ' ' }) },
-      { label: '전부 지우기 · Clear', w: '250', cls: 'p-white', ink: '#2B2C6B', press: () => this.setState({ guess: '' }) }
+      { label: '띄어쓰기 · Leertaste', w: '360', cls: 'p-white', ink: '#2B2C6B', press: () => this.setState({ guess: (this.state.guess || '') + ' ' }) },
+      { label: '전부 지우기', w: '250', cls: 'p-white', ink: '#2B2C6B', press: () => this.setState({ guess: '' }) }
     ] });
     const listen = () => {
       if (!SR) return;
@@ -996,7 +1042,7 @@ class Component extends DCLogic {
       const r = new SR(); this._rec = r;
       r.lang = 'ko-KR'; r.interimResults = false; r.maxAlternatives = 1;
       r.onresult = (e) => { const t = ((e.results[0] && e.results[0][0] && e.results[0][0].transcript) || '').replace(/[^가-힣 ]/g, '').trim(); if (t) this.setState({ guess: t }); };
-      r.onerror = (e) => { this.setState({ micMsg: e.error === 'not-allowed' ? '마이크 허용이 필요해요 · Mikrofon erlauben · Allow the microphone' : '잘 안 들렸어요 · Nicht verstanden · Didn\'t catch that' }); };
+      r.onerror = (e) => { this.setState({ micMsg: e.error === 'not-allowed' ? '마이크 허용이 필요해요 · Mikrofon erlauben' : '잘 안 들렸어요 · Nicht verstanden' }); };
       r.onend = () => { this._rec = null; this.setState({ listening: false }); };
       this.setState({ listening: true, micMsg: '' });
       try { r.start(); } catch (e) { this._rec = null; this.setState({ listening: false }); }
@@ -1013,7 +1059,7 @@ class Component extends DCLogic {
     });
   }
   kbHint() { const w = this.word(this.state.sel); return w ? (w.num + '. ' + w.de + ' · ' + w.ans.length + '칸' + (w.ko ? ' · ' + w.ko : '')) : ''; }
-  renderVals() { const v = this.kbVals(this.classVals(this.renderVals0())); v.asideCls = v.players && v.players.length > 3 ? 'many many-t' : ''; return v; }
+  renderVals() { const v = this.kbVals(this.classVals(this.renderVals0())); v.asideCls = v.players && v.players.length > 3 ? 'many many-t' : ''; v.vocabDisp = (window.ClassPlay && window.ClassPlay.studentMode && window.ClassPlay.studentMode()) ? 'none' : 'flex'; return v; }
   renderVals0() {
     const s = this.state;
     const sel = this.word(s.sel);
@@ -1048,7 +1094,7 @@ class Component extends DCLogic {
         fs: Math.round(gpx * 0.52), nfs: gpx >= 50 ? 13 : 11, nl: gpx >= 50 ? 8 : 5, rad: Math.round(gpx * 0.29),
         cls: solved ? 'p-mint' : (inSel ? 'p-butter' : 'p-white'),
         ink: solved ? '#1F4A3A' : '#2B2C6B',
-        label: (nums[k] ? nums[k] + '번 ' : '') + (shown ? map[k] : '빈칸 · empty'),
+        label: (nums[k] ? nums[k] + '번 ' : '') + (shown ? map[k] : '빈칸 · leer'),
         pick: () => pickWordAt(k)
       });
     }
@@ -1076,7 +1122,7 @@ class Component extends DCLogic {
       cells, gcols: C, gpx, ggap,
       across: this.WORDS.filter(w => w.dir === 'a').map(clue),
       down: this.WORDS.filter(w => w.dir === 'd').map(clue),
-      selNum: sel.num, selDe: sel.de, selEn: sel.en, selKo: sel.ko, selLen: sel.ans.length,
+      selNum: sel.num, selDe: sel.de, selEn: '', selKo: sel.ko, selLen: sel.ans.length,
       selDir: sel.dir === 'a' ? '가로 · Waagerecht' : '세로 · Senkrecht',
       guess: s.guess,
       onGuess: (e) => this.setState({ guess: e.target.value }),
@@ -1084,8 +1130,8 @@ class Component extends DCLogic {
       submit: () => this.submit(),
       hint: () => this.hint(),
       pass: () => { const solo = this.ROSTER.length === 1; this._wrong = (this._wrong || 0) + 0.5;
-        this.setState({ turn: (s.turn + 1) % this.ROSTER.length, guess: '', hintUsed: false, sel: solo ? this.nextOpen(s.solved, s.sel) : s.sel, msg: solo ? '패스! 다음 문제 · Gepasst · Passed — next clue' : '패스! 다음 차례 · Gepasst · Passed — next turn' }); },
-      cur: { ...this.build(cp.cfg), name: cp.name, helper: cp.en + ' ist dran · ' + cp.en + "'s turn" },
+        this.setState({ turn: (s.turn + 1) % this.ROSTER.length, guess: '', hintUsed: false, sel: solo ? this.nextOpen(s.solved, s.sel) : s.sel, msg: solo ? '패스! 다음 문제 · Gepasst' : '패스! 다음 차례 · Gepasst' }); },
+      cur: { ...this.build(cp.cfg), name: cp.name, helper: cp.en + ' ist dran' },
       players, msg: s.msg, done, winner,
       solvedLabel: solvedCount + '/' + this.WORDS.length,
       restart: () => this.setState({ setup: true, started: false }),
@@ -1093,20 +1139,20 @@ class Component extends DCLogic {
       openSetup: () => this.setState({ setup: true }),
       closeSetup: () => this.setState({ setup: false }),
       startGame: () => this.startGame(),
-      opt1Title: '단어 수', opt1Sub: 'Wörter · Words',
+      opt1Title: '단어 수', opt1Sub: 'Wörter',
       opt1: this.seg([
         { v: 6, label: '6개', sub: '6 Wörter' },
         { v: 8, label: '8개', sub: '8 Wörter' },
         { v: 10, label: '10개', sub: '10 Wörter' },
         { v: 12, label: '12개', sub: '12 Wörter' }
       ], s.target, 'target'),
-      opt2Title: '사전 단어로 연결', opt2Sub: 'Brückenwörter · Bridge words',
+      opt2Title: '사전 단어로 연결', opt2Sub: 'Brückenwörter',
       opt2: this.seg([
-        { v: true, label: '켜기', sub: 'An · On' },
-        { v: false, label: '끄기', sub: 'Aus · Off' }
+        { v: true, label: '켜기', sub: 'An' },
+        { v: false, label: '끄기', sub: 'Aus' }
       ], s.bridge, 'bridge'),
       setupNote: s.started && s.lastNote ? ('지난 퍼즐: ' + s.lastNote) :
-        ('2~6글자 단어 ' + eligible + '개로 만들어요 (띄어쓰기는 빼요). 잘 안 이어지면 사전 단어를 더해요 · ' + eligible + ' usable words; bridge words fill gaps')
+        ('2~6글자 단어 ' + eligible + '개로 만들어요 (띄어쓰기는 빼요). 잘 안 이어지면 사전 단어를 더해요 · ' + eligible + ' Wörter; Brückenwörter füllen Lücken')
     };
   }
 }
