@@ -30,7 +30,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid #2B2C
 .p-ghost{--c:rgba(255,255,255,0);--d:rgba(255,255,255,0);--dd:rgba(0,0,0,0);--sh:rgba(0,0,0,0);box-shadow:none}
 .p-ghost::before,.p-ghost::after{display:none}
 .frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
-.frost-strong{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.66) 100%)}
+.frost-strong{background:linear-gradient(180deg,#FBF9FF 0%,#F1EDFB 100%)}
 .blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
 .blob2{animation-delay:-6s;animation-duration:17s}
 .blob3{animation-delay:-11s;animation-duration:20s}
@@ -77,7 +77,7 @@ input::placeholder{color:#8486B5}
       <span class="puff p-lav" aria-hidden="true" style="width: 50px; height: 50px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px; color: #FFFFFF; text-shadow: 0 2px 4px rgba(80,50,180,.35)">한</span>
       <div>
         <div style="font-family: 'Jua', sans-serif; font-size: 28px; line-height: 1">한글 놀이터</div>
-        <div style="font-size: 14px; font-weight: 800; color: #4A4C80; margin-top: 3px">Koreanisch-Spielplatz · Korean Playground</div>
+        <div style="font-size: 14px; font-weight: 800; color: #4A4C80; margin-top: 3px; white-space: nowrap">Koreanisch-Spielplatz · Korean Playground</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 16px">
@@ -85,10 +85,10 @@ input::placeholder{color:#8486B5}
         <span class="puff p-butter" aria-hidden="true" style="width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5Z"></path><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"></path></svg>
         </span>
-        <span style="font-family: 'Jua', sans-serif; font-size: 19px">단어장 <span style="font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: #4A4C80">Words</span></span>
+        <span style="font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap">단어장 <span style="font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: #4A4C80">Words</span></span>
       </a>
-      <button type="button" class="frost press" onClick="{{toggleSound}}" aria-pressed="{{soundPressed}}" style="height: 56px; border: none; border-radius: 999px; padding: 0 10px 0 22px; display: flex; align-items: center; gap: 14px; cursor: pointer; font-family: inherit; color: #2B2C6B">
-        <span style="font-family: 'Jua', sans-serif; font-size: 19px">효과음 <span style="font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: #4A4C80">Sound</span></span>
+      <button type="button" class="frost press" onClick="{{toggleSound}}" aria-pressed="{{soundPressed}}" style="height: 56px; border: none; border-radius: 999px; padding: 0 10px 0 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; font-family: inherit; color: #2B2C6B" aria-label="효과음 · Ton · Sound">
+        <span aria-hidden="true" style="font-size: 22px">{{soundIcon}}</span>
         <span class="puff flat {{soundTrack}}" aria-hidden="true" style="position: relative; width: 70px; height: 38px; border-radius: 999px; display: block">
           <span class="puff p-white" style="position: absolute; top: 4px; left: {{soundKnob}}; width: 30px; height: 30px; border-radius: 50%; transition: left .25s cubic-bezier(.3,1.5,.5,1)"></span>
         </span>
@@ -98,7 +98,11 @@ input::placeholder{color:#8486B5}
         <button type="button" onClick="{{endRoom}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 20px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">🎓 수업 끝 · End</span></button>
       </sc-if>
       <sc-if value="{{classMode}}" hint-placeholder-val="{{ false }}">
-        <button type="button" onClick="{{notMe}}" class="frost press" aria-label="내가 아니에요 · Nicht ich · Not me" style="height: 56px; border: none; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; gap: 6px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 17px">↩ 내가 아니에요 <span style="font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; color: #4A4C80">Not me</span></button>
+        <a href="board.html" onClick="{{tapSound}}" class="puff p-butter press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 8px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #2B2C6B">
+          <span class="puff p-white" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px"><span style="position: relative; z-index: 1">🏆</span></span>
+          <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap">순위표 <span style="font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: #5A4A12">{{boardSub}}</span></span>
+        </a>
+        <button type="button" onClick="{{notMe}}" class="frost press" aria-label="내가 아니에요 · Nicht ich · Not me" style="height: 56px; border: none; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; gap: 6px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 17px"><span style="white-space: nowrap">↩ 내가 아니에요</span></button>
       </sc-if>
       <button type="button" onClick="{{openSettings}}" class="puff p-lav press" aria-label="설정 · Einstellungen · Settings" style="width: 56px; height: 56px; border: none; border-radius: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #2B2C6B; padding: 0">
         <svg class="ico" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="3.2 3.24"></circle><circle cx="12" cy="12" r="6.6" fill="currentColor"></circle><circle cx="12" cy="12" r="2.4" fill="#BBA8F6"></circle></svg>
@@ -124,13 +128,6 @@ input::placeholder{color:#8486B5}
           <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 18px">순서 섞기</span>
           <span style="position: relative; z-index: 1; font-size: 13px; font-weight: 900; color: #5A4A12">Shuffle order</span>
         </button>
-        </sc-if>
-        <sc-if value="{{classMode}}" hint-placeholder-val="{{ false }}">
-          <a href="board.html" onClick="{{tapSound}}" class="puff p-butter press" style="height: 44px; box-sizing: border-box; border-radius: 999px; padding: 0 18px 0 8px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #2B2C6B">
-            <span class="puff p-white" aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px"><span style="position: relative; z-index: 1">🏆</span></span>
-            <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 18px">순위표</span>
-            <span style="position: relative; z-index: 1; font-size: 13px; font-weight: 900; color: #5A4A12">Rangliste · Scores</span>
-          </a>
         </sc-if>
         </div>
         <p style="margin: 2px 0 0; font-size: 16px; font-weight: 800; color: #4A4C80">{{whoSub}} <span style="color: #2E7A57">— {{selLabel}}</span></p>
@@ -214,7 +211,7 @@ input::placeholder{color:#8486B5}
       </div>
     </a>
     </sc-if>
-    <a href="quiz.html" onClick="{{tileGo}}" class="tile puff p-butter" style="grid-column: span 2; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
+    <a href="quiz.html" onClick="{{tileGo}}" class="tile puff p-butter" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
       <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 14px; top: 16px; width: 104px; height: 58px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 40px; border-radius: 30px; color: #9E88E9"><span style="position: relative; z-index: 1">?</span></span><span class="puff p-mint float" style="position: absolute; left: 4px; top: 86px; width: 58px; height: 26px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 1px; border-radius: 999px"><span style="position: relative; z-index: 1"></span></span><span class="puff p-pink float" style="position: absolute; left: 70px; top: 86px; width: 58px; height: 26px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 1px; border-radius: 999px"><span style="position: relative; z-index: 1"></span></span></div>
       <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
         <div>
@@ -227,7 +224,7 @@ input::placeholder{color:#8486B5}
         </span>
       </div>
     </a>
-    <a href="crossword.html" onClick="{{tileGo}}" class="tile puff p-mint" style="grid-column: span 2; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
+    <a href="crossword.html" onClick="{{tileGo}}" class="tile puff p-mint" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
       <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 8px; top: 18px; width: 52px; height: 52px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px"><span style="position: relative; z-index: 1">한</span></span><span class="puff p-white float" style="position: absolute; left: 66px; top: 18px; width: 52px; height: 52px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px"><span style="position: relative; z-index: 1">글</span></span><span class="puff p-coral float" style="position: absolute; left: 66px; top: 76px; width: 52px; height: 52px; border-radius: 18px; transform: rotate(0deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px; color: #FFFFFF"><span style="position: relative; z-index: 1">사</span></span></div>
       <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
         <div>
@@ -240,7 +237,7 @@ input::placeholder{color:#8486B5}
         </span>
       </div>
     </a>
-    <a href="syllables.html" onClick="{{tileGo}}" class="tile puff p-pink" style="grid-column: span 2; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
+    <a href="syllables.html" onClick="{{tileGo}}" class="tile puff p-pink" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
       <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 0px; top: 60px; width: 50px; height: 50px; border-radius: 18px; transform: rotate(-8deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">첫</span></span><span class="puff p-lav float" style="position: absolute; left: 42px; top: 12px; width: 50px; height: 50px; border-radius: 18px; transform: rotate(6deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">인</span></span><span class="puff p-butter float" style="position: absolute; left: 82px; top: 56px; width: 50px; height: 50px; border-radius: 18px; transform: rotate(-4deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">상</span></span></div>
       <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
         <div>
@@ -253,7 +250,7 @@ input::placeholder{color:#8486B5}
         </span>
       </div>
     </a>
-    <a href="chosung.html" onClick="{{tileGo}}" class="tile puff p-blue" style="grid-column: span {{chosungSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
+    <a href="chosung.html" onClick="{{tileGo}}" class="tile puff p-blue" style="grid-column: span {{gameSpan}}; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
       <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0"><span class="puff p-white float" style="position: absolute; left: 2px; top: 40px; width: 42px; height: 52px; border-radius: 18px; transform: rotate(-6deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px"><span style="position: relative; z-index: 1">ㅊ</span></span><span class="puff p-white float" style="position: absolute; left: 45px; top: 40px; width: 42px; height: 52px; border-radius: 18px; transform: rotate(3deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px"><span style="position: relative; z-index: 1">ㅇ</span></span><span class="puff p-white float" style="position: absolute; left: 88px; top: 40px; width: 42px; height: 52px; border-radius: 18px; transform: rotate(-3deg); display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 26px"><span style="position: relative; z-index: 1">ㅅ</span></span><span style="position: absolute; left: 0; right: 0; top: 104px; text-align: center; font-family: 'Jua', sans-serif; font-size: 18px; color: #1F3D6B">= 첫인상?</span></div>
       <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
         <div>
@@ -278,18 +275,6 @@ input::placeholder{color:#8486B5}
           <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></span>
           <span style="position: relative; z-index: 1">{{raceLabel}}</span>
         </span>
-      </div>
-    </a>
-    </sc-if>
-    <sc-if value="{{classMode}}" hint-placeholder-val="{{ false }}">
-    <a href="board.html" onClick="{{tapSound}}" class="tile puff p-butter" style="grid-column: span 3; border-radius: 38px; text-decoration: none; padding: 14px 16px 14px 8px; display: flex; align-items: center; gap: 8px">
-      <div aria-hidden="true" style="position: relative; width: 132px; height: 132px; flex-shrink: 0; display: flex; align-items: center; justify-content: center"><span class="float" style="font-size: 92px; line-height: 1; filter: drop-shadow(0 6px 8px rgba(150,100,0,.35))">🏆</span></div>
-      <div style="position: relative; z-index: 1; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <div>
-          <h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 28px; line-height: 1.05; color: #2B2C6B; white-space: nowrap">순위표</h2>
-          <p style="margin: 3px 0 0; font-size: 13px; font-weight: 800; color: #5A4A12">Rangliste · {{boardSub}}</p>
-        </div>
-        <span class="puff p-white" style="align-self: flex-start; height: 46px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; font-family: 'Jua', sans-serif; font-size: 18px; color: #2B2C6B"><span style="position: relative; z-index: 1">👑 이번 주</span></span>
       </div>
     </a>
     </sc-if>
@@ -481,9 +466,9 @@ input::placeholder{color:#8486B5}
           <input id="hub-name" type="text" maxlength="10" value="{{draftName}}" onChange="{{onName}}" placeholder="이름 · Name" autocomplete="off" style="width: 300px; height: 54px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 22px; text-align: center; background: rgba(255,255,255,.92); box-shadow: inset 0 3px 6px rgba(43,44,107,.14), 0 0 0 1.5px rgba(255,255,255,.9); font-family: 'Jua', sans-serif; font-size: 24px; color: #2B2C6B">
           <div style="min-height: 20px; font-size: 14px; font-weight: 800; color: #B23A2E">{{studioMsg}}</div>
           <div style="display: flex; gap: 10px">
-            <button type="button" onClick="{{randomize}}" class="puff p-lav press" style="height: 54px; border: none; border-radius: 999px; padding: 0 18px; font-family: 'Jua', sans-serif; font-size: 18px; color: #2B2C6B; cursor: pointer">랜덤 · Random</button>
-            <button type="button" onClick="{{closeOverlay}}" class="puff p-white press" style="height: 54px; border: none; border-radius: 999px; padding: 0 18px; font-family: 'Jua', sans-serif; font-size: 18px; color: #2B2C6B; cursor: pointer">취소 · Cancel</button>
-            <button type="button" onClick="{{saveDraft}}" class="puff p-coral press" style="height: 54px; border: none; border-radius: 999px; padding: 0 20px; font-family: 'Jua', sans-serif; font-size: 18px; color: #FFFFFF; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">저장 · Save</button>
+            <button type="button" onClick="{{randomize}}" class="puff p-lav press" style="white-space: nowrap; height: 54px; border: none; border-radius: 999px; padding: 0 18px; font-family: 'Jua', sans-serif; font-size: 18px; color: #2B2C6B; cursor: pointer">랜덤 · Random</button>
+            <button type="button" onClick="{{closeOverlay}}" class="puff p-white press" style="white-space: nowrap; height: 54px; border: none; border-radius: 999px; padding: 0 18px; font-family: 'Jua', sans-serif; font-size: 18px; color: #2B2C6B; cursor: pointer">취소 · Cancel</button>
+            <button type="button" onClick="{{saveDraft}}" class="puff p-coral press" style="white-space: nowrap; height: 54px; border: none; border-radius: 999px; padding: 0 20px; font-family: 'Jua', sans-serif; font-size: 18px; color: #FFFFFF; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">저장 · Save</button>
           </div>
         </section>
         <section style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px">
@@ -621,7 +606,7 @@ input::placeholder{color:#8486B5}
                 <button type="button" onClick="{{setMono}}" aria-pressed="{{monoPressed}}" class="puff press {{monoCls}}" style="height: 44px; border: none; border-radius: 999px; padding: 0 16px; font-family: 'Jua', sans-serif; font-size: 17px; color: #2B2C6B; cursor: pointer">흑백 · B&amp;W</button>
               </div>
             </div>
-            <div class="frost" style="border-radius: 28px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+            <sc-if value="{{canManage}}" hint-placeholder-val="{{ true }}"><div class="frost" style="border-radius: 28px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
               <div><div style="font-family: 'Jua', sans-serif; font-size: 20px">이름표 모두 지우기</div><div style="font-size: 13px; font-weight: 800; color: #4A4C80">Alle Figuren löschen · Delete all players</div></div>
               <sc-if value="{{resetIdle}}" hint-placeholder-val="{{ true }}">
                 <button type="button" onClick="{{askReset}}" class="puff p-white press" style="align-self: flex-start; height: 44px; border: none; border-radius: 999px; padding: 0 16px; font-family: 'Jua', sans-serif; font-size: 17px; color: #B23A2E; cursor: pointer">모두 지우기 · Delete all</button>
@@ -632,7 +617,7 @@ input::placeholder{color:#8486B5}
                   <button type="button" onClick="{{cancelReset}}" class="puff p-white press" style="height: 44px; border: none; border-radius: 999px; padding: 0 14px; font-family: 'Jua', sans-serif; font-size: 17px; color: #2B2C6B; cursor: pointer">취소</button>
                 </div>
               </sc-if>
-            </div>
+            </div></sc-if>
           </section>
         </div>
       </div>
@@ -878,7 +863,9 @@ class Component extends DCLogic {
   saveDraft() {
     const d = this.state.draft; const name = (d.name || '').trim();
     if (!name) { this.setState({ studioMsg: '이름을 써 주세요 · Bitte einen Namen eingeben · Please enter a name' }); this.play('miss'); return; }
-    if (this.C) { this.C.updateMe({ name, cfg: d.cfg }); this.setState({ overlay: null, draft: null, studioMsg: '' }); this.syncClass(); this.play('match'); return; }
+    if (this.C) {
+      const me = this.C.me(); if (this.C.students().some(p => p.id !== (me && me.id) && p.name.trim() === name)) { this.setState({ studioMsg: '이미 있는 이름이에요 · Name schon vergeben · Name already taken' }); this.play('miss'); return; }
+      this.C.updateMe({ name, cfg: d.cfg }); this.setState({ overlay: null, draft: null, studioMsg: '' }); this.syncClass(); this.play('match'); return; }
     let roster = this.state.roster.slice(); let sel = { ...this.state.sel };
     if (d.id) roster = roster.map(p => p.id === d.id ? { ...p, name, cfg: d.cfg } : p);
     else {
@@ -939,7 +926,7 @@ class Component extends DCLogic {
       if (!me) classLabel = '내 그림을 눌러요 · Tippe auf dich · Tap yourself';
       else {
         const t = C.today(me.id), wr = wkRows.find(r => r.student.id === me.id);
-        classLabel = me.name + ' · 오늘 ★' + t.stars + ' · ⏱ ' + Math.floor(t.minutes) + '/' + C.RULES.dailyMinutes + '분 · 이번 주 ★' + (wr ? wr.stars : 0) + (wr ? ' (' + wr.rank + '등)' : '');
+        classLabel = '오늘 ★' + t.stars + ' · ⏱ ' + Math.floor(t.minutes) + '/' + C.RULES.dailyMinutes + '분 · 이번 주 ★' + (wr ? wr.stars : 0) + (wr ? ' (' + wr.rank + '등)' : '');
       }
     }
     let studio = {};
@@ -1001,13 +988,13 @@ class Component extends DCLogic {
       notMe: () => { if (C) { C.logout(); this.syncClass(); this.setState({ wstep: 'pick', overlay: null }); this.play('tap'); } },
       rootCls: s.motion ? '' : 'still',
       players, selLabel: C ? classLabel : selLabel, tapSound,
-      chosungSpan: C ? '3' : '2',
+      gameSpan: C ? '3' : '2',
       classMode: !!C, notClass: !C, nudge: !!s.nudge,
-      nudgeText: s.nudge === 'race' ? '🎲 보드게임은 수업 때 같이 해요! · In class together' : '먼저 내 그림을 눌러요! · Zuerst dich antippen · Tap yourself first',
+      nudgeText: s.nudge === 'pick' ? '먼저 오늘 온 학생을 골라요 · Zuerst Schüler wählen · Pick who is here first' : s.nudge === 'race' ? '🎲 보드게임은 수업 때 같이 해요! · In class together' : '먼저 내 그림을 눌러요! · Zuerst dich antippen · Tap yourself first',
       roomMode: !!this.R, canManage: !C && !this.R,
-      endRoom: () => { if (this.R) { this.R.setRoom(false); this.play('tap'); window.location.reload(); } },
+      endRoom: () => { if (this.R) { this.R.teacherLogout(); this.play('tap'); window.location.reload(); } },   // ends class mode AND logs the teacher out
       whoTitle: C ? (meNow ? '안녕, ' + meNow.name + '!' : '나는 누구?') : (this.R ? '오늘 수업에 누가 왔나요?' : '오늘은 누가 할까요?'),
-      whoSub: C ? 'Hallo · Hi · ' + (C.settings().chapterTitle || '') : "Wer spielt heute? · Who's playing today?",
+      whoSub: C ? (C.settings().chapterTitle || '') : "Wer spielt heute? · Who's playing today?",
       editOp: C && C.me() ? '1' : '0.4',
       editMe: () => {
         const me = C && C.me();
@@ -1017,10 +1004,12 @@ class Component extends DCLogic {
       raceLabel: '시작 · Start', raceOp: '1',
       boardSub: (() => { if (!C) return 'Scoreboard'; const me = C.me(); const r = me && C.board().find(x => x.student.id === me.id); return r ? ('★' + r.stars + ' · ' + r.rank + '등') : 'Scoreboard'; })(),
       tileRace: (e) => {
+        if (this.R && !order.length) { e.preventDefault(); this.setState({ nudge: 'pick' }); this.play('miss'); clearTimeout(this._nt); this._nt = setTimeout(() => this.setState({ nudge: false }), 2400); return; }
         if (C) { e.preventDefault(); this.setState({ nudge: 'race' }); this.play('miss'); clearTimeout(this._nt); this._nt = setTimeout(() => this.setState({ nudge: false }), 2600); return; }
         this.play('tap');
       },
       tileGo: (e) => {
+        if (this.R && !order.length) { e.preventDefault(); this.setState({ nudge: 'pick' }); this.play('miss'); clearTimeout(this._nt); this._nt = setTimeout(() => this.setState({ nudge: false }), 2400); return; }
         if (C && !C.me()) { e.preventDefault(); this.setState({ nudge: true }); this.play('miss'); clearTimeout(this._nt); this._nt = setTimeout(() => this.setState({ nudge: false }), 2200); return; }
         this.play('tap');
       },
@@ -1035,7 +1024,7 @@ class Component extends DCLogic {
         }
         this.setState({ order: next, jig: this.state.jig + 1 }); this.play('match');
       },
-      soundPressed: s.sound ? 'true' : 'false', soundTrack: s.sound ? 'p-blue' : 'p-white', soundKnob: s.sound ? '36px' : '4px',
+      soundIcon: s.sound ? '🔊' : '🔇', soundPressed: s.sound ? 'true' : 'false', soundTrack: s.sound ? 'p-blue' : 'p-white', soundKnob: s.sound ? '36px' : '4px',
       toggleSound: () => { const on = !this.state.sound; this.setState({ sound: on }); if (on) this.play('select', null, true); },
       openSettings: () => { this.setState({ overlay: 'settings', resetAsk: false }); this.play('tap'); },
       openPlayers: () => { this.setState({ overlay: 'players', pendingDelete: null }); this.play('tap'); },

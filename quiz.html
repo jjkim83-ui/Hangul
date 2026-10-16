@@ -27,7 +27,7 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
 .p-blue{--c:#A9CBF7;--d:#86B1EC;--dd:rgba(40,90,180,.25);--sh:rgba(110,160,230,.38)}
 .p-pink{--c:#F7B6CF;--d:#EC95B6;--dd:rgba(180,50,100,.22);--sh:rgba(240,150,190,.38)}
 .frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
-.frost-strong{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.66) 100%)}
+.frost-strong{background:linear-gradient(180deg,#FBF9FF 0%,#F1EDFB 100%)}
 .blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
 .blob2{animation-delay:-6s;animation-duration:17s}
 .blob3{animation-delay:-11s;animation-duration:20s}
@@ -41,6 +41,7 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
 .pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
 @keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
 @media (prefers-reduced-motion: reduce){.blob,.pop,.wobble{animation:none}.press{transition:none}}
+.many-t > :first-child{padding:10px 14px 12px !important;gap:4px !important}.many-t > :first-child > span.puff:first-child{width:66px !important;height:66px !important}.many-t > :first-child > span.puff:first-child svg{width:56px;height:56px}.many-t > :first-child > div{font-size:28px !important}.many-t > :first-child > span.puff:not(:first-child){display:none !important}.many .plist{display:grid !important;grid-template-columns:1fr 1fr;gap:4px !important;overflow:visible !important;flex-shrink:0 !important}.many .plist > div{padding:3px 10px 3px 3px !important;gap:6px !important;border-radius:16px !important;min-width:0}.many .plist > div > span:first-child{width:32px !important;height:32px !important}.many .plist > div > span:first-child svg{width:32px;height:32px}.many .plist > div > span:nth-child(2){font-size:16px !important;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.many .plist > div > span:last-child{font-size:20px !important}
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#E4DCF4}</style>
 </head>
@@ -62,7 +63,7 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
       메뉴 · Menu
     </a>
     <div style="flex: 1; min-width: 0">
-      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1">단어 퀴즈</div>
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">단어 퀴즈</div>
       <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Wortquiz · Word quiz</div>
     </div>
     <button type="button" onClick="{{openSetup}}" class="frost press" style="height: 56px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 20px 0 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit">
@@ -70,7 +71,7 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
         <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#2B2C6B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5C4.7 20 4 19.3 4 18.5Z"></path><path d="M20 5.5C20 4.7 19.3 4 18.5 4H13v16h5.5c.8 0 1.5-.7 1.5-1.5Z"></path></svg>
       </span>
       <span style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.05">
-        <span style="font-family: 'Jua', sans-serif; font-size: 19px">{{poolLabel}}</span>
+        <span style="font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap">{{poolLabel}}</span>
         <span style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Einstellen · Setup</span>
       </span>
     </button>
@@ -109,7 +110,7 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
       </div>
     </section>
 
-    <aside style="width: 306px; flex-shrink: 0; display: flex; flex-direction: column; gap: 22px">
+    <aside class="{{asideCls}}" style="width: 306px; flex-shrink: 0; display: flex; flex-direction: column; gap: 22px">
       <div class="puff p-blue" style="border-radius: 36px; padding: 18px 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
         <span class="puff p-white" style="width: 104px; height: 104px; border-radius: 50%; display: block">
           <span style="position: absolute; inset: 6px; z-index: 1; border-radius: 50%; overflow: hidden; display: block; background: {{cur.inner}}">
@@ -143,7 +144,7 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
         <div style="font-family: 'Jua', sans-serif; font-size: 36px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 -1px 0 rgba(255,255,255,.6), 0 3px 0 rgba(40,90,180,.35), 0 8px 14px rgba(40,90,180,.4)">{{cur.name}} 차례!</div>
         <span class="puff p-white" style="border-radius: 999px; padding: 4px 14px; font-size: 14px; font-weight: 900"><span style="position: relative; z-index: 1">{{cur.helper}}</span></span>
       </div>
-      <div class="frost" style="border-radius: 30px; padding: 8px; display: flex; flex-direction: column; gap: 6px; min-height: 0; flex-shrink: 1; overflow-y: auto">
+      <div class="frost plist" style="border-radius: 30px; padding: 8px; display: flex; flex-direction: column; gap: 6px; min-height: 0; flex-shrink: 1; overflow-y: auto">
         <sc-for list="{{players}}" as="p" hint-placeholder-count="2">
           <div class="{{p.rowCls}}" style="display: flex; align-items: center; gap: 10px; border-radius: 22px; padding: 6px 16px 6px 6px">
             <span style="position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; display: block; background: {{p.inner}}; box-shadow: 0 0 0 2px #FFFFFF">
@@ -318,7 +319,7 @@ class Component extends DCLogic {
       }));
       return {
         words, sample: false,
-        label: chosen.length ? chosen.map(L => L.n + '과').join(' · ') : '—',
+        label: chosen.length ? (chosen.length > 3 ? chosen.slice(0, 2).map(L => L.n + '과').join(' · ') + ' 외 ' + (chosen.length - 2) + '개' : chosen.map(L => L.n + '과').join(' · ')) : '—',
         chips: chosen.map(L => ({ label: L.n + '과 ' + L.theme[0], cls: L.unit ? UNIT_CLS[L.unit] : 'p-white' })),
         note: chosen.length ? '단어장에서 고른 단어로 해요 · Wörter aus dem Wortschatz · Words from the word pool' : '오늘의 단어장이 비어 있어요 · Keine Lektion gewählt · No lessons picked yet'
       };
@@ -556,7 +557,7 @@ class Component extends DCLogic {
     const r = this.state.results;
     return r.length ? r.filter(Boolean).length / r.length : 0;
   }
-  renderVals() { return this.classVals(this.renderVals0()); }
+  renderVals() { const v = this.classVals(this.renderVals0()); v.asideCls = v.players && v.players.length > 3 ? 'many many-t' : ''; return v; }
   renderVals0() {
     const s = this.state;
     const n = s.qs.length;

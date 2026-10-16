@@ -27,7 +27,7 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
 .p-blue{--c:#A9CBF7;--d:#86B1EC;--dd:rgba(40,90,180,.25);--sh:rgba(110,160,230,.38)}
 .p-pink{--c:#F7B6CF;--d:#EC95B6;--dd:rgba(180,50,100,.22);--sh:rgba(240,150,190,.38)}
 .frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
-.frost-strong{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.66) 100%)}
+.frost-strong{background:linear-gradient(180deg,#FBF9FF 0%,#F1EDFB 100%)}
 .blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
 .blob2{animation-delay:-6s;animation-duration:17s}
 .blob3{animation-delay:-11s;animation-duration:20s}
@@ -64,8 +64,8 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
       메뉴 · Menu
     </a>
     <div style="flex: 1; min-width: 0">
-      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1">선생님 화면</div>
-      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Lehreransicht · Teacher view — {{syncNote}}</div>
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">선생님 화면</div>
+      <div style="font-size: 14px; font-weight: 800; color: #4A4C80; margin-top: 4px; white-space: nowrap">Teacher view · {{syncNote}}</div>
     </div>
     <sc-if value="{{loggedIn}}" hint-placeholder-val="{{ true }}">
       <button type="button" onClick="{{startRoom}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">🎓 수업 모드로 · To class mode</span></button>
@@ -287,7 +287,7 @@ class Component extends DCLogic {
         ...this.build(st.cfg), draft, stars: r.stars,
         cls: s.focus === st.id ? 'p-lav' : 'p-white',
         saveCls: changed ? 'p-coral' : (s.saved[st.id] ? 'p-mint' : 'p-white'),
-        saveLabel: changed ? '저장' : (s.saved[st.id] ? '✓' : '이름'),
+        saveLabel: changed ? '저장 · Save' : (s.saved[st.id] ? '✓' : '이름'),
         onName: (e) => this.setState({ drafts: { ...this.state.drafts, [st.id]: e.target.value.slice(0, 10) } }),
         saveName: () => { if (!changed) return; C.renameStudent(st.id, draft); const d = { ...this.state.drafts }; delete d[st.id]; this.setState({ drafts: d, saved: { ...this.state.saved, [st.id]: true } }); },
         plus: () => C.adjust(st.id, 1, '선생님 +1'),
@@ -334,8 +334,8 @@ class Component extends DCLogic {
       startRoom: () => { if (C.setRoom && C.setRoom(true)) window.location.href = 'index.html'; },
       studs, lessons,
       chapterNow: C.settings().chapterTitle || titleFor(curLessons),
-      lessonNote: pickChanged ? '바뀐 단원: ' + titleFor(pick) + ' · 저장을 눌러요' : '게임에 나오는 단원 · Lektion in den Spielen',
-      lessonBtnCls: pickChanged ? 'p-coral' : (s.lessonSaved ? 'p-mint' : 'p-white'),
+      lessonNote: pickChanged && !pick.length ? '단원을 하나 이상 골라요 · Mindestens eine Lektion · Pick at least one' : pickChanged ? '바뀐 단원: ' + titleFor(pick) + ' · 저장을 눌러요' : '게임에 나오는 단원 · Lektion in den Spielen',
+      lessonBtnCls: pickChanged && !pick.length ? 'p-white' : pickChanged ? 'p-coral' : (s.lessonSaved ? 'p-mint' : 'p-white'),
       lessonBtn: pickChanged ? '저장 · Save' : (s.lessonSaved ? '✓ 저장됨' : '저장됨 · Saved'),
       saveLessons: () => { if (!pickChanged || !pick.length) return; C.setLessons(pick, titleFor(pick)); this.setState({ pick: null, lessonSaved: true }); },
       focusTitle: fs.name,

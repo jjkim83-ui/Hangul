@@ -122,7 +122,7 @@
       if (se.length) d.settings = Object.assign(d.settings, se[0].settings || {}, { hasPin: !!se[0].has_pin });
       delete d.settings.pinHash;
       d.plays = pl.map(p => ({ id: p.id, sid: p.student_id, game: p.game, stars: p.stars, acc: p.acc, dur: p.dur, day: p.day, week: p.week, at: p.at, counted: p.counted, note: p.note || '' }));
-      data = fixup(d); lsSet(LS_DATA, data); syncError = ''; emit();
+      data = fixup(d); lsSet(LS_DATA, data); syncError = ''; syncToday(); emit();
     }).catch(e => { syncError = String(e.message || e); emit(); });
   }
   function save() { lsSet(LS_DATA, data); emit(); }
@@ -151,7 +151,7 @@
     settings() { return data.settings; },
     lessons() { return (data.settings.lessons || [4]).slice(); },
     me() { const id = lsGet(LS_ME); return id ? CP.student(id) : null; },
-    setMe(id) { lsSet(LS_ME, id); emit(); },
+    setMe(id) { lsSet(LS_ME, id); syncToday(); emit(); },
     logout() { try { localStorage.removeItem(LS_ME); } catch (e) {} emit(); },
 
     updateMe(patch) {
@@ -297,6 +297,9 @@
     },
     adjust(id, stars, note) {
       const now = new Date();
+      const cur = (CP.board().find(r => r.student.id === id) || { stars: 0 }).stars;
+      if (cur + stars < 0) stars = -cur;          // the week total never goes below 0
+      if (!stars) return Promise.resolve(false);
       const play = { id: uid(), sid: id, game: 'teacher', stars: Math.round(stars), acc: 1, dur: 0, day: dayKey(now), week: weekKey(now), at: now.toISOString(), counted: true, note: cleanName(note || '선생님') };
       return CP._teacher('teacher_add_play', { p_play: Object.assign({}, play, { student_id: id }) }, () => { data.plays.push(play); });
     },
@@ -304,12 +307,16 @@
       return CP._teacher('teacher_delete_play', { p_id: playId }, () => { data.plays = data.plays.filter(p => p.id !== playId); });
     },
     setLessons(lessons, title) {
-      return CP._teacher('teacher_set_settings', { p_settings: Object.assign({}, data.settings, { lessons, chapterTitle: title || data.settings.chapterTitle }) }, () => { data.settings.lessons = lessons; if (title) data.settings.chapterTitle = title; });
+      return CP._teacher('teacher_set_settings', { p_settings: Object.assign({}, data.settings, { lessons, chapterTitle: title || data.settings.chapterTitle }) }, () => { data.settings.lessons = lessons; if (title) data.settings.chapterTitle = title;
+        if (CP.roomOn()) { const t = {}; lessons.forEach(n => { t[n] = true; }); lsSet('hangul_today_v1', { today: t, off: {}, at: Date.now() }); } });
     },
     resetLocal() { data = defaultData(); save(); }
   };
 
   window.ClassPlay = CP;
   window.addEventListener('storage', (e) => { if (e.key === LS_DATA) { data = fixup(lsGet(LS_DATA)); emit(); } else if (e.key === LS_ME || e.key === LS_TEACHER || e.key === LS_ROOM) emit(); });
+  // student mode: the word pool shows this week's chapter (games already use it)
+  function syncToday() { try { if (!CP.studentMode()) return; const t = {}; CP.lessons().forEach(n => { t[n] = true; }); const cur = lsGet('hangul_today_v1'); if (cur && JSON.stringify(cur.today) === JSON.stringify(t)) return; lsSet('hangul_today_v1', { today: t, off: {}, at: Date.now() }); } catch (e) {} }
+  syncToday();
   if (online) { pull(); setInterval(() => { if (!document.hidden) pull(); }, 30000); }
 })();
