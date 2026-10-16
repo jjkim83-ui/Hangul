@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="한글 놀이터">
+<meta name="theme-color" content="#E4DCF4">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>선생님 · Teacher</title>
+<link rel="stylesheet" href="shared/fonts/fonts.css">
+<style>
+body{margin:0}
+a{color:#2B2C6B}a:hover{color:#2B2C6B}
+button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5px}
+.puff{position:relative;background:linear-gradient(180deg,var(--c) 0%,var(--c) 58%,var(--d) 160%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.38),inset 0 -12px 16px -10px rgba(255,255,255,.6),inset 0 -2px 0 var(--dd),0 0 0 1.5px rgba(255,255,255,.55),0 4px 0 var(--d),0 14px 24px var(--sh),0 2px 4px rgba(43,44,107,.08)}
+.puff::before{content:"";position:absolute;left:5px;right:5px;top:4px;height:47%;border-radius:inherit;background:radial-gradient(circle at 86% 32%,rgba(255,255,255,.95) 0,rgba(255,255,255,.95) 2.5px,rgba(255,255,255,0) 4.5px),linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.2) 65%,rgba(255,255,255,.04) 100%);pointer-events:none}
+.puff::after{content:"";position:absolute;inset:2px;border-radius:inherit;border:3px solid transparent;border-top-color:rgba(255,255,255,.9);border-left-color:rgba(255,255,255,.35);filter:blur(1px);pointer-events:none}
+.p-white{--c:#FBFAFF;--d:#E7E3F6;--dd:rgba(120,110,180,.18);--sh:rgba(120,110,180,.24)}
+.p-lav{--c:#BBA8F6;--d:#9E88E9;--dd:rgba(100,70,200,.30);--sh:rgba(140,110,230,.38)}
+.p-coral{--c:#EE7466;--d:#D85B4E;--dd:rgba(160,40,30,.30);--sh:rgba(238,116,102,.42)}
+.p-mint{--c:#A6E5C9;--d:#84D2B0;--dd:rgba(30,140,100,.25);--sh:rgba(110,200,160,.38)}
+.p-butter{--c:#FBE18C;--d:#F1CD62;--dd:rgba(170,120,0,.22);--sh:rgba(230,190,70,.40)}
+.p-blue{--c:#A9CBF7;--d:#86B1EC;--dd:rgba(40,90,180,.25);--sh:rgba(110,160,230,.38)}
+.p-pink{--c:#F7B6CF;--d:#EC95B6;--dd:rgba(180,50,100,.22);--sh:rgba(240,150,190,.38)}
+.frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
+.frost-strong{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.66) 100%)}
+.blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
+.blob2{animation-delay:-6s;animation-duration:17s}
+.blob3{animation-delay:-11s;animation-duration:20s}
+@keyframes morph{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}25%{transform:translate(180px,-90px) scale(1.2) rotate(20deg)}50%{transform:translate(60px,110px) scale(.9) rotate(-10deg)}75%{transform:translate(-160px,40px) scale(1.12) rotate(12deg)}}
+.press{transition:transform .2s cubic-bezier(.3,1.6,.5,1),opacity .25s ease}
+.press:hover{transform:translateY(-4px) scale(1.02)}
+.press:active{transform:translateY(3px) scale(.97)}
+.dim{opacity:.5}
+.wobble{animation:wobble .45s ease}
+@keyframes wobble{0%,100%{translate:0 0}20%{translate:-8px 0}40%{translate:8px 0}60%{translate:-5px 0}80%{translate:4px 0}}
+.pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion: reduce){.blob,.pop,.wobble{animation:none}.press{transition:none}}
+.rowin{width:100%;height:44px;box-sizing:border-box;border:none;border-radius:999px;padding:0 16px;background:rgba(255,255,255,.88);box-shadow:inset 0 3px 6px rgba(43,44,107,.14),0 0 0 1.5px rgba(255,255,255,.8);font-family:'Jua',sans-serif;font-size:20px;color:#2B2C6B}
+.scroll{overflow-y:auto}
+.bar{height:16px;border-radius:999px;background:linear-gradient(180deg,#FFE89A,#F1CD62);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.9),0 2px 0 #E0B744}
+</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#E4DCF4}</style>
+</head>
+<body>
+<template id="dc-view">
+<div style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 30px 80px 44px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+  <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
+    <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
+    <span class="blob blob2" style="left: 620px; top: -160px; width: 600px; height: 440px; background: #FFA797"></span>
+    <span class="blob blob3" style="left: 260px; top: 330px; width: 640px; height: 420px; background: #8AD9B6"></span>
+    <span class="blob" style="left: 900px; top: 380px; width: 480px; height: 400px; background: #FFD46E; animation-delay: -11s"></span>
+  </div>
+  <header style="height: 60px; display: flex; align-items: center; gap: 20px">
+    <a href="index.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 8px; font-family: 'Jua', sans-serif; font-size: 20px">
+      <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
+      </span>
+      메뉴 · Menu
+    </a>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1">선생님 화면</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Lehreransicht · Teacher view — {{syncNote}}</div>
+    </div>
+    <sc-if value="{{loggedIn}}" hint-placeholder-val="{{ true }}">
+      <button type="button" onClick="{{startRoom}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">🎓 수업 모드로 · To class mode</span></button>
+      <a href="board.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 22px; display: flex; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B">🏆 순위표</a>
+      <button type="button" onClick="{{logout}}" class="puff p-white press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B"><span style="position: relative; z-index: 1">로그아웃 · Logout</span></button>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{showLogin}}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center">
+      <div class="frost frost-strong" style="width: 520px; box-sizing: border-box; border-radius: 44px; padding: 32px 36px; display: flex; flex-direction: column; gap: 16px; text-align: center">
+        <div style="font-family: 'Jua', sans-serif; font-size: 32px">{{loginTitle}}</div>
+        <div style="font-size: 15px; font-weight: 800; color: #4A4C80">{{loginSub}}</div>
+        <input id="t-pin" class="rowin" type="password" inputmode="numeric" maxlength="8" value="{{pin}}" onChange="{{onPin}}" onKeyDown="{{pinKey}}" placeholder="PIN" autocomplete="off" style="height: 64px; text-align: center; font-size: 34px; letter-spacing: 10px">
+        <button type="button" onClick="{{submitPin}}" class="puff p-coral press" style="height: 62px; border: none; border-radius: 999px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 23px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">{{loginBtn}}</span></button>
+        <div style="min-height: 20px; font-size: 15px; font-weight: 800; color: #B23A2E">{{loginMsg}}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{loggedIn}}" hint-placeholder-val="{{ true }}">
+    <div style="flex: 1; min-height: 0; display: flex; gap: 24px">
+      <section class="frost" style="flex: 1; min-width: 0; border-radius: 38px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; align-items: baseline; gap: 10px; padding: 0 6px">
+          <div style="font-family: 'Jua', sans-serif; font-size: 22px">학생 · Schüler · Students</div>
+          <div style="font-size: 13px; font-weight: 800; color: #4A4C80">이번 주 · this week · 이름 고치기 / 별 더하기·빼기</div>
+        </div>
+        <sc-for list="{{studs}}" as="t" hint-placeholder-count="6">
+          <div class="puff {{t.cls}}" style="flex: 1; min-height: 0; max-height: 76px; border-radius: 28px; padding: 0 12px 0 8px; display: flex; align-items: center; gap: 10px">
+            <button type="button" onClick="{{t.focus}}" aria-label="기록 보기 · show plays" style="border: none; background: none; padding: 0; cursor: pointer"><span style="position: relative; z-index: 1; width: 50px; height: 50px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: block; background: {{t.inner}}; box-shadow: 0 0 0 2.5px #FFFFFF">
+              <svg viewBox="0 4 120 116" width="50" height="50" aria-hidden="true" style="display: block">
+                <path d="{{t.hairBack}}" fill="{{t.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M53 68L53 92L67 92L67 68Z" fill="{{t.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M20 122C22 101 36 89 60 89C84 89 98 101 100 122Z" fill="{{t.shirtCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{t.shirtLines}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{t.ears}}" fill="{{t.skin}}" stroke="#1E1E24" stroke-width="2.4"></path>
+                <path d="{{t.head}}" fill="{{t.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{t.blush}}" fill="#F49AA8" opacity="0.6"></path>
+                <path d="{{t.brows}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{t.eyesFill}}" fill="#1E1E24"></path>
+                <path d="{{t.eyesStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{t.eyesWhite}}" fill="#FFFFFF"></path>
+                <path d="{{t.noseStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{t.noseFill}}" fill="#1E1E24"></path>
+                <path d="{{t.mouthFill}}" fill="#1E1E24" stroke="#1E1E24" stroke-width="1.6" stroke-linejoin="round"></path>
+                <path d="{{t.mouthWhite}}" fill="#FFFFFF"></path>
+                <path d="{{t.tongue}}" fill="#F27A8A"></path>
+                <path d="{{t.mouthStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{t.hairFront}}" fill="{{t.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{t.glasses}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linejoin="round"></path>
+                <path d="{{t.accStroke}}" fill="none" stroke="#1E1E24" stroke-width="4" stroke-linecap="round"></path>
+                <path d="{{t.accFill}}" fill="{{t.accCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{t.accFill2}}" fill="{{t.acc2Col}}" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"></path>
+              </svg>
+            </span></button>
+            <span style="position: relative; z-index: 1; width: 190px; flex-shrink: 0"><input class="rowin" type="text" maxlength="10" value="{{t.draft}}" onChange="{{t.onName}}" aria-label="이름 · name"></span>
+            <button type="button" onClick="{{t.saveName}}" class="puff {{t.saveCls}} press" style="height: 40px; border: none; border-radius: 999px; padding: 0 12px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 15px; color: #2B2C6B"><span style="position: relative; z-index: 1">{{t.saveLabel}}</span></button>
+            <span style="position: relative; z-index: 1; flex: 1; text-align: right; font-family: 'Jua', sans-serif; font-size: 26px; font-variant-numeric: tabular-nums">★ {{t.stars}}</span>
+            <button type="button" onClick="{{t.minus}}" aria-label="별 1개 빼기 · minus one star" class="puff p-white press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">−</span></button>
+            <button type="button" onClick="{{t.plus}}" aria-label="별 1개 더하기 · plus one star" class="puff p-mint press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">+</span></button>
+          </div>
+        </sc-for>
+      </section>
+
+      <aside style="width: 420px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px">
+        <div class="frost" style="border-radius: 32px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+          <div style="font-family: 'Jua', sans-serif; font-size: 21px">이번 단원 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">Lektion · Chapter — {{chapterNow}}</span></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{lessons}}" as="l" hint-placeholder-count="16">
+              <button type="button" onClick="{{l.pick}}" aria-pressed="{{l.pressed}}" class="puff press {{l.cls}}" style="width: 44px; height: 40px; border: none; border-radius: 14px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 18px; color: #2B2C6B"><span style="position: relative; z-index: 1">{{l.n}}</span></button>
+            </sc-for>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <div style="flex: 1; font-size: 13px; font-weight: 800; color: #4A4C80">{{lessonNote}}</div>
+            <button type="button" onClick="{{saveLessons}}" class="puff {{lessonBtnCls}} press" style="height: 44px; border: none; border-radius: 999px; padding: 0 18px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 17px; color: #2B2C6B"><span style="position: relative; z-index: 1">{{lessonBtn}}</span></button>
+          </div>
+        </div>
+        <div class="frost" style="flex: 1; min-height: 0; border-radius: 32px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+          <div style="font-family: 'Jua', sans-serif; font-size: 21px">{{focusTitle}} <span style="font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #4A4C80">기록 · Verlauf · Recent plays</span></div>
+          <div class="scroll" style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 6px">
+            <sc-for list="{{plays}}" as="g" hint-placeholder-count="5">
+              <div style="display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 16px; background: rgba(255,255,255,.6); font-size: 14px; font-weight: 800">
+                <span style="width: 92px; flex-shrink: 0; color: #4A4C80">{{g.when}}</span>
+                <span style="flex: 1; min-width: 0; font-family: 'Jua', sans-serif; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{g.what}}</span>
+                <span style="flex-shrink: 0; font-family: 'Jua', sans-serif; font-size: 16px">{{g.stars}}</span>
+                <button type="button" onClick="{{g.del}}" aria-label="지우기 · delete" class="puff p-white press" style="width: 30px; height: 30px; border: none; border-radius: 50%; cursor: pointer; font-size: 13px; color: #B23A2E"><span style="position: relative; z-index: 1">✕</span></button>
+              </div>
+            </sc-for>
+            <div style="font-size: 14px; font-weight: 800; color: #4A4C80">{{playsNone}}</div>
+          </div>
+        </div>
+        <div class="frost" style="border-radius: 26px; padding: 10px 14px; display: flex; align-items: center; gap: 10px">
+          <input class="rowin" type="password" inputmode="numeric" maxlength="8" value="{{newPin}}" onChange="{{onNewPin}}" placeholder="새 PIN · neue PIN" autocomplete="off" style="flex: 1; height: 42px; font-size: 18px">
+          <button type="button" onClick="{{changePin}}" class="puff p-white press" style="height: 42px; border: none; border-radius: 999px; padding: 0 16px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 16px; color: #2B2C6B"><span style="position: relative; z-index: 1">{{pinBtn}}</span></button>
+        </div>
+      </aside>
+    </div>
+  </sc-if>
+</div>
+</template>
+<script src="shared/vendor/morphdom.min.js"></script>
+<script src="shared/dc-runtime.js"></script>
+<script src="shared/class-config.js"></script>
+<script src="shared/class.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.C = window.ClassPlay || this.demo();
+    const st = this.C.settings();
+    this.state = { pin: '', loginMsg: '', tick: 0, drafts: {}, saved: {}, focus: 's1', pick: null, newPin: '', pinMsg: '', lessonSaved: false };
+  }
+  componentDidMount() { this.C.onChange(() => this.setState({ tick: this.state.tick + 1 })); }
+
+  demo() {
+    const wk = '2026-10-12', prev = '2026-10-05';
+    const cfgs = [
+      { head: 0, hair: 1, eyes: 3, brows: 0, nose: 0, mouth: 0, glasses: 0, shirt: 2, acc: 0, skin: 1, hairC: 0, shirtC: 0, accC: 3, blush: true, freckles: false, bg: 0 },
+      { head: 1, hair: 3, eyes: 1, brows: 2, nose: 2, mouth: 1, glasses: 1, shirt: 0, acc: 0, skin: 3, hairC: 1, shirtC: 2, accC: 5, blush: true, freckles: true, bg: 1 },
+      { head: 0, hair: 2, eyes: 0, brows: 1, nose: 1, mouth: 4, glasses: 0, shirt: 3, acc: 4, skin: 0, hairC: 4, shirtC: 5, accC: 1, blush: true, freckles: true, bg: 4 },
+      { head: 2, hair: 4, eyes: 5, brows: 0, nose: 0, mouth: 5, glasses: 2, shirt: 1, acc: 3, skin: 5, hairC: 0, shirtC: 4, accC: 1, blush: false, freckles: false, bg: 3 },
+      { head: 1, hair: 6, eyes: 2, brows: 1, nose: 3, mouth: 2, glasses: 0, shirt: 2, acc: 1, skin: 2, hairC: 2, shirtC: 3, accC: 0, blush: true, freckles: false, bg: 2 },
+      { head: 2, hair: 8, eyes: 4, brows: 2, nose: 1, mouth: 3, glasses: 1, shirt: 0, acc: 5, skin: 4, hairC: 1, shirtC: 7, accC: 2, blush: false, freckles: true, bg: 5 }
+    ];
+    const students = ['레오', '수민', '세나', '리안', '하얀', '규빈'].map((name, i) => ({ id: 's' + (i + 1), name, cfg: cfgs[i] }));
+    const stars = [31, 24, 24, 17, 9, 0], days = [5, 4, 3, 3, 2, 0];
+    const rows = students.map((s, i) => ({ student: s, stars: stars[i], days: days[i], rounds: days[i] * 4, minutes: days[i] * 14, rank: [1, 2, 2, 4, 5, 6][i] }));
+    return {
+      demo: true, online: false, RULES: { roundsPerGame: 3, dailyMinutes: 15 },
+      students: () => students, settings: () => ({ lessons: [4], chapterTitle: '4과 외모보다 성격' }),
+      weekKey: () => wk, prevWeekKey: () => prev, weekLabel: (w) => w === wk ? '10/12 – 10/18' : '10/5 – 10/11',
+      weeksWithPlays: () => [wk, prev], board: () => rows, crownIds: () => ['s2'], hasCrown: (id) => id === 's2',
+      isTeacher: () => true, hasPin: () => true, me: () => students[0], playsFor: () => [], syncError: () => '', onChange() {}
+    };
+  }
+
+  build(cfg) {
+    const C = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
+    const E = (x, y, rx, ry) => 'M' + (x - rx) + ' ' + y + 'a' + rx + ' ' + ry + ' 0 1 0 ' + (2 * rx) + ' 0a' + rx + ' ' + ry + ' 0 1 0 ' + (-2 * rx) + ' 0Z';
+    const NONE = 'M0 0';
+    const SKIN = ['#FFE9DC', '#F9D7BE', '#EEC09A', '#D9A27A', '#B07A52', '#8A5A3A', '#6A4128'];
+    const HAIR = ['#1E1E24', '#4A3326', '#7B4E2E', '#C99A4E', '#E5C27A', '#B4B4B8', '#E46B5A', '#7E6BD9'];
+    const CLOTH = ['#BBA8F6', '#EE7466', '#A6E5C9', '#FBE18C', '#A9CBF7', '#F7B6CF', '#FFFFFF', '#5B5DA8'];
+    const INNER = ['#EEE8FF', '#E6F8EF', '#FFF7D6', '#E8F1FF', '#FFEDF4', '#FFE7E3'];
+    const heads = [E(60, 52, 22, 26), E(60, 53, 24, 24), 'M38 46C38 30 48 24 60 24C72 24 82 30 82 46L82 58C82 72 72 80 60 80C48 80 38 72 38 58Z'];
+    const earX = cfg.head === 1 ? 23.5 : 21.5;
+    const hairs = [
+      { f: 'M36 50C34 30 46 20 60 20C76 20 86 30 84 50C80 41 74 37 66 39C60 33 50 35 46 41C42 41 38 45 36 50Z' },
+      { f: 'M33 50C33 26 46 18 60 18C74 18 87 26 87 50L88 74C82 77 77 75 76 70L78 48C70 41 55 35 42 48L44 70C43 75 38 77 32 74Z' },
+      { b: 'M35 42C35 22 47 15 60 15C73 15 85 22 85 42L88 100C76 104 44 104 32 100Z', f: 'M38 46C39 30 49 22 60 22C72 22 81 30 82 46C73 42 64 36 59 29C55 38 47 44 38 46Z' },
+      { f: C(60, 15, 9) + 'M37 48C35 28 47 22 60 22C73 22 85 28 83 48C76 38 68 34 60 34C52 34 44 38 37 48Z' },
+      { f: C(40, 42, 9) + C(45, 29, 10) + C(58, 22, 11) + C(71, 26, 10) + C(80, 37, 9) + C(84, 49, 7) + C(36, 53, 7) },
+      { f: 'M36 49L37 31L45 36L49 20L57 30L64 15L70 29L78 21L80 35L86 33L84 49C76 40 67 36 60 36C52 36 43 40 36 49Z' },
+      { f: 'M36 52C33 30 46 19 62 19C78 19 87 30 85 48C82 44 78 42 74 42C64 42 54 36 50 30C48 38 42 46 36 52Z' },
+      { b: 'M80 34C92 34 96 50 92 66C90 72 86 72 86 66C88 54 86 44 78 40Z', f: 'M37 48C35 28 47 21 60 21C73 21 85 28 83 48C76 38 68 34 60 34C52 34 44 38 37 48Z' },
+      { f: 'M38 44C40 29 50 24 60 24C70 24 80 29 82 44C74 38 46 38 38 44Z' }
+    ];
+    const eyes = [
+      { fill: C(51, 55, 2.6) + C(69, 55, 2.6) },
+      { stroke: 'M47 56Q51 51 55 56M65 56Q69 51 73 56' },
+      { stroke: 'M47 55L55 55M65 55L73 55' },
+      { fill: C(51, 55, 3.8) + C(69, 55, 3.8), white: C(52.3, 53.8, 1.3) + C(70.3, 53.8, 1.3) },
+      { fill: C(51, 55, 2.6), stroke: 'M65 56Q69 51 73 56' },
+      { stroke: 'M47 54Q51 58 55 54M65 54Q69 58 73 54' }
+    ];
+    const brows = ['M46 48Q51 44 56 47M64 47Q69 44 74 48', 'M46 47L56 46M64 46L74 47', 'M46 45Q51 41 56 44M64 44Q69 41 74 45', NONE];
+    const noses = [{ s: 'M60 55L57 64L61 64' }, { s: 'M61 56Q55 63 61 65' }, { f: C(60, 62, 1.6) }, {}];
+    const mouths = [
+      { s: 'M53 70Q60 76 67 70' },
+      { f: 'M52 69Q60 81 68 69Z', t: E(60, 75, 3.4, 2) },
+      { f: E(60, 71, 3, 3.6) },
+      { s: 'M55 71L65 71' },
+      { s: 'M54 71Q62 74 68 68' },
+      { f: 'M51 68Q60 80 69 68Z', w: 'M54 69.5L66 69.5L65 72L55 72Z' }
+    ];
+    const glasses = [NONE, C(51, 55, 7) + C(69, 55, 7) + 'M58 55L62 55', 'M43 49H58V61H43ZM62 49H77V61H62ZM58 54H62'];
+    const shirts = ['M52 90Q60 97 68 90', 'M50 90L56 101L60 92L64 101L70 90', 'M42 92Q60 105 78 92M56 98L55 109M64 98L65 109', 'M30 104L90 104M25 113L95 113'];
+    const accs = [
+      {},
+      { f: 'M35 44C35 22 47 13 60 13C73 13 85 22 85 44ZM33 40Q33 36 37 36H83Q87 36 87 40V44Q87 48 83 48H37Q33 48 33 44Z' + C(60, 11, 5) },
+      { f: 'M36 42C36 24 48 17 60 17C72 17 84 24 84 42ZM60 40L96 42C97 46 84 47 60 45Z' },
+      { s: 'M34 54C32 20 88 20 86 54', f: 'M28 46H40V64H28ZM80 46H92V64H80Z' },
+      { f: C(80, 26, 4) + C(86, 22, 4) + C(88, 29, 4) + C(83, 34, 4) + C(77, 32, 4), f2: C(82, 28, 3) },
+      { f: 'M70 26L80 20L80 32ZM90 20L90 32L80 26Z', f2: C(80, 26, 2.6) }
+    ];
+    const h = hairs[cfg.hair], e = eyes[cfg.eyes], n = noses[cfg.nose], m = mouths[cfg.mouth], a = accs[cfg.acc];
+    return {
+      inner: INNER[cfg.bg], skin: SKIN[cfg.skin], hairCol: HAIR[cfg.hairC], shirtCol: CLOTH[cfg.shirtC], accCol: CLOTH[cfg.accC], acc2Col: '#FBE18C',
+      head: heads[cfg.head], ears: C(60 - earX, 55, 5) + C(60 + earX, 55, 5),
+      hairBack: h.b || NONE, hairFront: h.f || NONE,
+      eyesFill: e.fill || NONE, eyesStroke: e.stroke || NONE, eyesWhite: e.white || NONE,
+      brows: brows[cfg.brows], noseStroke: n.s || NONE, noseFill: n.f || NONE,
+      mouthFill: m.f || NONE, mouthStroke: m.s || NONE, mouthWhite: m.w || NONE, tongue: m.t || NONE,
+      blush: cfg.blush ? E(46, 64, 4.5, 2.6) + E(74, 64, 4.5, 2.6) : NONE,
+      freckles: cfg.freckles ? C(45, 61, 0.9) + C(48, 63, 0.9) + C(72, 61, 0.9) + C(75, 63, 0.9) : NONE,
+      glasses: glasses[cfg.glasses], shirtLines: shirts[cfg.shirt],
+      accStroke: a.s || NONE, accFill: a.f || NONE, accFill2: a.f2 || NONE
+    };
+  }
+
+  submitPin() {
+    const C = this.C, pin = (this.state.pin || '').trim();
+    if (pin.length < 4) { this.setState({ loginMsg: 'PIN은 4자리 이상 · mind. 4 Ziffern · at least 4 digits' }); return; }
+    if (C.demo) return;
+    const enter = () => { if (C.setRoom && C.setRoom(true)) window.location.href = 'index.html'; };
+    if (!C.hasPin()) { C.setPin(pin).then(ok => { this.setState({ pin: '', loginMsg: '' }); if (ok !== false) enter(); }); return; }
+    C.teacherLogin(pin).then(r => { this.setState({ pin: '', loginMsg: r.ok ? '' : r.offline ? '서버에 연결할 수 없어요 · Keine Verbindung · Can\'t reach the scoreboard server' : 'PIN이 틀려요 · Falsche PIN · Wrong PIN' }); if (r.ok) enter(); });
+  }
+  renderVals() {
+    const C = this.C, s = this.state;
+    const loggedIn = C.isTeacher();
+    const wk = C.weekKey();
+    const rows = C.board(wk);
+    const studs = C.students().map(st => {
+      const r = rows.find(x => x.student.id === st.id) || { stars: 0 };
+      const draft = s.drafts[st.id] !== undefined ? s.drafts[st.id] : st.name;
+      const changed = draft.trim() && draft.trim() !== st.name;
+      return {
+        ...this.build(st.cfg), draft, stars: r.stars,
+        cls: s.focus === st.id ? 'p-lav' : 'p-white',
+        saveCls: changed ? 'p-coral' : (s.saved[st.id] ? 'p-mint' : 'p-white'),
+        saveLabel: changed ? '저장' : (s.saved[st.id] ? '✓' : '이름'),
+        onName: (e) => this.setState({ drafts: { ...this.state.drafts, [st.id]: e.target.value.slice(0, 10) } }),
+        saveName: () => { if (!changed) return; C.renameStudent(st.id, draft); const d = { ...this.state.drafts }; delete d[st.id]; this.setState({ drafts: d, saved: { ...this.state.saved, [st.id]: true } }); },
+        plus: () => C.adjust(st.id, 1, '선생님 +1'),
+        minus: () => C.adjust(st.id, -1, '선생님 −1'),
+        focus: () => this.setState({ focus: st.id })
+      };
+    });
+    const curLessons = C.settings().lessons || [];
+    const pick = s.pick || curLessons;
+    const TITLES = { 1: '반가운 새 친구', 2: '내 꿈은 요리사', 3: '새로 오신 곱슬머리 선생님', 4: '외모보다 성격', 5: '복습 1', 6: '골고루, 맛있게', 7: '규칙적으로, 건강하게', 8: '신나는 운동 경기', 9: '우리 공기놀이 하자', 10: '복습 2', 11: '즐거웠던 제주도 여행', 12: '즐겁고 신나는 축제', 13: '해도 되는 것, 하면 안 되는 것', 14: '다른 나라, 다른 문화', 15: '복습 3', 16: '종합 연습' };
+    const lessons = [];
+    for (let n = 1; n <= 16; n++) {
+      const on = pick.indexOf(n) >= 0;
+      lessons.push({ n, cls: on ? 'p-lav' : 'p-white', pressed: on ? 'true' : 'false', pick: () => {
+        const cur = (this.state.pick || curLessons).slice(); const k = cur.indexOf(n);
+        if (k >= 0) cur.splice(k, 1); else cur.push(n);
+        cur.sort((a, b) => a - b); this.setState({ pick: cur, lessonSaved: false });
+      } });
+    }
+    const pickChanged = pick.join() !== curLessons.join();
+    const titleFor = (ls) => ls.map(n => n + '과' + (ls.length === 1 ? ' ' + TITLES[n] : '')).join(' · ');
+    const fs = C.students().find(x => x.id === s.focus) || C.students()[0];
+    const G = { memory: '카드', quiz: '퀴즈', crossword: '십자말', syllables: '글자 조각', chosung: '초성', teacher: '선생님' };
+    const plays = C.playsFor(fs.id).slice(-40).reverse().map(p => {
+      const d = new Date(p.at);
+      return {
+        when: (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'),
+        what: (G[p.game] || p.game) + (p.game === 'teacher' ? ' ' + (p.note || '') : (p.counted ? ' · ' + Math.round((p.acc || 0) * 100) + '%' : ' · 연습')) + ' · ' + Math.round((p.dur || 0) / 60) + '분',
+        stars: (p.counted || p.game === 'teacher') ? (p.stars > 0 ? '+' : '') + p.stars + '★' : '—',
+        del: () => C.removePlay(p.id)
+      };
+    });
+    return {
+      syncNote: C.demo ? '미리보기 · preview' : (C.online ? (C.syncError() ? '⚠ ' + C.syncError() : '🟢 온라인 · online') : '이 기기에만 저장 · this device only'),
+      loggedIn, showLogin: !loggedIn,
+      loginTitle: C.hasPin() ? '선생님 PIN' : '선생님 PIN 만들기',
+      loginSub: C.hasPin() ? 'PIN을 넣으면 수업 모드로 가요 · PIN → Klassenmodus · PIN opens class mode' : '처음이에요! 4자리 이상 PIN을 정해요 · Erstmal eine PIN festlegen · Create a PIN first',
+      loginBtn: C.hasPin() ? '들어가기 · Login' : 'PIN 저장 · Save PIN',
+      pin: s.pin, loginMsg: s.loginMsg,
+      onPin: (e) => this.setState({ pin: e.target.value.replace(/\D/g, '').slice(0, 8), loginMsg: '' }),
+      pinKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.submitPin(); } },
+      submitPin: () => this.submitPin(),
+      logout: () => { if (C.teacherLogout) C.teacherLogout(); },
+      startRoom: () => { if (C.setRoom && C.setRoom(true)) window.location.href = 'index.html'; },
+      studs, lessons,
+      chapterNow: C.settings().chapterTitle || titleFor(curLessons),
+      lessonNote: pickChanged ? '바뀐 단원: ' + titleFor(pick) + ' · 저장을 눌러요' : '게임에 나오는 단원 · Lektion in den Spielen',
+      lessonBtnCls: pickChanged ? 'p-coral' : (s.lessonSaved ? 'p-mint' : 'p-white'),
+      lessonBtn: pickChanged ? '저장 · Save' : (s.lessonSaved ? '✓ 저장됨' : '저장됨 · Saved'),
+      saveLessons: () => { if (!pickChanged || !pick.length) return; C.setLessons(pick, titleFor(pick)); this.setState({ pick: null, lessonSaved: true }); },
+      focusTitle: fs.name,
+      plays, playsNone: plays.length ? '' : '아직 기록이 없어요 · Noch nichts gespielt · No plays yet',
+      newPin: s.newPin, onNewPin: (e) => this.setState({ newPin: e.target.value.replace(/\D/g, '').slice(0, 8), pinMsg: '' }),
+      pinBtn: s.pinMsg || 'PIN 바꾸기',
+      changePin: () => { const p = this.state.newPin; if (p.length < 4) { this.setState({ pinMsg: '4자리 이상' }); return; } C.setPin(p).then(ok => this.setState({ newPin: '', pinMsg: ok ? '✓ 바뀜' : '실패' })); }
+    };
+  }
+}
+DC.mount(Component);
+</script>
+</body>
+</html>

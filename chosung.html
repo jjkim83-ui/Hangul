@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="한글 놀이터">
+<meta name="theme-color" content="#E4DCF4">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>초성 퀴즈 · Chosung quiz</title>
+<link rel="stylesheet" href="shared/fonts/fonts.css">
+<style>
+body{margin:0}
+a{color:#2B2C6B}a:hover{color:#2B2C6B}
+button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5px}
+.puff{position:relative;background:linear-gradient(180deg,var(--c) 0%,var(--c) 58%,var(--d) 160%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.38),inset 0 -12px 16px -10px rgba(255,255,255,.6),inset 0 -2px 0 var(--dd),0 0 0 1.5px rgba(255,255,255,.55),0 4px 0 var(--d),0 14px 24px var(--sh),0 2px 4px rgba(43,44,107,.08)}
+.puff::before{content:"";position:absolute;left:5px;right:5px;top:4px;height:47%;border-radius:inherit;background:radial-gradient(circle at 86% 32%,rgba(255,255,255,.95) 0,rgba(255,255,255,.95) 2.5px,rgba(255,255,255,0) 4.5px),linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.2) 65%,rgba(255,255,255,.04) 100%);pointer-events:none}
+.puff::after{content:"";position:absolute;inset:2px;border-radius:inherit;border:3px solid transparent;border-top-color:rgba(255,255,255,.9);border-left-color:rgba(255,255,255,.35);filter:blur(1px);pointer-events:none}
+.p-white{--c:#FBFAFF;--d:#E7E3F6;--dd:rgba(120,110,180,.18);--sh:rgba(120,110,180,.24)}
+.p-lav{--c:#BBA8F6;--d:#9E88E9;--dd:rgba(100,70,200,.30);--sh:rgba(140,110,230,.38)}
+.p-coral{--c:#EE7466;--d:#D85B4E;--dd:rgba(160,40,30,.30);--sh:rgba(238,116,102,.42)}
+.p-mint{--c:#A6E5C9;--d:#84D2B0;--dd:rgba(30,140,100,.25);--sh:rgba(110,200,160,.38)}
+.p-butter{--c:#FBE18C;--d:#F1CD62;--dd:rgba(170,120,0,.22);--sh:rgba(230,190,70,.40)}
+.p-blue{--c:#A9CBF7;--d:#86B1EC;--dd:rgba(40,90,180,.25);--sh:rgba(110,160,230,.38)}
+.p-pink{--c:#F7B6CF;--d:#EC95B6;--dd:rgba(180,50,100,.22);--sh:rgba(240,150,190,.38)}
+.frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
+.frost-strong{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.66) 100%)}
+.blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
+.blob2{animation-delay:-6s;animation-duration:17s}
+.blob3{animation-delay:-11s;animation-duration:20s}
+@keyframes morph{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}25%{transform:translate(180px,-90px) scale(1.2) rotate(20deg)}50%{transform:translate(60px,110px) scale(.9) rotate(-10deg)}75%{transform:translate(-160px,40px) scale(1.12) rotate(12deg)}}
+.press{transition:transform .2s cubic-bezier(.3,1.6,.5,1),opacity .25s ease}
+.press:hover{transform:translateY(-4px) scale(1.02)}
+.press:active{transform:translateY(3px) scale(.97)}
+.dim{opacity:.5}
+.wobble{animation:wobble .45s ease}
+.used{opacity:.22;pointer-events:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.used::before,.used::after{display:none}
+.slot-empty{background:rgba(255,255,255,.35);box-shadow:inset 0 3px 6px rgba(43,44,107,.14),inset 0 0 0 2px rgba(255,255,255,.85)}
+.slot-empty::before,.slot-empty::after{display:none}
+@keyframes wobble{0%,100%{translate:0 0}20%{translate:-8px 0}40%{translate:8px 0}60%{translate:-5px 0}80%{translate:4px 0}}
+.pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion: reduce){.blob,.pop,.wobble{animation:none}.press{transition:none}}
+.kb-caret{display:inline-block;width:3px;height:34px;margin-left:4px;background:#7B6BE0;border-radius:2px;animation:kbBlink 1s steps(1) infinite}@keyframes kbBlink{50%{opacity:0}}
+</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#E4DCF4}</style>
+</head>
+<body>
+<template id="dc-view">
+<div style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 30px 80px 44px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 26px; overflow: hidden">
+  <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
+    <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
+    <span class="blob blob2" style="left: 620px; top: -160px; width: 600px; height: 440px; background: #FFA797"></span>
+    <span class="blob blob3" style="left: 260px; top: 330px; width: 640px; height: 420px; background: #8AD9B6"></span>
+    <span class="blob" style="left: 900px; top: 380px; width: 480px; height: 400px; background: #FFD46E; animation-delay: -11s"></span>
+  </div>
+
+  <header style="height: 60px; display: flex; align-items: center; gap: 20px">
+    <a href="index.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 8px; font-family: 'Jua', sans-serif; font-size: 20px">
+      <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
+      </span>
+      메뉴 · Menu
+    </a>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1">초성 퀴즈</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Anfangskonsonanten · Initial-consonant quiz</div>
+    </div>
+    <button type="button" onClick="{{openSetup}}" class="frost press" style="height: 56px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 20px 0 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit">
+      <span class="puff p-butter" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#2B2C6B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5C4.7 20 4 19.3 4 18.5Z"></path><path d="M20 5.5C20 4.7 19.3 4 18.5 4H13v16h5.5c.8 0 1.5-.7 1.5-1.5Z"></path></svg>
+      </span>
+      <span style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.05">
+        <span style="font-family: 'Jua', sans-serif; font-size: 19px">{{poolLabel}}</span>
+        <span style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Einstellen · Setup</span>
+      </span>
+    </button>
+    <div class="puff p-mint" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 22px 0 18px; display: flex; align-items: center; gap: 10px">
+      <span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: #3FAE7E; box-shadow: inset 0 2px 2px rgba(255,255,255,.6), 0 2px 3px rgba(30,120,80,.35)"></span>
+      <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 20px">문제 {{qLabel}}</span>
+      <span style="position: relative; z-index: 1; font-size: 14px; font-weight: 800; color: #2E4F45">Frage · Question</span>
+    </div>
+  </header>
+
+  <div style="flex: 1; min-height: 0; display: flex; gap: 44px">
+    <section style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+      <div class="frost" style="height: 150px; box-sizing: border-box; flex-shrink: 0; border-radius: 40px; padding: 12px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center">
+        <div style="font-size: 15px; font-weight: 800; color: #4A4C80">초성을 보고 단어를 맞혀요 · Errate das Wort · Guess the word</div>
+        <div aria-live="polite" style="font-family: 'Jua', sans-serif; font-size: {{clueFs}}px; line-height: 1.12">{{clueDe}}</div>
+        <div style="font-size: 17px; font-weight: 800; color: #3A3B78">{{clueEn}}</div>
+        <div style="font-family: 'Jua', sans-serif; font-size: 20px; color: #5B5DA8; min-height: 2px">{{clueKo}}</div>
+      </div>
+
+      <div class="frost {{rowCls}}" style="flex: 1; min-height: 0; border-radius: 40px; padding: 16px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 12px">
+          <sc-for list="{{tiles}}" as="t" hint-placeholder-count="3">
+            <span class="puff {{t.cls}}" style="width: {{t.w}}px; height: {{t.px}}px; border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: {{t.ink}}; font-family: 'Jua', sans-serif; font-size: {{t.fs}}px; line-height: 1"><span style="position: relative; z-index: 1">{{t.ch}}</span></span>
+          </sc-for>
+        </div>
+        <div style="font-size: 13px; font-weight: 800; color: #4A4C80">{{lenNote}}</div>
+        <div style="width: 100%; max-width: 640px; display: flex; gap: 12px">
+          <label for="cs-answer" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">정답 · Antwort · Answer</label>
+          <input id="cs-answer" type="text" value="{{guess}}" onChange="{{onGuess}}" onKeyDown="{{onKey}}" placeholder="정답 입력 · Antwort" autocomplete="off" style="flex: 1; min-width: 0; height: 60px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 24px; background: rgba(255,255,255,.9); box-shadow: inset 0 3px 6px rgba(43,44,107,.14), inset 0 -1px 0 rgba(255,255,255,.9), 0 0 0 1.5px rgba(255,255,255,.8); font-family: 'Jua', sans-serif; font-size: 28px; color: #2B2C6B">
+          <button type="button" onClick="{{submit}}" class="puff p-coral press" style="height: 60px; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 21px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">확인 · Check</span></button>
+          <button type="button" onClick="{{openKb}}" aria-label="화면 키보드 · Bildschirmtastatur · On-screen keyboard" class="puff p-lav press" style="width: 60px; height: 60px; flex-shrink: 0; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1">⌨️</span></button>
+          <sc-if value="{{hasMic}}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{listen}}" aria-label="말해서 입력 · Sprechen · Say it" class="puff {{micCls}} press" style="width: 60px; height: 60px; flex-shrink: 0; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1">🎤</span></button>
+          </sc-if>
+
+        </div>
+        <div style="display: flex; gap: 12px">
+          <button type="button" onClick="{{hint}}" class="puff p-butter press" style="height: 46px; border: none; border-radius: 999px; padding: 0 18px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 18px"><span style="position: relative; z-index: 1">글자 하나 보기 · Hint</span></button>
+          <button type="button" onClick="{{pass}}" class="puff p-white press" style="height: 46px; border: none; border-radius: 999px; padding: 0 18px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 18px"><span style="position: relative; z-index: 1">모르겠어요 · Pass</span></button>
+        </div>
+      </div>
+    </section>
+
+    <aside style="width: 306px; flex-shrink: 0; display: flex; flex-direction: column; gap: 22px">
+      <div class="puff p-blue" style="border-radius: 36px; padding: 18px 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <span class="puff p-white" style="width: 104px; height: 104px; border-radius: 50%; display: block">
+          <span style="position: absolute; inset: 6px; z-index: 1; border-radius: 50%; overflow: hidden; display: block; background: {{cur.inner}}">
+            <svg viewBox="0 4 120 116" width="92" height="92" aria-hidden="true" style="display: block">
+              <path d="{{cur.hairBack}}" fill="{{cur.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="M53 68L53 92L67 92L67 68Z" fill="{{cur.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="M20 122C22 101 36 89 60 89C84 89 98 101 100 122Z" fill="{{cur.shirtCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.shirtLines}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="{{cur.ears}}" fill="{{cur.skin}}" stroke="#1E1E24" stroke-width="2.4"></path>
+              <path d="{{cur.head}}" fill="{{cur.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.blush}}" fill="#F49AA8" opacity="0.6"></path>
+              <path d="{{cur.freckles}}" fill="#1E1E24" opacity="0.45"></path>
+              <path d="{{cur.brows}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+              <path d="{{cur.eyesFill}}" fill="#1E1E24"></path>
+              <path d="{{cur.eyesStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+              <path d="{{cur.eyesWhite}}" fill="#FFFFFF"></path>
+              <path d="{{cur.noseStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="{{cur.noseFill}}" fill="#1E1E24"></path>
+              <path d="{{cur.mouthFill}}" fill="#1E1E24" stroke="#1E1E24" stroke-width="1.6" stroke-linejoin="round"></path>
+              <path d="{{cur.mouthWhite}}" fill="#FFFFFF"></path>
+              <path d="{{cur.tongue}}" fill="#F27A8A"></path>
+              <path d="{{cur.mouthStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+              <path d="{{cur.hairFront}}" fill="{{cur.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.glasses}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linejoin="round"></path>
+              <path d="{{cur.accStroke}}" fill="none" stroke="#1E1E24" stroke-width="4" stroke-linecap="round"></path>
+              <path d="{{cur.accFill}}" fill="{{cur.accCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.accFill2}}" fill="{{cur.acc2Col}}" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"></path>
+            </svg>
+          </span>
+        </span>
+        <div style="font-family: 'Jua', sans-serif; font-size: 36px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 -1px 0 rgba(255,255,255,.6), 0 3px 0 rgba(40,90,180,.35), 0 8px 14px rgba(40,90,180,.4)">{{cur.name}} 차례!</div>
+        <span class="puff p-white" style="border-radius: 999px; padding: 4px 14px; font-size: 14px; font-weight: 900"><span style="position: relative; z-index: 1">{{cur.helper}}</span></span>
+      </div>
+      <div class="frost" style="border-radius: 30px; padding: 8px; display: flex; flex-direction: column; gap: 6px; min-height: 0; flex-shrink: 1; overflow-y: auto">
+        <sc-for list="{{players}}" as="p" hint-placeholder-count="2">
+          <div class="{{p.rowCls}}" style="display: flex; align-items: center; gap: 10px; border-radius: 22px; padding: 6px 16px 6px 6px">
+            <span style="position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; display: block; background: {{p.inner}}; box-shadow: 0 0 0 2px #FFFFFF">
+              <svg viewBox="0 4 120 116" width="44" height="44" aria-hidden="true" style="display: block">
+                <path d="{{p.hairBack}}" fill="{{p.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M53 68L53 92L67 92L67 68Z" fill="{{p.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M20 122C22 101 36 89 60 89C84 89 98 101 100 122Z" fill="{{p.shirtCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{p.ears}}" fill="{{p.skin}}" stroke="#1E1E24" stroke-width="2.4"></path>
+                <path d="{{p.head}}" fill="{{p.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{p.eyesFill}}" fill="#1E1E24"></path>
+                <path d="{{p.eyesStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{p.mouthFill}}" fill="#1E1E24"></path>
+                <path d="{{p.mouthStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{p.hairFront}}" fill="{{p.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{p.glasses}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <span style="position: relative; z-index: 1; flex: 1; font-family: 'Jua', sans-serif; font-size: 21px">{{p.name}}</span>
+            <span style="position: relative; z-index: 1; font-size: 13px; font-weight: 900; color: #6A4A00; display: {{p.streakShow}}">{{p.streak}}연속</span>
+            <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 28px; font-variant-numeric: tabular-nums">{{p.score}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div class="frost" style="border-radius: 26px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; gap: {{dotGap}}px; justify-content: center">
+          <sc-for list="{{dots}}" as="d" hint-placeholder-count="8">
+            <span style="width: {{d.size}}px; height: {{d.size}}px; border-radius: 50%; background: {{d.bg}}; box-shadow: inset 0 2px 2px rgba(255,255,255,.7), inset 0 -3px 4px rgba(0,0,0,.12), 0 0 0 {{d.ring}} #FFFFFF"></span>
+          </sc-for>
+        </div>
+        <div style="font-size: 15px; font-weight: 800; line-height: 1.45; min-height: 44px; text-align: center">{{msg}}</div>
+      </div>
+    </aside>
+  </div>
+
+  <sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; z-index: 6; background: rgba(43,44,107,.3); display: flex; align-items: center; justify-content: center">
+      <div class="frost frost-strong pop" style="border-radius: 48px; padding: 36px 52px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center">
+        <div aria-hidden="true" style="position: relative; font-family: 'Jua', sans-serif; font-size: 112px; line-height: 1">
+          <span style="color: #F1CD62; text-shadow: 0 3px 0 #E8B93E, 0 6px 0 #D9A62A, 0 18px 24px rgba(230,190,70,.5)">완성!</span>
+          <span style="position: absolute; left: 0; top: 0; background: linear-gradient(175deg, #FFF8D9 0%, #FFE58F 35%, #F6CF55 70%, #EDBD3A 100%); -webkit-background-clip: text; background-clip: text; color: transparent">완성!</span>
+        </div>
+        <div style="font-family: 'Jua', sans-serif; font-size: 30px">{{winner}}</div>
+        <sc-if value="{{classOn}}" hint-placeholder-val="{{ false }}">
+          <div class="puff p-butter" style="border-radius: 999px; padding: 10px 24px; font-family: 'Jua', sans-serif; font-size: 24px; color: #6A4A00"><span style="position: relative; z-index: 1">{{classLine}}</span></div>
+        </sc-if>
+        <div style="font-size: 16px; font-weight: 800; color: #4A4C80">{{finalLine}}</div>
+        <button type="button" onClick="{{restart}}" class="puff p-coral press" style="margin-top: 8px; height: 62px; border: none; border-radius: 999px; padding: 0 28px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 24px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">한 번 더 · Nochmal · Again</span></button>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{setup}}" hint-placeholder-val="{{ true }}">
+    <div style="position: absolute; inset: 0; z-index: 5; background: rgba(43,44,107,.34); display: flex; align-items: center; justify-content: center">
+      <div class="frost frost-strong pop" role="dialog" aria-label="게임 준비 · Game setup" style="width: 760px; box-sizing: border-box; border-radius: 46px; padding: 28px 34px 30px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; align-items: baseline; gap: 14px">
+          <div style="font-family: 'Jua', sans-serif; font-size: 36px; line-height: 1">게임 준비</div>
+          <div style="font-size: 15px; font-weight: 800; color: #4A4C80">Spiel einstellen · Game setup</div>
+        </div>
+        <div class="frost" style="border-radius: 30px; padding: 14px 16px 14px 20px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div style="flex: 1; line-height: 1.15">
+              <div style="font-family: 'Jua', sans-serif; font-size: 21px">오늘의 단어 <span style="font-family: 'Jua', sans-serif; color: #5B5DA8">{{poolCount}}</span></div>
+              <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Heutige Wörter · Today's words</div>
+            </div>
+            <a href="words.html" class="puff p-white press" style="height: 44px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">단어장에서 바꾸기 · Ändern · Change</span></a>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{poolChips}}" as="ch" hint-placeholder-count="2">
+              <span class="puff {{ch.cls}}" style="border-radius: 999px; padding: 6px 14px; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">{{ch.label}}</span></span>
+            </sc-for>
+          </div>
+          <div style="font-size: 13px; font-weight: 800; color: #4A4C80">{{poolNote}}</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px">
+          <div style="width: 178px; flex-shrink: 0; line-height: 1.15">
+            <div style="font-family: 'Jua', sans-serif; font-size: 21px">{{opt1Title}}</div>
+            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">{{opt1Sub}}</div>
+          </div>
+          <div style="flex: 1; display: flex; gap: 10px">
+            <sc-for list="{{opt1}}" as="o" hint-placeholder-count="4">
+              <button type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 58px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
+                <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 20px">{{o.label}}</span>
+                <span style="position: relative; z-index: 1; display: block; font-size: 12px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px">
+          <div style="width: 178px; flex-shrink: 0; line-height: 1.15">
+            <div style="font-family: 'Jua', sans-serif; font-size: 21px">{{opt2Title}}</div>
+            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">{{opt2Sub}}</div>
+          </div>
+          <div style="flex: 1; display: flex; gap: 10px">
+            <sc-for list="{{opt2}}" as="o" hint-placeholder-count="4">
+              <button type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 58px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
+                <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 20px">{{o.label}}</span>
+                <span style="position: relative; z-index: 1; display: block; font-size: 12px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 2px">
+          <div style="flex: 1; font-size: 14px; font-weight: 800; color: #4A4C80; line-height: 1.4">{{setupNote}}</div>
+          <sc-if value="{{canClose}}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{closeSetup}}" class="puff p-white press" style="height: 62px; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 20px"><span style="position: relative; z-index: 1">계속하기 · Weiter · Continue</span></button>
+          </sc-if>
+          <button type="button" onClick="{{startGame}}" class="puff p-coral press" style="height: 62px; border: none; border-radius: 999px; padding: 0 30px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 23px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">시작! · Los! · Start</span></button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{kbOpen}}" hint-placeholder-val="{{ false }}">
+  <div style="position: absolute; inset: 0; z-index: 7; background: rgba(43,44,107,.22); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 22px; box-sizing: border-box">
+    <div class="frost frost-strong pop" style="width: 1000px; box-sizing: border-box; border-radius: 40px; padding: 18px 24px 22px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: center; gap: 14px">
+        <div style="flex: 1; min-width: 0">
+          <div style="font-size: 15px; font-weight: 800; color: #4A4C80; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{kbHint}}</div>
+          <div style="height: 58px; margin-top: 4px; border-radius: 999px; background: rgba(255,255,255,.92); box-shadow: inset 0 3px 6px rgba(43,44,107,.14), 0 0 0 1.5px rgba(255,255,255,.8); display: flex; align-items: center; padding: 0 24px; font-family: 'Jua', sans-serif; font-size: 32px; color: #2B2C6B; white-space: nowrap; overflow: hidden">{{kbShow}}<span class="kb-caret" aria-hidden="true"></span></div>
+        </div>
+        <sc-if value="{{hasMic}}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{listen}}" class="puff {{micCls}} press" style="height: 58px; align-self: flex-end; border: none; border-radius: 999px; padding: 0 20px; cursor: pointer; color: {{micInk}}; font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap"><span style="position: relative; z-index: 1">{{micLabel}}</span></button>
+        </sc-if>
+        <button type="button" onClick="{{kbSubmit}}" class="puff p-coral press" style="height: 58px; align-self: flex-end; border: none; border-radius: 999px; padding: 0 24px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 21px; white-space: nowrap; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">확인 · Check</span></button>
+        <button type="button" onClick="{{closeKb}}" aria-label="닫기 · Schliessen · Close" class="puff p-white press" style="width: 58px; height: 58px; align-self: flex-end; border: none; border-radius: 50%; padding: 0; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 24px; color: #2B2C6B"><span style="position: relative; z-index: 1">✕</span></button>
+      </div>
+      <sc-if value="{{micMsg}}" hint-placeholder-val="{{ false }}"><div style="text-align: center; font-size: 14px; font-weight: 800; color: #B23A2E">{{micMsg}}</div></sc-if>
+      <sc-for list="{{kbRows}}" as="r" hint-placeholder-count="4">
+        <div style="display: flex; justify-content: center; gap: 10px">
+          <sc-for list="{{r.keys}}" as="k" hint-placeholder-count="10">
+            <button type="button" onClick="{{k.press}}" class="puff {{k.cls}} press" style="width: {{k.w}}px; height: 56px; border: none; border-radius: 18px; padding: 0; cursor: pointer; color: {{k.ink}}; font-family: 'Jua', sans-serif; font-size: 26px"><span style="position: relative; z-index: 1">{{k.label}}</span></button>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+</div>
+</template>
+<script src="shared/vendor/morphdom.min.js"></script>
+<script src="shared/dc-runtime.js"></script>
+<script src="shared/class-config.js"></script>
+<script src="shared/class.js"></script>
+<script src="content/textbook-4-1-vocab.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.GAME = 'chosung';
+    this.ROSTER = this.loadPlayers();
+    this.state = { pool: null, setup: true, started: false, count: 8, clue: 'deko', ...this.fresh(this.sampleWords(), 8) };
+  }
+  shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  sampleWords() {
+    return [
+      { ko: '사과', de: 'Apfel', en: 'apple', hint: '빨갛고 둥근 과일', lesson: 0 },
+      { ko: '학교', de: 'Schule', en: 'school', hint: '학생들이 공부하러 가는 곳', lesson: 0 },
+      { ko: '친구', de: 'Freund', en: 'friend', hint: '가깝게 지내는 사이', lesson: 0 },
+      { ko: '바다', de: 'Meer', en: 'sea', hint: '짠물이 넓게 펼쳐진 곳', lesson: 0 },
+      { ko: '고양이', de: 'Katze', en: 'cat', hint: '야옹 하고 우는 동물', lesson: 0 },
+      { ko: '하늘', de: 'Himmel', en: 'sky', hint: '구름과 해가 떠 있는 위쪽', lesson: 0 },
+      { ko: '기차', de: 'Zug', en: 'train', hint: '철길 위를 달리는 긴 탈것', lesson: 0 },
+      { ko: '이야기', de: 'Geschichte', en: 'story', hint: '어떤 일을 말이나 글로 들려주는 것', lesson: 0 },
+      { ko: '고구마', de: 'Süsskartoffel', en: 'sweet potato', hint: '땅속에서 자라는 달콤한 덩이뿌리', lesson: 0 },
+      { ko: '다리', de: 'Brücke', en: 'bridge', hint: '강을 건너가게 만든 길', lesson: 0 },
+      { ko: '판다', de: 'Panda', en: 'panda', hint: '대나무를 먹는 흑백 곰', lesson: 0 },
+      { ko: '차표', de: 'Fahrkarte', en: 'ticket', hint: '버스나 KTX를 탈 때 필요한 종이', lesson: 0 }
+    ];
+  }
+  readSel() {
+    const CC = this.cp();
+    if (CC) { const t = {}; CC.lessons().forEach(n => { t[n] = true; }); return { today: t, off: {} }; }
+    let sel = null;
+    try { sel = JSON.parse(localStorage.getItem('hangul_today_v1') || 'null'); } catch (e) {}
+    if (!sel || !sel.today || typeof sel.today !== 'object') sel = { today: { 1: true, 2: true }, off: {} };
+    if (!sel.off) sel.off = {};
+    return sel;
+  }
+  loadPool() {
+    const sel = this.readSel();
+    const UNIT_CLS = { u1: 'p-lav', u2: 'p-pink', u3: 'p-mint', u4: 'p-butter', u5: 'p-blue', u6: 'p-coral' };
+    return fetch('content/textbook-4-1-vocab.json').then(r => r.json()).then(d => {
+      const lw = (L) => {
+        const own = L.words.map((w, i) => ({ w, key: L.n + ':' + i, from: L.n }));
+        if (!L.review) return own;
+        const more = [];
+        L.review.forEach(n => { const src = d.lessons.find(x => x.n === n); if (src) src.words.forEach((w, i) => more.push({ w, key: n + ':' + i, from: n })); });
+        return more.concat(own);
+      };
+      const chosen = d.lessons.filter(L => sel.today[L.n]);
+      const seen = {}, words = [];
+      chosen.forEach(L => lw(L).forEach(x => {
+        if (sel.off[x.key]) return;
+        const ko = x.w[0];
+        if (seen[ko]) return;
+        seen[ko] = true;
+        words.push({ ko, de: x.w[1], en: x.w[2], hint: x.w[3] || '', lesson: x.from });
+      }));
+      return {
+        words, sample: false,
+        label: chosen.length ? chosen.map(L => L.n + '과').join(' · ') : '—',
+        chips: chosen.map(L => ({ label: L.n + '과 ' + L.theme[0], cls: L.unit ? UNIT_CLS[L.unit] : 'p-white' })),
+        note: chosen.length ? '단어장에서 고른 단어로 해요 · Wörter aus dem Wortschatz · Words from the word pool' : '오늘의 단어장이 비어 있어요 · Keine Lektion gewählt · No lessons picked yet'
+      };
+    });
+  }
+  samplePool(note) {
+    return { words: this.sampleWords(), sample: true, label: '예시 · Sample', chips: [{ label: '예시 단어 · Beispiel · Sample', cls: 'p-white' }], note };
+  }
+  usableWords(min) {
+    const p = this.state.pool;
+    if (p && p.words.length >= min) return p.words;
+    return this.sampleWords();
+  }
+  componentDidMount() {
+    this.refreshPool();
+    this.onStore = (e) => { if (!e || !e.key || e.key === 'hangul_today_v1') this.refreshPool(); };
+    try { window.addEventListener('storage', this.onStore); } catch (e) {}
+    
+  }
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+    try { window.removeEventListener('storage', this.onStore); } catch (e) {}
+  }
+  refreshPool() {
+    this.loadPool()
+      .then(pool => { this.setState({ pool }); if (this.onPool) this.onPool(pool); })
+      .catch(() => { const pool = this.samplePool('단어장을 못 불러와서 예시 단어를 써요 · Beispielwörter · Using sample words'); this.setState({ pool }); if (this.onPool) this.onPool(pool); });
+  }
+  poolVals(min) {
+    const p = this.state.pool;
+    if (!p) return { poolCount: '…', poolChips: [], poolNote: '단어장을 불러오는 중… · Lädt … · Loading…', poolLabel: '…', poolReady: false };
+    const short = !p.sample && p.words.length < min;
+    return {
+      poolCount: p.words.length + '개 · words',
+      poolChips: p.chips,
+      poolNote: short ? ('단어가 ' + min + '개보다 적어서 예시 단어로 해요 · Zu wenige Wörter, Beispielwörter · Too few words, using samples') : p.note,
+      poolLabel: short ? '예시 · Sample' : p.label,
+      poolReady: true
+    };
+  }
+  seg(list, cur, key) {
+    return list.map(o => ({ label: o.label, sub: o.sub, pressed: o.v === cur ? 'true' : 'false', cls: o.v === cur ? 'p-lav' : 'p-white', pick: () => this.setState({ [key]: o.v }) }));
+  }
+
+  onPool(pool) {
+    if (!this.state.started) this.setState(this.fresh(this.usableWords(4), this.state.count));
+  }
+  quizWords(words) {
+    // Hangul words/phrases up to 6 syllables (spaces kept for display, ignored when checking)
+    return words.filter(w => /^[가-힣 ]+$/.test(w.ko) && w.ko.replace(/\s+/g, '').length >= 2 && w.ko.replace(/\s+/g, '').length <= 6);
+  }
+  chosung(ch) {
+    const c = ch.charCodeAt(0) - 0xAC00;
+    if (c < 0 || c > 11171) return ch;
+    return 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ'[Math.floor(c / 588)];
+  }
+  fresh(words, count) {
+    const pw = this.quizWords(words);
+    const src = pw.length >= 2 ? pw : this.quizWords(this.sampleWords());
+    const qs = this.shuffle(src).slice(0, Math.min(count, src.length)).map(w => ({ w, chars: Array.from(w.ko) }));
+    return { qs, i: 0, turn: 0, scores: this.zeros(), streaks: this.zeros(), results: [], shown: [], tries: 0, hintUsed: false, status: null, guess: '',
+      msg: '초성을 보고 단어를 써요 · Schreib das Wort · Type the word' };
+  }
+  startGame() {
+    this.classStart();
+    clearTimeout(this.timer);
+    this.setState({ ...this.fresh(this.usableWords(4), this.classSize(this.state.count)), setup: false, started: true });
+  }
+  q() { const s = this.state; return s.qs[Math.min(s.i, s.qs.length - 1)]; }
+  hint() {
+    const s = this.state;
+    if (s.setup || s.status || s.i >= s.qs.length) return;
+    const q = this.q();
+    const idx = q.chars.map((c, k) => k).filter(k => q.chars[k] !== ' ' && s.shown.indexOf(k) < 0);
+    if (idx.length <= 1) { this.setState({ msg: '마지막 글자는 직접! · Den Rest schaffst du · You can do the last one' }); return; }
+    this.sfx('select');
+    this.setState({ shown: s.shown.concat([idx[0]]), hintUsed: true, msg: '힌트! 이 문제는 점수 절반 · Hinweis: halbe Punkte · Hint: half points' });
+  }
+  submit() {
+    const s = this.state;
+    if (s.setup || s.status || s.i >= s.qs.length) return;
+    const q = this.q();
+    const g = (s.guess || '').replace(/\s+/g, '');
+    if (!g) { this.setState({ msg: '먼저 정답을 써 주세요 · Bitte zuerst tippen · Type an answer first' }); return; }
+    const p = this.ROSTER[s.turn];
+    const ans = q.w.ko.replace(/\s+/g, '');
+    if (g === ans) {
+      this.sfx('match');
+      const streaks = s.streaks.slice(); streaks[s.turn] += 1;
+      let pts = ans.length * 10;
+      if (s.hintUsed || s.tries > 0) { pts = Math.round(pts / 2); this._half = (this._half || 0) + 1; }
+      pts += (streaks[s.turn] - 1) * 5;
+      const scores = s.scores.slice(); scores[s.turn] += pts;
+      this.setState({ status: 'right', scores, streaks, results: s.results.concat([true]), guess: '',
+        msg: '정답! ' + p.name + ' +' + pts + (streaks[s.turn] >= 2 ? ' · ' + streaks[s.turn] + '연속!' : '') + ' · Richtig! · Correct!' });
+      this.timer = setTimeout(() => this.next(), 1500);
+    } else if (s.tries === 0) {
+      this.sfx('miss');
+      this.setState({ status: 'wrong', tries: 1, guess: '', msg: '아쉬워요, 한 번 더! · Noch einmal · Try once more' });
+      this.timer = setTimeout(() => this.setState({ status: null }), 700);
+    } else this.reveal();
+  }
+  reveal() {
+    const s = this.state;
+    this.sfx('miss');
+    const streaks = s.streaks.slice(); streaks[s.turn] = 0;
+    this.setState({ status: 'reveal', streaks, results: s.results.concat([false]), guess: '',
+      msg: '정답은 ' + this.q().w.ko + ' · Die Antwort · The answer' });
+    this.timer = setTimeout(() => this.next(), 2200);
+  }
+  next() {
+    const s = this.state, n = s.i + 1;
+    this.setState({ i: n, turn: (s.turn + 1) % this.ROSTER.length, shown: [], tries: 0, hintUsed: false, status: null, guess: '',
+      msg: n < s.qs.length ? '초성을 보고 단어를 써요 · Schreib das Wort · Type the word' : s.msg });
+  }
+  build(cfg) {
+    const C = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
+    const E = (x, y, rx, ry) => 'M' + (x - rx) + ' ' + y + 'a' + rx + ' ' + ry + ' 0 1 0 ' + (2 * rx) + ' 0a' + rx + ' ' + ry + ' 0 1 0 ' + (-2 * rx) + ' 0Z';
+    const NONE = 'M0 0';
+    const SKIN = ['#FFE9DC', '#F9D7BE', '#EEC09A', '#D9A27A', '#B07A52', '#8A5A3A', '#6A4128'];
+    const HAIR = ['#1E1E24', '#4A3326', '#7B4E2E', '#C99A4E', '#E5C27A', '#B4B4B8', '#E46B5A', '#7E6BD9'];
+    const CLOTH = ['#BBA8F6', '#EE7466', '#A6E5C9', '#FBE18C', '#A9CBF7', '#F7B6CF', '#FFFFFF', '#5B5DA8'];
+    const INNER = ['#EEE8FF', '#E6F8EF', '#FFF7D6', '#E8F1FF', '#FFEDF4', '#FFE7E3'];
+    const heads = [E(60, 52, 22, 26), E(60, 53, 24, 24), 'M38 46C38 30 48 24 60 24C72 24 82 30 82 46L82 58C82 72 72 80 60 80C48 80 38 72 38 58Z'];
+    const earX = cfg.head === 1 ? 23.5 : 21.5;
+    const hairs = [
+      { f: 'M36 50C34 30 46 20 60 20C76 20 86 30 84 50C80 41 74 37 66 39C60 33 50 35 46 41C42 41 38 45 36 50Z' },
+      { f: 'M33 50C33 26 46 18 60 18C74 18 87 26 87 50L88 74C82 77 77 75 76 70L78 48C70 41 55 35 42 48L44 70C43 75 38 77 32 74Z' },
+      { b: 'M35 42C35 22 47 15 60 15C73 15 85 22 85 42L88 100C76 104 44 104 32 100Z', f: 'M38 46C39 30 49 22 60 22C72 22 81 30 82 46C73 42 64 36 59 29C55 38 47 44 38 46Z' },
+      { f: C(60, 15, 9) + 'M37 48C35 28 47 22 60 22C73 22 85 28 83 48C76 38 68 34 60 34C52 34 44 38 37 48Z' },
+      { f: C(40, 42, 9) + C(45, 29, 10) + C(58, 22, 11) + C(71, 26, 10) + C(80, 37, 9) + C(84, 49, 7) + C(36, 53, 7) },
+      { f: 'M36 49L37 31L45 36L49 20L57 30L64 15L70 29L78 21L80 35L86 33L84 49C76 40 67 36 60 36C52 36 43 40 36 49Z' },
+      { f: 'M36 52C33 30 46 19 62 19C78 19 87 30 85 48C82 44 78 42 74 42C64 42 54 36 50 30C48 38 42 46 36 52Z' },
+      { b: 'M80 34C92 34 96 50 92 66C90 72 86 72 86 66C88 54 86 44 78 40Z', f: 'M37 48C35 28 47 21 60 21C73 21 85 28 83 48C76 38 68 34 60 34C52 34 44 38 37 48Z' },
+      { f: 'M38 44C40 29 50 24 60 24C70 24 80 29 82 44C74 38 46 38 38 44Z' }
+    ];
+    const eyes = [
+      { fill: C(51, 55, 2.6) + C(69, 55, 2.6) },
+      { stroke: 'M47 56Q51 51 55 56M65 56Q69 51 73 56' },
+      { stroke: 'M47 55L55 55M65 55L73 55' },
+      { fill: C(51, 55, 3.8) + C(69, 55, 3.8), white: C(52.3, 53.8, 1.3) + C(70.3, 53.8, 1.3) },
+      { fill: C(51, 55, 2.6), stroke: 'M65 56Q69 51 73 56' },
+      { stroke: 'M47 54Q51 58 55 54M65 54Q69 58 73 54' }
+    ];
+    const brows = ['M46 48Q51 44 56 47M64 47Q69 44 74 48', 'M46 47L56 46M64 46L74 47', 'M46 45Q51 41 56 44M64 44Q69 41 74 45', NONE];
+    const noses = [{ s: 'M60 55L57 64L61 64' }, { s: 'M61 56Q55 63 61 65' }, { f: C(60, 62, 1.6) }, {}];
+    const mouths = [
+      { s: 'M53 70Q60 76 67 70' },
+      { f: 'M52 69Q60 81 68 69Z', t: E(60, 75, 3.4, 2) },
+      { f: E(60, 71, 3, 3.6) },
+      { s: 'M55 71L65 71' },
+      { s: 'M54 71Q62 74 68 68' },
+      { f: 'M51 68Q60 80 69 68Z', w: 'M54 69.5L66 69.5L65 72L55 72Z' }
+    ];
+    const glasses = [NONE, C(51, 55, 7) + C(69, 55, 7) + 'M58 55L62 55', 'M43 49H58V61H43ZM62 49H77V61H62ZM58 54H62'];
+    const shirts = ['M52 90Q60 97 68 90', 'M50 90L56 101L60 92L64 101L70 90', 'M42 92Q60 105 78 92M56 98L55 109M64 98L65 109', 'M30 104L90 104M25 113L95 113'];
+    const accs = [
+      {},
+      { f: 'M35 44C35 22 47 13 60 13C73 13 85 22 85 44ZM33 40Q33 36 37 36H83Q87 36 87 40V44Q87 48 83 48H37Q33 48 33 44Z' + C(60, 11, 5) },
+      { f: 'M36 42C36 24 48 17 60 17C72 17 84 24 84 42ZM60 40L96 42C97 46 84 47 60 45Z' },
+      { s: 'M34 54C32 20 88 20 86 54', f: 'M28 46H40V64H28ZM80 46H92V64H80Z' },
+      { f: C(80, 26, 4) + C(86, 22, 4) + C(88, 29, 4) + C(83, 34, 4) + C(77, 32, 4), f2: C(82, 28, 3) },
+      { f: 'M70 26L80 20L80 32ZM90 20L90 32L80 26Z', f2: C(80, 26, 2.6) }
+    ];
+    const h = hairs[cfg.hair], e = eyes[cfg.eyes], n = noses[cfg.nose], m = mouths[cfg.mouth], a = accs[cfg.acc];
+    return {
+      inner: INNER[cfg.bg], skin: SKIN[cfg.skin], hairCol: HAIR[cfg.hairC], shirtCol: CLOTH[cfg.shirtC], accCol: CLOTH[cfg.accC], acc2Col: '#FBE18C',
+      head: heads[cfg.head], ears: C(60 - earX, 55, 5) + C(60 + earX, 55, 5),
+      hairBack: h.b || NONE, hairFront: h.f || NONE,
+      eyesFill: e.fill || NONE, eyesStroke: e.stroke || NONE, eyesWhite: e.white || NONE,
+      brows: brows[cfg.brows], noseStroke: n.s || NONE, noseFill: n.f || NONE,
+      mouthFill: m.f || NONE, mouthStroke: m.s || NONE, mouthWhite: m.w || NONE, tongue: m.t || NONE,
+      blush: cfg.blush ? E(46, 64, 4.5, 2.6) + E(74, 64, 4.5, 2.6) : NONE,
+      freckles: cfg.freckles ? C(45, 61, 0.9) + C(48, 63, 0.9) + C(72, 61, 0.9) + C(75, 63, 0.9) : NONE,
+      glasses: glasses[cfg.glasses], shirtLines: shirts[cfg.shirt],
+      accStroke: a.s || NONE, accFill: a.f || NONE, accFill2: a.f2 || NONE
+    };
+  }
+  loadHub() { try { return JSON.parse(localStorage.getItem('hangul_hub_v1') || 'null') || {}; } catch (e) { return {}; } }
+  loadPlayers() {
+    const CC = this.cp();
+    if (CC) { const me = CC.me(); return [{ name: me.name, en: me.name, cfg: me.cfg }]; }
+    const DEF = [
+      { name: '지민', en: '지민', cfg: { head: 0, hair: 1, eyes: 3, brows: 0, nose: 0, mouth: 0, glasses: 0, shirt: 2, acc: 0, skin: 1, hairC: 0, shirtC: 0, accC: 3, blush: true, freckles: false, bg: 0 } },
+      { name: '서연', en: '서연', cfg: { head: 1, hair: 3, eyes: 1, brows: 2, nose: 2, mouth: 1, glasses: 1, shirt: 0, acc: 0, skin: 3, hairC: 1, shirtC: 2, accC: 5, blush: true, freckles: true, bg: 1 } }
+    ];
+    const h = this.loadHub();
+    if (!Array.isArray(h.roster) || !h.roster.length) return DEF;
+    const sel = h.sel || {};
+    const list = (h.order || []).filter(id => sel[id]).map(id => h.roster.find(p => p.id === id)).filter(Boolean);
+    return list.length ? list.map(p => ({ name: p.name, en: p.name, cfg: p.cfg })) : DEF;
+  }
+  zeros() { return this.ROSTER.map(() => 0); }
+  winnerOf(scores) {
+    if (this.ROSTER.length === 1) return this.ROSTER[0].name + ' 님 ' + scores[0] + '점! · ' + scores[0] + ' Punkte · points';
+    const max = Math.max.apply(null, scores);
+    const top = this.ROSTER.filter((p, i) => scores[i] === max);
+    return top.length > 1 ? '무승부! · Unentschieden · Draw' : top[0].name + ' 님 우승! · gewinnt · wins';
+  }
+  sfx(name) {
+    const h = this.loadHub();
+    if (h.sound === false) return;
+    const vol = (typeof h.volume === 'number' ? h.volume : 70) / 100;
+    if (vol <= 0) return;
+    try {
+      if (!this._ac) { const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; this._ac = new AC(); }
+      const c = this._ac;
+      if (c.state === 'suspended') c.resume();
+      const t0 = c.currentTime + 0.01;
+      const N = (f, d, dur, type, peak, f2) => {
+        const o = c.createOscillator(), g = c.createGain(), t = t0 + d;
+        o.type = type; o.frequency.setValueAtTime(f, t);
+        if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur * 0.8);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak * vol), t + 0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.05);
+      };
+      const mallet = (f, d, p) => { N(f, d, 0.35, 'triangle', p); N(f * 4, d, 0.08, 'sine', p * 0.25); };
+      const bell = (f, d, p, dur) => { const L = dur || 0.9; N(f, d, L, 'sine', p); N(f * 1.006, d, L, 'sine', p * 0.7); N(f * 2.01, d, L * 0.5, 'sine', p * 0.25); };
+      const S = {
+        bubble: { tap: () => N(500, 0, 0.09, 'sine', 0.3, 820), select: () => { N(620, 0, 0.08, 'sine', 0.26, 990); N(880, 0.07, 0.1, 'sine', 0.22, 1250); }, match: () => [523, 659, 784].forEach((f, i) => N(f, i * 0.08, 0.16, 'sine', 0.3, f * 1.25)), miss: () => N(420, 0, 0.28, 'sine', 0.26, 200), win: () => [523, 659, 784, 1047, 1319].forEach((f, i) => N(f, i * 0.09, 0.22, 'sine', 0.28, f * 1.2)) },
+        xylo: { tap: () => mallet(1047, 0, 0.3), select: () => { mallet(784, 0, 0.28); mallet(1175, 0.08, 0.25); }, match: () => [784, 988, 1175].forEach((f, i) => mallet(f, i * 0.09, 0.28)), miss: () => { mallet(262, 0, 0.32); mallet(277, 0.02, 0.24); }, win: () => [523, 587, 659, 784, 880, 1047].forEach((f, i) => mallet(f, i * 0.08, 0.28)) },
+        retro: { tap: () => N(660, 0, 0.06, 'square', 0.12), select: () => { N(520, 0, 0.07, 'square', 0.12); N(780, 0.05, 0.08, 'square', 0.12); }, match: () => [523, 659, 784].forEach((f, i) => N(f, i * 0.09, 0.12, 'square', 0.13)), miss: () => N(320, 0, 0.25, 'sawtooth', 0.12, 140), win: () => [523, 659, 784, 1047].forEach((f, i) => N(f, i * 0.13, 0.2, 'square', 0.14)) },
+        glass: { tap: () => bell(1568, 0, 0.14, 0.35), select: () => { bell(1319, 0, 0.14, 0.5); bell(1760, 0.06, 0.12, 0.5); }, match: () => { bell(1319, 0, 0.16); bell(1661, 0.1, 0.14); bell(1976, 0.2, 0.14); }, miss: () => { bell(587, 0, 0.16, 0.6); bell(554, 0.08, 0.12, 0.6); }, win: () => [1047, 1319, 1568, 2093, 2637].forEach((f, i) => bell(f, i * 0.1, 0.14, 1.1)) }
+      };
+      const P = S[h.pack] || S.glass;
+      if (P[name]) P[name]();
+    } catch (e) {}
+  }
+  winSound(done) {
+    if (done && !this._won) {
+      this._won = true; this.sfx('win');
+      const C = this.cp();
+      if (C && this.accuracy) this._classRes = C.finish(this.GAME, this.accuracy());
+    }
+    if (!done) this._won = false;
+  }
+  /* ---------- class mode (online version: one student, stars) ---------- */
+  cp() { const c = window.ClassPlay; return c && (c.studentMode ? c.studentMode() : c.me()) ? c : null; }
+  classVals(v) {
+    const C = this.cp();
+    v.classOn = !!(C && this._classRes);
+    v.classLine = this._classRes ? this._classRes.line : '';
+    if (!C) return v;
+    const size = String(C.RULES.roundSize[this.GAME]);
+    if (v.opt1) v.opt1 = v.opt1.filter(o => o.label.indexOf(size) === 0).map(o => ({ ...o, cls: 'p-lav', pressed: 'true' }));
+    v.setupNote = C.status(this.GAME).line;
+    return v;
+  }
+  classStart() {
+    this._classRes = null; this._wrong = 0; this._hints = 0; this._half = 0;
+    const C = this.cp(); if (C) C.start(this.GAME);
+  }
+  classSize(own) { const C = this.cp(); return C ? C.RULES.roundSize[this.GAME] : own; }
+  accuracy() {
+    const r = this.state.results; if (!r.length) return 0;
+    return Math.max(0, (r.filter(Boolean).length - 0.5 * (this._half || 0)) / r.length);
+  }
+
+  /* ---------- on-screen Korean keyboard + voice input ---------- */
+  hgCompose(str, key) {
+    const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ', JUNG = 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ', JONG = ' ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ';
+    const VV = { 'ㅗㅏ': 'ㅘ', 'ㅗㅐ': 'ㅙ', 'ㅗㅣ': 'ㅚ', 'ㅜㅓ': 'ㅝ', 'ㅜㅔ': 'ㅞ', 'ㅜㅣ': 'ㅟ', 'ㅡㅣ': 'ㅢ' };
+    const CC = { 'ㄱㅅ': 'ㄳ', 'ㄴㅈ': 'ㄵ', 'ㄴㅎ': 'ㄶ', 'ㄹㄱ': 'ㄺ', 'ㄹㅁ': 'ㄻ', 'ㄹㅂ': 'ㄼ', 'ㄹㅅ': 'ㄽ', 'ㄹㅌ': 'ㄾ', 'ㄹㅍ': 'ㄿ', 'ㄹㅎ': 'ㅀ', 'ㅂㅅ': 'ㅄ' };
+    const SPLIT = {}; Object.keys(CC).forEach(k => { SPLIT[CC[k]] = [k[0], k[1]]; });
+    const mk = (c, v, j) => String.fromCharCode(0xAC00 + (CHO.indexOf(c) * 21 + JUNG.indexOf(v)) * 28 + (j ? JONG.indexOf(j) : 0));
+    const parts = (ch) => { const n = ch.charCodeAt(0) - 0xAC00; if (n < 0 || n > 11171) return null; return [CHO[Math.floor(n / 588)], JUNG[Math.floor(n % 588 / 28)], n % 28 ? JONG[n % 28] : '']; };
+    const last = str.slice(-1), head = str.slice(0, -1), p = last ? parts(last) : null;
+    const isV = JUNG.indexOf(key) >= 0;
+    if (!isV) {
+      if (p && !p[2] && JONG.indexOf(key) > 0) return head + mk(p[0], p[1], key);
+      if (p && p[2] && CC[p[2] + key]) return head + mk(p[0], p[1], CC[p[2] + key]);
+      return str + key;
+    }
+    if (last && CHO.indexOf(last) >= 0) return head + mk(last, key, '');
+    if (p && !p[2] && VV[p[1] + key]) return head + mk(p[0], VV[p[1] + key], '');
+    if (p && p[2]) {
+      const sp = SPLIT[p[2]];
+      if (sp) return head + mk(p[0], p[1], sp[0]) + mk(sp[1], key, '');
+      if (CHO.indexOf(p[2]) >= 0) return head + mk(p[0], p[1], '') + mk(p[2], key, '');
+    }
+    return str + key;
+  }
+  hgBack(str) {
+    const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ', JUNG = 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ', JONG = ' ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ';
+    const UNV = { 'ㅘ': 'ㅗ', 'ㅙ': 'ㅗ', 'ㅚ': 'ㅗ', 'ㅝ': 'ㅜ', 'ㅞ': 'ㅜ', 'ㅟ': 'ㅜ', 'ㅢ': 'ㅡ' };
+    const UNC = { 'ㄳ': 'ㄱ', 'ㄵ': 'ㄴ', 'ㄶ': 'ㄴ', 'ㄺ': 'ㄹ', 'ㄻ': 'ㄹ', 'ㄼ': 'ㄹ', 'ㄽ': 'ㄹ', 'ㄾ': 'ㄹ', 'ㄿ': 'ㄹ', 'ㅀ': 'ㄹ', 'ㅄ': 'ㅂ' };
+    const last = str.slice(-1), head = str.slice(0, -1);
+    const n = last ? last.charCodeAt(0) - 0xAC00 : -1;
+    if (n < 0 || n > 11171) return head;
+    const c = CHO[Math.floor(n / 588)], v = JUNG[Math.floor(n % 588 / 28)], j = n % 28 ? JONG[n % 28] : '';
+    const mk = (c, v, j) => String.fromCharCode(0xAC00 + (CHO.indexOf(c) * 21 + JUNG.indexOf(v)) * 28 + (j ? JONG.indexOf(j) : 0));
+    if (j) return head + mk(c, v, UNC[j] || '');
+    if (UNV[v]) return head + mk(c, UNV[v], '');
+    return head + c;
+  }
+  kbVals(v) {
+    const s = this.state;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const base = [['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'], ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'], ['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ']];
+    const SH = { 'ㅂ': 'ㅃ', 'ㅈ': 'ㅉ', 'ㄷ': 'ㄸ', 'ㄱ': 'ㄲ', 'ㅅ': 'ㅆ', 'ㅐ': 'ㅒ', 'ㅔ': 'ㅖ' };
+    const vowel = (k) => 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅛㅜㅠㅡㅣ'.indexOf(k) >= 0;
+    const key = (k) => { const ch = s.kbShift && SH[k] ? SH[k] : k; return { label: ch, w: '68', cls: vowel(ch) ? 'p-butter' : 'p-white', ink: '#2B2C6B',
+      press: () => { this.setState({ guess: this.hgCompose(this.state.guess || '', ch), kbShift: false }); if (this.play) this.play('tap'); } }; };
+    const rows = base.map(r => ({ keys: r.map(key) }));
+    rows[2].keys.unshift({ label: '⇧', w: '96', cls: s.kbShift ? 'p-lav' : 'p-white', ink: '#2B2C6B', press: () => this.setState({ kbShift: !this.state.kbShift }) });
+    rows[2].keys.push({ label: '⌫', w: '96', cls: 'p-pink', ink: '#2B2C6B', press: () => this.setState({ guess: this.hgBack(this.state.guess || '') }) });
+    rows.push({ keys: [
+      { label: '띄어쓰기 · Leertaste · Space', w: '360', cls: 'p-white', ink: '#2B2C6B', press: () => this.setState({ guess: (this.state.guess || '') + ' ' }) },
+      { label: '전부 지우기 · Clear', w: '250', cls: 'p-white', ink: '#2B2C6B', press: () => this.setState({ guess: '' }) }
+    ] });
+    const listen = () => {
+      if (!SR) return;
+      if (this._rec) { try { this._rec.stop(); } catch (e) {} return; }
+      const r = new SR(); this._rec = r;
+      r.lang = 'ko-KR'; r.interimResults = false; r.maxAlternatives = 1;
+      r.onresult = (e) => { const t = ((e.results[0] && e.results[0][0] && e.results[0][0].transcript) || '').replace(/[^가-힣 ]/g, '').trim(); if (t) this.setState({ guess: t }); };
+      r.onerror = (e) => { this.setState({ micMsg: e.error === 'not-allowed' ? '마이크 허용이 필요해요 · Mikrofon erlauben · Allow the microphone' : '잘 안 들렸어요 · Nicht verstanden · Didn\'t catch that' }); };
+      r.onend = () => { this._rec = null; this.setState({ listening: false }); };
+      this.setState({ listening: true, micMsg: '' });
+      try { r.start(); } catch (e) { this._rec = null; this.setState({ listening: false }); }
+    };
+    return Object.assign(v, {
+      kbOpen: !!s.kbOpen, kbRows: rows, hasMic: !!SR, listening: !!s.listening,
+      micLabel: s.listening ? '듣고 있어요… · Ich höre zu' : '🎤 말하기 · Sprechen',
+      micCls: s.listening ? 'p-coral' : 'p-mint', micInk: s.listening ? '#FFFFFF' : '#1F4A3A', micMsg: s.micMsg || '',
+      kbShow: s.guess ? s.guess : '…', kbHint: this.kbHint ? this.kbHint() : '',
+      openKb: () => this.setState({ kbOpen: true, kbShift: false }),
+      closeKb: () => this.setState({ kbOpen: false }),
+      kbSubmit: () => { this.setState({ kbOpen: false }); this.submit(); },
+      listen
+    });
+  }
+  kbHint() { const q = this.q(); return q ? (q.chars.map(ch => ch === ' ' ? ' ' : this.chosung(ch)).join(' ') + ' · ' + (q.w.de || '')) : ''; }
+  renderVals() { return this.kbVals(this.classVals(this.renderVals0())); }
+  renderVals0() {
+    const s = this.state;
+    const n = s.qs.length;
+    const done = s.started && !s.setup && s.i >= n;
+    this.winSound(done);
+    const q = this.q();
+    const open = s.status === 'right' || s.status === 'reveal';
+    const L = q.chars.filter(c => c !== ' ').length;
+    const px = L <= 3 ? 120 : L === 4 ? 104 : L === 5 ? 92 : 80;
+    const tiles = q.chars.map((c, k) => {
+      if (c === ' ') return { ch: '', w: 18, px, fs: 10, cls: 'flat', ink: '#2B2C6B' };
+      const show = open || s.shown.indexOf(k) >= 0;
+      return {
+        ch: show ? c : this.chosung(c), w: px, px, fs: Math.round(px * 0.52),
+        cls: s.status === 'right' ? 'p-mint' : s.status === 'reveal' ? 'p-coral' : (show ? 'p-butter' : ['p-lav', 'p-blue', 'p-pink', 'p-mint', 'p-butter', 'p-lav'][k % 6]),
+        ink: s.status === 'reveal' ? '#FFFFFF' : '#2B2C6B'
+      };
+    });
+    const big = n > 8;
+    const dots = s.qs.map((x, k) => {
+      const r = s.results[k];
+      return { size: big ? 20 : 26, bg: r === true ? '#7FD3AE' : r === false ? '#F2918A' : (k === s.i ? '#FBE18C' : 'rgba(255,255,255,.8)'), ring: k === s.i ? '3px' : '0px' };
+    });
+    const players = this.ROSTER.map((p, k) => ({
+      ...this.build(p.cfg), name: p.name, score: s.scores[k], streak: s.streaks[k],
+      streakShow: s.streaks[k] >= 2 ? 'inline' : 'none', rowCls: k === s.turn && !done ? 'puff p-butter' : ''
+    }));
+    const cp = this.ROSTER[s.turn];
+    const winner = this.winnerOf(s.scores);
+    const right = s.results.filter(Boolean).length;
+    const de = q.w.de, dl = de.length;
+    const pv = this.poolVals(4);
+    const avail = this.quizWords(this.usableWords(4)).length;
+    const want = Math.min(s.count, avail);
+    return {
+      ...pv,
+      clueDe: de, clueFs: dl <= 12 ? 50 : dl <= 20 ? 40 : 32, clueEn: q.w.en || '',
+      clueKo: s.clue === 'deko' ? q.w.hint : '',
+      tiles, rowCls: s.status === 'wrong' ? 'wobble' : '',
+      lenNote: L + '글자 · ' + L + ' Silben' + (q.chars.indexOf(' ') >= 0 ? ' · 띄어쓰기 있어요 · mit Leerzeichen' : ''),
+      guess: s.guess,
+      onGuess: (e) => this.setState({ guess: e.target.value }),
+      onKey: (e) => { if (e.key === 'Enter' && !(e.nativeEvent && e.nativeEvent.isComposing)) { e.preventDefault(); this.submit(); } },
+      submit: () => this.submit(), hint: () => this.hint(),
+      pass: () => { if (!this.state.status && !this.state.setup && this.state.i < n) this.reveal(); },
+      dots, dotGap: big ? 4 : 6, players, msg: s.msg, done, winner,
+      qLabel: Math.min(s.i + 1, n) + '/' + n,
+      finalLine: n + '문제 중 ' + right + '개 정답 · ' + right + ' von ' + n + ' richtig · ' + right + ' of ' + n + ' correct',
+      cur: { ...this.build(cp.cfg), name: cp.name, helper: cp.en + ' ist dran · ' + cp.en + "'s turn" },
+      restart: () => { clearTimeout(this.timer); this.setState({ setup: true, started: false }); },
+      setup: s.setup, canClose: s.started && !done,
+      openSetup: () => this.setState({ setup: true }),
+      closeSetup: () => this.setState({ setup: false }),
+      startGame: () => this.startGame(),
+      opt1Title: '문제 수', opt1Sub: 'Fragen · Questions',
+      opt1: this.seg([
+        { v: 6, label: '6문제', sub: '6 Fragen' },
+        { v: 8, label: '8문제', sub: '8 Fragen' },
+        { v: 10, label: '10문제', sub: '10 Fragen' },
+        { v: 12, label: '12문제', sub: '12 Fragen' }
+      ], s.count, 'count'),
+      opt2Title: '단서', opt2Sub: 'Hinweis · Clue',
+      opt2: this.seg([
+        { v: 'deko', label: '독일어 + 한국어 설명', sub: 'Deutsch + Erklärung' },
+        { v: 'de', label: '독일어만', sub: 'Nur Deutsch · German only' }
+      ], s.clue, 'clue'),
+      setupNote: want < s.count
+        ? ('단어가 ' + avail + '개라서 ' + want + '문제로 해요 · Nur ' + want + ' Fragen · Only ' + want + ' questions')
+        : 'ㅊㅇㅅ → 첫인상! 초성만 보고 맞혀요 · Nur die Anfangskonsonanten · Only the first consonants'
+    };
+  }
+}
+DC.mount(Component);
+</script>
+</body>
+</html>

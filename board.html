@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="한글 놀이터">
+<meta name="theme-color" content="#E4DCF4">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>순위표 · Scoreboard</title>
+<link rel="stylesheet" href="shared/fonts/fonts.css">
+<style>
+body{margin:0}
+a{color:#2B2C6B}a:hover{color:#2B2C6B}
+button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5px}
+.puff{position:relative;background:linear-gradient(180deg,var(--c) 0%,var(--c) 58%,var(--d) 160%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.38),inset 0 -12px 16px -10px rgba(255,255,255,.6),inset 0 -2px 0 var(--dd),0 0 0 1.5px rgba(255,255,255,.55),0 4px 0 var(--d),0 14px 24px var(--sh),0 2px 4px rgba(43,44,107,.08)}
+.puff::before{content:"";position:absolute;left:5px;right:5px;top:4px;height:47%;border-radius:inherit;background:radial-gradient(circle at 86% 32%,rgba(255,255,255,.95) 0,rgba(255,255,255,.95) 2.5px,rgba(255,255,255,0) 4.5px),linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.2) 65%,rgba(255,255,255,.04) 100%);pointer-events:none}
+.puff::after{content:"";position:absolute;inset:2px;border-radius:inherit;border:3px solid transparent;border-top-color:rgba(255,255,255,.9);border-left-color:rgba(255,255,255,.35);filter:blur(1px);pointer-events:none}
+.p-white{--c:#FBFAFF;--d:#E7E3F6;--dd:rgba(120,110,180,.18);--sh:rgba(120,110,180,.24)}
+.p-lav{--c:#BBA8F6;--d:#9E88E9;--dd:rgba(100,70,200,.30);--sh:rgba(140,110,230,.38)}
+.p-coral{--c:#EE7466;--d:#D85B4E;--dd:rgba(160,40,30,.30);--sh:rgba(238,116,102,.42)}
+.p-mint{--c:#A6E5C9;--d:#84D2B0;--dd:rgba(30,140,100,.25);--sh:rgba(110,200,160,.38)}
+.p-butter{--c:#FBE18C;--d:#F1CD62;--dd:rgba(170,120,0,.22);--sh:rgba(230,190,70,.40)}
+.p-blue{--c:#A9CBF7;--d:#86B1EC;--dd:rgba(40,90,180,.25);--sh:rgba(110,160,230,.38)}
+.p-pink{--c:#F7B6CF;--d:#EC95B6;--dd:rgba(180,50,100,.22);--sh:rgba(240,150,190,.38)}
+.frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
+.frost-strong{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.66) 100%)}
+.blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
+.blob2{animation-delay:-6s;animation-duration:17s}
+.blob3{animation-delay:-11s;animation-duration:20s}
+@keyframes morph{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}25%{transform:translate(180px,-90px) scale(1.2) rotate(20deg)}50%{transform:translate(60px,110px) scale(.9) rotate(-10deg)}75%{transform:translate(-160px,40px) scale(1.12) rotate(12deg)}}
+.press{transition:transform .2s cubic-bezier(.3,1.6,.5,1),opacity .25s ease}
+.press:hover{transform:translateY(-4px) scale(1.02)}
+.press:active{transform:translateY(3px) scale(.97)}
+.dim{opacity:.5}
+.wobble{animation:wobble .45s ease}
+@keyframes wobble{0%,100%{translate:0 0}20%{translate:-8px 0}40%{translate:8px 0}60%{translate:-5px 0}80%{translate:4px 0}}
+.pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion: reduce){.blob,.pop,.wobble{animation:none}.press{transition:none}}
+.rowin{width:100%;height:44px;box-sizing:border-box;border:none;border-radius:999px;padding:0 16px;background:rgba(255,255,255,.88);box-shadow:inset 0 3px 6px rgba(43,44,107,.14),0 0 0 1.5px rgba(255,255,255,.8);font-family:'Jua',sans-serif;font-size:20px;color:#2B2C6B}
+.scroll{overflow-y:auto}
+.bar{height:16px;border-radius:999px;background:linear-gradient(180deg,#FFE89A,#F1CD62);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.9),0 2px 0 #E0B744}
+</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#E4DCF4}</style>
+</head>
+<body>
+<template id="dc-view">
+<div style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 30px 80px 44px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 26px; overflow: hidden">
+  <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
+    <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
+    <span class="blob blob2" style="left: 620px; top: -160px; width: 600px; height: 440px; background: #FFA797"></span>
+    <span class="blob blob3" style="left: 260px; top: 330px; width: 640px; height: 420px; background: #8AD9B6"></span>
+    <span class="blob" style="left: 900px; top: 380px; width: 480px; height: 400px; background: #FFD46E; animation-delay: -11s"></span>
+  </div>
+  <header style="height: 60px; display: flex; align-items: center; gap: 20px">
+    <a href="index.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 8px; font-family: 'Jua', sans-serif; font-size: 20px">
+      <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
+      </span>
+      메뉴 · Menu
+    </a>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1">순위표 🏆</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Rangliste · Scoreboard — {{chapter}}</div>
+    </div>
+    <div class="frost" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 8px; display: flex; align-items: center; gap: 8px">
+      <button type="button" onClick="{{prevWeek}}" aria-label="지난 주 · previous week" class="puff p-white press" style="width: 42px; height: 42px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 20px; color: #2B2C6B; opacity: {{prevOp}}"><span style="position: relative; z-index: 1">◀</span></button>
+      <span style="min-width: 190px; text-align: center; line-height: 1.1">
+        <span style="display: block; font-family: 'Jua', sans-serif; font-size: 20px">{{weekTitle}}</span>
+        <span style="display: block; font-size: 12px; font-weight: 800; color: #4A4C80">{{weekRange}}</span>
+      </span>
+      <button type="button" onClick="{{nextWeek}}" aria-label="다음 주 · next week" class="puff p-white press" style="width: 42px; height: 42px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 20px; color: #2B2C6B; opacity: {{nextOp}}"><span style="position: relative; z-index: 1">▶</span></button>
+    </div>
+  </header>
+
+  <div style="flex: 1; min-height: 0; display: flex; gap: 28px">
+    <section class="frost" style="flex: 1; min-width: 0; border-radius: 40px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+        <div class="puff {{r.cls}}" style="flex: 1; min-height: 0; max-height: 84px; border-radius: 30px; padding: 0 22px 0 12px; display: flex; align-items: center; gap: 16px">
+          <span class="puff {{r.rankCls}}" style="width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px"><span style="position: relative; z-index: 1">{{r.rank}}</span></span>
+          <span style="position: relative; flex-shrink: 0">
+            <span style="position: relative; z-index: 1; width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: block; background: {{r.inner}}; box-shadow: 0 0 0 2.5px #FFFFFF">
+              <svg viewBox="0 4 120 116" width="56" height="56" aria-hidden="true" style="display: block">
+                <path d="{{r.hairBack}}" fill="{{r.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M53 68L53 92L67 92L67 68Z" fill="{{r.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M20 122C22 101 36 89 60 89C84 89 98 101 100 122Z" fill="{{r.shirtCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{r.shirtLines}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{r.ears}}" fill="{{r.skin}}" stroke="#1E1E24" stroke-width="2.4"></path>
+                <path d="{{r.head}}" fill="{{r.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{r.blush}}" fill="#F49AA8" opacity="0.6"></path>
+                <path d="{{r.brows}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{r.eyesFill}}" fill="#1E1E24"></path>
+                <path d="{{r.eyesStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{r.eyesWhite}}" fill="#FFFFFF"></path>
+                <path d="{{r.noseStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{r.noseFill}}" fill="#1E1E24"></path>
+                <path d="{{r.mouthFill}}" fill="#1E1E24" stroke="#1E1E24" stroke-width="1.6" stroke-linejoin="round"></path>
+                <path d="{{r.mouthWhite}}" fill="#FFFFFF"></path>
+                <path d="{{r.tongue}}" fill="#F27A8A"></path>
+                <path d="{{r.mouthStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{r.hairFront}}" fill="{{r.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{r.glasses}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linejoin="round"></path>
+                <path d="{{r.accStroke}}" fill="none" stroke="#1E1E24" stroke-width="4" stroke-linecap="round"></path>
+                <path d="{{r.accFill}}" fill="{{r.accCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{r.accFill2}}" fill="{{r.acc2Col}}" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <span aria-hidden="true" style="position: absolute; left: -8px; top: -16px; z-index: 3; font-size: 26px; transform: rotate(-18deg); display: {{r.crown}}">👑</span>
+          </span>
+          <span style="position: relative; z-index: 1; width: 170px; flex-shrink: 0; line-height: 1.1">
+            <span style="display: block; font-family: 'Jua', sans-serif; font-size: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.name}}</span>
+            <span style="display: block; font-size: 13px; font-weight: 800; color: #4A4C80">{{r.sub}}</span>
+          </span>
+          <span style="position: relative; z-index: 1; flex: 1; min-width: 0; height: 16px; border-radius: 999px; background: rgba(255,255,255,.7); box-shadow: inset 0 2px 4px rgba(43,44,107,.12)">
+            <span class="bar" style="display: block; width: {{r.pct}}%"></span>
+          </span>
+          <span style="position: relative; z-index: 1; width: 92px; flex-shrink: 0; text-align: right; font-family: 'Jua', sans-serif; font-size: 34px; font-variant-numeric: tabular-nums">★ {{r.stars}}</span>
+        </div>
+      </sc-for>
+    </section>
+
+    <aside style="width: 330px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px">
+      <div class="puff p-butter" style="border-radius: 38px; padding: 18px 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <div style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 22px">{{crownTitle}}</div>
+        <div style="position: relative; z-index: 1; font-size: 13px; font-weight: 800; color: #6A4A00">{{crownSub}}</div>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px">
+          <sc-for list="{{crowns}}" as="c" hint-placeholder-count="1">
+            <span style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px">
+              <span aria-hidden="true" style="position: absolute; top: -26px; z-index: 3; font-size: 36px">👑</span>
+              <span style="position: relative; z-index: 1; width: 84px; height: 84px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: block; background: {{c.inner}}; box-shadow: 0 0 0 2.5px #FFFFFF">
+              <svg viewBox="0 4 120 116" width="84" height="84" aria-hidden="true" style="display: block">
+                <path d="{{c.hairBack}}" fill="{{c.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M53 68L53 92L67 92L67 68Z" fill="{{c.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="M20 122C22 101 36 89 60 89C84 89 98 101 100 122Z" fill="{{c.shirtCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{c.shirtLines}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{c.ears}}" fill="{{c.skin}}" stroke="#1E1E24" stroke-width="2.4"></path>
+                <path d="{{c.head}}" fill="{{c.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{c.blush}}" fill="#F49AA8" opacity="0.6"></path>
+                <path d="{{c.brows}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{c.eyesFill}}" fill="#1E1E24"></path>
+                <path d="{{c.eyesStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{c.eyesWhite}}" fill="#FFFFFF"></path>
+                <path d="{{c.noseStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="{{c.noseFill}}" fill="#1E1E24"></path>
+                <path d="{{c.mouthFill}}" fill="#1E1E24" stroke="#1E1E24" stroke-width="1.6" stroke-linejoin="round"></path>
+                <path d="{{c.mouthWhite}}" fill="#FFFFFF"></path>
+                <path d="{{c.tongue}}" fill="#F27A8A"></path>
+                <path d="{{c.mouthStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+                <path d="{{c.hairFront}}" fill="{{c.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{c.glasses}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linejoin="round"></path>
+                <path d="{{c.accStroke}}" fill="none" stroke="#1E1E24" stroke-width="4" stroke-linecap="round"></path>
+                <path d="{{c.accFill}}" fill="{{c.accCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+                <path d="{{c.accFill2}}" fill="{{c.acc2Col}}" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+              <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 22px">{{c.name}}</span>
+            </span>
+          </sc-for>
+        </div>
+        <div style="position: relative; z-index: 1; font-size: 14px; font-weight: 800; color: #6A4A00">{{crownNone}}</div>
+      </div>
+      <div class="frost" style="flex: 1; border-radius: 30px; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 800; line-height: 1.4">
+        <div style="font-family: 'Jua', sans-serif; font-size: 21px">별 받는 법 <span style="font-family: 'Nunito', sans-serif; font-size: 13px; color: #4A4C80">So gibt's Sterne · How stars work</span></div>
+        <div>⭐ 한 판에 별 1~3개 — 잘할수록 많이! · 1–3 per round</div>
+        <div>🎮 게임마다 하루 {{perGame}}판까지 · {{perGame}} rounds per game a day</div>
+        <div>⏱ 하루 {{minutes}}분 · {{minutes}} minutes a day</div>
+        <div>👑 매주 1등이 왕관! · Weekly winner gets the crown</div>
+        <div style="margin-top: auto; font-size: 12px; color: #4A4C80">{{syncNote}}</div>
+      </div>
+    </aside>
+  </div>
+</div>
+</template>
+<script src="shared/vendor/morphdom.min.js"></script>
+<script src="shared/dc-runtime.js"></script>
+<script src="shared/class-config.js"></script>
+<script src="shared/class.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.C = window.ClassPlay || this.demo();
+    this.state = { wk: this.C.weekKey(), tick: 0 };
+  }
+  componentDidMount() { this.C.onChange(() => this.setState({ tick: this.state.tick + 1 })); if (this.C.refresh) this.C.refresh(); }
+
+  demo() {
+    const wk = '2026-10-12', prev = '2026-10-05';
+    const cfgs = [
+      { head: 0, hair: 1, eyes: 3, brows: 0, nose: 0, mouth: 0, glasses: 0, shirt: 2, acc: 0, skin: 1, hairC: 0, shirtC: 0, accC: 3, blush: true, freckles: false, bg: 0 },
+      { head: 1, hair: 3, eyes: 1, brows: 2, nose: 2, mouth: 1, glasses: 1, shirt: 0, acc: 0, skin: 3, hairC: 1, shirtC: 2, accC: 5, blush: true, freckles: true, bg: 1 },
+      { head: 0, hair: 2, eyes: 0, brows: 1, nose: 1, mouth: 4, glasses: 0, shirt: 3, acc: 4, skin: 0, hairC: 4, shirtC: 5, accC: 1, blush: true, freckles: true, bg: 4 },
+      { head: 2, hair: 4, eyes: 5, brows: 0, nose: 0, mouth: 5, glasses: 2, shirt: 1, acc: 3, skin: 5, hairC: 0, shirtC: 4, accC: 1, blush: false, freckles: false, bg: 3 },
+      { head: 1, hair: 6, eyes: 2, brows: 1, nose: 3, mouth: 2, glasses: 0, shirt: 2, acc: 1, skin: 2, hairC: 2, shirtC: 3, accC: 0, blush: true, freckles: false, bg: 2 },
+      { head: 2, hair: 8, eyes: 4, brows: 2, nose: 1, mouth: 3, glasses: 1, shirt: 0, acc: 5, skin: 4, hairC: 1, shirtC: 7, accC: 2, blush: false, freckles: true, bg: 5 }
+    ];
+    const students = ['레오', '수민', '세나', '리안', '하얀', '규빈'].map((name, i) => ({ id: 's' + (i + 1), name, cfg: cfgs[i] }));
+    const stars = [31, 24, 24, 17, 9, 0], days = [5, 4, 3, 3, 2, 0];
+    const rows = students.map((s, i) => ({ student: s, stars: stars[i], days: days[i], rounds: days[i] * 4, minutes: days[i] * 14, rank: [1, 2, 2, 4, 5, 6][i] }));
+    return {
+      demo: true, online: false, RULES: { roundsPerGame: 3, dailyMinutes: 15 },
+      students: () => students, settings: () => ({ lessons: [4], chapterTitle: '4과 외모보다 성격' }),
+      weekKey: () => wk, prevWeekKey: () => prev, weekLabel: (w) => w === wk ? '10/12 – 10/18' : '10/5 – 10/11',
+      weeksWithPlays: () => [wk, prev], board: () => rows, crownIds: () => ['s2'], hasCrown: (id) => id === 's2',
+      isTeacher: () => true, hasPin: () => true, me: () => students[0], playsFor: () => [], syncError: () => '', onChange() {}
+    };
+  }
+
+  build(cfg) {
+    const C = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
+    const E = (x, y, rx, ry) => 'M' + (x - rx) + ' ' + y + 'a' + rx + ' ' + ry + ' 0 1 0 ' + (2 * rx) + ' 0a' + rx + ' ' + ry + ' 0 1 0 ' + (-2 * rx) + ' 0Z';
+    const NONE = 'M0 0';
+    const SKIN = ['#FFE9DC', '#F9D7BE', '#EEC09A', '#D9A27A', '#B07A52', '#8A5A3A', '#6A4128'];
+    const HAIR = ['#1E1E24', '#4A3326', '#7B4E2E', '#C99A4E', '#E5C27A', '#B4B4B8', '#E46B5A', '#7E6BD9'];
+    const CLOTH = ['#BBA8F6', '#EE7466', '#A6E5C9', '#FBE18C', '#A9CBF7', '#F7B6CF', '#FFFFFF', '#5B5DA8'];
+    const INNER = ['#EEE8FF', '#E6F8EF', '#FFF7D6', '#E8F1FF', '#FFEDF4', '#FFE7E3'];
+    const heads = [E(60, 52, 22, 26), E(60, 53, 24, 24), 'M38 46C38 30 48 24 60 24C72 24 82 30 82 46L82 58C82 72 72 80 60 80C48 80 38 72 38 58Z'];
+    const earX = cfg.head === 1 ? 23.5 : 21.5;
+    const hairs = [
+      { f: 'M36 50C34 30 46 20 60 20C76 20 86 30 84 50C80 41 74 37 66 39C60 33 50 35 46 41C42 41 38 45 36 50Z' },
+      { f: 'M33 50C33 26 46 18 60 18C74 18 87 26 87 50L88 74C82 77 77 75 76 70L78 48C70 41 55 35 42 48L44 70C43 75 38 77 32 74Z' },
+      { b: 'M35 42C35 22 47 15 60 15C73 15 85 22 85 42L88 100C76 104 44 104 32 100Z', f: 'M38 46C39 30 49 22 60 22C72 22 81 30 82 46C73 42 64 36 59 29C55 38 47 44 38 46Z' },
+      { f: C(60, 15, 9) + 'M37 48C35 28 47 22 60 22C73 22 85 28 83 48C76 38 68 34 60 34C52 34 44 38 37 48Z' },
+      { f: C(40, 42, 9) + C(45, 29, 10) + C(58, 22, 11) + C(71, 26, 10) + C(80, 37, 9) + C(84, 49, 7) + C(36, 53, 7) },
+      { f: 'M36 49L37 31L45 36L49 20L57 30L64 15L70 29L78 21L80 35L86 33L84 49C76 40 67 36 60 36C52 36 43 40 36 49Z' },
+      { f: 'M36 52C33 30 46 19 62 19C78 19 87 30 85 48C82 44 78 42 74 42C64 42 54 36 50 30C48 38 42 46 36 52Z' },
+      { b: 'M80 34C92 34 96 50 92 66C90 72 86 72 86 66C88 54 86 44 78 40Z', f: 'M37 48C35 28 47 21 60 21C73 21 85 28 83 48C76 38 68 34 60 34C52 34 44 38 37 48Z' },
+      { f: 'M38 44C40 29 50 24 60 24C70 24 80 29 82 44C74 38 46 38 38 44Z' }
+    ];
+    const eyes = [
+      { fill: C(51, 55, 2.6) + C(69, 55, 2.6) },
+      { stroke: 'M47 56Q51 51 55 56M65 56Q69 51 73 56' },
+      { stroke: 'M47 55L55 55M65 55L73 55' },
+      { fill: C(51, 55, 3.8) + C(69, 55, 3.8), white: C(52.3, 53.8, 1.3) + C(70.3, 53.8, 1.3) },
+      { fill: C(51, 55, 2.6), stroke: 'M65 56Q69 51 73 56' },
+      { stroke: 'M47 54Q51 58 55 54M65 54Q69 58 73 54' }
+    ];
+    const brows = ['M46 48Q51 44 56 47M64 47Q69 44 74 48', 'M46 47L56 46M64 46L74 47', 'M46 45Q51 41 56 44M64 44Q69 41 74 45', NONE];
+    const noses = [{ s: 'M60 55L57 64L61 64' }, { s: 'M61 56Q55 63 61 65' }, { f: C(60, 62, 1.6) }, {}];
+    const mouths = [
+      { s: 'M53 70Q60 76 67 70' },
+      { f: 'M52 69Q60 81 68 69Z', t: E(60, 75, 3.4, 2) },
+      { f: E(60, 71, 3, 3.6) },
+      { s: 'M55 71L65 71' },
+      { s: 'M54 71Q62 74 68 68' },
+      { f: 'M51 68Q60 80 69 68Z', w: 'M54 69.5L66 69.5L65 72L55 72Z' }
+    ];
+    const glasses = [NONE, C(51, 55, 7) + C(69, 55, 7) + 'M58 55L62 55', 'M43 49H58V61H43ZM62 49H77V61H62ZM58 54H62'];
+    const shirts = ['M52 90Q60 97 68 90', 'M50 90L56 101L60 92L64 101L70 90', 'M42 92Q60 105 78 92M56 98L55 109M64 98L65 109', 'M30 104L90 104M25 113L95 113'];
+    const accs = [
+      {},
+      { f: 'M35 44C35 22 47 13 60 13C73 13 85 22 85 44ZM33 40Q33 36 37 36H83Q87 36 87 40V44Q87 48 83 48H37Q33 48 33 44Z' + C(60, 11, 5) },
+      { f: 'M36 42C36 24 48 17 60 17C72 17 84 24 84 42ZM60 40L96 42C97 46 84 47 60 45Z' },
+      { s: 'M34 54C32 20 88 20 86 54', f: 'M28 46H40V64H28ZM80 46H92V64H80Z' },
+      { f: C(80, 26, 4) + C(86, 22, 4) + C(88, 29, 4) + C(83, 34, 4) + C(77, 32, 4), f2: C(82, 28, 3) },
+      { f: 'M70 26L80 20L80 32ZM90 20L90 32L80 26Z', f2: C(80, 26, 2.6) }
+    ];
+    const h = hairs[cfg.hair], e = eyes[cfg.eyes], n = noses[cfg.nose], m = mouths[cfg.mouth], a = accs[cfg.acc];
+    return {
+      inner: INNER[cfg.bg], skin: SKIN[cfg.skin], hairCol: HAIR[cfg.hairC], shirtCol: CLOTH[cfg.shirtC], accCol: CLOTH[cfg.accC], acc2Col: '#FBE18C',
+      head: heads[cfg.head], ears: C(60 - earX, 55, 5) + C(60 + earX, 55, 5),
+      hairBack: h.b || NONE, hairFront: h.f || NONE,
+      eyesFill: e.fill || NONE, eyesStroke: e.stroke || NONE, eyesWhite: e.white || NONE,
+      brows: brows[cfg.brows], noseStroke: n.s || NONE, noseFill: n.f || NONE,
+      mouthFill: m.f || NONE, mouthStroke: m.s || NONE, mouthWhite: m.w || NONE, tongue: m.t || NONE,
+      blush: cfg.blush ? E(46, 64, 4.5, 2.6) + E(74, 64, 4.5, 2.6) : NONE,
+      freckles: cfg.freckles ? C(45, 61, 0.9) + C(48, 63, 0.9) + C(72, 61, 0.9) + C(75, 63, 0.9) : NONE,
+      glasses: glasses[cfg.glasses], shirtLines: shirts[cfg.shirt],
+      accStroke: a.s || NONE, accFill: a.f || NONE, accFill2: a.f2 || NONE
+    };
+  }
+
+  renderVals() {
+    const C = this.C, s = this.state;
+    const weeks = C.weeksWithPlays();
+    const cur = C.weekKey();
+    const i = Math.max(0, weeks.indexOf(s.wk));
+    const rows = C.board(s.wk);
+    const max = Math.max(1, ...rows.map(r => r.stars));
+    const crownWeek = s.wk === cur ? C.prevWeekKey(cur) : s.wk;
+    const crownIds = C.crownIds(crownWeek);
+    const me = C.me ? C.me() : null;
+    const RANK = ['p-butter', 'p-white', 'p-white'];
+    return {
+      chapter: C.settings().chapterTitle || '',
+      weekTitle: s.wk === cur ? '이번 주 · Diese Woche' : (s.wk === C.prevWeekKey(cur) ? '지난 주 · Letzte Woche' : '주 · Woche'),
+      weekRange: C.weekLabel(s.wk),
+      prevOp: i < weeks.length - 1 ? '1' : '0.35', nextOp: i > 0 ? '1' : '0.35',
+      prevWeek: () => { if (i < weeks.length - 1) this.setState({ wk: weeks[i + 1] }); },
+      nextWeek: () => { if (i > 0) this.setState({ wk: weeks[i - 1] }); },
+      rows: rows.map(r => ({
+        ...this.build(r.student.cfg), name: r.student.name, stars: r.stars, rank: r.stars > 0 ? r.rank : '·',
+        sub: r.days + '일 · Tage · days  ·  ' + Math.round(r.minutes) + '분',
+        pct: Math.round(r.stars / max * 100),
+        cls: me && me.id === r.student.id ? 'p-lav' : 'p-white',
+        rankCls: r.rank === 1 && r.stars > 0 ? 'p-butter' : r.rank === 2 ? 'p-blue' : r.rank === 3 ? 'p-pink' : 'p-white',
+        crown: crownIds.indexOf(r.student.id) >= 0 ? 'block' : 'none'
+      })),
+      crownTitle: s.wk === cur ? '지난 주 왕관 👑' : '이 주의 왕관 👑',
+      crownSub: s.wk === cur ? 'Krone der letzten Woche · Last week\'s crown' : 'Krone dieser Woche · Crown of this week',
+      crowns: crownIds.map(id => { const st = C.students().find(x => x.id === id); return st ? { ...this.build(st.cfg), name: st.name } : null; }).filter(Boolean),
+      crownNone: crownIds.length ? '' : '아직 없어요 · Noch keine · None yet',
+      perGame: C.RULES.roundsPerGame, minutes: C.RULES.dailyMinutes,
+      syncNote: C.demo ? '미리보기 · Vorschau · Preview data' : (C.online ? (C.syncError() ? '⚠ 연결 문제 · Verbindungsproblem: ' + C.syncError() : '🟢 온라인 · online — 모두 같은 순위표') : '이 기기에만 저장 · Nur auf diesem Gerät · this device only')
+    };
+  }
+}
+DC.mount(Component);
+</script>
+</body>
+</html>

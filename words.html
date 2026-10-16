@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="한글 놀이터">
+<meta name="theme-color" content="#E4DCF4">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>단어장 · Word pool</title>
+<link rel="stylesheet" href="shared/fonts/fonts.css">
+<style>
+body{margin:0}
+a{color:#2B2C6B}a:hover{color:#2B2C6B}
+button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:4px}
+.puff{position:relative;background:linear-gradient(180deg,var(--c) 0%,var(--c) 58%,var(--d) 160%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.38),inset 0 -12px 16px -10px rgba(255,255,255,.6),inset 0 -2px 0 var(--dd),0 0 0 1.5px rgba(255,255,255,.55),0 4px 0 var(--d),0 12px 20px var(--sh),0 2px 4px rgba(43,44,107,.08)}
+.puff::before{content:"";position:absolute;left:5px;right:5px;top:4px;height:47%;border-radius:inherit;background:radial-gradient(circle at 86% 32%,rgba(255,255,255,.95) 0,rgba(255,255,255,.95) 2.5px,rgba(255,255,255,0) 4.5px),linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.2) 65%,rgba(255,255,255,.04) 100%);pointer-events:none}
+.puff::after{content:"";position:absolute;inset:2px;border-radius:inherit;border:3px solid transparent;border-top-color:rgba(255,255,255,.9);border-left-color:rgba(255,255,255,.35);filter:blur(1px);pointer-events:none}
+.p-white{--c:#FBFAFF;--d:#E7E3F6;--dd:rgba(120,110,180,.18);--sh:rgba(120,110,180,.2)}
+.p-lav{--c:#BBA8F6;--d:#9E88E9;--dd:rgba(100,70,200,.30);--sh:rgba(140,110,230,.34)}
+.p-coral{--c:#EE7466;--d:#D85B4E;--dd:rgba(160,40,30,.30);--sh:rgba(238,116,102,.4)}
+.p-mint{--c:#A6E5C9;--d:#84D2B0;--dd:rgba(30,140,100,.25);--sh:rgba(110,200,160,.34)}
+.p-butter{--c:#FBE18C;--d:#F1CD62;--dd:rgba(170,120,0,.22);--sh:rgba(230,190,70,.36)}
+.p-blue{--c:#A9CBF7;--d:#86B1EC;--dd:rgba(40,90,180,.25);--sh:rgba(110,160,230,.34)}
+.p-pink{--c:#F7B6CF;--d:#EC95B6;--dd:rgba(180,50,100,.22);--sh:rgba(240,150,190,.34)}
+.frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
+.blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
+.blob2{animation-delay:-6s;animation-duration:17s}
+.blob3{animation-delay:-11s;animation-duration:20s}
+@keyframes morph{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}25%{transform:translate(180px,-90px) scale(1.2) rotate(20deg)}50%{transform:translate(60px,110px) scale(.9) rotate(-10deg)}75%{transform:translate(-160px,40px) scale(1.12) rotate(12deg)}}
+.press{transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.press:hover{transform:translateY(-2px) scale(1.02)}
+.press:active{transform:translateY(2px) scale(.98)}
+.scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(43,44,107,.25) transparent}
+.row-off{opacity:.42}
+@media (prefers-reduced-motion: reduce){.blob{animation:none}.press{transition:none}}
+</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#E4DCF4}</style>
+</head>
+<body>
+<template id="dc-view">
+<div style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 28px 80px 36px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 22px; overflow: hidden">
+  <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
+    <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
+    <span class="blob blob2" style="left: 620px; top: -160px; width: 600px; height: 440px; background: #FFA797"></span>
+    <span class="blob blob3" style="left: 260px; top: 330px; width: 640px; height: 420px; background: #8AD9B6"></span>
+    <span class="blob" style="left: 900px; top: 380px; width: 480px; height: 400px; background: #FFD46E; animation-delay: -11s"></span>
+  </div>
+
+  <header style="height: 58px; display: flex; align-items: center; gap: 20px">
+    <a href="index.html" class="frost press" style="height: 54px; box-sizing: border-box; border-radius: 999px; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 8px; font-family: 'Jua', sans-serif; font-size: 20px">
+      <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
+      </span>
+      메뉴 · Menu
+    </a>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1">단어장</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">Wortschatz · Vocabulary pool</div>
+    </div>
+    <div class="frost" style="height: 54px; box-sizing: border-box; border-radius: 999px; padding: 0 20px; display: flex; align-items: center; gap: 12px">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2B2C6B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5Z"></path><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"></path></svg>
+      <span style="font-family: 'Jua', sans-serif; font-size: 19px">{{bookTitle}}</span>
+      <span style="font-size: 14px; font-weight: 800; color: #4A4C80">{{bookMeta}}</span>
+    </div>
+  </header>
+
+  <sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
+    <div class="frost" style="flex: 1; border-radius: 36px; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 24px">{{loadingText}}</div>
+  </sc-if>
+
+  <sc-if value="{{ready}}" hint-placeholder-val="{{ true }}">
+    <div style="flex: 1; min-height: 0; display: flex; gap: 22px">
+      <section class="frost scroll" style="width: 440px; flex-shrink: 0; box-sizing: border-box; border-radius: 34px; padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <div style="padding-left: 6px"><span style="font-family: 'Jua', sans-serif; font-size: 19px">{{g.ko}}</span> <span style="font-size: 13px; font-weight: 800; color: #4A4C80">{{g.sub}}</span></div>
+            <sc-for list="{{g.items}}" as="l" hint-placeholder-count="2">
+              <div style="display: flex; gap: 8px; align-items: stretch">
+                <button type="button" onClick="{{l.focus}}" aria-pressed="{{l.focusPressed}}" class="puff press {{l.cardCls}}" style="flex: 1; min-width: 0; min-height: 58px; border: none; border-radius: 22px; padding: 8px 14px 8px 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; color: #2B2C6B; font-family: inherit; text-align: left">
+                  <span class="puff {{l.discCls}}" style="width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 20px">{{l.n}}</span></span>
+                  <span style="position: relative; z-index: 1; flex: 1; min-width: 0">
+                    <span style="display: block; font-family: 'Jua', sans-serif; font-size: 19px; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{l.ko}}</span>
+                    <span style="display: block; font-size: 12.5px; font-weight: 800; color: #4A4C80; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{l.sub}}</span>
+                  </span>
+                  <span style="position: relative; z-index: 1; font-size: 13px; font-weight: 900; color: #4A4C80">{{l.count}}</span>
+                </button>
+                <button type="button" onClick="{{l.toggleToday}}" aria-pressed="{{l.todayPressed}}" aria-label="{{l.n}}과 오늘 사용 · use today" class="puff press {{l.todayCls}}" style="width: 52px; flex-shrink: 0; border: none; border-radius: 18px; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="{{l.todayInk}}" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><path d="{{l.todayIcon}}"></path></svg>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </section>
+
+      <section style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+        <div class="frost" style="border-radius: 30px; padding: 14px 18px; display: flex; align-items: center; gap: 14px">
+          <span class="puff {{f.discCls}}" style="width: 58px; height: 58px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center"><span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 26px">{{f.n}}</span></span>
+          <div style="flex: 1; min-width: 0">
+            <div style="font-family: 'Jua', sans-serif; font-size: 28px; line-height: 1.1">{{f.ko}}</div>
+            <div style="font-size: 14px; font-weight: 800; color: #4A4C80">{{f.sub}}</div>
+          </div>
+          <button type="button" onClick="{{f.allOn}}" class="puff p-white press" style="height: 44px; border: none; border-radius: 999px; padding: 0 14px; font-family: 'Jua', sans-serif; font-size: 16px; color: #2B2C6B; cursor: pointer"><span style="position: relative; z-index: 1">모두 켜기 · All on</span></button>
+          <button type="button" onClick="{{f.toggleToday}}" class="puff press {{f.todayBtnCls}}" style="height: 48px; border: none; border-radius: 999px; padding: 0 18px; font-family: 'Jua', sans-serif; font-size: 18px; color: {{f.todayBtnInk}}; cursor: pointer"><span style="position: relative; z-index: 1">{{f.todayBtnLabel}}</span></button>
+        </div>
+
+        <div class="frost scroll" style="flex: 1; min-height: 0; border-radius: 30px; padding: 8px 12px">
+          <div style="display: grid; grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) 56px; align-items: center; gap: 0 12px; padding: 8px 8px 6px; font-size: 12.5px; font-weight: 900; color: #4A4C80; letter-spacing: .02em">
+            <span></span><span>한국어</span><span>Deutsch</span><span>English</span><span>과</span>
+          </div>
+          <sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
+            <div class="{{r.rowCls}}" style="display: grid; grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) 56px; align-items: center; gap: 0 12px; padding: 5px 8px; border-top: 1px solid rgba(255,255,255,.7)">
+              <button type="button" onClick="{{r.toggle}}" aria-pressed="{{r.pressed}}" aria-label="{{r.ko}}" class="puff press {{r.chkCls}}" style="width: 32px; height: 32px; border: none; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1F4A3A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1; display: {{r.chkShow}}"><polyline points="5 13 10 18 19 6"></polyline></svg>
+              </button>
+              <span style="font-family: 'Jua', sans-serif; font-size: 21px; line-height: 1.2">{{r.ko}}</span>
+              <span style="font-size: 15px; font-weight: 800">{{r.de}}</span>
+              <span style="font-size: 14px; font-weight: 700; color: #4A4C80">{{r.en}}</span>
+              <span style="font-size: 13px; font-weight: 900; color: #4A4C80">{{r.tag}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+
+    <div class="frost" style="height: 76px; box-sizing: border-box; border-radius: 999px; padding: 0 10px 0 24px; display: flex; align-items: center; gap: 14px">
+      <div style="flex-shrink: 0">
+        <div style="font-family: 'Jua', sans-serif; font-size: 20px; line-height: 1.1">오늘의 단어장</div>
+        <div style="font-size: 12.5px; font-weight: 800; color: #4A4C80">Heute · Today's words</div>
+      </div>
+      <div class="scroll" style="flex: 1; min-width: 0; display: flex; gap: 8px; overflow-x: auto; padding: 8px 2px">
+        <sc-for list="{{chips}}" as="c" hint-placeholder-count="2">
+          <button type="button" onClick="{{c.remove}}" aria-label="{{c.label}} 빼기 · remove" class="puff press {{c.cls}}" style="flex-shrink: 0; height: 40px; border: none; border-radius: 999px; padding: 0 10px 0 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; color: #2B2C6B; font-family: inherit">
+            <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 16px; white-space: nowrap">{{c.label}}</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" style="position: relative; z-index: 1"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+          </button>
+        </sc-for>
+        <sc-if value="{{noChips}}" hint-placeholder-val="{{ false }}">
+          <span style="align-self: center; font-size: 14px; font-weight: 800; color: #4A4C80">왼쪽에서 과를 골라요 · Pick lessons on the left</span>
+        </sc-if>
+      </div>
+      <div style="flex-shrink: 0; text-align: right">
+        <div style="font-family: 'Jua', sans-serif; font-size: 26px; line-height: 1">{{total}}</div>
+        <div style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Wörter · words</div>
+      </div>
+      <button type="button" onClick="{{useInGames}}" class="puff p-coral press" style="flex-shrink: 0; height: 58px; border: none; border-radius: 999px; padding: 0 22px 0 8px; display: flex; align-items: center; gap: 10px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
+        <span class="puff p-white" aria-hidden="true" style="width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg>
+        </span>
+        <span style="position: relative; z-index: 1">{{useLabel}}</span>
+      </button>
+    </div>
+  </sc-if>
+</div>
+</template>
+<script src="shared/vendor/morphdom.min.js"></script>
+<script src="shared/dc-runtime.js"></script>
+<script src="shared/class-config.js"></script>
+<script src="shared/class.js"></script>
+<script src="content/textbook-4-1-vocab.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('hangul_today_v1') || 'null'); } catch (e) {}
+    const ok = saved && saved.today && typeof saved.today === 'object';
+    this.state = { data: null, err: false, focus: 1, today: ok ? saved.today : { 1: true, 2: true }, off: ok ? (saved.off || {}) : {}, used: !!ok };
+  }
+  saveForGames() {
+    const s = this.state;
+    const today = {}, off = {};
+    Object.keys(s.today).forEach(k => { if (s.today[k]) today[k] = true; });
+    Object.keys(s.off).forEach(k => { if (s.off[k]) off[k] = true; });
+    let stored = true;
+    try { localStorage.setItem('hangul_today_v1', JSON.stringify({ today, off, at: Date.now() })); } catch (e) { stored = false; }
+    this.setState({ used: true, storeFail: !stored });
+  }
+  componentDidMount() {
+    fetch('content/textbook-4-1-vocab.json')
+      .then(r => r.json())
+      .then(data => this.setState({ data }))
+      .catch(() => this.setState({ err: true }));
+  }
+  lessonWords(L) {
+    const d = this.state.data;
+    const own = L.words.map((w, i) => ({ w, key: L.n + ':' + i, from: L.n }));
+    if (!L.review) return own;
+    const more = [];
+    L.review.forEach(n => {
+      const src = d.lessons.find(x => x.n === n);
+      src.words.forEach((w, i) => more.push({ w, key: n + ':' + i, from: n }));
+    });
+    return more.concat(own);
+  }
+  renderVals() {
+    const s = this.state;
+    if (!s.data) {
+      return { loading: true, ready: false, loadingText: s.err ? '단어장을 못 불러왔어요 · Could not load the word list' : '단어장을 불러오는 중… · Loading…', bookTitle: '한국어 4-1', bookMeta: '' };
+    }
+    const d = s.data;
+    const UNIT_CLS = { u1: 'p-lav', u2: 'p-pink', u3: 'p-mint', u4: 'p-butter', u5: 'p-blue', u6: 'p-coral' };
+    const disc = (L) => L.unit ? UNIT_CLS[L.unit] : 'p-white';
+    const countOn = (L) => this.lessonWords(L).filter(x => !s.off[x.key]).length;
+    const item = (L) => {
+      const inToday = !!s.today[L.n];
+      return {
+        n: L.n, ko: L.ko, sub: L.theme[0] + ' · ' + L.theme[2], count: countOn(L) + '개',
+        cardCls: L.n === s.focus ? 'p-lav' : 'p-white', focusPressed: L.n === s.focus ? 'true' : 'false', discCls: L.n === s.focus ? 'p-white' : disc(L),
+        todayCls: inToday ? 'p-mint' : 'p-white', todayPressed: inToday ? 'true' : 'false',
+        todayInk: inToday ? '#1F4A3A' : '#8486B5', todayIcon: inToday ? 'M5 13l5 5L19 6' : 'M12 5v14M5 12h14',
+        focus: () => this.setState({ focus: L.n }),
+        toggleToday: () => this.setState({ today: { ...this.state.today, [L.n]: !this.state.today[L.n] }, used: false })
+      };
+    };
+    const groups = d.units.map(u => ({ ko: u.ko, sub: u.de + ' · ' + u.en, items: u.lessons.map(n => item(d.lessons.find(x => x.n === n))) }));
+    groups.push({ ko: '복습', sub: 'Wiederholung · Review', items: d.lessons.filter(x => !x.unit).map(item) });
+
+    const F = d.lessons.find(x => x.n === s.focus);
+    const fIn = !!s.today[F.n];
+    const fw = this.lessonWords(F);
+    const rows = fw.map(x => {
+      const on = !s.off[x.key];
+      return {
+        ko: x.w[0], de: x.w[1], en: x.w[2], tag: x.from + '과', rowCls: on ? '' : 'row-off',
+        chkCls: on ? 'p-mint' : 'p-white', chkShow: on ? 'block' : 'none', pressed: on ? 'true' : 'false',
+        toggle: () => this.setState({ off: { ...this.state.off, [x.key]: !this.state.off[x.key] }, used: false })
+      };
+    });
+    const chosen = d.lessons.filter(L => s.today[L.n]);
+    const keys = {};
+    chosen.forEach(L => this.lessonWords(L).forEach(x => { if (!s.off[x.key]) keys[x.key] = true; }));
+    const total = Object.keys(keys).length;
+    const allWords = d.lessons.reduce((a, L) => a + L.words.length, 0);
+    return {
+      loading: false, ready: true, loadingText: '',
+      bookTitle: '한국어 4-1', bookMeta: d.lessons.length + '과 · ' + allWords + ' 단어 · words',
+      groups,
+      f: {
+        n: F.n, ko: F.ko, discCls: disc(F),
+        sub: F.de + ' · ' + F.en + ' — ' + F.theme[0] + ' · ' + F.theme[1] + ' · ' + F.theme[2] + ' · ' + fw.length + ' 단어',
+        todayBtnCls: fIn ? 'p-mint' : 'p-coral', todayBtnInk: fIn ? '#1F4A3A' : '#FFFFFF',
+        todayBtnLabel: fIn ? '✓ 오늘 단어장에 있음 · In today' : '+ 오늘 단어장에 넣기 · Add to today',
+        toggleToday: () => this.setState({ today: { ...this.state.today, [F.n]: !this.state.today[F.n] }, used: false }),
+        allOn: () => { const off = { ...this.state.off }; fw.forEach(x => { delete off[x.key]; }); this.setState({ off, used: false }); }
+      },
+      rows,
+      chips: chosen.map(L => ({ label: L.n + '과 ' + L.theme[0], cls: disc(L), remove: () => this.setState({ today: { ...this.state.today, [L.n]: false }, used: false }) })),
+      noChips: chosen.length === 0,
+      total,
+      useLabel: s.used ? (s.storeFail ? '이 화면에서는 저장 안 됨 · Not saved here' : '✓ 게임에 적용됨 · Applied') : '게임에 쓰기 · Use in games',
+      useInGames: () => this.saveForGames()
+    };
+  }
+}
+DC.mount(Component);
+</script>
+</body>
+</html>
