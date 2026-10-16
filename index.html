@@ -179,6 +179,57 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(-
 .sa-root:not(.sa-hub) .sa-decor .d-dots,.sa-root:not(.sa-hub) .sa-decor .d-tri{display:none}
 .sa-root:not(.sa-hub) .sa-decor .d-star{left:auto;right:-60px;top:auto;bottom:-70px;width:220px;height:220px}
 
+/* ==========================================================================
+   v2 — no outlines on controls (client feedback):
+   colour blocks: flat fill + a darker base in their own colour (press-down affordance)
+   white surfaces: hairline + soft shadow on a slightly deeper paper background
+   white strips attached to colour cards: solid ink with white text
+   ink lines stay only on stickers (game art tiles), big outlined type, avatars, "selected"
+   ========================================================================== */
+:root{--mist:#ECE8DE; --paper-d:#D5CEBE; --hair:inset 0 0 0 1.5px rgba(22,19,31,.13); --soft:0 10px 22px -12px rgba(22,19,31,.32)}
+.p-white{--d:var(--paper-d)} .p-lav{--d:#8E78E8} .p-coral{--d:#B52A16} .p-mint{--d:#2F9A4C}
+.p-butter{--d:#D9B315} .p-blue{--d:#2A8DD6} .p-pink{--d:#C23A8C} .p-holo{--d:#2F9A4C}
+.puff{border:0 !important;box-shadow:0 5px 0 var(--d) !important}
+.puff.p-white{box-shadow:var(--hair),0 5px 0 var(--paper-d),var(--soft) !important}
+.puff .puff{box-shadow:none !important;border:0 !important}
+.puff .puff.p-white{box-shadow:var(--hair) !important}
+.frost,.frost-strong{border:0 !important;box-shadow:var(--hair),var(--soft) !important}
+.frost .frost{box-shadow:var(--hair) !important}
+input[type="text"],input:not([type]),input[type="password"],input[type="tel"]{border:0 !important;box-shadow:inset 0 0 0 2px rgba(22,19,31,.15),inset 0 3px 0 rgba(22,19,31,.05) !important}
+input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !important}
+.tile:hover{box-shadow:0 9px 0 var(--d) !important}
+.tile:active{box-shadow:0 0 0 var(--d) !important}
+.press:active{box-shadow:0 0 0 var(--d) !important}
+.puff.p-white.press:active,.puff.p-white.tile:active{box-shadow:var(--hair) !important}
+/* selected / on states keep a ring so "chosen" is unmistakable */
+[aria-pressed="true"].puff{box-shadow:inset 0 0 0 3px var(--ink),0 5px 0 var(--d) !important}
+.puff.dim,.puff.p-white.dim,.dim{box-shadow:none !important;border:0 !important;--c:#E2DED4 !important}
+.sw{box-shadow:var(--hair) !important}
+.sw-on{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink) !important}
+/* white text on colour: lighter treatment now that blocks have no ink edge */
+[style*="color: #FFFFFF"],[style*="color:#FFFFFF"],[style*="color: #fff;"]{-webkit-text-stroke:0;text-shadow:0 2px 0 rgba(22,19,31,.35) !important}
+/* quiz + prompt panels */
+.sa-prompt{border:0;box-shadow:0 7px 0 var(--violet-d)}
+/* hub */
+.sa-card{border:0;box-shadow:0 8px 0 var(--d,#000);background:var(--ink)}
+.sa-card:hover{box-shadow:0 12px 0 var(--d,#000) !important}
+.sa-card:active{box-shadow:0 0 0 var(--d,#000) !important}
+.sa-art{border-bottom:0}
+.sa-foot{background:var(--ink);color:#FFFFFF}
+.sa-gsub{color:#FFFFFF;opacity:.62}
+.sa-play{border:0;box-shadow:0 4px 0 #B52A16}
+.sa-pips{border:0;background:var(--ink)}
+.sa-me{border:0;box-shadow:var(--hair),0 6px 0 var(--paper-d),var(--soft)}
+.sa-rank{border:0;box-shadow:0 4px 0 #2F9A4C}
+.sa-edit{border:0;box-shadow:0 3px 0 #D9B315}
+.sa-tag{border:0}
+.sa-tag[style*="background"]{box-shadow:none}
+/* white things sitting on white panels (crossword squares, empty syllable slots, list rows) get a paper tint */
+.frost .puff.p-white{--c:#F2EFE7}
+.frost .puff.p-white[aria-pressed="true"]{--c:var(--paper)}
+/* empty syllable slots: dashed ink outline so kids can see where tiles go */
+.slot-empty{background:#F2EFE7 !important;box-shadow:inset 0 0 0 2.5px rgba(22,19,31,.35) !important;border:2.5px dashed rgba(22,19,31,.0) !important;outline:2.5px dashed rgba(22,19,31,.45);outline-offset:-6px}
+
 /*/SA-THEME*/
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#F4F2EC}</style>
@@ -368,29 +419,29 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(-
   </sc-if>
   <div class="sa-games" style="grid-template-columns: repeat({{gridCols}}, minmax(0, 1fr))">
     <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
-    <a href="memory.html" onClick="{{tileGo}}" class="tile sa-card">
+    <a href="memory.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #8E78E8">
       <div class="sa-art" style="background: var(--violet-l)"><div class="sa-art-in"><span class="sa-t" style="left: 30px; top: 28px; width: 92px; height: 112px; background: #FFFFFF; transform: rotate(-8deg); font-size: 30px;">사과</span><span class="sa-t" style="left: 118px; top: 44px; width: 92px; height: 112px; background: var(--sun); transform: rotate(7deg); font-size: 54px;">?</span></div></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">카드 짝맞추기</div><div class="sa-gsub">Memory</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     </sc-if>
-    <a href="quiz.html" onClick="{{tileGo}}" class="tile sa-card">
+    <a href="quiz.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #D9B315">
       <div class="sa-art" style="background: var(--sun)"><div class="sa-art-in"><span class="sa-t" style="left: 20px; top: 22px; width: 150px; height: 62px; background: #FFFFFF; transform: rotate(-4deg); font-size: 30px;">솔직하다</span><span class="sa-o" style="left: 34px; top: 104px; background: var(--lime); transform: rotate(2deg)"><i>가</i>ehrlich sein</span><span class="sa-o" style="left: 66px; top: 146px; background: #FFFFFF; transform: rotate(-2deg)"><i>나</i>mutig sein</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipquiz0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipoquiz0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipquiz1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipoquiz1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipquiz2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipoquiz2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">단어 퀴즈</div><div class="sa-gsub">Wortquiz</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <a href="crossword.html" onClick="{{tileGo}}" class="tile sa-card">
+    <a href="crossword.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #2F9A4C">
       <div class="sa-art" style="background: var(--lime)"><div class="sa-art-in"><span class="sa-t" style="left: 30px; top: 26px; width: 62px; height: 62px; background: #FFFFFF; transform: rotate(0deg); font-size: 40px;">외</span><span class="sa-t" style="left: 98px; top: 26px; width: 62px; height: 62px; background: var(--sun); transform: rotate(0deg); font-size: 40px;">모</span><span class="sa-t" style="left: 98px; top: 94px; width: 62px; height: 62px; background: #FFFFFF; transform: rotate(0deg); font-size: 40px;">습</span><span class="sa-t" style="left: 166px; top: 94px; width: 62px; height: 62px; background: transparent; transform: rotate(0deg); font-size: 40px; border-style: dashed; box-shadow: none"></span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipcrossword0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipocrossword0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipcrossword1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipocrossword1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipcrossword2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipocrossword2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">십자말풀이</div><div class="sa-gsub">Kreuzworträtsel</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <a href="syllables.html" onClick="{{tileGo}}" class="tile sa-card">
+    <a href="syllables.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #C23A8C">
       <div class="sa-art" style="background: var(--gum)"><div class="sa-art-in"><span class="sa-t" style="left: 24px; top: 20px; width: 64px; height: 64px; background: #FFFFFF; transform: rotate(-9deg); font-size: 40px;">솔</span><span class="sa-t" style="left: 116px; top: 40px; width: 64px; height: 64px; background: var(--sky); transform: rotate(7deg); font-size: 40px;">직</span><span class="sa-t" style="left: 50px; top: 104px; width: 64px; height: 64px; background: var(--lime); transform: rotate(5deg); font-size: 40px;">하</span><span class="sa-t" style="left: 146px; top: 112px; width: 64px; height: 64px; background: #FFFFFF; transform: rotate(-6deg); font-size: 40px;">다</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipsyllables0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{piposyllables0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipsyllables1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{piposyllables1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipsyllables2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{piposyllables2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">글자 조각</div><div class="sa-gsub">Silbenpuzzle</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <a href="chosung.html" onClick="{{tileGo}}" class="tile sa-card">
+    <a href="chosung.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #2A8DD6">
       <div class="sa-art" style="background: var(--sky)"><div class="sa-art-in"><span class="sa-t" style="left: 8px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅅ</span><span class="sa-t" style="left: 64px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅈ</span><span class="sa-t" style="left: 120px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅎ</span><span class="sa-t" style="left: 176px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㄷ</span><span class="sa-ow" style="left: 14px; top: 122px">= 솔직하다?</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span style="display: {{pipchosung0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipochosung0}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipchosung1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipochosung1}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipchosung2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span><span style="display: {{pipochosung2}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#E6E2F5" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg></span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">초성 퀴즈</div><div class="sa-gsub">Anfangslaute</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
-    <a href="race.html" onClick="{{tileRace}}" class="tile sa-card">
+    <a href="race.html" onClick="{{tileRace}}" class="tile sa-card" style="--d: #B52A16">
       <div class="sa-art" style="background: var(--red)"><div class="sa-art-in"><span class="sa-t" style="left: 40px; top: 30px; width: 104px; height: 104px; background: #FFFFFF; transform: rotate(-10deg); display: grid; grid-template-columns: repeat(3, 1fr); padding: 16px; box-sizing: border-box; place-items: center"><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i></span><span style="position: absolute; left: 150px; top: 84px; font-size: 52px">🏁</span></div></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">보드게임</div><div class="sa-gsub">Würfelrennen</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
