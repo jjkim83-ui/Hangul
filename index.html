@@ -439,6 +439,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
         </span>
       </button>
       <sc-if value="{{roomMode}}" hint-placeholder-val="{{ false }}">
+        <a href="board.html" onClick="{{tapSound}}" class="puff p-butter press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; text-decoration: none; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 17px; white-space: nowrap"><span style="position: relative; z-index: 1">🏆 순위표</span></a>
         <a href="teacher.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 18px; display: flex; align-items: center; text-decoration: none; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 17px">⚙️ 관리</a>
         <button type="button" onClick="{{endRoom}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 20px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 18px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">🎓 수업 끝</span></button>
       </sc-if>
