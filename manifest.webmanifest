@@ -1,6 +1,6 @@
 {
- "name": "한글 놀이터 · Korean Playground",
- "short_name": "한글 놀이터",
+ "name": "키움한글학교 · 한글 놀이터",
+ "short_name": "키움한글학교",
  "start_url": "./index.html",
  "scope": "./",
  "display": "fullscreen",

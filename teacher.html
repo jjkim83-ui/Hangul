@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="한글 놀이터">
+<meta name="apple-mobile-web-app-title" content="키움한글학교">
 <meta name="theme-color" content="#ECE8DE">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -381,6 +381,16 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 .sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
 /*/CARDS*/
 
+/*SIGN*/
+/* school sign, top left on every page */
+.sa-sign{display:inline-flex;align-items:center;flex-shrink:0;background:var(--red);color:#FFFFFF;font-family:'Jua',sans-serif;font-weight:800;font-size:26px;line-height:1;padding:9px 16px 10px;border-radius:12px;box-shadow:0 4px 0 #A80F0F;transform:rotate(-2.5deg);letter-spacing:-.3px;white-space:nowrap}
+.sa-sign.lg{font-size:40px;padding:12px 24px 14px;border-radius:16px;box-shadow:0 6px 0 #A80F0F}
+.sa-sign.sm{font-size:16px;padding:5px 9px 6px;border-radius:8px;box-shadow:0 3px 0 #A80F0F;transform:rotate(-2deg)}
+.sa-menu{font-family:'Jua',sans-serif;font-size:17px;white-space:nowrap}
+.dc-phone .sa-sign.sm{font-size:21px !important}
+.dc-phone .sa-menu{font-size:22px}
+/*/SIGN*/
+
 /*/SA-THEME*/
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
@@ -400,7 +410,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
       <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
       </span>
-      메뉴</a>
+      <span class="sa-sign sm">키움한글학교</span><span class="sa-menu">메뉴</span></a>
     <div style="flex: 1; min-width: 0">
       <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">선생님 화면</div>
       <div style="font-size: 14px; font-weight: 800; color: #4A4C80; margin-top: 4px; white-space: nowrap">Lehreransicht · {{syncNote}}</div>

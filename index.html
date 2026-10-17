@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="한글 놀이터">
+<meta name="apple-mobile-web-app-title" content="키움한글학교">
 <meta name="theme-color" content="#ECE8DE">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<title>한글 놀이터 · Korean games</title>
+<title>키움한글학교 · 한글 놀이터</title>
 <link rel="stylesheet" href="shared/fonts/fonts.css">
 <style>
 body{margin:0}
@@ -395,6 +395,16 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 .sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
 /*/CARDS*/
 
+/*SIGN*/
+/* school sign, top left on every page */
+.sa-sign{display:inline-flex;align-items:center;flex-shrink:0;background:var(--red);color:#FFFFFF;font-family:'Jua',sans-serif;font-weight:800;font-size:26px;line-height:1;padding:9px 16px 10px;border-radius:12px;box-shadow:0 4px 0 #A80F0F;transform:rotate(-2.5deg);letter-spacing:-.3px;white-space:nowrap}
+.sa-sign.lg{font-size:40px;padding:12px 24px 14px;border-radius:16px;box-shadow:0 6px 0 #A80F0F}
+.sa-sign.sm{font-size:16px;padding:5px 9px 6px;border-radius:8px;box-shadow:0 3px 0 #A80F0F;transform:rotate(-2deg)}
+.sa-menu{font-family:'Jua',sans-serif;font-size:17px;white-space:nowrap}
+.dc-phone .sa-sign.sm{font-size:21px !important}
+.dc-phone .sa-menu{font-size:22px}
+/*/SIGN*/
+
 /*/SA-THEME*/
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
@@ -413,10 +423,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 
   <header style="height: 58px; display: flex; align-items: center; justify-content: space-between">
     <div style="display: flex; align-items: center; gap: 14px">
-      <span class="puff p-white" aria-hidden="true" style="width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 30px; color: #FF4D3D; transform: rotate(-6deg)">한</span>
-      <div>
-        <div class="sa-onv" style="font-family: 'Jua', sans-serif; font-size: 30px; line-height: 1">한글 놀이터</div>
-      </div>
+      <span class="sa-sign" role="img" aria-label="키움한글학교">키움한글학교</span>
     </div>
     <div style="display: flex; align-items: center; gap: 16px">
       <a href="words.html" onClick="{{tapSound}}" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 20px 0 8px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2B2C6B">
@@ -624,11 +631,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
   <div class="sa-welcome" style="position: absolute; inset: 0; z-index: 4; isolation: isolate; background: #E4DCF4; display: flex; flex-direction: column; align-items: center; padding: 34px 56px 40px; box-sizing: border-box; gap: 18px; overflow: hidden">
     <div class="sa-decor" aria-hidden="true"><i class="d-type">한글</i><i class="d-blob"></i><i class="d-dots"></i><i class="d-star" style="left: auto; right: 120px; top: 380px"></i><i class="d-tri"></i></div>
     <div style="display: flex; align-items: center; gap: 14px">
-      <span class="puff p-lav" aria-hidden="true" style="width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 30px; color: #FFFFFF; text-shadow: 0 2px 4px rgba(80,50,180,.35)">한</span>
-      <div>
-        <div style="font-family: 'Jua', sans-serif; font-size: 32px; line-height: 1">한글 놀이터</div>
-        <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 3px">Koreanisch-Spielplatz</div>
-      </div>
+      <span class="sa-sign" role="img" aria-label="키움한글학교" style="position: absolute; left: 84px; top: 41px; z-index: 2">키움한글학교</span>
     </div>
     <sc-if value="{{welcomeHome}}" hint-placeholder-val="{{ true }}">
       <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px">
