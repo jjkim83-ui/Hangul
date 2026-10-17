@@ -489,19 +489,11 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
       <div>
         <div style="display: flex; align-items: center; gap: 16px">
         <h1 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 34px; line-height: 1.15">{{whoTitle}}</h1>
-        <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
-        <button type="button" onClick="{{shuffleOrder}}" aria-label="순서 섞기 · Reihenfolge mischen" class="puff p-butter press {{shuffleOff}}" style="height: 44px; border: none; border-radius: 999px; padding: 0 16px 0 6px; display: flex; align-items: center; gap: 8px; cursor: pointer; color: #2B2C6B; font-family: inherit">
-          <span class="puff p-white" aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2B2C6B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
-          </span>
-          <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 18px">순서 섞기</span>
-          <span style="position: relative; z-index: 1; font-size: 13px; font-weight: 900; color: #5A4A12">Mischen</span>
-        </button>
-        </sc-if>
         </div>
         <p style="margin: 4px 0 0; font-size: 16px; font-weight: 800; color: #4A4C80; display: inline-block; max-width: 100%; box-sizing: border-box; background: #FFFFFF; border-radius: 12px; padding: 4px 12px; box-shadow: 0 0 0 1px var(--hair, rgba(22,19,31,.12))">{{whoSub}} <span style="color: #2E7A57">— {{selLabel}}</span></p>
       </div>
-      <div class="frost" style="align-self: flex-start; max-width: 100%; box-sizing: border-box; border-radius: 34px; padding: 8px 14px; display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap">
+      <div style="align-self: flex-start; max-width: 100%; display: flex; align-items: stretch; gap: 10px">
+      <div class="frost" style="min-width: 0; box-sizing: border-box; border-radius: 34px; padding: 8px 14px; display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap">
         <sc-for list="{{players}}" as="p" hint-placeholder-count="4">
           <button type="button" onClick="{{p.toggle}}" aria-pressed="{{p.pressed}}" aria-label="{{p.name}}" class="press" style="position: relative; border: none; background: none; padding: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 66px; font-family: inherit; color: #2B2C6B">
             <span class="puff {{p.ring}} {{p.jig}}" style="width: 62px; height: 62px; border-radius: 50%; display: block; opacity: {{p.op}}">
@@ -558,6 +550,16 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
             <svg class="ico" viewBox="0 0 24 24" width="26" height="26" fill="#2B2C6B" aria-hidden="true" style="position: relative; z-index: 1"><path d="M15.2 4.3a2.4 2.4 0 0 1 3.4 0l1.1 1.1a2.4 2.4 0 0 1 0 3.4L9.4 19.1 4 20l.9-5.4Z"></path></svg>
           </span>
           <span style="font-family: 'Jua', sans-serif; font-size: 14px">관리</span>
+        </button>
+        </sc-if>
+      </div>
+        <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{shuffleOrder}}" aria-label="순서 섞기 · Reihenfolge mischen" class="puff p-butter press {{shuffleOff}}" style="flex-shrink: 0; width: 92px; border: none; border-radius: 30px; padding: 6px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
+          <span class="puff p-white" aria-hidden="true" style="width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2B2C6B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+          </span>
+          <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 16px; white-space: nowrap">순서 섞기</span>
+          <span style="position: relative; z-index: 1; font-size: 12px; font-weight: 900; color: #5A4A12">Mischen</span>
         </button>
         </sc-if>
       </div>
