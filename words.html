@@ -335,6 +335,28 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 .dc-phone .cell > span[style*="position: absolute"]{font-size:15px !important;top:1px !important}
 /*/PHONE*/
 
+/*MOTION*/
+/* punchier red (title, play buttons, red cards) */
+:root{--red:#FF2B2B}
+.sa-nolja{color:#FF2B2B}
+/* background: wobbly blobs + parallax (theme decor layers) */
+:root{--px:0;--py:0}
+.sa-decor .d-blob{animation:sa-wob 9s ease-in-out infinite;translate:calc(var(--px) * -26px) calc(var(--py) * -18px)}
+.sa-decor .d-dots{animation:sa-bob 7s ease-in-out infinite;translate:calc(var(--px) * 18px) calc(var(--py) * 14px)}
+.sa-decor .d-star{animation:sa-spin 14s ease-in-out infinite;translate:calc(var(--px) * -12px) calc(var(--py) * -10px)}
+.sa-decor .d-tri{animation:sa-bob 6s ease-in-out infinite reverse;translate:calc(var(--px) * 30px) calc(var(--py) * 22px)}
+.sa-decor .d-type{animation:sa-drift 18s ease-in-out infinite;translate:calc(var(--px) * 8px) calc(var(--py) * 6px)}
+@keyframes sa-wob{
+  0%,100%{border-radius:58% 42% 55% 45%/48% 60% 40% 52%;scale:1;rotate:0deg}
+  33%{border-radius:44% 56% 40% 60%/58% 42% 58% 42%;scale:1.05;rotate:4deg}
+  66%{border-radius:62% 38% 48% 52%/40% 55% 45% 60%;scale:.97;rotate:-3deg}}
+@keyframes sa-bob{0%,100%{scale:1;rotate:0deg}50%{scale:1.04;rotate:-3deg}}
+@keyframes sa-spin{0%,100%{rotate:0deg;scale:1}50%{rotate:14deg;scale:1.06}}
+@keyframes sa-drift{0%,100%{rotate:0deg}50%{rotate:-1.5deg;scale:1.02}}
+.dc-still .sa-decor i,.still .sa-decor i{animation:none !important;translate:none !important}
+@media (prefers-reduced-motion: reduce){.sa-decor i{animation:none !important;translate:none !important}}
+/*/MOTION*/
+
 /*/SA-THEME*/
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>

@@ -167,6 +167,20 @@
     const lockLandscape = () => { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} };
     lockLandscape(); window.addEventListener('pointerdown', lockLandscape, { once: true });
     onResize();
+    // background parallax: the decor layers drift a little with the pointer (or, on phones, slowly on their own)
+    const docEl = document.documentElement;
+    const still = () => { try { const h = JSON.parse(localStorage.getItem('hangul_hub_v1') || '{}'); return h.motion === false; } catch (e) { return false; } };
+    const applyStill = () => docEl.classList.toggle('dc-still', still());
+    applyStill(); window.addEventListener('storage', (e) => { if (!e.key || e.key === 'hangul_hub_v1') applyStill(); });
+    let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+    const tick = () => {
+      cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
+      docEl.style.setProperty('--px', cx.toFixed(3)); docEl.style.setProperty('--py', cy.toFixed(3));
+      raf = (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.002) ? requestAnimationFrame(tick) : 0;
+    };
+    const aim = (x, y) => { tx = x; ty = y; if (!raf) raf = requestAnimationFrame(tick); };
+    window.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') aim(e.clientX / window.innerWidth * 2 - 1, e.clientY / window.innerHeight * 2 - 1); }, { passive: true });
+    window.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') aim(e.clientX / window.innerWidth * 2 - 1, e.clientY / window.innerHeight * 2 - 1); }, { passive: true });
 
     const nodes = kids(tpl);
     const comp = new Component({});
