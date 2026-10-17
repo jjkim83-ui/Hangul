@@ -55,11 +55,25 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
 .piece.fly > span{animation:spin .95s ease}
 @keyframes spin{0%{transform:scale(1)}50%{transform:scale(1.35) rotate(-12deg)}100%{transform:scale(1)}}
 .die{transition:transform .2s}
-.rolling{animation:roll .7s cubic-bezier(.3,1.2,.5,1)}
+.rolling{animation:none}
+.dbtn{position:relative;overflow:visible !important}
+.dbtn.rolling{animation:tumble 1s cubic-bezier(.3,.6,.4,1)}
+@keyframes tumble{0%{translate:0 0;rotate:0deg;scale:1}14%{translate:0 -70px;rotate:150deg;scale:1.12}32%{translate:0 0;rotate:310deg;scale:1.14 .86}48%{translate:0 -36px;rotate:450deg;scale:1}64%{translate:0 0;rotate:590deg;scale:1.1 .9}80%{translate:0 -12px;rotate:690deg;scale:1}100%{translate:0 0;rotate:720deg;scale:1}}
+.dbtn.landed{animation:land .5s cubic-bezier(.3,1.7,.5,1)}
+@keyframes land{0%{scale:1.3 .75}55%{scale:.92 1.1}100%{scale:1}}
+.dbtn .burst{position:absolute;inset:-14px;border-radius:40px;border:8px solid #FFDD3C;opacity:0;pointer-events:none;z-index:0}
+.dbtn.landed .burst{animation:burst .6s ease-out}
+@keyframes burst{0%{opacity:1;scale:.7}100%{opacity:0;scale:1.45}}
+.dbtn .spark{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px;border-radius:50%;opacity:0;pointer-events:none}
+.dbtn.landed .spark{animation:spark .6s ease-out}
+@keyframes spark{0%{opacity:1;transform:rotate(var(--a)) translateX(30px) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateX(110px) scale(.4)}}
+.rollnum{display:inline-block}
+.rollnum.pop{animation:numpop .5s cubic-bezier(.3,1.8,.5,1)}
+@keyframes numpop{0%{transform:scale(.3)}100%{transform:scale(1)}}
 @keyframes roll{0%{transform:rotate(0) scale(1)}30%{transform:rotate(200deg) scale(1.15)}60%{transform:rotate(420deg) scale(.95)}100%{transform:rotate(720deg) scale(1)}}
 .hop{animation:hop .32s ease}
 @keyframes hop{0%,100%{translate:0 0}50%{translate:0 -14px}}
-@media (prefers-reduced-motion: reduce){.rolling,.hop{animation:none}.piece{transition:none}}
+@media (prefers-reduced-motion: reduce){.rolling,.hop,.dbtn.rolling,.dbtn.landed,.dbtn.landed .burst,.dbtn.landed .spark{animation:none}.piece{transition:none}}
 .many-t > :first-child{padding:10px 14px 12px !important;gap:4px !important}.many-t > :first-child > span.puff:first-child{width:66px !important;height:66px !important}.many-t > :first-child > span.puff:first-child svg{width:56px;height:56px}.many-t > :first-child > div{font-size:28px !important}.many-t > :first-child > span.puff:not(:first-child){display:none !important}.many .plist{display:grid !important;grid-template-columns:1fr 1fr;gap:4px !important;overflow:visible !important;flex-shrink:0 !important}.many .plist > div{padding:3px 10px 3px 3px !important;gap:6px !important;border-radius:16px !important;min-width:0}.many .plist > div > span:first-child{width:32px !important;height:32px !important}.many .plist > div > span:first-child svg{width:32px;height:32px}.many .plist > div > span:nth-child(2){font-size:16px !important;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.many .plist > div > span:last-child{font-size:20px !important}
 /*SA-THEME*/
 /* ==========================================================================
@@ -159,11 +173,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(-
 .sa-o i{font-style:normal;width:20px;height:20px;border-radius:5px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:'Jua',sans-serif;font-size:12px}
 .sa-ow{position:absolute;font-family:'Jua',sans-serif;font-weight:800;font-size:32px;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--ink);white-space:nowrap}
 /* class mode: 3 x 2 smaller cards */
-.sa-games[style*="repeat(3"] .sa-foot{height:70px}
-.sa-games[style*="repeat(3"] .sa-gname{font-size:25px}
-.sa-games[style*="repeat(3"] .sa-gsub{font-size:13px;margin-top:4px}
-.sa-games[style*="repeat(3"] .sa-play{width:46px;height:46px}
-.sa-games[style*="repeat(3"] .sa-art-in{transform:scale(.55)}
+.sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:70px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:25px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gsub{font-size:13px;margin-top:4px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-play{width:46px;height:46px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-art-in{transform:scale(.55)}
 
 /* welcome screen */
 .sa-welcome{background:var(--mist) !important}
@@ -323,9 +337,9 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 /* ---- hub ---- */
 .dc-phone .sa-me{width:400px}
 .dc-phone .sa-foot{height:96px}
-.dc-phone .sa-games[style*="repeat(3"] .sa-foot{height:80px}
-.dc-phone .sa-games[style*="repeat(3"] .sa-gname{font-size:27px}
-.dc-phone .sa-games[style*="repeat(3"] .sa-gsub{font-size:19.5px !important}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:80px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-gsub{font-size:19.5px !important}
 
 /* settings overlay: use the extra width so the four sound cards fit without clipping */
 .dc-phone .frost-strong.pop[style*="width: 1120px; height: 640px"]{width:calc(100% - 100px) !important;max-width:1460px;height:calc(100% - 40px) !important}
@@ -395,7 +409,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 .sa-gsub{color:var(--t) !important;opacity:.78 !important;font-weight:800}
 .sa-play{background:var(--t) !important;box-shadow:0 4px 0 rgba(22,19,31,.28) !important}
 .sa-play path{stroke:transparent}
-.sa-games[style*="repeat(3"] .sa-gname{font-size:27px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
 /*/CARDS*/
 
 /*/SA-THEME*/
@@ -450,21 +464,14 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
         <path d="{{ladRails}}" fill="none" stroke="#16131F" stroke-width="12" stroke-linecap="round"></path>
         <path d="{{ladRails}}" fill="none" stroke="#FFDD3C" stroke-width="6" stroke-linecap="round"></path>
         <path d="{{ladRungs}}" fill="none" stroke="#16131F" stroke-width="5" stroke-linecap="round"></path>
-        <path d="{{snake0}}" fill="none" stroke="#16131F" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake0}}" fill="none" stroke="#4CC46A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake1}}" fill="none" stroke="#16131F" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake1}}" fill="none" stroke="#F05AB4" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake2}}" fill="none" stroke="#16131F" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake2}}" fill="none" stroke="#4FB8FF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake3}}" fill="none" stroke="#16131F" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake3}}" fill="none" stroke="#FF2B2B" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake4}}" fill="none" stroke="#16131F" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake4}}" fill="none" stroke="#9C84FF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake5}}" fill="none" stroke="#16131F" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snake5}}" fill="none" stroke="#4CC46A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snakeDots}}" fill="none" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="5" stroke-dasharray="0.1 13" stroke-linecap="round"></path>
+        <path d="{{snake0}}" fill="#4CC46A" stroke="#16131F" stroke-width="3" stroke-linejoin="round"></path>
+        <path d="{{snake1}}" fill="#F05AB4" stroke="#16131F" stroke-width="3" stroke-linejoin="round"></path>
+        <path d="{{snake2}}" fill="#4FB8FF" stroke="#16131F" stroke-width="3" stroke-linejoin="round"></path>
+        <path d="{{snake3}}" fill="#FF2B2B" stroke="#16131F" stroke-width="3" stroke-linejoin="round"></path>
+        <path d="{{snake4}}" fill="#9C84FF" stroke="#16131F" stroke-width="3" stroke-linejoin="round"></path>
+        <path d="{{snake5}}" fill="#FFDD3C" stroke="#16131F" stroke-width="3" stroke-linejoin="round"></path>
+        <path d="{{snakeDots}}" fill="none" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="4.5" stroke-dasharray="0.1 12" stroke-linecap="round"></path>
         <path d="{{snakeTongue}}" fill="none" stroke="#FF2B2B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="{{snakeHeads}}" fill="#16131F"></path>
         <path d="{{snakeEyes}}" fill="#FFFFFF"></path>
         <path d="{{snakePupils}}" fill="#16131F"></path>
       </svg>
@@ -552,14 +559,15 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
             </span>
           <div style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 30px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 3px 0 rgba(40,90,180,.35), 0 8px 14px rgba(40,90,180,.4)">{{cur.name}} 차례!</div>
         </div>
-        <button type="button" onClick="{{roll}}" aria-label="주사위 굴리기 · würfeln" class="puff p-white press" style="width: 124px; height: 124px; border: none; border-radius: 32px; cursor: pointer; padding: 0; opacity: {{rollOp}}">
-          <span class="die {{dieCls}}" style="position: relative; z-index: 1; display: block; width: 124px; height: 124px">
+        <button type="button" onClick="{{roll}}" aria-label="주사위 굴리기 · würfeln" class="puff p-white press dbtn {{dieCls}}" style="width: 124px; height: 124px; border: none; border-radius: 32px; cursor: pointer; padding: 0; opacity: {{rollOp}}">
+          <span class="burst"></span><span class="spark" style="--a: 0deg; background: #FFDD3C"></span><span class="spark" style="--a: 60deg; background: #FF2B2B"></span><span class="spark" style="--a: 120deg; background: #4CC46A"></span><span class="spark" style="--a: 180deg; background: #F05AB4"></span><span class="spark" style="--a: 240deg; background: #6A47F2"></span><span class="spark" style="--a: 300deg; background: #FFFFFF"></span>
+          <span class="die" style="position: relative; z-index: 1; display: block; width: 124px; height: 124px">
             <sc-for list="{{pips}}" as="d" hint-placeholder-count="5">
               <span style="position: absolute; left: {{d.x}}px; top: {{d.y}}px; width: 22px; height: 22px; border-radius: 50%; background: #2B2C6B; box-shadow: inset 0 2px 3px rgba(255,255,255,.35)"></span>
             </sc-for>
           </span>
         </button>
-        <div style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 20px; color: #FFFFFF">{{rollLabel}}</div>
+        <div style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: {{rollFs}}px; color: #FFFFFF"><span class="rollnum {{rollPop}}">{{rollLabel}}</span></div>
       </div>
       <div class="frost plist" style="border-radius: 30px; padding: 8px; display: flex; flex-direction: column; gap: 4px; min-height: 0; flex-shrink: 1; overflow-y: auto">
         <sc-for list="{{players}}" as="p" hint-placeholder-count="3">
@@ -762,7 +770,7 @@ class Component extends DCLogic {
     
   }
   componentWillUnmount() {
-    clearTimeout(this.timer);
+    clearTimeout(this.timer); clearInterval(this._faceT);
     try { window.removeEventListener('storage', this.onStore); } catch (e) {}
   }
   refreshPool() {
@@ -825,7 +833,7 @@ class Component extends DCLogic {
   rowOf(k, len) { const L = this.layout(len); return Math.min(L.rows - 1, Math.floor(k / ((len - 1) / L.rows + 1e-9))); }
   makeJumps(len) {
     const n = len <= 30 ? 3 : len <= 40 ? 4 : 5;            // ladders and snakes each
-    const cells = this.layout(len).cells;
+    const L0 = this.layout(len), cells = L0.cells;
     const ends = [0, len - 1], jumps = {}, segs = [];
     const MIN = 20;
     const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
@@ -849,6 +857,8 @@ class Component extends DCLogic {
         if (Math.abs(this.rowOf(from, len) - this.rowOf(to, len)) < 1) continue;
         const A = cells[from], B = cells[to];
         if (segs.some(sg => (sg[2] === up && cross(A, B, sg[0], sg[1])) || near(A, sg[0], sg[1]) < MIN || near(B, sg[0], sg[1]) < MIN || near(sg[0], A, B) < MIN || near(sg[1], A, B) < MIN)) continue;
+        const clear = L0.dia * 0.5 + (up ? 4 : 10);
+        if (cells.some((c, k) => k !== from && k !== to && near(c, A, B) < clear)) continue;
         ends.push(from, to); segs.push([A, B, up]); jumps[from] = to; return true;
       }
       return false;
@@ -880,7 +890,7 @@ class Component extends DCLogic {
     });
     // ladders: two rails + rungs
     let rails = '', rungs = '';
-    const snakes = [], heads = [], eyes = [], pupils = [], tongues = [];
+    const snakes = [], heads = [], eyes = [], pupils = [], tongues = [], dotsAll = [];
     const C = (x, y, r) => 'M' + (x - r).toFixed(1) + ' ' + y.toFixed(1) + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
     Object.keys(jumps || {}).forEach(fk => {
       const from = +fk, to = jumps[fk], A = cells[from], B = cells[to];
@@ -890,25 +900,37 @@ class Component extends DCLogic {
         [-1, 1].forEach(sd => { rails += 'M' + (A.cx + ux * s0 + nx * w * sd).toFixed(1) + ' ' + (A.cy + uy * s0 + ny * w * sd).toFixed(1) + 'L' + (A.cx + ux * s1 + nx * w * sd).toFixed(1) + ' ' + (A.cy + uy * s1 + ny * w * sd).toFixed(1); });
         for (let s = s0 + 14; s < s1 - 6; s += 18) rungs += 'M' + (A.cx + ux * s - nx * w).toFixed(1) + ' ' + (A.cy + uy * s - ny * w).toFixed(1) + 'L' + (A.cx + ux * s + nx * w).toFixed(1) + ' ' + (A.cy + uy * s + ny * w).toFixed(1);
       } else {
-        // snake: head on the 'from' tile, wavy body down to the tail
-        const waves = Math.max(1.5, D / 110), amp = 16;
-        let p = '';
-        for (let i = 0; i <= 40; i++) {
-          const f = i / 40, s = L.dia * 0.3 + f * (D - L.dia * 0.3 - 6), off = Math.sin(f * Math.PI * 2 * waves) * amp * Math.sin(Math.PI * Math.min(1, f * 1.15));
-          p += (i ? 'L' : 'M') + (A.cx + ux * s + nx * off).toFixed(1) + ' ' + (A.cy + uy * s + ny * off).toFixed(1);
+        // snake: head at the edge of the 'from' tile, wavy body tapering to the tail on the 'to' tile
+        const h0 = L.dia * 0.5 + 8, len0 = D - h0 - L.dia * 0.2;
+        const waves = Math.max(1.2, len0 / 120), amp = 11, N = 48, pts = [];
+        for (let i = 0; i <= N; i++) {
+          const f = i / N, s = h0 + f * len0, off = Math.sin(f * Math.PI * 2 * waves) * amp * Math.sin(Math.PI * Math.min(1, f * 1.1 + 0.08));
+          pts.push([A.cx + ux * s + nx * off, A.cy + uy * s + ny * off]);
         }
-        snakes.push(p);
-        const hx = A.cx + ux * L.dia * 0.3, hy = A.cy + uy * L.dia * 0.3;
-        heads.push(C(hx, hy, 13));
-        eyes.push(C(hx - nx * 6 - ux * 3, hy - ny * 6 - uy * 3, 4.2) + C(hx + nx * 6 - ux * 3, hy + ny * 6 - uy * 3, 4.2));
-        pupils.push(C(hx - nx * 6 - ux * 4.5, hy - ny * 6 - uy * 4.5, 2) + C(hx + nx * 6 - ux * 4.5, hy + ny * 6 - uy * 4.5, 2));
-        const tx = hx - ux * 13, ty = hy - uy * 13;
-        tongues.push('M' + tx.toFixed(1) + ' ' + ty.toFixed(1) + 'L' + (tx - ux * 9).toFixed(1) + ' ' + (ty - uy * 9).toFixed(1) + 'l' + (-ux * 4 + nx * 4).toFixed(1) + ' ' + (-uy * 4 + ny * 4).toFixed(1) + 'M' + (tx - ux * 9).toFixed(1) + ' ' + (ty - uy * 9).toFixed(1) + 'l' + (-ux * 4 - nx * 4).toFixed(1) + ' ' + (-uy * 4 - ny * 4).toFixed(1));
+        const wAt = (f) => 10 - 7 * Math.pow(f, 1.5);
+        const left = [], right = [];
+        pts.forEach((p, i) => {
+          const q = pts[Math.min(N, i + 1)], o = pts[Math.max(0, i - 1)];
+          let tx = q[0] - o[0], ty = q[1] - o[1]; const tl = Math.hypot(tx, ty) || 1; tx /= tl; ty /= tl;
+          const w = wAt(i / N);
+          left.push([p[0] - ty * w, p[1] + tx * w]); right.push([p[0] + ty * w, p[1] - tx * w]);
+        });
+        const tail = pts[N];
+        let body = 'M' + left.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + 'L' + (tail[0] + ux * 6.5).toFixed(1) + ' ' + (tail[1] + uy * 6.5).toFixed(1) + 'L' + right.reverse().map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + 'Z';
+        const hx = A.cx + ux * (L.dia * 0.5 + 4), hy = A.cy + uy * (L.dia * 0.5 + 4);
+        const head = C(hx, hy, 13.5);
+        snakes.push(body + head);
+        dotsAll.push('M' + pts.slice(2, N - 6).map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L'));
+        const ex = hx - ux * 4, ey = hy - uy * 4;
+        eyes.push(C(ex + nx * 5.5, ey + ny * 5.5, 4.6) + C(ex - nx * 5.5, ey - ny * 5.5, 4.6));
+        pupils.push(C(ex + nx * 5.5 - ux * 1.8, ey + ny * 5.5 - uy * 1.8, 2.3) + C(ex - nx * 5.5 - ux * 1.8, ey - ny * 5.5 - uy * 1.8, 2.3));
+        const tx0 = hx - ux * 13, ty0 = hy - uy * 13, tx1 = tx0 - ux * 8, ty1 = ty0 - uy * 8;
+        tongues.push('M' + tx0.toFixed(1) + ' ' + ty0.toFixed(1) + 'L' + tx1.toFixed(1) + ' ' + ty1.toFixed(1) + 'l' + (-ux * 4 + nx * 4).toFixed(1) + ' ' + (-uy * 4 + ny * 4).toFixed(1) + 'M' + tx1.toFixed(1) + ' ' + ty1.toFixed(1) + 'l' + (-ux * 4 - nx * 4).toFixed(1) + ' ' + (-uy * 4 - ny * 4).toFixed(1));
       }
     });
     const tileNums = cells.map((c, k) => (k === 0 || k === len - 1 || !(jumps && Object.keys(jumps).some(f => { const A = cells[+f], B = cells[jumps[f]]; const vx = B.cx - A.cx, vy = B.cy - A.cy, L2 = vx * vx + vy * vy || 1; const u = Math.max(0, Math.min(1, ((c.cx - A.cx) * vx + (c.cy - A.cy) * vy) / L2)); return Math.hypot(A.cx + u * vx - c.cx, A.cy + u * vy - c.cy) < 30; }))) ? null : { x: c.cx, y: c.cy, label: String(k), bg: tiles[k].bg, ink: tiles[k].ink, fs: tiles[k].fs }).filter(Boolean);
     const v = { tiles, tileNums, roadD: L.road, roadW: L.roadW, ladRails: rails || 'M0 0', ladRungs: rungs || 'M0 0',
-      snakeDots: snakes.join('') || 'M0 0', snakeHeads: heads.join('') || 'M0 0', snakeEyes: eyes.join('') || 'M0 0', snakePupils: pupils.join('') || 'M0 0', snakeTongue: tongues.join('') || 'M0 0' };
+      snakeDots: dotsAll.join('') || 'M0 0', snakeHeads: heads.join('') || 'M0 0', snakeEyes: eyes.join('') || 'M0 0', snakePupils: pupils.join('') || 'M0 0', snakeTongue: tongues.join('') || 'M0 0' };
     for (let i = 0; i < 6; i++) v['snake' + i] = snakes[i] || 'M0 0';
     return v;
   }
@@ -940,8 +962,15 @@ class Component extends DCLogic {
     if (s.setup || s.phase !== 'roll') return;
     const n = 1 + Math.floor(Math.random() * 6);
     this.sfx('tap');
-    this.setState({ phase: 'rolling', rolled: n, msg: '데구르르… · Würfelt …' });
-    this.timer = setTimeout(() => this.setState({ phase: 'question', q: this.makeQ(), chosen: null, msg: '맞히면 ' + n + '칸 앞으로! · Richtig = ' + n + ' Felder vor' }), 750);
+    this.setState({ phase: 'rolling', rolled: 0, face: 1 + Math.floor(Math.random() * 6), msg: '데구르르… · Würfelt …' });
+    clearInterval(this._faceT);
+    this._faceT = setInterval(() => { this.setState({ face: 1 + Math.floor(Math.random() * 6) }); this.sfx('tap'); }, 110);
+    this.timer = setTimeout(() => {
+      clearInterval(this._faceT);
+      this.sfx('select');
+      this.setState({ phase: 'landed', rolled: n, face: n, msg: '🎲 ' + n + '! · ' + n + ' gewürfelt' });
+      this.timer = setTimeout(() => this.setState({ phase: 'question', q: this.makeQ(), chosen: null, msg: '맞히면 ' + n + '칸 앞으로! · Richtig = ' + n + ' Felder vor' }), 750);
+    }, 1000);
   }
   choose(k) {
     const s = this.state;
@@ -1213,7 +1242,7 @@ class Component extends DCLogic {
       return { ...this.build(p.cfg), x: c.cx - 23 + offs[0], y: c.cy - 30 + offs[1], z: i === s.turn ? 12 : 10, hop: s.hopId === i * 1000 + k ? 'hop' : '', fly: s.flyId === i ? 'fly' : '' };
     });
     const PIP = { 1: [[51, 51]], 2: [[28, 28], [74, 74]], 3: [[28, 28], [51, 51], [74, 74]], 4: [[28, 28], [74, 28], [28, 74], [74, 74]], 5: [[28, 28], [74, 28], [51, 51], [28, 74], [74, 74]], 6: [[28, 24], [74, 24], [28, 51], [74, 51], [28, 78], [74, 78]] };
-    const shownRoll = s.rolled || 6;
+    const shownRoll = (s.phase === 'rolling' ? s.face : s.rolled) || 6;
     const pips = (PIP[shownRoll] || []).map(([x, y]) => ({ x, y }));
     const q = s.q;
     const MARKS = ['가', '나', '다', '라'], BASE = ['p-white', 'p-white', 'p-white', 'p-white'];
@@ -1239,9 +1268,10 @@ class Component extends DCLogic {
       askLabel: kd ? '뜻은? · Bedeutung?' : '한국어로? · Auf Koreanisch?',
       rolled: s.rolled, word, wordFs: word.length <= 5 ? 64 : word.length <= 10 ? 48 : 36, wordSub: '',
       opts,
-      dieCls: s.phase === 'rolling' ? 'rolling' : '',
-      rollOp: s.phase === 'roll' ? '1' : '0.55',
-      rollLabel: s.phase === 'roll' ? '눌러서 굴리기 · Tippen = würfeln' : (s.rolled ? '🎲 ' + s.rolled : ''),
+      dieCls: s.phase === 'rolling' ? 'rolling' : s.phase === 'landed' ? 'landed' : '',
+      rollOp: s.phase === 'roll' || s.phase === 'rolling' || s.phase === 'landed' ? '1' : '0.55',
+      rollLabel: s.phase === 'roll' ? '눌러서 굴리기 · Tippen = würfeln' : s.phase === 'rolling' ? '데구르르…' : (s.rolled ? s.rolled + '칸!' : ''),
+      rollFs: s.phase === 'landed' || s.phase === 'question' ? 30 : 20, rollPop: s.phase === 'landed' ? 'pop' : '',
       roll: () => this.roll(),
       cur: { ...this.build(cp.cfg), name: cp.name },
       players: this.ROSTER.map((p, i) => ({ ...this.build(p.cfg), name: p.name, pos: (s.pos[i] >= len - 1 ? '🏁' : s.pos[i] + '/' + (len - 1)), rowCls: i === s.turn && !done ? 'puff p-butter' : '' })),

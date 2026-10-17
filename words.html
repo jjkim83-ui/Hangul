@@ -135,11 +135,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(-
 .sa-o i{font-style:normal;width:20px;height:20px;border-radius:5px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:'Jua',sans-serif;font-size:12px}
 .sa-ow{position:absolute;font-family:'Jua',sans-serif;font-weight:800;font-size:32px;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--ink);white-space:nowrap}
 /* class mode: 3 x 2 smaller cards */
-.sa-games[style*="repeat(3"] .sa-foot{height:70px}
-.sa-games[style*="repeat(3"] .sa-gname{font-size:25px}
-.sa-games[style*="repeat(3"] .sa-gsub{font-size:13px;margin-top:4px}
-.sa-games[style*="repeat(3"] .sa-play{width:46px;height:46px}
-.sa-games[style*="repeat(3"] .sa-art-in{transform:scale(.55)}
+.sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:70px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:25px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gsub{font-size:13px;margin-top:4px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-play{width:46px;height:46px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-art-in{transform:scale(.55)}
 
 /* welcome screen */
 .sa-welcome{background:var(--mist) !important}
@@ -299,9 +299,9 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 /* ---- hub ---- */
 .dc-phone .sa-me{width:400px}
 .dc-phone .sa-foot{height:96px}
-.dc-phone .sa-games[style*="repeat(3"] .sa-foot{height:80px}
-.dc-phone .sa-games[style*="repeat(3"] .sa-gname{font-size:27px}
-.dc-phone .sa-games[style*="repeat(3"] .sa-gsub{font-size:19.5px !important}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:80px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-gsub{font-size:19.5px !important}
 
 /* settings overlay: use the extra width so the four sound cards fit without clipping */
 .dc-phone .frost-strong.pop[style*="width: 1120px; height: 640px"]{width:calc(100% - 100px) !important;max-width:1460px;height:calc(100% - 40px) !important}
@@ -371,7 +371,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 .sa-gsub{color:var(--t) !important;opacity:.78 !important;font-weight:800}
 .sa-play{background:var(--t) !important;box-shadow:0 4px 0 rgba(22,19,31,.28) !important}
 .sa-play path{stroke:transparent}
-.sa-games[style*="repeat(3"] .sa-gname{font-size:27px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
 /*/CARDS*/
 
 /*/SA-THEME*/
