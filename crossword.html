@@ -362,6 +362,23 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 @media (prefers-reduced-motion: reduce){.sa-decor i{animation:none !important;translate:none !important}}
 /*/MOTION*/
 
+/*CARDS*/
+/* game cards: one colour block, no ink band; name in a deep tone of the card colour */
+.sa-card{--t:var(--ink)}
+.sa-card[style*="#8E78E8"]{--t:#2B1784;background:var(--violet-l)}
+.sa-card[style*="#D9B315"]{--t:#6B4A00;background:var(--sun)}
+.sa-card[style*="#2F9A4C"]{--t:#0F5223;background:var(--lime)}
+.sa-card[style*="#C23A8C"]{--t:#6E0E47;background:var(--gum)}
+.sa-card[style*="#2A8DD6"]{--t:#0A3F73;background:var(--sky)}
+.sa-card[style*="#B52A16"]{--t:#6A0505;background:var(--red)}
+.sa-foot{background:transparent !important;color:var(--t) !important}
+.sa-gname{color:var(--t);font-size:32px;letter-spacing:-.5px}
+.sa-gsub{color:var(--t) !important;opacity:.78 !important;font-weight:800}
+.sa-play{background:var(--t) !important;box-shadow:0 4px 0 rgba(22,19,31,.28) !important}
+.sa-play path{stroke:transparent}
+.sa-games[style*="repeat(3"] .sa-gname{font-size:27px}
+/*/CARDS*/
+
 /*/SA-THEME*/
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
