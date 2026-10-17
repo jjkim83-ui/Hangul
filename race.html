@@ -808,7 +808,7 @@ class Component extends DCLogic {
   layout(len) {
     if (this._lay && this._lay.len === len) return this._lay;
     const W = 760, H = 550, padX = 40, padY = 50;
-    const rows = len <= 30 ? 4 : len <= 40 ? 5 : len <= 60 ? 6 : 7;
+    const rows = len <= 20 ? 3 : len <= 30 ? 4 : len <= 40 ? 5 : len <= 60 ? 6 : 7;
     const rowGap = (H - 2 * padY) / (rows - 1), r = rowGap / 2, x0 = padX + r, x1 = W - padX - r;
     // centre line: rows from the bottom up, joined by half-circle turns; rows wave gently
     const wave = (x, row) => Math.sin((x - x0) / 70 + row * 1.3) * 9;
@@ -843,7 +843,7 @@ class Component extends DCLogic {
   rowOf(k, len) { const L = this.layout(len); return Math.min(L.rows - 1, Math.floor(k / ((len - 1) / L.rows + 1e-9))); }
   makeJumps(len) {
     // more, shorter jumps (about 10-12 tiles) and always one snake near the finish
-    const n = len <= 40 ? 5 : len <= 60 ? 7 : 9;              // ladders and snakes each
+    const n = len <= 20 ? 2 : len <= 30 ? 3 : len <= 40 ? 5 : len <= 60 ? 7 : 9;   // ladders and snakes each
     const L0 = this.layout(len), cells = L0.cells;
     const best = { jumps: {}, count: -1 };
     for (let attempt = 0; attempt < 40; attempt++) {
@@ -869,7 +869,8 @@ class Component extends DCLogic {
       return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0));
     };
     const cands = [];
-    for (let lo = 2; lo < len - 2; lo++) for (let hi = lo + 8; hi <= Math.min(len - 2, lo + 14); hi++) {
+    const sMin = len <= 20 ? 4 : len <= 30 ? 6 : 8, sMax = len <= 20 ? 7 : len <= 30 ? 10 : 14;
+    for (let lo = 2; lo < len - 2; lo++) for (let hi = lo + sMin; hi <= Math.min(len - 2, lo + sMax); hi++) {
       const A = cells[lo], B = cells[hi], dy = Math.abs(B.cy - A.cy), dx = Math.abs(B.cx - A.cx);
       if (dy < rowGap * 0.6 || dy > rowGap * 1.45 || dx > step * 6.5 || Math.hypot(dx, dy) < L0.dia * 2.1) continue;
       if (cells.some((c, k) => k !== lo && k !== hi && near(c, A, B) < L0.dia * 0.42)) continue;
@@ -887,7 +888,7 @@ class Component extends DCLogic {
     const finCands = this.shuffle(cands.filter(c => c.hi >= len - 6));
     for (const c of finCands) { if (fits(c, false)) { add(c, false); final = true; break; } }
     if (!final) {
-      for (let h = len - 2; h >= len - 6 && !final; h--) for (let s = 9; s <= 13 && !final; s++) {
+      for (let h = len - 2; h >= len - 6 && !final; h--) for (let s = sMin; s <= sMax && !final; s++) {
         const c = { lo: h - s, hi: h };
         const A = cells[c.lo], B = cells[c.hi];
         if (Math.abs(B.cy - A.cy) < rowGap * 0.6 || Math.hypot(B.cx - A.cx, B.cy - A.cy) < L0.dia * 2.1) continue;
@@ -1320,9 +1321,11 @@ class Component extends DCLogic {
       startGame: () => this.startGame(),
       opt1Title: '판 크기', opt1Sub: 'Spielbrett',
       opt1: this.seg([
-        { v: 40, label: '짧게 40칸', sub: 'kurz' },
-        { v: 60, label: '보통 60칸', sub: 'mittel' },
-        { v: 80, label: '길게 80칸', sub: 'lang' }
+        { v: 20, label: '20칸', sub: 'sehr kurz' },
+        { v: 30, label: '30칸', sub: 'kurz' },
+        { v: 40, label: '40칸', sub: 'mittel' },
+        { v: 60, label: '60칸', sub: 'lang' },
+        { v: 80, label: '80칸', sub: 'sehr lang' }
       ], s.len, 'len'),
       opt2Title: '문제', opt2Sub: 'Fragen',
       opt2: this.seg([
