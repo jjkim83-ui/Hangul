@@ -457,7 +457,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
       <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap">
         <span class="sa-tag" style="background: var(--lime)"><b>{{chapNo}}</b> {{chapTitle}}</span>
         <span class="sa-tag"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFCE3A" stroke="#1C1838" stroke-width="2.2" stroke-linejoin="round"/></svg> 오늘 {{todayStars}}</span>
-        <span class="sa-tag" style="{{timeSty}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1838" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="#4FC3FF"></circle><path d="M12 9v4l3 2M9.5 2.5h5"></path></svg> {{timeTag}}</span>
+        <span class="sa-tag" style="{{timeSty}}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2 6.2 20.4l1.2-6.5L2.6 9.4l6.5-.8z" fill="#4FB8FF" stroke="#1C1838" stroke-width="2" stroke-linejoin="round"></path></svg> {{timeTag}}</span>
       </div>
     </div>
     <div class="sa-me">
@@ -1309,7 +1309,7 @@ class Component extends DCLogic {
       if (!me) classLabel = '내 그림을 눌러요 · Tippe auf dich';
       else {
         const t = C.today(me.id), wr = wkRows.find(r => r.student.id === me.id);
-        classLabel = '오늘 ★' + t.stars + ' · ⏱ ' + Math.floor(t.minutes) + '/' + C.RULES.dailyMinutes + '분 · 이번 주 ★' + (wr ? wr.stars : 0) + (wr ? ' (' + wr.rank + '등)' : '');
+        classLabel = '오늘 ★' + t.stars + ' · 이번 주 ★' + (wr ? wr.stars : 0) + (wr ? ' (' + wr.rank + '등)' : '');
       }
     }
     let studio = {};
@@ -1380,11 +1380,11 @@ class Component extends DCLogic {
           meRank: wr && wr.stars > 0 ? wr.rank + '등' : '', rankShow: wr && wr.stars > 0 ? 'grid' : 'none',
           chapNo: m ? m[1] : title, chapTitle: m ? m[2] : '', todayStars: '★' + t.stars,
           minLeft: Math.max(0, Math.ceil(C.RULES.dailyMinutes - t.minutes)), pipsShow: 'flex' };
-        out.timeUp = out.minLeft <= 0;
-        out.timeTag = out.timeUp ? '오늘 시간 끝! 이제 연습만 · Heute nur noch Übung' : out.minLeft + '분 남음';
-        out.timeSty = out.timeUp ? 'background: #EC4027; color: #FFFFFF' : '';
+        out.timeUp = false; out.timeSty = '';
+        let open = 0;
         ['quiz', 'crossword', 'syllables', 'chosung'].forEach(g => { const used = t.rounds[g] || 0;
-          const left = out.timeUp ? 0 : Math.max(0, C.RULES.roundsPerGame - used); out['pipt' + g] = left ? '★ 오늘 별 ' + left + '번' : '오늘은 연습'; });
+          const left = Math.max(0, C.RULES.roundsPerGame - used); out['pipt' + g] = left ? '★ 오늘 별 ' + left + '번' : '오늘은 연습'; if (left && g !== 'syllables') open++; });
+        out.timeTag = open ? '별 받을 게임 ' + open + '개 남음' : '오늘 별 다 받았어요! 🎉';
         return out;
       })(),
       classMode: !!C, notClass: !C, nudge: !!s.nudge,

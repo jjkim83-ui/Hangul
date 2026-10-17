@@ -27,7 +27,7 @@
   /* ---------- rules ---------- */
   const RULES = {
     roundsPerGame: 1,        // rounds per game per day that earn stars
-    dailyMinutes: 15,        // after this, rounds are practice only
+    dailyMinutes: 0,         // no daily time limit (0 = off)
     maxRoundMinutes: 10,     // one round never counts more time than this
     // accuracy (0..1) -> stars; [for 3 stars, for 2 stars]
     thresholds: { memory: [0.55, 0.4], quiz: [0.9, 0.7], crossword: [0.85, 0.6], syllables: [0.9, 0.7], chosung: [0.85, 0.6] },
@@ -180,12 +180,12 @@
       const t = CP.today(me.id);
       const used = t.rounds[game] || 0;
       const left = Math.max(0, RULES.roundsPerGame - used);
-      const timeUp = t.minutes >= RULES.dailyMinutes;
+      const timeUp = RULES.dailyMinutes > 0 && t.minutes >= RULES.dailyMinutes;
       const canEarn = left > 0 && !timeUp;
       let line;
       if (timeUp) line = '⏰ 오늘 시간 끝! 연습만 돼요 · Zeit um, nur Übung';
       else if (!left) line = '오늘 이 게임 별은 받았어요 — 지금은 연습! · Heute schon Sterne bekommen, jetzt Übung';
-      else line = '⭐ 이번 판은 별을 받아요! · Diese Runde gibt Sterne · ' + Math.ceil(t.timeLeft) + '분 남음';
+      else line = '⭐ 이번 판은 별을 받아요! · Diese Runde gibt Sterne';
       return { canEarn, line, roundsLeft: left, minutesLeft: t.timeLeft };
     },
     _start: {},
