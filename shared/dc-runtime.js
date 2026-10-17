@@ -112,9 +112,25 @@
   }
 
   /* ---------- stage scaling ---------- */
+  // phones: the 1280x720 stage renders at ~0.5x, so <html> gets .dc-phone (theme.css enlarges
+  // text + tap targets under it) and the stage widens to the screen's aspect (up to PHONE_MAXW)
+  // so the bigger type has room instead of sitting between two empty side bars.
+  const PHONE_MAXW = 1600;
+  function isPhone() {
+    const vw = window.innerWidth, vh = window.innerHeight;
+    return Math.min(vw, vh) < 500 && Math.max(vw, vh) < 1000;
+  }
   function fit(stage, w, h) {
-    const s = Math.min(window.innerWidth / w, window.innerHeight / h);
+    const phone = isPhone();
+    document.documentElement.classList.toggle('dc-phone', phone);
+    let sw = w;
+    if (phone && window.innerWidth > window.innerHeight) {
+      sw = Math.round(Math.min(PHONE_MAXW, Math.max(w, h * window.innerWidth / window.innerHeight)));
+    }
+    if (stage.style.width !== sw + 'px') stage.style.width = sw + 'px';
+    const s = Math.min(window.innerWidth / sw, window.innerHeight / h);
     stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+    window.DC_SCALE = s;
   }
 
   /* ---------- mount ---------- */
@@ -145,6 +161,8 @@
     };
     window.addEventListener('resize', onResize);
     window.addEventListener('orientationchange', () => setTimeout(onResize, 150));
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', onResize);
+    if (window.matchMedia) { try { window.matchMedia('(orientation: landscape)').addEventListener('change', onResize); } catch (e) {} }
     // installed on an Android home screen: keep it sideways (iPhones don't allow a site to lock this)
     const lockLandscape = () => { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} };
     lockLandscape(); window.addEventListener('pointerdown', lockLandscape, { once: true });

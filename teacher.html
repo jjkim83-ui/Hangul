@@ -255,6 +255,92 @@ input::placeholder{color:rgba(22,19,31,.42) !important}
 span[style*="background-clip: text"][style*="#FFF8D9"]{display:none !important}
 span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink) !important}
 /*/R2-PATCH*/
+/*PHONE*/
+/* ==========================================================================
+   Phones (html.dc-phone — set by dc-runtime.js when the short side < 500px).
+   The 1280x720 stage renders at ~0.54x there, so this block
+   1) lets every page fill the widened stage (runtime matches it to the screen's aspect),
+   2) raises small type to >= ~19.5 design px (~10.5px on screen), keeping the order of sizes,
+   3) grows tap targets, and re-balances the few layouts that would otherwise overflow.
+   Nothing here applies on tablets / desktop.
+   ========================================================================== */
+
+/* ---- 1. fill the stage; trim vertical padding a little to give the game more room ---- */
+.dc-phone .sa-root{width:100% !important;padding-top:22px !important;padding-bottom:26px !important}
+
+/* ---- 2. type ramp (inline sizes from the page sources) ---- */
+.dc-phone [style*="font-size: 11px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 12px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 12.5px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 13px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 14px"]{font-size:20px !important}
+.dc-phone [style*="font-size: 15px"]{font-size:20.5px !important}
+.dc-phone [style*="font-size: 16px"]{font-size:21px !important}
+.dc-phone [style*="font-size: 17px"]{font-size:21.5px !important}
+.dc-phone [style*="font-size: 18px"]{font-size:22px !important}
+.dc-phone [style*="font-size: 19px"]{font-size:22.5px !important}
+.dc-phone [style*="font-size: 20px"]{font-size:23px !important}
+.dc-phone [style*="font-size: 21px"]{font-size:24px !important}
+.dc-phone [style*="font-size: 22px"]{font-size:24.5px !important}
+/* theme classes */
+.dc-phone .sa-gsub{font-size:20px !important}
+.dc-phone .sa-pipt{font-size:19.5px;line-height:24px}
+.dc-phone .sa-pips{padding:4px 10px}
+.dc-phone .sa-tag{font-size:20px;height:44px}
+.dc-phone .sa-tag b{font-size:22px}
+.dc-phone .many .plist > div > span:nth-child(2){font-size:20px !important}
+
+/* ---- 3. tap targets: small pills grow to >= 50 design px (~27px on screen); small circles to 48-54 ---- */
+.dc-phone button[style^="height: 38px"],.dc-phone button[style*="; height: 38px"],.dc-phone a[style^="height: 38px"],.dc-phone a[style*="; height: 38px"]{height:50px !important}
+.dc-phone button[style^="height: 40px"],.dc-phone button[style*="; height: 40px"],.dc-phone a[style^="height: 40px"],.dc-phone a[style*="; height: 40px"]{height:52px !important}
+.dc-phone button[style^="height: 42px"],.dc-phone button[style*="; height: 42px"],.dc-phone a[style^="height: 42px"],.dc-phone a[style*="; height: 42px"]{height:54px !important}
+.dc-phone button[style^="height: 44px"],.dc-phone button[style*="; height: 44px"],.dc-phone a[style^="height: 44px"],.dc-phone a[style*="; height: 44px"]{height:54px !important}
+.dc-phone button[style^="height: 46px"],.dc-phone button[style*="; height: 46px"],.dc-phone a[style^="height: 46px"],.dc-phone a[style*="; height: 46px"]{height:56px !important}
+.dc-phone button[style*="width: 32px; height: 32px"]{width:48px !important;height:48px !important;min-width:48px}
+.dc-phone button[style*="width: 40px; height: 40px"]{width:54px !important;height:54px !important;min-width:54px}
+.dc-phone button[style*="width: 42px; height: 42px"]{width:54px !important;height:54px !important;min-width:54px}
+.dc-phone .sa-edit{width:54px;height:54px;right:-10px;bottom:-8px}
+.dc-phone .sw{width:60px !important;height:60px !important}
+.dc-phone .range{height:48px}
+
+/* ---- hub ---- */
+.dc-phone .sa-me{width:400px}
+.dc-phone .sa-foot{height:96px}
+.dc-phone .sa-games[style*="repeat(3"] .sa-foot{height:80px}
+.dc-phone .sa-games[style*="repeat(3"] .sa-gname{font-size:27px}
+.dc-phone .sa-games[style*="repeat(3"] .sa-gsub{font-size:19.5px !important}
+
+/* settings overlay: use the extra width so the four sound cards fit without clipping */
+.dc-phone .frost-strong.pop[style*="width: 1120px; height: 640px"]{width:calc(100% - 100px) !important;max-width:1460px;height:calc(100% - 40px) !important}
+
+/* ---- on-screen Korean keyboard (crossword + chosung): wider, taller keys ---- */
+.dc-phone .frost-strong.pop[style*="width: 1000px"]{width:calc(100% - 120px) !important;max-width:1400px;padding:14px 28px 18px !important;gap:10px !important}
+.dc-phone button[style*="width: 68px; height: 56px"]{width:98px !important;height:68px !important;font-size:30px !important}
+.dc-phone button[style*="width: 96px; height: 56px"]{width:136px !important;height:68px !important}
+.dc-phone button[style*="width: 360px; height: 56px"]{width:520px !important;height:64px !important}
+.dc-phone button[style*="width: 250px; height: 56px"]{width:330px !important;height:64px !important}
+
+/* ---- memory: cards become wide tickets so the bigger words fit ---- */
+.dc-phone [style*="perspective: 1100px"]{width:100%;max-width:980px;grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+.dc-phone [style*="perspective: 1100px"]:has(> .card-btn:nth-child(17)){grid-template-columns:repeat(5,minmax(0,1fr)) !important;max-width:1060px}
+.dc-phone [style*="perspective: 1100px"]:has(> .card-btn:nth-child(21)){grid-template-columns:repeat(6,minmax(0,1fr)) !important;max-width:1100px}
+.dc-phone .card-btn{width:100% !important}
+.dc-phone .card-btn [style*="overflow-wrap: break-word"]{padding:0 14px !important;line-height:1.08 !important}
+/* ---- word pool ---- */
+.dc-phone section.frost[style*="width: 440px"]{width:500px !important}
+
+/* ---- teacher ---- */
+.dc-phone button[style*="width: 44px; height: 40px"]{width:56px !important;height:52px !important}
+.dc-phone .rowin:not(#t-pin){height:50px !important}
+
+/* ---- crossword: wider clue list + answer panel, aside takes what is left ---- */
+.dc-phone div[style*="width: 500px; flex-shrink: 0; display: flex; flex-direction: column; gap: 24px"]{width:560px !important}
+.dc-phone .frost[style*="width: 290px; flex-shrink: 0"]{width:450px !important}
+.dc-phone .frost[style*="width: 290px; flex-shrink: 0"] > button[style*="height: 50px"]{height:58px !important}
+.dc-phone .sa-root:has(#cw-answer) div[style*="font-size: 22px; white-space: nowrap"]{white-space:normal !important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.08}
+.dc-phone .sa-root:has(#cw-answer) .frost[style*="grid-auto-rows"]{padding:12px !important}
+.dc-phone .cell > span[style*="position: absolute"]{font-size:15px !important;top:1px !important}
+/*/PHONE*/
 
 /*/SA-THEME*/
 </style>
@@ -341,6 +427,10 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
             <button type="button" onClick="{{t.plus}}" aria-label="별 1개 더하기 · plus ein Stern" class="puff p-mint press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">+</span></button>
           </div>
         </sc-for>
+        <div style="flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 2px 4px 0">
+          <span style="width: 200px; flex-shrink: 0"><input class="rowin" type="text" maxlength="10" value="{{newName}}" onChange="{{onNewName}}" onKeyDown="{{newKey}}" placeholder="새 학생 이름 · Neuer Name" aria-label="새 학생 이름 · Neuer Name"></span>
+          <button type="button" onClick="{{addStudent}}" class="puff {{addCls}} press" style="height: 40px; border: none; border-radius: 999px; padding: 0 16px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 15px; color: #2B2C6B; white-space: nowrap"><span style="position: relative; z-index: 1">{{addLabel}}</span></button>
+        </div>
       </section>
 
       <aside style="width: 420px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px">
@@ -536,7 +626,17 @@ class Component extends DCLogic {
         del: () => { if (this.state.armDel === p.id) { C.removePlay(p.id); this.setState({ armDel: null }); } else { this.setState({ armDel: p.id }); clearTimeout(this._armT); this._armT = setTimeout(() => this.setState({ armDel: null }), 3000); } }
       };
     });
+    const nn = (s.newName || '').trim(), nnDup = nn && C.students().some(o => o.name.trim() === nn);
+    const addVals = {
+      newName: s.newName || '',
+      onNewName: (e) => this.setState({ newName: e.target.value.slice(0, 10) }),
+      addCls: nnDup ? 'p-pink' : nn ? 'p-coral' : 'p-white',
+      addLabel: nnDup ? '이미 있는 이름' : '+ 학생 추가 · Hinzufügen',
+      addStudent: () => { if (!nn || nnDup) return; if (C.addStudent(nn)) this.setState({ newName: '' }); },
+      newKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); if (nn && !nnDup && C.addStudent(nn)) this.setState({ newName: '' }); } }
+    };
     return {
+      ...addVals,
       syncNote: C.demo ? '미리보기' : (C.online ? (C.syncError() ? '⚠ ' + C.syncError() : '🟢 온라인') : '이 기기에만 저장'),
       loggedIn, showLogin: !loggedIn,
       loginTitle: C.hasPin() ? '선생님 PIN' : '선생님 PIN 만들기',

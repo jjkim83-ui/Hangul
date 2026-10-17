@@ -33,7 +33,7 @@
     thresholds: { memory: [0.55, 0.4], quiz: [0.9, 0.7], crossword: [0.85, 0.6], syllables: [0.9, 0.7], chosung: [0.85, 0.6] },
     roundSize: { memory: 8, quiz: 10, crossword: 8, syllables: 8, chosung: 8 }   // fixed size for students, so stars are fair
   };
-  const GAME_NAMES = { memory: '카드 짝맞추기', quiz: '단어 퀴즈', crossword: '십자말풀이', syllables: '글자 조각', chosung: '초성 퀴즈', race: '주사위 보드게임' };
+  const GAME_NAMES = { memory: '카드 짝맞추기', quiz: '단어 퀴즈', crossword: '십자말풀이', syllables: '글자 조각', chosung: '초성 퀴즈', race: '뱀주사위 놀이' };
 
   /* ---------- default class ---------- */
   const DEFAULT_CFGS = [
@@ -42,9 +42,10 @@
     { head: 0, hair: 2, eyes: 0, brows: 1, nose: 1, mouth: 4, glasses: 0, shirt: 3, acc: 4, skin: 0, hairC: 4, shirtC: 5, accC: 1, blush: true, freckles: true, bg: 4 },
     { head: 2, hair: 4, eyes: 5, brows: 0, nose: 0, mouth: 5, glasses: 2, shirt: 1, acc: 3, skin: 5, hairC: 0, shirtC: 4, accC: 1, blush: false, freckles: false, bg: 3 },
     { head: 1, hair: 6, eyes: 2, brows: 1, nose: 3, mouth: 2, glasses: 0, shirt: 2, acc: 1, skin: 2, hairC: 2, shirtC: 3, accC: 0, blush: true, freckles: false, bg: 2 },
-    { head: 2, hair: 8, eyes: 4, brows: 2, nose: 1, mouth: 3, glasses: 1, shirt: 0, acc: 5, skin: 4, hairC: 1, shirtC: 7, accC: 2, blush: false, freckles: true, bg: 5 }
+    { head: 2, hair: 8, eyes: 4, brows: 2, nose: 1, mouth: 3, glasses: 1, shirt: 0, acc: 5, skin: 4, hairC: 1, shirtC: 7, accC: 2, blush: false, freckles: true, bg: 5 },
+    { head: 0, hair: 5, eyes: 1, brows: 0, nose: 2, mouth: 4, glasses: 0, shirt: 3, acc: 2, skin: 1, hairC: 3, shirtC: 1, accC: 4, blush: true, freckles: false, bg: 1 }
   ];
-  const DEFAULT_NAMES = ['레오', '수민', '세나', '리안', '하얀', '규빈'];
+  const DEFAULT_NAMES = ['레오', '수민', '세나', '리안', '하얀', '규빈', '찬율'];
   function defaultData() {
     return {
       students: DEFAULT_CFGS.map((cfg, i) => ({ id: 's' + (i + 1), name: DEFAULT_NAMES[i], cfg })),
@@ -294,6 +295,12 @@
     renameStudent(id, name) {
       const s = CP.student(id); name = cleanName(name); if (!s || !name) return false;
       return CP._teacher('teacher_update_student', { p_id: id, p_name: name, p_cfg: s.cfg }, () => { s.name = name; });
+    },
+    addStudent(name) {
+      name = cleanName(name); if (!name || data.students.some(s => s.name === name)) return false;
+      const n = data.students.length + 1; let id = 's' + n; while (CP.student(id)) id = 's' + uid().slice(0, 6);
+      const cfg = Object.assign({}, DEFAULT_CFGS[n % DEFAULT_CFGS.length], { bg: n % 6, hairC: (n * 3) % 5 });
+      return CP._teacher('teacher_add_student', { p_id: id, p_name: name, p_cfg: cfg, p_sort: n }, () => { data.students.push({ id, name, cfg }); });
     },
     adjust(id, stars, note) {
       const now = new Date();
