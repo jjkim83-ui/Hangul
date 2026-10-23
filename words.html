@@ -384,6 +384,51 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
 .dc-phone .sa-menu{font-size:22px}
 /*/SIGN*/
 
+/*LAYOUT*/
+/* 2026-10 density pass (design review): calmer setup dialog, consistent gaps, readable edges */
+/* Korean never breaks inside a word (잘할수록 많 / 이!) */
+.sa-root{word-break:keep-all;overflow-wrap:anywhere}
+
+/* ---- setup dialog "게임 준비" (all six games) ---- */
+[role=dialog][aria-label^="게임 준비"] > .frost{flex-direction:row !important;flex-wrap:wrap;align-items:center;gap:10px 14px !important}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:first-child{display:contents !important}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:first-child > div{flex:0 0 auto !important;order:1}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:nth-child(2){order:2;flex:1 1 auto}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:first-child > a{order:3;margin-left:auto}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:last-child{order:4;flex-basis:100%}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:last-child:empty{display:none}
+/* a row with only one choice is information, not a button */
+[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type{flex:0 0 auto !important;padding:0 26px !important;background:#FFFFFF !important;box-shadow:0 0 0 1px rgba(22,19,31,.10),0 4px 14px rgba(22,19,31,.08) !important;pointer-events:none;color:var(--ink) !important}
+[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type::before,[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type::after{display:none !important}
+[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type span{color:var(--ink) !important;text-shadow:none !important}
+/* phone: use the wider stage, tighter rhythm, secondary line stays secondary */
+.dc-phone [role=dialog][aria-label^="게임 준비"]{width:min(1040px,calc(100% - 120px)) !important;padding:20px 30px 22px !important;gap:12px !important;max-height:calc(100% - 24px);overflow:auto}
+.dc-phone [role=dialog][aria-label^="게임 준비"] > div > div[style*="width: 178px"]{width:200px !important}
+.dc-phone [role=dialog][aria-label^="게임 준비"] button[aria-pressed]{height:68px !important;white-space:nowrap}
+.dc-phone [role=dialog][aria-label^="게임 준비"] button[aria-pressed] > span:last-child{font-size:16px !important;opacity:.75;line-height:1.15}
+.dc-phone [role=dialog][aria-label^="게임 준비"] > div:last-child > div:first-child{font-size:17px !important;line-height:1.3 !important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* ---- hub ---- */
+/* shuffle blob: room around its label */
+button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !important}
+.dc-phone button[aria-label^="순서 섞기"]{width:132px !important;padding:8px 14px !important}
+/* student card a little narrower so the three tags stay on one line on laptops/tablets */
+.sa-me{width:296px;gap:16px;padding:0 20px}
+.sa-tag{padding:0 11px}
+/* phone class mode: breathing room between the who-is-here band and the six cards; art clear of the card top */
+.dc-phone .sa-games[style*="repeat(3"]:not(.one){margin-top:12px;gap:20px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:72px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-art-in{transform:scale(.48) translateY(10px)}
+/* ---- lists that scroll: fade at the bottom edge instead of a hard cut, last row clears the edge ---- */
+.frost[style*="width: 290px; flex-shrink: 0"]{-webkit-mask-image:linear-gradient(#000 calc(100% - 30px),transparent);mask-image:linear-gradient(#000 calc(100% - 30px),transparent);padding-bottom:30px !important}
+/* ---- snakes & ladders: the player whose turn it is gets a violet ring on the board ---- */
+.piece.on > span:first-child{box-shadow:0 0 0 2.5px #FFFFFF,0 0 0 6px var(--violet) !important}
+.frost.scroll,.sa-root:has(input[placeholder^="새 학생"]) .scroll[style*="flex-direction: column"]{-webkit-mask-image:linear-gradient(#000 calc(100% - 30px),transparent);mask-image:linear-gradient(#000 calc(100% - 30px),transparent);padding-bottom:30px !important}
+
+/* ---- teacher: the 16 lessons as one even 8 x 2 grid ---- */
+.sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"]{display:grid !important;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px !important}
+.sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"] > button{width:auto !important;min-width:0 !important}
+/*/LAYOUT*/
+
 /*/SA-THEME*/
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
