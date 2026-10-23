@@ -296,6 +296,14 @@
       const s = CP.student(id); name = cleanName(name); if (!s || !name) return false;
       return CP._teacher('teacher_update_student', { p_id: id, p_name: name, p_cfg: s.cfg }, () => { s.name = name; });
     },
+    removeStudent(id) {
+      if (!CP.student(id)) return false;
+      return CP._teacher('teacher_remove_student', { p_id: id }, () => {
+        data.students = data.students.filter(s => s.id !== id);
+        data.plays = data.plays.filter(p => p.sid !== id);
+        try { if (lsGet(LS_ME) === id) localStorage.removeItem(LS_ME); } catch (e) {}
+      });
+    },
     addStudent(name) {
       name = cleanName(name); if (!name || data.students.some(s => s.name === name)) return false;
       const n = data.students.length + 1; let id = 's' + n; while (CP.student(id)) id = 's' + uid().slice(0, 6);

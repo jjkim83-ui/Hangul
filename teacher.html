@@ -474,6 +474,7 @@ span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5p
             <span style="position: relative; z-index: 1; flex: 1; text-align: right; font-family: 'Jua', sans-serif; font-size: 26px; font-variant-numeric: tabular-nums">★ {{t.stars}}</span>
             <button type="button" onClick="{{t.minus}}" aria-label="별 1개 빼기 · minus ein Stern" class="puff p-white press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">−</span></button>
             <button type="button" onClick="{{t.plus}}" aria-label="별 1개 더하기 · plus ein Stern" class="puff p-mint press" style="width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 22px; color: #2B2C6B"><span style="position: relative; z-index: 1">+</span></button>
+            <button type="button" onClick="{{t.remove}}" aria-label="{{t.removeAria}}" class="puff {{t.removeCls}} press" style="min-width: 40px; height: 40px; border: none; border-radius: 999px; padding: 0 10px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 15px; color: #B23A2E; white-space: nowrap; flex-shrink: 0"><span style="position: relative; z-index: 1">{{t.removeLabel}}</span></button>
           </div>
         </sc-for>
         <div style="flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 2px 4px 0">
@@ -710,6 +711,13 @@ class Component extends DCLogic {
         nameKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); setTimeout(() => { const b = e.target.parentNode && e.target.parentNode.nextElementSibling; if (b) b.click(); }, 0); } },
         saveName: () => { if (!changed) return; if (C.students().some(o => o.id !== st.id && o.name.trim() === draft.trim())) { this.setState({ dupFor: st.id }); return; } C.renameStudent(st.id, draft.trim()); this.setState({ dupFor: null }); const d = { ...this.state.drafts }; delete d[st.id]; this.setState({ drafts: d, saved: { ...this.state.saved, [st.id]: true } }); },
         plus: () => C.adjust(st.id, 1, '선생님 +1'),
+        removeLabel: this.state.armRemove === st.id ? '지울까요?' : '✕',
+        removeCls: this.state.armRemove === st.id ? 'p-coral' : 'p-white',
+        removeAria: st.name + ' 삭제 · entfernen',
+        remove: () => {
+          if (this.state.armRemove === st.id) { C.removeStudent(st.id); const d = { ...this.state.drafts }; delete d[st.id]; this.setState({ armRemove: null, drafts: d, focus: this.state.focus === st.id ? null : this.state.focus }); return; }
+          this.setState({ armRemove: st.id }); clearTimeout(this._armR); this._armR = setTimeout(() => this.setState({ armRemove: null }), 3000);
+        },
         minus: () => C.adjust(st.id, -1, '선생님 −1'),
         focus: () => this.setState({ focus: st.id })
       };
@@ -728,7 +736,7 @@ class Component extends DCLogic {
     }
     const pickChanged = pick.join() !== curLessons.join();
     const titleFor = (ls) => ls.map(n => n + '과' + (ls.length === 1 ? ' ' + TITLES[n] : '')).join(' · ');
-    const fs = C.students().find(x => x.id === s.focus) || C.students()[0];
+    const fs = C.students().find(x => x.id === s.focus) || C.students()[0] || { id: '', name: '—' };
     const G = { memory: '카드', quiz: '퀴즈', crossword: '십자말', syllables: '글자 조각', chosung: '초성', teacher: '선생님' };
     const plays = C.playsFor(fs.id).slice(-40).reverse().map(p => {
       const d = new Date(p.at);
