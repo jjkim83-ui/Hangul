@@ -37,6 +37,12 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:4p
 .scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(43,44,107,.25) transparent}
 .row-off{opacity:.42}
 @media (prefers-reduced-motion: reduce){.blob{animation:none}.press{transition:none}}
+.ro .vk-edit{display:none !important}
+.ro .vk-chk{pointer-events:none}
+.ro .vk-chip{pointer-events:none;padding-right:14px !important}
+.ro .vk-chip svg{display:none}
+.vk-ro-note{display:none}
+.ro .vk-ro-note{display:flex}
 /*SA-THEME*/
 /* ==========================================================================
    한글 놀이터 — "문방구 Sticker Arcade" theme
@@ -458,7 +464,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 </head>
 <body>
 <template id="dc-view">
-<div class="sa-root" style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 28px 80px 36px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 22px; overflow: hidden">
+<div class="sa-root {{roCls}}" style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 28px 80px 36px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 22px; overflow: hidden">
   <div class="sa-decor" aria-hidden="true"><i class="d-type">한글</i><i class="d-blob"></i><i class="d-dots"></i><i class="d-star"></i><i class="d-tri"></i></div>
   <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
     <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
@@ -504,7 +510,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
                   </span>
                   <span style="position: relative; z-index: 1; font-size: 13px; font-weight: 900; color: #4A4C80">{{l.count}}</span>
                 </button>
-                <button type="button" onClick="{{l.toggleToday}}" aria-pressed="{{l.todayPressed}}" aria-label="{{l.n}}과 오늘 사용 · heute nutzen" class="puff press {{l.todayCls}}" style="width: 52px; flex-shrink: 0; border: none; border-radius: 18px; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+                <button type="button" onClick="{{l.toggleToday}}" aria-pressed="{{l.todayPressed}}" aria-label="{{l.n}}과 오늘 사용 · heute nutzen" class="vk-edit puff press {{l.todayCls}}" style="width: 52px; flex-shrink: 0; border: none; border-radius: 18px; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer">
                   <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="{{l.todayInk}}" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1"><path d="{{l.todayIcon}}"></path></svg>
                 </button>
               </div>
@@ -520,8 +526,8 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
             <div style="font-family: 'Jua', sans-serif; font-size: 26px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{f.ko}}</div>
             <div style="font-size: 13px; font-weight: 800; color: #4A4C80; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{f.sub}}</div>
           </div>
-          <button type="button" onClick="{{f.allOn}}" class="puff p-white press" style="height: 44px; flex-shrink: 0; white-space: nowrap; border: none; border-radius: 999px; padding: 0 14px; font-family: 'Jua', sans-serif; font-size: 16px; color: #2B2C6B; cursor: pointer"><span style="position: relative; z-index: 1">모두 켜기</span></button>
-          <button type="button" onClick="{{f.toggleToday}}" class="puff press {{f.todayBtnCls}}" style="height: 48px; flex-shrink: 0; white-space: nowrap; border: none; border-radius: 999px; padding: 0 18px; font-family: 'Jua', sans-serif; font-size: 18px; color: {{f.todayBtnInk}}; cursor: pointer"><span style="position: relative; z-index: 1">{{f.todayBtnLabel}}</span></button>
+          <button type="button" onClick="{{f.allOn}}" class="vk-edit puff p-white press" style="height: 44px; flex-shrink: 0; white-space: nowrap; border: none; border-radius: 999px; padding: 0 14px; font-family: 'Jua', sans-serif; font-size: 16px; color: #2B2C6B; cursor: pointer"><span style="position: relative; z-index: 1">모두 켜기</span></button>
+          <button type="button" onClick="{{f.toggleToday}}" class="vk-edit puff press {{f.todayBtnCls}}" style="height: 48px; flex-shrink: 0; white-space: nowrap; border: none; border-radius: 999px; padding: 0 18px; font-family: 'Jua', sans-serif; font-size: 18px; color: {{f.todayBtnInk}}; cursor: pointer"><span style="position: relative; z-index: 1">{{f.todayBtnLabel}}</span></button>
         </div>
 
         <div class="frost scroll" style="flex: 1; min-height: 0; border-radius: 30px; padding: 8px 12px">
@@ -530,7 +536,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
           </div>
           <sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
             <div class="{{r.rowCls}}" style="display: grid; grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) 56px; align-items: center; gap: 0 12px; padding: 5px 8px; border-top: 1px solid rgba(255,255,255,.7)">
-              <button type="button" onClick="{{r.toggle}}" aria-pressed="{{r.pressed}}" aria-label="{{r.ko}}" class="puff press {{r.chkCls}}" style="width: 32px; height: 32px; border: none; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+              <button type="button" onClick="{{r.toggle}}" aria-pressed="{{r.pressed}}" aria-label="{{r.ko}}" class="vk-chk puff press {{r.chkCls}}" style="width: 32px; height: 32px; border: none; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1F4A3A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1; display: {{r.chkShow}}"><polyline points="5 13 10 18 19 6"></polyline></svg>
               </button>
               <span style="font-family: 'Jua', sans-serif; font-size: 21px; line-height: 1.2">{{r.ko}}<span style="display: block; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #6A47F2">{{r.game}}</span></span>
@@ -550,7 +556,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
       </div>
       <div class="scroll" style="flex: 1; min-width: 0; display: flex; gap: 8px; overflow-x: auto; padding: 8px 2px">
         <sc-for list="{{chips}}" as="c" hint-placeholder-count="2">
-          <button type="button" onClick="{{c.remove}}" aria-label="{{c.label}} 빼기 · entfernen" class="puff press {{c.cls}}" style="flex-shrink: 0; height: 40px; border: none; border-radius: 999px; padding: 0 10px 0 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; color: #2B2C6B; font-family: inherit">
+          <button type="button" onClick="{{c.remove}}" aria-label="{{c.label}} 빼기 · entfernen" class="vk-chip puff press {{c.cls}}" style="flex-shrink: 0; height: 40px; border: none; border-radius: 999px; padding: 0 10px 0 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; color: #2B2C6B; font-family: inherit">
             <span style="position: relative; z-index: 1; font-family: 'Jua', sans-serif; font-size: 16px; white-space: nowrap">{{c.label}}</span>
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" style="position: relative; z-index: 1"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
           </button>
@@ -563,7 +569,11 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
         <div style="font-family: 'Jua', sans-serif; font-size: 26px; line-height: 1">{{total}}</div>
         <div style="font-size: 12px; font-weight: 800; color: #4A4C80">단어 · Wörter</div>
       </div>
-      <button type="button" onClick="{{useInGames}}" class="puff p-coral press" style="flex-shrink: 0; height: 58px; border: none; border-radius: 999px; padding: 0 22px 0 8px; display: flex; align-items: center; gap: 10px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
+      <div class="vk-ro-note puff p-butter" style="flex-shrink: 0; height: 58px; box-sizing: border-box; border-radius: 999px; padding: 0 22px; align-items: center; gap: 10px; color: #2B2C6B">
+        <span style="position: relative; z-index: 1; font-size: 22px" aria-hidden="true">🔒</span>
+        <span style="position: relative; z-index: 1; display: flex; flex-direction: column; line-height: 1.1"><span style="font-family: 'Jua', sans-serif; font-size: 18px">선생님이 정해요</span><span style="font-size: 12.5px; font-weight: 800; color: #5A4A12">Die Lehrperson wählt die Wörter</span></span>
+      </div>
+      <button type="button" onClick="{{useInGames}}" class="vk-edit puff p-coral press" style="flex-shrink: 0; height: 58px; border: none; border-radius: 999px; padding: 0 22px 0 8px; display: flex; align-items: center; gap: 10px; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; cursor: pointer; text-shadow: 0 2px 3px rgba(160,40,30,.35)">
         <span class="puff p-white" aria-hidden="true" style="width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E2685A">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="position: relative; z-index: 1"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg>
         </span>
@@ -587,6 +597,16 @@ class Component extends DCLogic {
     const ok = saved && saved.today && typeof saved.today === 'object';
     const firstToday = ok ? Object.keys(saved.today || {}).filter(k => saved.today[k]).map(Number).sort((x, y) => x - y)[0] : 0;
     this.state = { data: null, err: false, focus: firstToday || 1, today: ok ? saved.today : { 1: true, 2: true }, off: ok ? (saved.off || {}) : {}, used: !!ok };
+    if (this.readOnly()) {   // students see the word set the teacher chose, and cannot change it
+      const t = {}; window.ClassPlay.lessons().forEach(n => { t[n] = true; });
+      const first = Object.keys(t).map(Number).sort((x, y) => x - y)[0];
+      this.state = { ...this.state, today: t, off: {}, used: true, focus: first || this.state.focus };
+    }
+  }
+  readOnly() { const C = window.ClassPlay; return !!(C && C.isTeacher && !C.isTeacher()); }
+  setState(patch, cb) {   // read-only: only looking around (focus) is allowed
+    if (this.readOnly() && patch && typeof patch === 'object' && ('today' in patch || 'off' in patch || 'used' in patch)) return;
+    return super.setState(patch, cb);
   }
   saveForGames() {
     const s = this.state;
@@ -594,6 +614,7 @@ class Component extends DCLogic {
     Object.keys(s.today).forEach(k => { if (s.today[k]) today[k] = true; });
     Object.keys(s.off).forEach(k => { if (s.off[k]) off[k] = true; });
     let stored = true;
+    if (this.readOnly()) return;
     try { localStorage.setItem('hangul_today_v1', JSON.stringify({ today, off, at: Date.now() })); } catch (e) { stored = false; }
     this.setState({ used: true, storeFail: !stored });
   }
@@ -655,6 +676,7 @@ class Component extends DCLogic {
     const total = Object.keys(keys).length;
     const allWords = d.lessons.reduce((a, L) => a + L.words.length, 0);
     return {
+      roCls: this.readOnly() ? 'ro' : '',
       loading: false, ready: true, loadingText: '',
       bookTitle: '한국어 4-1', bookMeta: d.lessons.length + '과 · ' + allWords + ' 단어',
       groups,
