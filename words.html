@@ -597,12 +597,19 @@ class Component extends DCLogic {
     const ok = saved && saved.today && typeof saved.today === 'object';
     const firstToday = ok ? Object.keys(saved.today || {}).filter(k => saved.today[k]).map(Number).sort((x, y) => x - y)[0] : 0;
     this.state = { data: null, err: false, focus: firstToday || 1, today: ok ? saved.today : { 1: true, 2: true }, off: ok ? (saved.off || {}) : {}, used: !!ok };
+    if (this.isTeacherNow()) {   // the teacher page starts from what the class uses
+      const t = {}; window.ClassPlay.lessons().forEach(n => { t[n] = true; });
+      const same = JSON.stringify(this.classLessonsFrom(this.state.today)) === JSON.stringify(this.classLessonsFrom(t));
+      if (!same) this.state = { ...this.state, today: t, used: true, focus: this.classLessonsFrom(t)[0] || this.state.focus };
+    }
     if (this.readOnly()) {   // students see the word set the teacher chose, and cannot change it
       const t = {}; window.ClassPlay.lessons().forEach(n => { t[n] = true; });
       const first = Object.keys(t).map(Number).sort((x, y) => x - y)[0];
       this.state = { ...this.state, today: t, off: {}, used: true, focus: first || this.state.focus };
     }
   }
+  isTeacherNow() { const C = window.ClassPlay; return !!(C && C.isTeacher && C.isTeacher()); }
+  classLessonsFrom(today) { return Object.keys(today).filter(k => today[k]).map(Number).sort((x, y) => x - y); }
   readOnly() { const C = window.ClassPlay; return !!(C && C.isTeacher && !C.isTeacher()); }
   setState(patch, cb) {   // read-only: only looking around (focus) is allowed
     if (this.readOnly() && patch && typeof patch === 'object' && ('today' in patch || 'off' in patch || 'used' in patch)) return;
@@ -616,6 +623,15 @@ class Component extends DCLogic {
     let stored = true;
     if (this.readOnly()) return;
     try { localStorage.setItem('hangul_today_v1', JSON.stringify({ today, off, at: Date.now() })); } catch (e) { stored = false; }
+    // the teacher's choice is the class setting: students' homework and word pool follow it
+    if (this.isTeacherNow() && this.state.data) {
+      const ls = this.classLessonsFrom(today);
+      if (ls.length) {
+        const L = this.state.data.lessons;
+        const title = ls.length === 1 ? (ls[0] + '과 ' + ((L.find(x => x.n === ls[0]) || {}).ko || '')).trim() : ls.map(n => n + '과').join(' · ');
+        window.ClassPlay.setLessons(ls, title);
+      }
+    }
     this.setState({ used: true, storeFail: !stored });
   }
   componentDidMount() {
@@ -692,7 +708,7 @@ class Component extends DCLogic {
       chips: chosen.map(L => ({ label: chosen.length > 3 ? L.n + '과' : L.n + '과 ' + L.theme[0], cls: disc(L), remove: () => this.setState({ today: { ...this.state.today, [L.n]: false }, used: false }) })),
       noChips: chosen.length === 0,
       total,
-      useLabel: s.used ? (s.storeFail ? '이 화면에서는 저장 안 됨' : '✓ 게임에 적용됨') : '게임에 쓰기',
+      useLabel: s.used ? (s.storeFail ? '이 화면에서는 저장 안 됨' : (this.isTeacherNow() ? '✓ 반 전체에 적용됨' : '✓ 게임에 적용됨')) : (this.isTeacherNow() ? '반 전체에 쓰기 · Für alle' : '게임에 쓰기'),
       useInGames: () => this.saveForGames()
     };
   }
