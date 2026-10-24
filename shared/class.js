@@ -30,10 +30,10 @@
     dailyMinutes: 0,         // no daily time limit (0 = off)
     maxRoundMinutes: 10,     // one round never counts more time than this
     // accuracy (0..1) -> stars; [for 3 stars, for 2 stars]
-    thresholds: { memory: [0.55, 0.4], quiz: [0.9, 0.7], crossword: [0.85, 0.6], syllables: [0.9, 0.7], chosung: [0.85, 0.6] },
-    roundSize: { memory: 8, quiz: 10, crossword: 8, syllables: 8, chosung: 8 }   // fixed size for students, so stars are fair
+    thresholds: { memory: [0.55, 0.4], quiz: [0.9, 0.7], crossword: [0.85, 0.6], syllables: [0.9, 0.7], chosung: [0.85, 0.6], rain: [0.85, 0.6], search: [0.85, 0.6], sentence: [0.85, 0.6] },
+    roundSize: { memory: 8, quiz: 10, crossword: 8, syllables: 8, chosung: 8, rain: 25, search: 6, sentence: 8 }   // fixed size for students, so stars are fair
   };
-  const GAME_NAMES = { memory: '카드 짝맞추기', quiz: '단어 퀴즈', crossword: '십자말풀이', syllables: '글자 조각', chosung: '초성 퀴즈', race: '뱀주사위 놀이' };
+  const GAME_NAMES = { memory: '카드 짝맞추기', quiz: '단어 퀴즈', crossword: '십자말풀이', syllables: '글자 조각', chosung: '초성 퀴즈', race: '뱀주사위 놀이', rain: '산성비', search: '낱말 찾기', sentence: '문장 만들기' };
 
   /* ---------- default class ---------- */
   const DEFAULT_CFGS = [

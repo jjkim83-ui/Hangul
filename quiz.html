@@ -432,6 +432,29 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 /* ---- teacher: the 16 lessons as one even 8 x 2 grid ---- */
 .sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"]{display:grid !important;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px !important}
 .sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"] > button{width:auto !important;min-width:0 !important}
+/* ---- hub with 8 class games (4 x 2) and 5 student games (5 x 1) ---- */
+.sa-card[style*="#16131F"]{--t:var(--sun);background:var(--ink)}
+.sa-card[style*="#16131F"] .sa-play path{fill:var(--ink)}
+.sa-card[style*="#6A47F2"]{--t:#1B0A5E;background:var(--violet)}
+.sa-card[style*="#6A47F2"] .sa-gname{color:#FFFFFF}
+.sa-card[style*="#6A47F2"] .sa-gsub{color:#FFFFFF !important;opacity:.85 !important}
+.sa-card[style*="#E97A12"]{--t:#5E2600;background:#FF9F43}
+.sa-games[style*="repeat(4"] .sa-foot,.sa-games[style*="repeat(5"] .sa-foot{height:66px;padding:0 12px 0 16px}
+.sa-games[style*="repeat(4"] .sa-gname{font-size:24px}
+.sa-games[style*="repeat(5"] .sa-gname{font-size:23px}
+.sa-games[style*="repeat(4"] .sa-gsub,.sa-games[style*="repeat(5"] .sa-gsub{font-size:12.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-games[style*="repeat(4"] .sa-play,.sa-games[style*="repeat(5"] .sa-play{width:42px;height:42px}
+.sa-games[style*="repeat(4"]{gap:18px}
+.sa-games[style*="repeat(5"]{gap:16px}
+.sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.46) translateY(8px)}
+.sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.74)}
+.sa-games[style*="repeat(5"] .sa-pips{right:8px;top:8px}
+.dc-phone .sa-games[style*="repeat(4"]{margin-top:12px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-foot,.dc-phone .sa-games[style*="repeat(5"] .sa-foot{height:74px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-gname,.dc-phone .sa-games[style*="repeat(5"] .sa-gname{font-size:26px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-gsub,.dc-phone .sa-games[style*="repeat(5"] .sa-gsub{font-size:18px !important}
+.dc-phone .sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.44) translateY(14px)}
+.dc-phone .sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.8)}
 /*/LAYOUT*/
 
 /*/SA-THEME*/

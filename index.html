@@ -448,6 +448,29 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 /* ---- teacher: the 16 lessons as one even 8 x 2 grid ---- */
 .sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"]{display:grid !important;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px !important}
 .sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"] > button{width:auto !important;min-width:0 !important}
+/* ---- hub with 8 class games (4 x 2) and 5 student games (5 x 1) ---- */
+.sa-card[style*="#16131F"]{--t:var(--sun);background:var(--ink)}
+.sa-card[style*="#16131F"] .sa-play path{fill:var(--ink)}
+.sa-card[style*="#6A47F2"]{--t:#1B0A5E;background:var(--violet)}
+.sa-card[style*="#6A47F2"] .sa-gname{color:#FFFFFF}
+.sa-card[style*="#6A47F2"] .sa-gsub{color:#FFFFFF !important;opacity:.85 !important}
+.sa-card[style*="#E97A12"]{--t:#5E2600;background:#FF9F43}
+.sa-games[style*="repeat(4"] .sa-foot,.sa-games[style*="repeat(5"] .sa-foot{height:66px;padding:0 12px 0 16px}
+.sa-games[style*="repeat(4"] .sa-gname{font-size:24px}
+.sa-games[style*="repeat(5"] .sa-gname{font-size:23px}
+.sa-games[style*="repeat(4"] .sa-gsub,.sa-games[style*="repeat(5"] .sa-gsub{font-size:12.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-games[style*="repeat(4"] .sa-play,.sa-games[style*="repeat(5"] .sa-play{width:42px;height:42px}
+.sa-games[style*="repeat(4"]{gap:18px}
+.sa-games[style*="repeat(5"]{gap:16px}
+.sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.46) translateY(8px)}
+.sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.74)}
+.sa-games[style*="repeat(5"] .sa-pips{right:8px;top:8px}
+.dc-phone .sa-games[style*="repeat(4"]{margin-top:12px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-foot,.dc-phone .sa-games[style*="repeat(5"] .sa-foot{height:74px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-gname,.dc-phone .sa-games[style*="repeat(5"] .sa-gname{font-size:26px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-gsub,.dc-phone .sa-games[style*="repeat(5"] .sa-gsub{font-size:18px !important}
+.dc-phone .sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.44) translateY(14px)}
+.dc-phone .sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.8)}
 /*/LAYOUT*/
 
 /*/SA-THEME*/
@@ -662,10 +685,26 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
       <div class="sa-art" style="background: var(--sky)"><div class="sa-art-in"><span class="sa-t" style="left: 8px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅅ</span><span class="sa-t" style="left: 64px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅈ</span><span class="sa-t" style="left: 120px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㅎ</span><span class="sa-t" style="left: 176px; top: 40px; width: 50px; height: 60px; background: #FFFFFF; transform: rotate(0deg); font-size: 32px;">ㄷ</span><span class="sa-ow" style="left: 14px; top: 122px">= 솔직하다?</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span class="sa-pipt">{{piptchosung}}</span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">초성 퀴즈</div><div class="sa-gsub">Anfangslaute</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
+    <sc-if value="{{classMode}}" hint-placeholder-val="{{ false }}">
+    <a href="rain.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #16131F">
+      <div class="sa-art" style="background: var(--ink)"><div class="sa-art-in"><span style="position: absolute; left: 14px; top: 6px; width: 5px; height: 46px; border-radius: 3px; background: var(--sky); transform: rotate(16deg)"></span><span style="position: absolute; left: 196px; top: 18px; width: 5px; height: 56px; border-radius: 3px; background: var(--sky); transform: rotate(16deg)"></span><span style="position: absolute; left: 150px; top: 120px; width: 5px; height: 40px; border-radius: 3px; background: var(--sky); transform: rotate(16deg)"></span><span style="position: absolute; left: 40px; top: 128px; width: 5px; height: 34px; border-radius: 3px; background: var(--sky); transform: rotate(16deg)"></span><span style="position: absolute; left: 222px; top: 120px; width: 5px; height: 44px; border-radius: 3px; background: var(--sky); transform: rotate(16deg)"></span><span class="sa-t" style="left: 28px; top: 18px; width: 104px; height: 56px; background: #FFFFFF; transform: rotate(-6deg); font-size: 30px;">우유</span><span class="sa-t" style="left: 120px; top: 70px; width: 104px; height: 56px; background: var(--sun); transform: rotate(5deg); font-size: 30px;">나무</span><span class="sa-t" style="left: 52px; top: 122px; width: 64px; height: 56px; background: #FFFFFF; transform: rotate(-3deg); font-size: 30px;">비</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span class="sa-pipt">{{piptrain}}</span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">산성비</div><div class="sa-gsub">Wortregen</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    </sc-if>
+    <a href="search.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #6A47F2">
+      <div class="sa-art" style="background: var(--violet)"><div class="sa-art-in"><span class="sa-t" style="left: 42px; top: 18px; width: 48px; height: 48px; background: var(--sun); transform: rotate(0deg); font-size: 26px;">이</span><span class="sa-t" style="left: 96px; top: 18px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">가</span><span class="sa-t" style="left: 150px; top: 18px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">나</span><span class="sa-t" style="left: 42px; top: 72px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">다</span><span class="sa-t" style="left: 96px; top: 72px; width: 48px; height: 48px; background: var(--sun); transform: rotate(0deg); font-size: 26px;">상</span><span class="sa-t" style="left: 150px; top: 72px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">리</span><span class="sa-t" style="left: 42px; top: 126px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">마</span><span class="sa-t" style="left: 96px; top: 126px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">오</span><span class="sa-t" style="left: 150px; top: 126px; width: 48px; height: 48px; background: var(--sun); transform: rotate(0deg); font-size: 26px;">형</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span class="sa-pipt">{{piptsearch}}</span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">낱말 찾기</div><div class="sa-gsub">Wörtersuche</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
+    </a>
     <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
     <a href="race.html" onClick="{{tileRace}}" class="tile sa-card" style="--d: #B52A16">
       <div class="sa-art" style="background: var(--red)"><div class="sa-art-in"><span class="sa-t" style="left: 40px; top: 30px; width: 104px; height: 104px; background: #FFFFFF; transform: rotate(-10deg); display: grid; grid-template-columns: repeat(3, 1fr); padding: 16px; box-sizing: border-box; place-items: center"><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i></span><span style="position: absolute; left: 150px; top: 84px; font-size: 52px">🏁</span></div></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">뱀주사위 놀이</div><div class="sa-gsub">Schlangen und Leitern</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    </sc-if>
+    <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+    <a href="sentence.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #E97A12">
+      <div class="sa-art" style="background: #FF9F43"><div class="sa-art-in"><span class="sa-t" style="left: 14px; top: 28px; width: 104px; height: 56px; background: #FFFFFF; transform: rotate(-3deg); font-size: 28px;">동생은</span><span class="sa-t" style="left: 126px; top: 28px; width: 76px; height: 56px; background: var(--sun); transform: rotate(2deg); font-size: 28px;">겁이</span><span class="sa-t" style="left: 40px; top: 104px; width: 124px; height: 56px; background: #FFFFFF; transform: rotate(3deg); font-size: 28px;">많아요.</span><span class="sa-t" style="left: 176px; top: 104px; width: 56px; height: 56px; background: transparent; transform: rotate(0deg); font-size: 28px; border-style: dashed; box-shadow: none"></span></div></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">문장 만들기</div><div class="sa-gsub">Sätze bauen</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     </sc-if>
   </div>
@@ -1420,7 +1459,7 @@ class Component extends DCLogic {
       notMe: () => { if (C) { C.logout(); this.syncClass(); this.setState({ wstep: 'pick', overlay: null }); this.play('tap'); } },
       rootCls: s.motion ? '' : 'still',
       players, selLabel: C ? classLabel : selLabel, tapSound,
-      gridCols: '3', gamesCls: C ? 'one' : '',
+      gridCols: C ? '5' : '4', gamesCls: C ? 'one' : '',
       ...(() => {   // student hero + per-game star tries
         const me = C && C.me(); if (!me) return { pipsShow: 'none' };
         const t = C.today(me.id), wr = wkRows.find(r => r.student.id === me.id);
@@ -1431,7 +1470,7 @@ class Component extends DCLogic {
           minLeft: Math.max(0, Math.ceil(C.RULES.dailyMinutes - t.minutes)), pipsShow: 'flex' };
         out.timeUp = false; out.timeSty = '';
         let open = 0;
-        ['quiz', 'crossword', 'syllables', 'chosung'].forEach(g => { const used = t.rounds[g] || 0;
+        ['quiz', 'crossword', 'syllables', 'chosung', 'rain', 'search'].forEach(g => { const used = t.rounds[g] || 0;
           const left = Math.max(0, C.RULES.roundsPerGame - used); out['pipt' + g] = left ? '★ 오늘 별 ' + left + '번' : '오늘은 연습'; if (left && g !== 'syllables') open++; });
         out.timeTag = open ? '별 받을 게임 ' + open + '개 남음' : '오늘 별 다 받았어요! 🎉';
         return out;
