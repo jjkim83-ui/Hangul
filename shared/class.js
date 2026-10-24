@@ -26,7 +26,8 @@
 
   /* ---------- rules ---------- */
   const RULES = {
-    roundsPerGame: 1,        // rounds per game per day that earn stars
+    roundsPerGame: 1,        // rounds per game per day that earn a star
+    starsPerDay: 3,          // at most this many stars per day (1 star per finished game)
     dailyMinutes: 0,         // no daily time limit (0 = off)
     maxRoundMinutes: 10,     // one round never counts more time than this
     // accuracy (0..1) -> stars; [for 3 stars, for 2 stars]
@@ -180,12 +181,14 @@
       const t = CP.today(me.id);
       const used = t.rounds[game] || 0;
       const left = Math.max(0, RULES.roundsPerGame - used);
+      const dayFull = t.stars >= RULES.starsPerDay;
       const timeUp = RULES.dailyMinutes > 0 && t.minutes >= RULES.dailyMinutes;
-      const canEarn = left > 0 && !timeUp;
+      const canEarn = left > 0 && !timeUp && !dayFull;
       let line;
       if (timeUp) line = '⏰ 오늘 시간 끝! 연습만 돼요 · Zeit um, nur Übung';
-      else if (!left) line = '오늘 이 게임 별은 받았어요 — 지금은 연습! · Heute schon Sterne bekommen, jetzt Übung';
-      else line = '⭐ 이번 판은 별을 받아요! · Diese Runde gibt Sterne';
+      else if (dayFull) line = '오늘 별 ' + RULES.starsPerDay + '개 다 받았어요 — 지금은 연습! · Heute alle Sterne, jetzt Übung';
+      else if (!left) line = '오늘 이 게임 별은 받았어요 — 지금은 연습! · Heute schon den Stern, jetzt Übung';
+      else line = '⭐ 끝까지 하면 별 1개! · Fertig spielen = 1 Stern';
       return { canEarn, line, roundsLeft: left, minutesLeft: t.timeLeft };
     },
     _start: {},
@@ -196,17 +199,18 @@
       const dur = Math.min(RULES.maxRoundMinutes * 60, Math.round((Date.now() - began) / 1000));
       const th = RULES.thresholds[game] || [0.9, 0.7];
       acc = Math.max(0, Math.min(1, acc || 0));
-      const stars = acc >= th[0] ? 3 : acc >= th[1] ? 2 : 1;
-      const counted = !!(CP._startCan && CP._startCan[game]);
+      // one star for a finished game, once per game per day, at most starsPerDay a day
+      const counted = !!(CP._startCan && CP._startCan[game]) && CP.today(me.id).stars < RULES.starsPerDay;
+      const stars = 1;
       const now = new Date();
       const play = { id: uid(), sid: me.id, game, stars, acc: Math.round(acc * 100) / 100, dur, day: dayKey(now), week: weekKey(now), at: now.toISOString(), counted, note: '' };
       data.plays.push(play); save();
       delete CP._start[game];
       if (online) SB.post('plays', { id: play.id, class_id: CONFIG.classId, student_id: play.sid, game, stars, acc: play.acc, dur, day: play.day, week: play.week, at: play.at, counted, note: '' }).catch(e => { syncError = String(e.message || e); emit(); });
-      const starStr = '★'.repeat(stars) + '☆'.repeat(3 - stars);
+      const starStr = counted ? '★' : '☆';
       const line = counted
-        ? starStr + '  +' + stars + ' 별 · Sterne — ' + me.name
-        : starStr + '  연습 판 · Übungsrunde (오늘 별은 끝)';
+        ? '★  +1 별 · Stern — ' + me.name
+        : '연습 판 · Übungsrunde (오늘 별은 끝)';
       return { stars, counted, line, starStr };
     },
 
