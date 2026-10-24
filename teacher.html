@@ -485,6 +485,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
     </div>
     <sc-if value="{{loggedIn}}" hint-placeholder-val="{{ true }}">
       <button type="button" onClick="{{startRoom}}" class="puff p-coral press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 19px; text-shadow: 0 2px 3px rgba(160,40,30,.35)"><span style="position: relative; z-index: 1">🎓 수업 모드로</span></button>
+      <a href="log.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 22px; display: flex; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B">📊 기록</a>
       <a href="board.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 22px; display: flex; align-items: center; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B">🏆 순위표</a>
       <button type="button" onClick="{{logout}}" class="puff p-white press" style="height: 56px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; font-family: 'Jua', sans-serif; font-size: 19px; color: #2B2C6B"><span style="position: relative; z-index: 1">로그아웃</span></button>
     </sc-if>
@@ -806,7 +807,7 @@ class Component extends DCLogic {
     const titleFor = (ls) => ls.map(n => n + '과' + (ls.length === 1 ? ' ' + TITLES[n] : '')).join(' · ');
     const fs = C.students().find(x => x.id === s.focus) || C.students()[0] || { id: '', name: '—' };
     const G = { memory: '카드', quiz: '퀴즈', crossword: '십자말', syllables: '글자 조각', chosung: '초성', teacher: '선생님' };
-    const plays = C.playsFor(fs.id).slice(-40).reverse().map(p => {
+    const plays = C.playsFor(fs.id).filter(p => p.note !== 'start').slice(-40).reverse().map(p => {
       const d = new Date(p.at);
       return {
         when: (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'),

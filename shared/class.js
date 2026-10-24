@@ -168,7 +168,7 @@
     playsFor(sid, filter) { return data.plays.filter(p => p.sid === sid && (!filter || filter(p))); },
     today(sid) {
       const day = dayKey();
-      const plays = CP.playsFor(sid, p => p.day === day && p.game !== 'teacher');
+      const plays = CP.playsFor(sid, p => p.day === day && p.game !== 'teacher' && p.note !== 'start');
       const minutes = plays.reduce((a, p) => a + (p.dur || 0), 0) / 60;
       const rounds = {};
       plays.forEach(p => { if (p.counted) rounds[p.game] = (rounds[p.game] || 0) + 1; });
@@ -192,7 +192,16 @@
       return { canEarn, line, roundsLeft: left, minutesLeft: t.timeLeft };
     },
     _start: {},
-    start(game) { CP._start[game] = Date.now(); CP._startCan = CP._startCan || {}; CP._startCan[game] = CP.status(game).canEarn; },
+    start(game) {
+      CP._start[game] = Date.now(); CP._startCan = CP._startCan || {}; CP._startCan[game] = CP.status(game).canEarn;
+      // log that a round was started (stars 1 + counted false + note 'start': never counts), so the teacher log can show finished vs. given up
+      const me = CP.me(); if (!me || !CP.studentMode()) return;
+      const now = new Date();
+      const play = { id: uid(), sid: me.id, game, stars: 1, acc: 0, dur: 0, day: dayKey(now), week: weekKey(now), at: now.toISOString(), counted: false, note: 'start' };
+      data.plays.push(play); save();
+      if (online) SB.post('plays', { id: play.id, class_id: CONFIG.classId, student_id: play.sid, game, stars: 1, acc: 0, dur: 0, day: play.day, week: play.week, at: play.at, counted: false, note: 'start' }).catch(() => {});
+    },
+    allPlays() { return data.plays.slice(); },
     finish(game, acc) {
       const me = CP.me(); if (!me) return null;
       const began = CP._start[game] || Date.now();
@@ -218,7 +227,7 @@
     board(wk) {
       wk = wk || weekKey();
       const rows = data.students.map(s => {
-        const ps = data.plays.filter(p => p.sid === s.id && p.week === wk);
+        const ps = data.plays.filter(p => p.sid === s.id && p.week === wk && p.note !== 'start');
         const stars = ps.reduce((a, p) => a + (p.counted || p.game === 'teacher' ? p.stars : 0), 0);
         const days = {};
         ps.forEach(p => { if (p.game !== 'teacher') days[p.day] = true; });
