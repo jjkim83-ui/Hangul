@@ -1469,10 +1469,10 @@ class Component extends DCLogic {
           minLeft: Math.max(0, Math.ceil(C.RULES.dailyMinutes - t.minutes)), pipsShow: 'flex' };
         out.timeUp = false; out.timeSty = '';
         let open = 0;
-        const cap = C.RULES.starsPerDay || 3, starsLeft = Math.max(0, cap - t.stars);
+        const cap = C.RULES.starsPerDay || 3, closedNow = !!(C.homeworkClosed && C.homeworkClosed()), starsLeft = closedNow ? 0 : Math.max(0, cap - t.stars);
         ['quiz', 'crossword', 'syllables', 'chosung', 'rain', 'search'].forEach(g => { const used = t.rounds[g] || 0;
           const left = starsLeft > 0 && used < C.RULES.roundsPerGame; out['pipt' + g] = left ? '★ 별 1개' : (used ? '✓ 오늘 받음' : '오늘은 연습'); if (left && g !== 'syllables') open++; });
-        out.timeTag = starsLeft ? '오늘 별 ' + t.stars + '/' + cap : '오늘 별 다 받았어요! 🎉';
+        out.timeTag = closedNow ? '🏫 수업 시간 · 별은 12시부터' : starsLeft ? '오늘 별 ' + t.stars + '/' + cap : '오늘 별 다 받았어요! 🎉';
         return out;
       })(),
       classMode: !!C, notClass: !C, nudge: !!s.nudge,

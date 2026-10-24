@@ -77,6 +77,8 @@
     const back = (t.getUTCDay() - WEEK_START_DAY + 7) % 7;
     return ymd(new Date(t.getTime() - back * 86400 * 1000));
   }
+  const HW_CLOSE_HOUR = 10;      // homework stars stop on Saturday at 10:00 and start again at 12:00 (class time in between)
+  function homeworkClosed(d) { const w = wall(d || new Date()); return w.getUTCDay() === WEEK_START_DAY && w.getUTCHours() >= HW_CLOSE_HOUR && w.getUTCHours() < WEEK_START_HOUR; }
   function prevWeekKey(wk) { const u = new Date(wk + 'T00:00:00Z'); return ymd(new Date(u.getTime() - 7 * 86400 * 1000)); }
   function weekLabel(wk) {
     const a = new Date(wk + 'T00:00:00Z'), b = new Date(a.getTime() + 7 * 86400 * 1000);
@@ -142,7 +144,7 @@
 
   /* ---------- public API ---------- */
   const CP = {
-    online, RULES, GAME_NAMES,
+    online, RULES, GAME_NAMES, homeworkClosed,
     dayKey, weekKey, prevWeekKey, weekLabel,
     syncError: () => syncError,
     onChange(fn) { listeners.push(fn); },
@@ -168,7 +170,8 @@
     playsFor(sid, filter) { return data.plays.filter(p => p.sid === sid && (!filter || filter(p))); },
     today(sid) {
       const day = dayKey();
-      const plays = CP.playsFor(sid, p => p.day === day && p.game !== 'teacher' && p.note !== 'start');
+      const wk = weekKey();   // Saturday afternoon starts fresh: the morning belongs to last week
+      const plays = CP.playsFor(sid, p => p.day === day && p.week === wk && p.game !== 'teacher' && p.note !== 'start');
       const minutes = plays.reduce((a, p) => a + (p.dur || 0), 0) / 60;
       const rounds = {};
       plays.forEach(p => { if (p.counted) rounds[p.game] = (rounds[p.game] || 0) + 1; });
@@ -183,9 +186,11 @@
       const left = Math.max(0, RULES.roundsPerGame - used);
       const dayFull = t.stars >= RULES.starsPerDay;
       const timeUp = RULES.dailyMinutes > 0 && t.minutes >= RULES.dailyMinutes;
-      const canEarn = left > 0 && !timeUp && !dayFull;
+      const closed = homeworkClosed();
+      const canEarn = left > 0 && !timeUp && !dayFull && !closed;
       let line;
-      if (timeUp) line = '⏰ 오늘 시간 끝! 연습만 돼요 · Zeit um, nur Übung';
+      if (closed) line = '🏫 토요일 10시~12시는 수업 시간 — 별은 12시부터! · Sa 10–12 Uhr Unterricht, Sterne ab 12 Uhr';
+      else if (timeUp) line = '⏰ 오늘 시간 끝! 연습만 돼요 · Zeit um, nur Übung';
       else if (dayFull) line = '오늘 별 ' + RULES.starsPerDay + '개 다 받았어요 — 지금은 연습! · Heute alle Sterne, jetzt Übung';
       else if (!left) line = '오늘 이 게임 별은 받았어요 — 지금은 연습! · Heute schon den Stern, jetzt Übung';
       else line = '⭐ 끝까지 하면 별 1개! · Fertig spielen = 1 Stern';
@@ -209,7 +214,7 @@
       const th = RULES.thresholds[game] || [0.9, 0.7];
       acc = Math.max(0, Math.min(1, acc || 0));
       // one star for a finished game, once per game per day, at most starsPerDay a day
-      const counted = !!(CP._startCan && CP._startCan[game]) && CP.today(me.id).stars < RULES.starsPerDay;
+      const counted = !!(CP._startCan && CP._startCan[game]) && CP.today(me.id).stars < RULES.starsPerDay && !homeworkClosed();
       const stars = 1;
       const now = new Date();
       const play = { id: uid(), sid: me.id, game, stars, acc: Math.round(acc * 100) / 100, dur, day: dayKey(now), week: weekKey(now), at: now.toISOString(), counted, note: '' };
@@ -219,7 +224,7 @@
       const starStr = counted ? '★' : '☆';
       const line = counted
         ? '★  +1 별 · Stern — ' + me.name
-        : '연습 판 · Übungsrunde (오늘 별은 끝)';
+        : homeworkClosed() ? '연습 판 · 토요일 10~12시는 별이 없어요 (Sa 10–12 keine Sterne)' : '연습 판 · Übungsrunde (오늘 별은 끝)';
       return { stars, counted, line, starStr };
     },
 
