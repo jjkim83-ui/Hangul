@@ -53,6 +53,8 @@ button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5p
 .drop.match{background:#EFEAFF;box-shadow:0 0 0 3px var(--violet,#6A47F2),0 6px 0 #C9BDF7}
 .drop .typed{color:var(--violet,#6A47F2)}
 .drop.hit{background:var(--lime,#4CC46A);color:#FFFFFF;box-shadow:0 6px 0 #2F9A4C;transform:translateX(-50%) scale(1.22);opacity:0}
+.drop.near{background:#FF9F43;color:#FFFFFF;box-shadow:0 6px 0 #C2610F;transform:translateX(-50%) scale(1.15);opacity:0;transition:transform .25s cubic-bezier(.3,1.6,.5,1),opacity .5s ease .5s}
+.drop.near .pts{color:#C2610F}
 .drop.land{background:var(--red,#FF2B2B);color:#FFFFFF;box-shadow:0 6px 0 #A80F0F;opacity:.0;transition:opacity .5s ease .35s}
 .drop .pts{position:absolute;left:calc(100% + 8px);top:50%;transform:translateY(-50%);font-size:22px;color:#2F9A4C;white-space:nowrap}
 .rain-sky{position:absolute;inset:0;z-index:2;pointer-events:none}
@@ -946,7 +948,8 @@ class Component extends DCLogic {
   }
   pace(i, n, w) {
     // [fall ms at start, at end, gap ms at start, at end, extra gap per key, most words in the air]
-    const P = { 1: [11500, 8500, 3400, 2600, 160, 3], 2: [10000, 7000, 2800, 2000, 130, 4], 3: [9000, 6000, 2400, 1700, 110, 4] }[this.state.level] || [10000, 7000, 2800, 2000, 130, 4];
+    // slowed down 2026-10-25: kids caught only ~10-20% and rounds ended after ~30 s
+    const P = { 1: [18000, 13000, 5000, 3600, 300, 2], 2: [15000, 10000, 4000, 3000, 220, 3], 3: [12000, 8000, 3200, 2400, 160, 3] }[this.state.level] || [15000, 10000, 4000, 3000, 220, 3];
     const p = n > 1 ? i / (n - 1) : 0;
     return { dur: Math.round(P[0] + (P[1] - P[0]) * p), gap: Math.round(P[2] + (P[3] - P[2]) * p + P[4] * this.keys(w)), max: P[5] };
   }
@@ -956,7 +959,7 @@ class Component extends DCLogic {
     const n = this.classSize(this.state.count);
     let words = this.shuffle(this.levelWords(this.state.level));
     while (words.length && words.length < n) words = words.concat(this.shuffle(words));
-    this._pausedTotal = 0; this._pausedAt = 0; this._id = 0;
+    this._pausedTotal = 0; this._pausedAt = 0; this._id = 0; this._near = 0;
     const t0 = this.now();
     this.setState({ ...this.fresh(), queue: words.slice(0, n), total: n, setup: false, started: true, banner: '준비… 시작!', next: t0 + 1400, t0 });
     setTimeout(() => { if (this.state.banner === '준비… 시작!') this.setState({ banner: '' }); }, 1300);
@@ -1019,17 +1022,26 @@ class Component extends DCLogic {
     const g = (s.guess || '').replace(/\s+/g, '');
     if (!g) return;
     const t = this.now();
-    const hits = s.drops.filter(d => !d.state && d.ko === g).sort((a, b) => (t - b.born) / b.dur - (t - a.born) / a.dur);
+    const urgent = (a, b) => (t - b.born) / b.dur - (t - a.born) / a.dur;
+    let hits = s.drops.filter(d => !d.state && d.ko === g).sort(urgent);
+    let near = false;
+    if (!hits.length) {   // close enough (jamo similarity >= 30 %): the word still goes, with half points
+      const gj = this.jamo(g);
+      const scored = s.drops.filter(d => !d.state).map(d => ({ d, sim: this.sim(gj, this.jamo(d.ko)) })).filter(x => x.sim >= 0.3)
+        .sort((a, b) => b.sim - a.sim || urgent(a.d, b.d));
+      if (scored.length) { hits = [scored[0].d]; near = true; }
+    }
     if (!hits.length) {
       this.sfx('miss');
       this.setState({ bad: true, combo: 0 });
       setTimeout(() => this.setState({ bad: false }), 450);
       return;
     }
-    const h = hits[0], combo = s.combo + 1;
-    const pts = h.ko.length * 10 + Math.min(combo - 1, 10) * 5;
-    this.sfx(combo >= 3 ? 'match' : 'select');
-    const drops = s.drops.map(d => d.id === h.id ? { ...d, state: 'hit', at: t, pts: '+' + pts } : d);
+    const h = hits[0], combo = near ? 0 : s.combo + 1;
+    const pts = near ? Math.max(5, h.ko.length * 5) : h.ko.length * 10 + Math.min(combo - 1, 10) * 5;
+    this.sfx(near ? 'tap' : combo >= 3 ? 'match' : 'select');
+    if (near) this._near = (this._near || 0) + 1;
+    const drops = s.drops.map(d => d.id === h.id ? { ...d, state: near ? 'near' : 'hit', at: t, pts: '+' + pts } : d);
     const active = drops.some(d => !d.state);
     const over = s.spawned >= s.queue.length && !active;
     this.setState({ drops, guess: '', score: s.score + pts, caught: s.caught + 1, combo, best: Math.max(s.best, combo), results: s.results.concat([true]), over,
@@ -1037,7 +1049,14 @@ class Component extends DCLogic {
     if (combo >= 5 && combo % 5 === 0) setTimeout(() => { if (this.state.banner.indexOf('연속') > 0) this.setState({ banner: '' }); }, 900);
     if (over) clearInterval(this.loop);
   }
-  accuracy() { const s = this.state; return s.total ? s.caught / s.total : 0; }
+  accuracy() { const s = this.state; return s.total ? Math.max(0, s.caught - 0.5 * (this._near || 0)) / s.total : 0; }   // close-enough words count half
+  sim(a, b) {   // 1 - edit distance / longer length, on jamo strings
+    if (!a || !b) return 0;
+    const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i].concat(Array(n).fill(0)));
+    for (let j = 1; j <= n; j++) d[0][j] = j;
+    for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    return 1 - d[m][n] / Math.max(m, n);
+  }
   isPhone() { return document.documentElement.classList.contains('dc-phone'); }
   jamo(str) {   // 우ㅇ -> ㅇㅜㅇ, so a half-typed syllable still matches 우유
     const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ', JUNG = 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ', JONG = ['', 'ㄱ', 'ㄲ', 'ㄱㅅ', 'ㄴ', 'ㄴㅈ', 'ㄴㅎ', 'ㄷ', 'ㄹ', 'ㄹㄱ', 'ㄹㅁ', 'ㄹㅂ', 'ㄹㅅ', 'ㄹㅌ', 'ㄹㅍ', 'ㄹㅎ', 'ㅁ', 'ㅂ', 'ㅂㅅ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
@@ -1117,7 +1136,7 @@ class Component extends DCLogic {
       let k = 0; if (on) { const a = Array.from(d.ko), b2 = Array.from(g); while (k < b2.length && a[k] === b2[k]) k++; }
       const pre = on ? Array.from(d.ko).slice(0, k).join('') : '';
       const p = Math.max(0, Math.min(1, ((d.state ? d.at : t) - d.born) / d.dur));
-      return { id: d.id, x: d.x, p: p.toFixed(4), pre, rest: d.ko.slice(pre.length), pts: d.state === 'hit' ? d.pts : '', cls: d.state || (on ? 'match' : '') };
+      return { id: d.id, x: d.x, p: p.toFixed(4), pre, rest: d.ko.slice(pre.length), pts: d.state === 'hit' || d.state === 'near' ? d.pts : '', cls: d.state || (on ? 'match' : '') };
     });
     const umbs = [0, 1, 2, 3, 4].map(k => ({ cls: k < s.lives ? '' : 'off' }));
     const me = this.ROSTER[0];
