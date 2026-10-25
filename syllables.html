@@ -469,6 +469,81 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 .dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:24px}
 /*/LAYOUT*/
 
+/*PORTRAIT*/
+/* ==========================================================================
+   Upright phones (html.dc-portrait, set by dc-runtime.js on pages that allow it).
+   The stage is 720 design px wide and as tall as the screen; rows become columns.
+   ========================================================================== */
+.dc-portrait .sa-root{width:100% !important;height:100% !important;padding:26px 26px 30px !important;gap:20px !important;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+/* header: back/title on the first line, the pills wrap below */
+.dc-portrait .sa-root > header{height:auto !important;flex-wrap:wrap;row-gap:12px;column-gap:12px !important}
+.dc-portrait .sa-root > header > div[style*="flex: 1"]{flex:1 1 300px !important}
+.dc-portrait .sa-root > header span[style*="font-size: 14px; font-weight: 800; color: #2E4F45"]{display:none}
+/* game pages: main row becomes a column; progress strip on top */
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"]{flex-direction:column !important;gap:16px !important;flex:1 0 auto !important}
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"] > aside{width:100% !important;order:-1;gap:12px !important}
+.dc-portrait aside:has(.plist > :only-child) > .puff.p-blue,.dc-portrait aside:has(.plist > :only-child) > .plist{display:none !important}
+.dc-portrait aside > .frost:last-child{padding:10px 14px !important}
+/* game setup dialog */
+.dc-portrait [role=dialog][aria-label^="게임 준비"]{width:calc(100% - 32px) !important;padding:20px 20px 22px !important;border-radius:36px !important}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div[style*="gap: 16px"]{flex-direction:column;align-items:stretch !important;gap:8px !important}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div[style*="gap: 16px"] > div[style*="width: 178px"]{width:auto !important;display:flex;align-items:baseline;gap:10px}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div:last-child{flex-wrap:wrap}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div:last-child > div:first-child{flex-basis:100%}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div:last-child > button{flex:1}
+
+/* ---- hub ---- */
+.dc-portrait .sa-root > header[style*="justify-content: space-between"]{flex-direction:column;align-items:flex-start !important}
+.dc-portrait .sa-root > header[style*="justify-content: space-between"] > div:last-child{flex-wrap:wrap;gap:10px !important}
+.dc-portrait .sa-root > header[style*="justify-content: space-between"] > div:last-child span[style*="font-size: 14px"]{display:none}
+.dc-portrait .sa-root > div[style*="height: 214px"]{height:auto !important;flex-wrap:wrap;gap:16px 18px !important}
+.dc-portrait .sa-root > div[style*="height: 214px"] > .sa-nolja{order:1;transform:scale(.72);transform-origin:left center;margin-right:-80px}
+.dc-portrait .sa-root > div[style*="height: 214px"] > .sa-me{order:2;flex:1 1 0;width:auto !important;min-width:0}
+.dc-portrait .sa-root > div[style*="height: 214px"] > div[style*="flex: 1"]{order:3;flex:1 1 100% !important}
+.dc-portrait .sa-games{flex:0 0 auto !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-auto-rows:300px;gap:18px !important;padding-bottom:20px}
+.dc-portrait .sa-games:not(.one){grid-auto-rows:230px}
+.dc-portrait .sa-games > .sa-card:last-child:nth-child(odd){grid-column:span 2}
+.dc-portrait .sa-games .sa-foot{height:78px !important}
+.dc-portrait .sa-games .sa-gname{font-size:28px !important}
+.dc-portrait .sa-games .sa-gsub{font-size:17px !important}
+.dc-portrait .sa-games .sa-play{width:52px !important;height:52px !important}
+.dc-portrait .sa-games .sa-art-in{transform:scale(.82) !important}
+.dc-portrait .sa-games:not(.one) .sa-art-in{transform:scale(.6) !important}
+/* welcome screen: the two big buttons stack */
+.dc-portrait .sa-welcome div[style*="display: flex; gap: 76px"]{flex-direction:column;gap:24px !important}
+.dc-portrait .sa-welcome div[style*="display: flex; gap: 76px"] > .tile{width:560px !important;height:230px !important}
+
+/* ---- 단어 퀴즈: answers one per row ---- */
+.dc-portrait .sa-root:has(.sa-prompt) section{flex:0 0 auto !important}
+.dc-portrait .sa-root:has(.sa-prompt) section > div[style*="grid-template-columns: repeat(2"]{flex:0 0 auto !important;grid-template-columns:1fr !important;grid-auto-rows:150px !important;gap:16px !important}
+.dc-portrait .sa-prompt{height:250px !important}
+
+/* ---- 산성비: tall sky, keyboard at the bottom ---- */
+.dc-portrait .sa-root:has(#rain-in) > div[style*="flex: 1; min-height: 0; display: flex; flex-direction: column"]{flex:1 1 auto !important}
+.dc-portrait .sa-root:has(#rain-in) > header > div[aria-label^="우산"]{order:5}
+.dc-portrait .rain-entry input{width:330px !important}
+.dc-portrait .rain-entry button{white-space:nowrap}
+.dc-portrait .rkb-row button{height:84px !important;font-size:34px !important;flex-basis:62px !important}
+.dc-portrait .rkb-row button.wide{flex-basis:96px !important}
+/* columns: every block takes the full width and its natural height (the page scrolls) */
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"] > *:not(aside){width:100% !important;flex:0 0 auto !important;min-height:0}
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"] .frost[style*="flex: 1; min-height: 0"]{flex:0 0 auto !important}
+.dc-portrait .sa-root:has(#cw-answer) .frost[style*="grid-auto-rows"]{padding:18px !important}
+.dc-portrait .sa-root:has(.ws-grid) section.frost{height:700px !important}
+.dc-portrait .ws-list{width:100% !important}
+.dc-portrait .sa-root:has(#cs-answer) section .frost{padding:22px 20px !important}
+/* hub overlays (avatar studio, settings, players): full screen, stacked, scrolling */
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"],.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"]{width:calc(100% - 24px) !important;max-width:none !important;height:calc(100% - 24px) !important;flex-direction:column !important;gap:16px !important;padding:22px 20px !important;overflow-y:auto;border-radius:36px !important}
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"] > section{width:100% !important;flex:0 0 auto !important}
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"] > section:first-child > .puff[style*="width: 290px"]{width:220px !important;height:220px !important}
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"] > section:first-child > .puff[style*="width: 290px"] svg{width:192px;height:192px}
+.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"] > div[style*="flex: 1; min-height: 0; display: flex"]{flex-direction:column !important;flex:0 0 auto !important}
+.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"] section{width:100% !important;flex:0 0 auto !important}
+.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"] section > div[style*="grid-template-rows"]{grid-template-columns:1fr !important;grid-template-rows:none !important}
+/*/PORTRAIT*/
+.dc-portrait span[style*="font-size: 11px; font-weight: 900; color: #4A4C80; margin-top: 2px"]{display:none!important}
+.dc-portrait .frost-strong.pop[style*="width: 900px; max-height: 600px"]{width:calc(100% - 24px)!important;max-height:calc(100% - 40px)!important;overflow-y:auto}
+
 /*/SA-THEME*/
 </style>
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
@@ -703,7 +778,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 </div>
 </template>
 <script src="shared/vendor/morphdom.min.js?v=d5851599"></script>
-<script src="shared/dc-runtime.js?v=ae42e538"></script>
+<script src="shared/dc-runtime.js?v=4baf4e1f"></script>
 <script src="shared/class-config.js"></script>
 <script src="shared/class.js?v=b651969f"></script>
 <script src="content/textbook-4-1-vocab.js?v=ffccf5c7"></script>

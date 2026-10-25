@@ -120,9 +120,23 @@
     const vw = window.innerWidth, vh = window.innerHeight;
     return Math.min(vw, vh) < 500 && Math.max(vw, vh) < 1000;
   }
-  function fit(stage, w, h) {
-    const phone = isPhone();
+  const PORTRAIT_W = 720;   // upright phones: a tall stage 720 design px wide (same text scale as landscape phones)
+  function uprightPhone() { return window.innerHeight > window.innerWidth && window.innerWidth < 760; }
+  function fit(stage, w, h, portraitOk) {
+    const phone = isPhone() || (portraitOk && uprightPhone());
     document.documentElement.classList.toggle('dc-phone', phone);
+    const portrait = !!(portraitOk && uprightPhone());
+    document.documentElement.classList.toggle('dc-portrait', portrait);
+    if (portrait) {
+      const ph = Math.round(PORTRAIT_W * window.innerHeight / window.innerWidth);
+      if (stage.style.width !== PORTRAIT_W + 'px') stage.style.width = PORTRAIT_W + 'px';
+      if (stage.style.height !== ph + 'px') stage.style.height = ph + 'px';
+      const sp = window.innerWidth / PORTRAIT_W;
+      stage.style.transform = 'translate(-50%, -50%) scale(' + sp + ')';
+      window.DC_SCALE = sp;
+      return;
+    }
+    if (stage.style.height !== h + 'px') stage.style.height = h + 'px';
     let sw = w;
     if (phone && window.innerWidth > window.innerHeight) {
       sw = Math.round(Math.min(PHONE_MAXW, Math.max(w, h * window.innerWidth / window.innerHeight)));
@@ -155,16 +169,16 @@
       + '<style>@keyframes dcTilt{0%,25%{transform:rotate(0)}55%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}</style>';
     document.body.appendChild(rot);
     const onResize = () => {
-      fit(stage, W, H);
-      const upright = window.innerHeight > window.innerWidth && window.innerWidth < 760;
-      rot.style.display = upright ? 'flex' : 'none';
+      fit(stage, W, H, !!opts.portrait);
+      const upright = uprightPhone();
+      rot.style.display = upright && !opts.portrait ? 'flex' : 'none';
     };
     window.addEventListener('resize', onResize);
     window.addEventListener('orientationchange', () => setTimeout(onResize, 150));
     if (window.visualViewport) window.visualViewport.addEventListener('resize', onResize);
     if (window.matchMedia) { try { window.matchMedia('(orientation: landscape)').addEventListener('change', onResize); } catch (e) {} }
     // installed on an Android home screen: keep it sideways (iPhones don't allow a site to lock this)
-    const lockLandscape = () => { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} };
+    const lockLandscape = () => { if (opts.portrait) return; try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} };
     lockLandscape(); window.addEventListener('pointerdown', lockLandscape, { once: true });
     onResize();
     // background parallax: the decor layers drift a little with the pointer (or, on phones, slowly on their own)
@@ -236,6 +250,8 @@
       }, type === 'focus' || type === 'blur');
     }
     ['click', 'input', 'keydown', 'keyup', 'submit', 'pointerdown'].forEach(dispatch);
+    // upright phones: the page scrolls, so keep the field being typed in visible above the keyboard
+    root.addEventListener('focusin', (e) => { const t = e.target; if (!document.documentElement.classList.contains('dc-portrait') || !t || !/^(INPUT|TEXTAREA)$/.test(t.tagName)) return; setTimeout(() => { try { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (er) {} }, 350); });
     root.addEventListener('compositionstart', () => { composing = true; });
     root.addEventListener('compositionend', (e) => { composing = false; e.target.dispatchEvent(new Event('input', { bubbles: true })); });
 
