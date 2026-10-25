@@ -471,6 +471,14 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 .dc-phone .sa-games[style*="repeat(4"] .sa-gsub,.dc-phone .sa-games[style*="repeat(5"] .sa-gsub{font-size:18px !important}
 .dc-phone .sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.44) translateY(14px)}
 .dc-phone .sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.8)}
+/* 서보 hub: all 9 games, 5 x 2 small cards */
+.sa-games[style*="repeat(5"]:not(.one){gap:14px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(8px)}
+.sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:58px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:21px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(10px)}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:66px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:24px}
 /*/LAYOUT*/
 
 /*/SA-THEME*/
@@ -660,7 +668,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 
   </sc-if>
   <div class="sa-games {{gamesCls}}" style="grid-template-columns: repeat({{gridCols}}, minmax(0, 1fr))">
-    <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{allGames}}" hint-placeholder-val="{{ true }}">
     <a href="memory.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #8E78E8">
       <div class="sa-art" style="background: var(--violet-l)"><div class="sa-art-in"><span class="sa-t" style="left: 30px; top: 28px; width: 92px; height: 112px; background: #FFFFFF; transform: rotate(-8deg); font-size: 30px;">사과</span><span class="sa-t" style="left: 118px; top: 44px; width: 92px; height: 112px; background: var(--sun); transform: rotate(7deg); font-size: 54px;">?</span></div></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">카드 짝맞추기</div><div class="sa-gsub">Memory</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
@@ -674,7 +682,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
       <div class="sa-art" style="background: var(--lime)"><div class="sa-art-in"><span class="sa-t" style="left: 30px; top: 26px; width: 62px; height: 62px; background: #FFFFFF; transform: rotate(0deg); font-size: 40px;">외</span><span class="sa-t" style="left: 98px; top: 26px; width: 62px; height: 62px; background: var(--sun); transform: rotate(0deg); font-size: 40px;">모</span><span class="sa-t" style="left: 98px; top: 94px; width: 62px; height: 62px; background: #FFFFFF; transform: rotate(0deg); font-size: 40px;">습</span><span class="sa-t" style="left: 166px; top: 94px; width: 62px; height: 62px; background: transparent; transform: rotate(0deg); font-size: 40px; border-style: dashed; box-shadow: none"></span></div><span class="sa-pips" style="display: {{pipsShow}}"><span class="sa-pipt">{{piptcrossword}}</span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">십자말풀이</div><div class="sa-gsub">Kreuzworträtsel</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{allGames}}" hint-placeholder-val="{{ true }}">
     <a href="syllables.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #C23A8C">
       <div class="sa-art" style="background: var(--gum)"><div class="sa-art-in"><span class="sa-t" style="left: 24px; top: 20px; width: 64px; height: 64px; background: #FFFFFF; transform: rotate(-9deg); font-size: 40px;">솔</span><span class="sa-t" style="left: 116px; top: 40px; width: 64px; height: 64px; background: var(--sky); transform: rotate(7deg); font-size: 40px;">직</span><span class="sa-t" style="left: 50px; top: 104px; width: 64px; height: 64px; background: var(--lime); transform: rotate(5deg); font-size: 40px;">하</span><span class="sa-t" style="left: 146px; top: 112px; width: 64px; height: 64px; background: #FFFFFF; transform: rotate(-6deg); font-size: 40px;">다</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span class="sa-pipt">{{piptsyllables}}</span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">글자 조각</div><div class="sa-gsub">Silbenpuzzle</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
@@ -694,13 +702,13 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
       <div class="sa-art" style="background: var(--violet)"><div class="sa-art-in"><span class="sa-t" style="left: 42px; top: 18px; width: 48px; height: 48px; background: var(--sun); transform: rotate(0deg); font-size: 26px;">이</span><span class="sa-t" style="left: 96px; top: 18px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">가</span><span class="sa-t" style="left: 150px; top: 18px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">나</span><span class="sa-t" style="left: 42px; top: 72px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">다</span><span class="sa-t" style="left: 96px; top: 72px; width: 48px; height: 48px; background: var(--sun); transform: rotate(0deg); font-size: 26px;">상</span><span class="sa-t" style="left: 150px; top: 72px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">리</span><span class="sa-t" style="left: 42px; top: 126px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">마</span><span class="sa-t" style="left: 96px; top: 126px; width: 48px; height: 48px; background: #FFFFFF; transform: rotate(0deg); font-size: 26px;">오</span><span class="sa-t" style="left: 150px; top: 126px; width: 48px; height: 48px; background: var(--sun); transform: rotate(0deg); font-size: 26px;">형</span></div><span class="sa-pips" style="display: {{pipsShow}}"><span class="sa-pipt">{{piptsearch}}</span></span></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">낱말 찾기</div><div class="sa-gsub">Wörtersuche</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
-    <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{allGames}}" hint-placeholder-val="{{ true }}">
     <a href="race.html" onClick="{{tileRace}}" class="tile sa-card" style="--d: #B52A16">
       <div class="sa-art" style="background: var(--red)"><div class="sa-art-in"><span class="sa-t" style="left: 40px; top: 30px; width: 104px; height: 104px; background: #FFFFFF; transform: rotate(-10deg); display: grid; grid-template-columns: repeat(3, 1fr); padding: 16px; box-sizing: border-box; place-items: center"><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i><i></i><i style="width: 14px; height: 14px; border-radius: 50%; background: #1C1838"></i></span><span style="position: absolute; left: 150px; top: 84px; font-size: 52px">🏁</span></div></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">뱀주사위 놀이</div><div class="sa-gsub">Schlangen und Leitern</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     </sc-if>
-    <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{allGames}}" hint-placeholder-val="{{ true }}">
     <a href="sentence.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #E97A12">
       <div class="sa-art" style="background: #FF9F43"><div class="sa-art-in"><span class="sa-t" style="left: 14px; top: 28px; width: 104px; height: 56px; background: #FFFFFF; transform: rotate(-3deg); font-size: 28px;">동생은</span><span class="sa-t" style="left: 126px; top: 28px; width: 76px; height: 56px; background: var(--sun); transform: rotate(2deg); font-size: 28px;">겁이</span><span class="sa-t" style="left: 40px; top: 104px; width: 124px; height: 56px; background: #FFFFFF; transform: rotate(3deg); font-size: 28px;">많아요.</span><span class="sa-t" style="left: 176px; top: 104px; width: 56px; height: 56px; background: transparent; transform: rotate(0deg); font-size: 28px; border-style: dashed; box-shadow: none"></span></div></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">문장 만들기</div><div class="sa-gsub">Sätze bauen</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
@@ -736,6 +744,9 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
           </a>
         </div>
       </div>
+    </sc-if>
+    <sc-if value="{{welcomeHome}}" hint-placeholder-val="{{ true }}">
+      <button type="button" onClick="{{goSuhbo}}" class="puff p-blue press" style="position: absolute; right: 56px; bottom: 40px; z-index: 2; height: 52px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; color: #0A3F73; font-family: 'Jua', sans-serif; font-size: 19px"><span style="position: relative; z-index: 1">🦖 나는 서보</span></button>
     </sc-if>
     <sc-if value="{{welcomePick}}" hint-placeholder-val="{{ false }}">
       <div style="flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px">
@@ -1458,13 +1469,16 @@ class Component extends DCLogic {
       notMe: () => { if (C) { C.logout(); this.syncClass(); this.setState({ wstep: 'pick', overlay: null }); this.play('tap'); } },
       rootCls: s.motion ? '' : 'still',
       players, selLabel: C ? classLabel : selLabel, tapSound,
-      gridCols: C ? '5' : '4', gamesCls: C ? 'one' : '',
+      gridCols: C ? '5' : '4', gamesCls: C && !(C.isSuhbo && C.isSuhbo()) ? 'one' : '',
+      allGames: !C || !!(C.isSuhbo && C.isSuhbo()),
+      goSuhbo: () => { if (C) { C.setMe('suhbo'); this.syncClass(); this.setState({ wstep: 'home', overlay: null }); this.play('select'); } },
       ...(() => {   // student hero + per-game star tries
         const me = C && C.me(); if (!me) return { pipsShow: 'none' };
         const t = C.today(me.id), wr = wkRows.find(r => r.student.id === me.id);
-        const st = C.settings(), title = st.chapterTitle || '', m = title.match(/^(\d+과)\s*(.*)$/);
-        const out = { meAv: this.build(me.cfg), meName: me.name, weekStars: wr ? wr.stars : 0,
-          meRank: wr && wr.stars > 0 ? wr.rank + '등' : '', rankShow: wr && wr.stars > 0 ? 'grid' : 'none',
+        const st = C.settings(), title = (me.suhbo ? C.lessons().map(n => n + '과').join(' · ') : st.chapterTitle) || '', m = title.match(/^(\d+과)\s*(.*)$/);
+        const sb = !!me.suhbo;   // 서보: own total, no class rank
+        const out = { meAv: this.build(me.cfg), meName: me.name, weekStars: sb ? C.weekStars(me.id) : wr ? wr.stars : 0,
+          meRank: !sb && wr && wr.stars > 0 ? wr.rank + '등' : '', rankShow: !sb && wr && wr.stars > 0 ? 'grid' : 'none',
           chapNo: m ? m[1] : title, chapTitle: m ? m[2] : '', todayStars: '★' + t.stars,
           minLeft: Math.max(0, Math.ceil(C.RULES.dailyMinutes - t.minutes)), pipsShow: 'flex' };
         out.timeUp = false; out.timeSty = '';
@@ -1491,7 +1505,7 @@ class Component extends DCLogic {
       boardSub: (() => { if (!C) return 'Rangliste'; const me = C.me(); const r = me && C.board().find(x => x.student.id === me.id); return r && r.stars > 0 ? ('★' + r.stars + ' · ' + r.rank + '등') : 'Rangliste'; })(),
       tileRace: (e) => {
         if (this.R && !order.length) { e.preventDefault(); this.setState({ nudge: 'pick' }); this.play('miss'); clearTimeout(this._nt); this._nt = setTimeout(() => this.setState({ nudge: false }), 2400); return; }
-        if (C) { e.preventDefault(); this.setState({ nudge: 'race' }); this.play('miss'); clearTimeout(this._nt); this._nt = setTimeout(() => this.setState({ nudge: false }), 2600); return; }
+        if (C && !(C.isSuhbo && C.isSuhbo())) { e.preventDefault(); this.setState({ nudge: 'race' }); this.play('miss'); clearTimeout(this._nt); this._nt = setTimeout(() => this.setState({ nudge: false }), 2600); return; }
         this.play('tap');
       },
       tileGo: (e) => {

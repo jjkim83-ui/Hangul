@@ -485,6 +485,14 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 .dc-phone .sa-games[style*="repeat(4"] .sa-gsub,.dc-phone .sa-games[style*="repeat(5"] .sa-gsub{font-size:18px !important}
 .dc-phone .sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.44) translateY(14px)}
 .dc-phone .sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.8)}
+/* 서보 hub: all 9 games, 5 x 2 small cards */
+.sa-games[style*="repeat(5"]:not(.one){gap:14px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(8px)}
+.sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:58px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:21px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(10px)}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:66px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:24px}
 /*/LAYOUT*/
 
 /*/SA-THEME*/
@@ -629,7 +637,8 @@ class Component extends DCLogic {
     const wk = C.weekKey(), prev = C.prevWeekKey(wk);
     const since = new Date(); since.setDate(since.getDate() - 27);
     const inPeriod = (p) => s.period === 'week' ? p.week === wk : s.period === 'last' ? p.week === prev : p.day >= C.dayKey(since);
-    const all = C.allPlays().filter(p => p.game !== 'teacher' && inPeriod(p));
+    const known = {}; C.students().forEach(st => { known[st.id] = true; });   // 서보 and removed children stay out of the class log
+    const all = C.allPlays().filter(p => p.game !== 'teacher' && known[p.sid] && inPeriod(p));
     const tries = this.tries(all);
     const done = tries.filter(t => t.kind === 'done');
     const firstStart = C.allPlays().filter(p => p.note === 'start').map(p => p.at).sort()[0];

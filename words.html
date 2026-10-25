@@ -456,6 +456,14 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 .dc-phone .sa-games[style*="repeat(4"] .sa-gsub,.dc-phone .sa-games[style*="repeat(5"] .sa-gsub{font-size:18px !important}
 .dc-phone .sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.44) translateY(14px)}
 .dc-phone .sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.8)}
+/* 서보 hub: all 9 games, 5 x 2 small cards */
+.sa-games[style*="repeat(5"]:not(.one){gap:14px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(8px)}
+.sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:58px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:21px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(10px)}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:66px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:24px}
 /*/LAYOUT*/
 
 /*/SA-THEME*/
@@ -597,7 +605,7 @@ class Component extends DCLogic {
     const ok = saved && saved.today && typeof saved.today === 'object';
     const firstToday = ok ? Object.keys(saved.today || {}).filter(k => saved.today[k]).map(Number).sort((x, y) => x - y)[0] : 0;
     this.state = { data: null, err: false, focus: firstToday || 1, today: ok ? saved.today : { 1: true, 2: true }, off: ok ? (saved.off || {}) : {}, used: !!ok };
-    if (this.isTeacherNow()) {   // the teacher page starts from what the class uses
+    if (this.isTeacherNow() || this.isSuhboNow()) {   // the teacher page starts from what the class uses (서보: from his own set)
       const t = {}; window.ClassPlay.lessons().forEach(n => { t[n] = true; });
       const same = JSON.stringify(this.classLessonsFrom(this.state.today)) === JSON.stringify(this.classLessonsFrom(t));
       if (!same) this.state = { ...this.state, today: t, used: true, focus: this.classLessonsFrom(t)[0] || this.state.focus };
@@ -610,7 +618,8 @@ class Component extends DCLogic {
   }
   isTeacherNow() { const C = window.ClassPlay; return !!(C && C.isTeacher && C.isTeacher()); }
   classLessonsFrom(today) { return Object.keys(today).filter(k => today[k]).map(Number).sort((x, y) => x - y); }
-  readOnly() { const C = window.ClassPlay; return !!(C && C.isTeacher && !C.isTeacher()); }
+  isSuhboNow() { const C = window.ClassPlay; return !!(C && C.isSuhbo && C.isSuhbo()); }
+  readOnly() { const C = window.ClassPlay; return !!(C && C.isTeacher && !C.isTeacher()) && !this.isSuhboNow(); }
   setState(patch, cb) {   // read-only: only looking around (focus) is allowed
     if (this.readOnly() && patch && typeof patch === 'object' && ('today' in patch || 'off' in patch || 'used' in patch)) return;
     return super.setState(patch, cb);
@@ -623,8 +632,9 @@ class Component extends DCLogic {
     let stored = true;
     if (this.readOnly()) return;
     try { localStorage.setItem('hangul_today_v1', JSON.stringify({ today, off, at: Date.now() })); } catch (e) { stored = false; }
+    if (this.isSuhboNow()) { const ls = this.classLessonsFrom(today); if (ls.length) window.ClassPlay.setSuhboLessons(ls); }
     // the teacher's choice is the class setting: students' homework and word pool follow it
-    if (this.isTeacherNow() && this.state.data) {
+    else if (this.isTeacherNow() && this.state.data) {
       const ls = this.classLessonsFrom(today);
       if (ls.length) {
         const L = this.state.data.lessons;

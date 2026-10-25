@@ -23,6 +23,9 @@
   const LS_ME = 'hangul_me_v1';
   const LS_TEACHER = 'hangul_teacher_v1';
   const LS_ROOM = 'hangul_room_v1';
+  const LS_SUHBO = 'hangul_suhbo_v1';   // 서보 mode (Jeremy's son): own profile, own word set, own stars, never on the class board
+  const SUHBO_ID = 'suhbo';
+  const SUHBO_CFG = { head: 1, hair: 0, eyes: 3, brows: 0, nose: 0, mouth: 1, glasses: 0, shirt: 7, acc: 0, skin: 1, hairC: 0, shirtC: 4, accC: 3, blush: true, freckles: false, bg: 3 };
 
   /* ---------- rules ---------- */
   const RULES = {
@@ -153,13 +156,19 @@
     students() { return data.students; },
     student(id) { return data.students.find(s => s.id === id) || null; },
     settings() { return data.settings; },
-    lessons() { return (data.settings.lessons || [4]).slice(); },
-    me() { const id = lsGet(LS_ME); return id ? CP.student(id) : null; },
+    lessons() { if (CP.isSuhbo()) { const sb = lsGet(LS_SUHBO) || {}; return (sb.lessons && sb.lessons.length ? sb.lessons : (data.settings.lessons || [4])).slice(); } return (data.settings.lessons || [4]).slice(); },
+    me() { const id = lsGet(LS_ME); if (id === SUHBO_ID) return CP.suhbo(); return id ? CP.student(id) : null; },
+    /* ----- 서보 mode ----- */
+    isSuhbo() { return lsGet(LS_ME) === SUHBO_ID; },
+    suhbo() { const sb = lsGet(LS_SUHBO) || {}; return { id: SUHBO_ID, name: sb.name || '서보', cfg: sb.cfg || SUHBO_CFG, suhbo: true }; },
+    setSuhboLessons(lessons) { const sb = lsGet(LS_SUHBO) || {}; sb.lessons = lessons.slice(); lsSet(LS_SUHBO, sb); syncToday(); emit(); },
+    weekStars(sid, wk) { wk = wk || weekKey(); return data.plays.filter(p => p.sid === sid && p.week === wk && p.note !== 'start' && (p.counted || p.game === 'teacher')).reduce((a, p) => a + p.stars, 0); },
     setMe(id) { lsSet(LS_ME, id); syncToday(); emit(); },
     logout() { try { localStorage.removeItem(LS_ME); } catch (e) {} emit(); },
 
     updateMe(patch) {
       const me = CP.me(); if (!me) return;
+      if (me.suhbo) { const sb = lsGet(LS_SUHBO) || {}; if (patch.name !== undefined) sb.name = cleanName(patch.name) || sb.name; if (patch.cfg) sb.cfg = patch.cfg; lsSet(LS_SUHBO, sb); emit(); return; }
       const name = patch.name !== undefined ? cleanName(patch.name) || me.name : me.name;
       const cfg = patch.cfg || me.cfg;
       Object.assign(me, { name, cfg }); save();
