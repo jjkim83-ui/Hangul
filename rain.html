@@ -949,7 +949,7 @@ class Component extends DCLogic {
   pace(i, n, w) {
     // [fall ms at start, at end, gap ms at start, at end, extra gap per key, most words in the air]
     // slowed down 2026-10-25: kids caught only ~10-20% and rounds ended after ~30 s
-    const P = { 1: [18000, 13000, 5000, 3600, 300, 2], 2: [15000, 10000, 4000, 3000, 220, 3], 3: [12000, 8000, 3200, 2400, 160, 3] }[this.state.level] || [15000, 10000, 4000, 3000, 220, 3];
+    const P = { 1: [18000, 13000, 5000, 3600, 300, 2], 2: [16000, 11500, 4400, 3300, 250, 2], 3: [12000, 8000, 3200, 2400, 160, 3] }[this.state.level] || [15000, 10000, 4000, 3000, 220, 3];
     const p = n > 1 ? i / (n - 1) : 0;
     return { dur: Math.round(P[0] + (P[1] - P[0]) * p), gap: Math.round(P[2] + (P[3] - P[2]) * p + P[4] * this.keys(w)), max: P[5] };
   }
