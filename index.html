@@ -486,7 +486,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
    Upright phones (html.dc-portrait, set by dc-runtime.js on pages that allow it).
    The stage is 720 design px wide and as tall as the screen; rows become columns.
    ========================================================================== */
-.dc-portrait .sa-root{width:100% !important;height:100% !important;padding:26px 26px 30px !important;gap:20px !important;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.dc-portrait .sa-root{width:100% !important;height:100% !important;padding:26px 26px 30px !important;gap:20px !important;overflow-x:hidden !important;overflow-y:auto !important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 /* header: back/title on the first line, the pills wrap below */
 .dc-portrait .sa-root > header{height:auto !important;flex-wrap:wrap;row-gap:12px;column-gap:12px !important}
 .dc-portrait .sa-root > header > div[style*="flex: 1"]{flex:1 1 300px !important}
