@@ -455,6 +455,9 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 .sa-card[style*="#6A47F2"] .sa-gname{color:#FFFFFF}
 .sa-card[style*="#6A47F2"] .sa-gsub{color:#FFFFFF !important;opacity:.85 !important}
 .sa-card[style*="#E97A12"]{--t:#5E2600;background:#FF9F43}
+/* 7과 special class games */
+.sa-card[style*="#0B6B5A"]{--t:#053D33;background:#22C3A6}
+.sa-card[style*="#3B3651"]{--t:var(--ink);background:#FFFFFF}
 .sa-games[style*="repeat(4"] .sa-foot,.sa-games[style*="repeat(5"] .sa-foot{height:66px;padding:0 12px 0 16px}
 .sa-games[style*="repeat(4"] .sa-gname{font-size:24px}
 .sa-games[style*="repeat(5"] .sa-gname{font-size:23px}
@@ -787,6 +790,16 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
     <a href="sentence.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #E97A12">
       <div class="sa-art" style="background: #FF9F43"><div class="sa-art-in"><span class="sa-t" style="left: 14px; top: 28px; width: 104px; height: 56px; background: #FFFFFF; transform: rotate(-3deg); font-size: 28px;">동생은</span><span class="sa-t" style="left: 126px; top: 28px; width: 76px; height: 56px; background: var(--sun); transform: rotate(2deg); font-size: 28px;">겁이</span><span class="sa-t" style="left: 40px; top: 104px; width: 124px; height: 56px; background: #FFFFFF; transform: rotate(3deg); font-size: 28px;">많아요.</span><span class="sa-t" style="left: 176px; top: 104px; width: 56px; height: 56px; background: transparent; transform: rotate(0deg); font-size: 28px; border-style: dashed; box-shadow: none"></span></div></div>
       <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">문장 만들기</div><div class="sa-gsub">Sätze bauen</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    </sc-if>
+    <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
+    <a href="habits.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #0B6B5A">
+      <div class="sa-art" style="background: #22C3A6"><div class="sa-art-in"><span class="sa-t" style="left: 26px; top: 40px; width: 86px; height: 86px; background: #FFFFFF; transform: rotate(-8deg); font-size: 52px;">🪥</span><span class="sa-t" style="left: 128px; top: 70px; width: 86px; height: 86px; background: var(--sun); transform: rotate(7deg); font-size: 52px;">🐍</span></div><span class="sa-pips" style="display: flex"><span class="sa-pipt">7과</span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">건강 뱀주사위</div><div class="sa-gsub">Gesund leben</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <a href="habitpairs.html" onClick="{{tileGo}}" class="tile sa-card" style="--d: #3B3651">
+      <div class="sa-art" style="background: #FFFFFF"><div class="sa-art-in"><span class="sa-t" style="left: 22px; top: 30px; width: 112px; height: 64px; background: var(--lime); transform: rotate(-6deg); font-size: 24px;">일찍 자다</span><span class="sa-t" style="left: 108px; top: 100px; width: 112px; height: 64px; background: var(--sun); transform: rotate(5deg); font-size: 24px;">늦게 자다</span></div><span class="sa-pips" style="display: flex"><span class="sa-pipt">7과</span></span></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">습관 짝맞추기</div><div class="sa-gsub">Gegenteile</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     </sc-if>
   </div>
@@ -1544,7 +1557,7 @@ class Component extends DCLogic {
       notMe: () => { if (C) { C.logout(); this.syncClass(); this.setState({ wstep: 'pick', overlay: null }); this.play('tap'); } },
       rootCls: s.motion ? '' : 'still',
       players, selLabel: C ? classLabel : selLabel, tapSound,
-      gridCols: C ? '5' : '4', gamesCls: C && !(C.isSuhbo && C.isSuhbo()) ? 'one' : '',
+      gridCols: '5', gamesCls: C && !(C.isSuhbo && C.isSuhbo()) ? 'one' : '',
       allGames: !C || !!(C.isSuhbo && C.isSuhbo()),
       goSuhbo: () => { if (C && !C.isSuhbo) { window.location.reload(); return; } if (C) { C.setMe('suhbo'); this.syncClass(); this.setState({ wstep: 'home', overlay: null }); this.play('select'); } },
       ...(() => {   // student hero + per-game star tries
