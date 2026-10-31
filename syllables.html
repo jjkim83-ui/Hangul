@@ -446,6 +446,30 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 /* 7과 special class games */
 .sa-card[style*="#0B6B5A"]{--t:#053D33;background:#22C3A6}
 .sa-card[style*="#3B3651"]{--t:var(--ink);background:#FFFFFF}
+/* teacher hub with the 7과 games: 6 x 2 */
+.sa-games[style*="repeat(6"]{gap:14px}
+.sa-games[style*="repeat(6"] .sa-foot{height:60px;padding:0 10px 0 14px}
+.sa-games[style*="repeat(6"] .sa-gname{font-size:20px}
+.sa-games[style*="repeat(6"] .sa-gsub{font-size:12px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-games[style*="repeat(6"] .sa-play{width:38px;height:38px}
+.sa-games[style*="repeat(6"] .sa-art-in{transform:scale(.6) translateY(4px)}
+.sa-games[style*="repeat(6"] .sa-pips{right:8px;top:8px}
+.dc-phone .sa-games[style*="repeat(6"]{margin-top:12px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-foot{height:70px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-gname{font-size:23px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-gsub{font-size:16px !important}
+.dc-phone .sa-games[style*="repeat(6"] .sa-art-in{transform:scale(.6) translateY(8px)}
+/* teacher hub: giant 7과 card spanning both rows */
+.sa-games .sa-big7 .sa-art-in{transform:scale(.82) translateY(4px) !important}
+.sa-games .sa-big7 .sa-gname{font-size:34px !important}
+.sa-games .sa-big7 .sa-foot{height:76px !important}
+.dc-phone .sa-games .sa-big7 .sa-art-in{transform:scale(.78) translateY(6px) !important}
+/* student hub with 6 homework games: 3 x 2 */
+.sa-games.one[style*="repeat(3"]{gap:18px}
+.sa-games.one[style*="repeat(3"] .sa-foot{height:72px}
+.sa-games.one[style*="repeat(3"] .sa-art-in{transform:scale(.5) translateY(2px)}
+.dc-phone .sa-games.one[style*="repeat(3"] .sa-foot{height:76px}
+.dc-phone .sa-games.one[style*="repeat(3"] .sa-art-in{transform:scale(.58) translateY(8px)}
 .sa-games[style*="repeat(4"] .sa-foot,.sa-games[style*="repeat(5"] .sa-foot{height:66px;padding:0 12px 0 16px}
 .sa-games[style*="repeat(4"] .sa-gname{font-size:24px}
 .sa-games[style*="repeat(5"] .sa-gname{font-size:23px}
@@ -783,7 +807,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 <script src="shared/vendor/morphdom.min.js?v=d5851599"></script>
 <script src="shared/dc-runtime.js?v=4baf4e1f"></script>
 <script src="shared/class-config.js"></script>
-<script src="shared/class.js?v=b651969f"></script>
+<script src="shared/class.js?v=7e4f32a5"></script>
 <script src="content/textbook-4-1-vocab.js?v=ffccf5c7"></script>
 <script>
 class Component extends DCLogic {

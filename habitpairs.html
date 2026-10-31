@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<title>습관 짝맞추기 · 7과</title>
+<title>반대말 짝맞추기 · 6과 7과</title>
 <link rel="stylesheet" href="shared/fonts/fonts.css?v=c03db033">
 <style>
 body{margin:0}
@@ -447,6 +447,30 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 /* 7과 special class games */
 .sa-card[style*="#0B6B5A"]{--t:#053D33;background:#22C3A6}
 .sa-card[style*="#3B3651"]{--t:var(--ink);background:#FFFFFF}
+/* teacher hub with the 7과 games: 6 x 2 */
+.sa-games[style*="repeat(6"]{gap:14px}
+.sa-games[style*="repeat(6"] .sa-foot{height:60px;padding:0 10px 0 14px}
+.sa-games[style*="repeat(6"] .sa-gname{font-size:20px}
+.sa-games[style*="repeat(6"] .sa-gsub{font-size:12px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-games[style*="repeat(6"] .sa-play{width:38px;height:38px}
+.sa-games[style*="repeat(6"] .sa-art-in{transform:scale(.6) translateY(4px)}
+.sa-games[style*="repeat(6"] .sa-pips{right:8px;top:8px}
+.dc-phone .sa-games[style*="repeat(6"]{margin-top:12px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-foot{height:70px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-gname{font-size:23px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-gsub{font-size:16px !important}
+.dc-phone .sa-games[style*="repeat(6"] .sa-art-in{transform:scale(.6) translateY(8px)}
+/* teacher hub: giant 7과 card spanning both rows */
+.sa-games .sa-big7 .sa-art-in{transform:scale(.82) translateY(4px) !important}
+.sa-games .sa-big7 .sa-gname{font-size:34px !important}
+.sa-games .sa-big7 .sa-foot{height:76px !important}
+.dc-phone .sa-games .sa-big7 .sa-art-in{transform:scale(.78) translateY(6px) !important}
+/* student hub with 6 homework games: 3 x 2 */
+.sa-games.one[style*="repeat(3"]{gap:18px}
+.sa-games.one[style*="repeat(3"] .sa-foot{height:72px}
+.sa-games.one[style*="repeat(3"] .sa-art-in{transform:scale(.5) translateY(2px)}
+.dc-phone .sa-games.one[style*="repeat(3"] .sa-foot{height:76px}
+.dc-phone .sa-games.one[style*="repeat(3"] .sa-art-in{transform:scale(.58) translateY(8px)}
 .sa-games[style*="repeat(4"] .sa-foot,.sa-games[style*="repeat(5"] .sa-foot{height:66px;padding:0 12px 0 16px}
 .sa-games[style*="repeat(4"] .sa-gname{font-size:24px}
 .sa-games[style*="repeat(5"] .sa-gname{font-size:23px}
@@ -564,14 +588,14 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
     <span class="blob blob2" style="left: -100px; top: 420px; width: 420px; height: 360px; background: #9EBEF4"></span>
   </div>
   <header style="height: 64px; display: flex; align-items: center; gap: 20px">
-    <a href="index.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 8px; font-family: 'Jua', sans-serif; font-size: 20px">
+    <a href="special.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 8px; font-family: 'Jua', sans-serif; font-size: 20px">
       <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
         <svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14 6 8 12 14 18"></polyline></svg>
       </span>
-      <span class="sa-sign sm">키움한글학교</span><span class="sa-menu">메뉴</span></a>
+      <span class="sa-sign sm">키움한글학교</span><span class="sa-menu">7과</span></a>
     <div style="flex: 1; min-width: 0">
-      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">습관 짝맞추기 🪥</div>
-      <div style="font-size: 15px; font-weight: 800; color: #5A5C8E; margin-top: 4px">7과 · Gewohnheiten-Memory</div>
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">반대말 짝맞추기 ↔</div>
+      <div style="font-size: 15px; font-weight: 800; color: #5A5C8E; margin-top: 4px">6과 · 7과 · Gegenteile-Memory</div>
     </div>
     <button type="button" onClick="{{openSetup}}" class="frost press" style="height: 56px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 20px 0 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit">
       <span class="puff p-butter" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
@@ -773,7 +797,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 <script src="shared/vendor/morphdom.min.js?v=d5851599"></script>
 <script src="shared/dc-runtime.js?v=4baf4e1f"></script>
 <script src="shared/class-config.js"></script>
-<script src="shared/class.js?v=b651969f"></script>
+<script src="shared/class.js?v=7e4f32a5"></script>
 <script>
 class Component extends DCLogic {
   constructor(props) {
@@ -809,12 +833,12 @@ class Component extends DCLogic {
     if (!sel.off) sel.off = {};
     return sel;
   }
-  habitPairs() { return [['일찍 일어나다', 'früh aufstehen', '늦잠을 자다', 'verschlafen'], ['일찍 자다', 'früh schlafen gehen', '늦게 자다', 'spät schlafen gehen'], ['규칙적', 'regelmässig', '불규칙적', 'unregelmässig'], ['바른 자세로 앉다', 'aufrecht sitzen', '다리를 꼬고 앉다', 'Beine kreuzen'], ['방이 깨끗하다', 'Zimmer ist sauber', '방이 지저분하다', 'Zimmer ist unordentlich'], ['적당히 먹다', 'mit Mass essen', '너무 많이 먹다', 'zu viel essen'], ['꾸준히 운동하다', 'regelmässig Sport treiben', '운동을 안 하다', 'keinen Sport treiben'], ['양치질을 하다', 'Zähne putzen', '양치질을 안 하다', 'Zähne nicht putzen']]; }
+  habitPairs() { return [['육식', 'Fleischkost', 6, '채식', 'vegetarische Kost', 6], ['몸에 좋다', 'gesund sein', 6, '몸에 나쁘다', 'ungesund sein', 6], ['건강식품', 'Gesundheitskost', 6, '불량 식품', 'Junkfood', 6], ['편식하다', 'heikel essen', 6, '골고루 먹다', 'von allem essen', 6], ['과식하다', 'zu viel essen', 6, '적당히 먹다', 'mit Mass essen', 7], ['규칙적', 'regelmässig', 7, '불규칙적', 'unregelmässig', 7], ['일찍 일어나다', 'früh aufstehen', 7, '늦잠을 자다', 'verschlafen', 7], ['방이 깨끗하다', 'Zimmer ist sauber', 7, '방이 지저분하다', 'Zimmer ist unordentlich', 7]]; }
   loadPool() {
-    // 7과 special: fixed habit pairs (good habit <-> its opposite), independent of today's word list
+    // fixed set: real opposites from 6과 + 7과, independent of today's word list
     const words = [];
-    this.habitPairs().forEach(p => { words.push({ ko: p[0], de: p[1] }); words.push({ ko: p[2], de: p[3] }); });
-    return Promise.resolve({ words, sample: false, label: '7과', chips: [{ label: '7과 생활 습관', cls: 'p-mint' }], note: '7과 특별 게임 — 습관 표현 ' + this.habitPairs().length + '쌍 · Gewohnheiten aus Lektion 7' });
+    this.habitPairs().forEach(p => { words.push({ ko: p[0], de: p[1] }); words.push({ ko: p[3], de: p[4] }); });
+    return Promise.resolve({ words, sample: false, label: '6과 · 7과', chips: [{ label: '6과 식습관', cls: 'p-butter' }, { label: '7과 생활 습관', cls: 'p-mint' }], note: '반대말 ' + this.habitPairs().length + '쌍 = 카드 16장 · 8 Gegenteil-Paare' });
   }
   samplePool(note) {
     return { words: this.sampleWords(), sample: true, label: '예시', chips: [{ label: '예시 단어 · Beispiel', cls: 'p-white' }], note };
@@ -867,28 +891,21 @@ class Component extends DCLogic {
     return { cols, rows, px };
   }
   fontFor(word, isKo, px) {
-    // habit phrases are several words: let them wrap between words, keep the type big
+    // phrases can be two words: let them wrap between words, keep the type big
     const longest = Math.max.apply(null, word.split(/\s+/).map(t => t.length));
     const fit = (px - 22) / (longest * (isKo ? 1.0 : 0.58));
-    return Math.max(12, Math.round(Math.min((isKo ? 26 : 16) * px / 122, fit)));
+    return Math.max(12, Math.round(Math.min((isKo ? 24 : 16) * px / 122, fit)));
   }
   freshState(words, pairsN, mode) {
-    const P = this.habitPairs();
-    let items;
-    if (mode === 'de') {   // one habit per pair: Korean <-> German
-      const all = []; P.forEach(p => { all.push([p[0], p[1]]); all.push([p[2], p[3]]); });
-      items = this.shuffle(all).slice(0, pairsN).map(x => ({ a: x[0], at: 'KO', b: x[1], bt: 'DE', txt: x[0] + ' = ' + x[1] }));
-    } else {               // good habit <-> bad habit
-      items = this.shuffle(P).slice(0, Math.min(pairsN, P.length)).map(p => ({ a: p[0], at: '👍', b: p[2], bt: '👎', txt: p[0] + ' ↔ ' + p[2] + ' · ' + p[1] + ' ↔ ' + p[3] }));
-    }
+    const items = this.shuffle(this.habitPairs()).map(p => ({ a: p[0], at: p[2] + '과', b: p[3], bt: p[5] + '과', txt: p[0] + ' ↔ ' + p[3] + ' · ' + p[1] + ' ↔ ' + p[4] }));
     const L = this.layout(items.length);
     const deck = [];
     items.forEach((p, i) => {
       deck.push({ pair: i, lang: p.at, word: p.a, fs: this.fontFor(p.a, true, L.px), txt: p.txt });
-      deck.push({ pair: i, lang: p.bt, word: p.b, fs: this.fontFor(p.b, p.bt !== 'DE', L.px), txt: p.txt });
+      deck.push({ pair: i, lang: p.bt, word: p.b, fs: this.fontFor(p.b, true, L.px), txt: p.txt });
     });
     for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = deck[i]; deck[i] = deck[j]; deck[j] = t; }
-    return { deck, cols: L.cols, px: L.px, up: [], matched: [], turn: 0, scores: this.zeros(), streak: 0, moves: 0, lock: false, msg: mode === 'de' ? '한국어와 독일어 짝을 찾아요 · Koreanisch + Deutsch' : '좋은 습관 👍 과 반대 습관 👎 을 찾아요 · Gegenteile finden' };
+    return { deck, cols: L.cols, px: L.px, up: [], matched: [], turn: 0, scores: this.zeros(), streak: 0, moves: 0, lock: false, msg: '반대말 짝을 찾아요! · Finde die Gegenteile' };
   }
   pick(i) {
     const s = this.state;
@@ -1162,15 +1179,13 @@ class Component extends DCLogic {
       startGame: () => this.startGame(),
       opt1Title: '카드 수', opt1Sub: 'Karten',
       opt1: this.seg([
-        { v: 6, label: '6쌍', sub: '12 Karten' },
         { v: 8, label: '8쌍', sub: '16 Karten' }
       ], s.pairsN, 'pairsN'),
       opt2Title: '짝 맞추기', opt2Sub: 'Paare',
       opt2: this.seg([
-        { v: 'opp', label: '좋은 습관 ↔ 나쁜 습관', sub: 'Gegenteile' },
-        { v: 'de', label: '한국어 ↔ 독일어', sub: 'Koreanisch ↔ Deutsch' }
+        { v: 'opp', label: '반대말 ↔', sub: 'Gegenteile' }
       ], s.mode, 'mode'),
-      setupNote: s.mode === 'de' ? '7과 습관 ' + s.pairsN + '개: 한국어 카드와 독일어 카드를 짝지어요 · Koreanisch + Deutsch' : '👍 좋은 습관과 👎 반대 습관을 짝지어요. 맞히면 소리 내어 읽어요! · Gegenteile finden, laut vorlesen'
+      setupNote: '육식 ↔ 채식처럼 반대말 짝을 찾아요. 맞히면 두 말을 소리 내어 읽어요! · Gegenteile finden, laut vorlesen'
     };
   }
 }

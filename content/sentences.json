@@ -79,30 +79,32 @@
      "target": "뽑히다"
     },
     {
-     "ko": "리안이는 한국에서 전학 와서 한국어를 잘해요.",
+     "ko": "새 친구는 한국에서 전학 와서 한국어를 잘해요.",
      "blocks": [
-      "리안이는",
+      "새",
+      "친구는",
       "한국에서",
       "전학",
       "와서",
       "한국어를",
       "잘해요."
      ],
-     "de": "Rian hat von einer Schule in Korea gewechselt und kann deshalb gut Koreanisch.",
+     "de": "Der neue Mitschüler kommt von einer Schule in Korea und kann deshalb gut Koreanisch.",
      "level": 2,
      "word": "전학",
      "target": "전학"
     },
     {
-     "ko": "짝의 첫인상은 무서웠지만 정말 착해요.",
+     "ko": "새 선생님의 첫인상은 무서웠지만 정말 친절하세요.",
      "blocks": [
-      "짝의",
+      "새",
+      "선생님의",
       "첫인상은",
       "무서웠지만",
       "정말",
-      "착해요."
+      "친절하세요."
      ],
-     "de": "Auf den ersten Eindruck wirkte mein Banknachbar streng, aber er ist wirklich nett.",
+     "de": "Die neue Lehrerin wirkte zuerst streng, aber sie ist wirklich freundlich.",
      "level": 2,
      "word": "첫인상",
      "target": "첫인상"
@@ -334,13 +336,14 @@
    "n": 3,
    "sentences": [
     {
-     "ko": "세나는 머리가 길어요.",
+     "ko": "우리 언니는 머리가 길어요.",
      "blocks": [
-      "세나는",
+      "우리",
+      "언니는",
       "머리가",
       "길어요."
      ],
-     "de": "Sena hat lange Haare.",
+     "de": "Meine ältere Schwester hat lange Haare.",
      "level": 1,
      "word": "머리가 길다/짧다",
      "target": "머리가 길다"
@@ -358,25 +361,27 @@
      "target": "곱슬머리"
     },
     {
-     "ko": "규빈이는 안경을 써요.",
+     "ko": "우리 할아버지는 안경을 써요.",
      "blocks": [
-      "규빈이는",
+      "우리",
+      "할아버지는",
       "안경을",
       "써요."
      ],
-     "de": "Gyubin trägt eine Brille.",
+     "de": "Mein Grossvater trägt eine Brille.",
      "level": 1,
      "word": "안경을 끼다/쓰다",
      "target": "안경을 쓰다"
     },
     {
-     "ko": "하얀이는 보조개가 있어요.",
+     "ko": "우리 엄마는 보조개가 있어요.",
      "blocks": [
-      "하얀이는",
+      "우리",
+      "엄마는",
       "보조개가",
       "있어요."
      ],
-     "de": "Hayan hat Grübchen.",
+     "de": "Meine Mama hat Grübchen.",
      "level": 1,
      "word": "보조개가 있다/생기다",
      "target": "보조개가 있다"
@@ -408,15 +413,16 @@
      "target": "머리를 묶다"
     },
     {
-     "ko": "수민이는 긴 머리였는데 단발머리로 잘랐어요.",
+     "ko": "우리 이모는 긴 머리였는데 단발머리로 잘랐어요.",
      "blocks": [
-      "수민이는",
+      "우리",
+      "이모는",
       "긴",
       "머리였는데",
       "단발머리로",
       "잘랐어요."
      ],
-     "de": "Sumin hatte lange Haare, aber jetzt hat sie sie zu einem Bob geschnitten.",
+     "de": "Meine Tante hatte lange Haare, jetzt hat sie einen Bob.",
      "level": 2,
      "word": "단발머리",
      "target": "단발머리"
@@ -464,14 +470,15 @@
      "target": "얼굴이 갸름하다"
     },
     {
-     "ko": "찬율이는 눈썹이 진해서 멋있어요.",
+     "ko": "그 배우는 눈썹이 진해서 멋있어요.",
      "blocks": [
-      "찬율이는",
+      "그",
+      "배우는",
       "눈썹이",
       "진해서",
       "멋있어요."
      ],
-     "de": "Chanyul hat kräftige Augenbrauen, das sieht cool aus.",
+     "de": "Der Schauspieler hat kräftige Augenbrauen, das sieht cool aus.",
      "level": 2,
      "word": "눈썹이 진하다",
      "target": "눈썹이 진하다"
@@ -569,15 +576,16 @@
      "target": "솔직하다"
     },
     {
-     "ko": "하얀이는 내성적이라서 발표할 때 긴장해요.",
+     "ko": "제 사촌은 내성적이라서 발표할 때 긴장해요.",
      "blocks": [
-      "하얀이는",
+      "제",
+      "사촌은",
       "내성적이라서",
       "발표할",
       "때",
       "긴장해요."
      ],
-     "de": "Hayan ist zurückhaltend, darum ist sie bei Vorträgen nervös.",
+     "de": "Mein Cousin ist zurückhaltend, darum ist er bei Vorträgen nervös.",
      "level": 2,
      "word": "내성적이다",
      "target": "내성적이다"
@@ -597,14 +605,15 @@
      "target": "성격이 급하다"
     },
     {
-     "ko": "규빈이는 덜렁대서 우산을 잃어버렸어요.",
+     "ko": "우리 삼촌은 덜렁대서 우산을 잃어버렸어요.",
      "blocks": [
-      "규빈이는",
+      "우리",
+      "삼촌은",
       "덜렁대서",
       "우산을",
       "잃어버렸어요."
      ],
-     "de": "Gyubin ist schusselig und hat seinen Regenschirm verloren.",
+     "de": "Mein Onkel ist schusselig und hat seinen Regenschirm verloren.",
      "level": 2,
      "word": "덜렁대다",
      "target": "덜렁대다"
