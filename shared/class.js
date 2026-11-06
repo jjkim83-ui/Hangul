@@ -75,16 +75,24 @@
   }
   const ymd = (u) => u.getUTCFullYear() + '-' + pad(u.getUTCMonth() + 1) + '-' + pad(u.getUTCDate());
   function dayKey(d) { return ymd(wall(d)); }
+  /* Saturdays without a classroom lesson: no new week starts there, so the week around it
+     runs two weeks (class to class), and the 10–12 homework break does not apply that day. */
+  const NO_CLASS = ['2026-11-07'];
+  const noClass = (k) => NO_CLASS.indexOf(k) >= 0;
+  const shiftDays = (k, n) => ymd(new Date(new Date(k + 'T00:00:00Z').getTime() + n * 86400 * 1000));
   function weekKey(d) {          // the Saturday (date) on which the current week began at noon
     const t = new Date(wall(d).getTime() - WEEK_START_HOUR * 3600 * 1000);
     const back = (t.getUTCDay() - WEEK_START_DAY + 7) % 7;
-    return ymd(new Date(t.getTime() - back * 86400 * 1000));
+    let k = ymd(new Date(t.getTime() - back * 86400 * 1000));
+    while (noClass(k)) k = shiftDays(k, -7);
+    return k;
   }
   const HW_CLOSE_HOUR = 10;      // homework stars stop on Saturday at 10:00 and start again at 12:00 (class time in between)
-  function homeworkClosed(d) { const w = wall(d || new Date()); return w.getUTCDay() === WEEK_START_DAY && w.getUTCHours() >= HW_CLOSE_HOUR && w.getUTCHours() < WEEK_START_HOUR; }
-  function prevWeekKey(wk) { const u = new Date(wk + 'T00:00:00Z'); return ymd(new Date(u.getTime() - 7 * 86400 * 1000)); }
+  function homeworkClosed(d) { const w = wall(d || new Date()); return w.getUTCDay() === WEEK_START_DAY && !noClass(ymd(w)) && w.getUTCHours() >= HW_CLOSE_HOUR && w.getUTCHours() < WEEK_START_HOUR; }
+  function prevWeekKey(wk) { let k = shiftDays(wk, -7); while (noClass(k)) k = shiftDays(k, -7); return k; }
   function weekLabel(wk) {
-    const a = new Date(wk + 'T00:00:00Z'), b = new Date(a.getTime() + 7 * 86400 * 1000);
+    let e = shiftDays(wk, 7); while (noClass(e)) e = shiftDays(e, 7);
+    const a = new Date(wk + 'T00:00:00Z'), b = new Date(e + 'T00:00:00Z');
     return (a.getUTCMonth() + 1) + '/' + a.getUTCDate() + ' 12:00 – ' + (b.getUTCMonth() + 1) + '/' + b.getUTCDate() + ' 12:00';
   }
 
