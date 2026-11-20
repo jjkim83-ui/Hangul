@@ -457,6 +457,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 .sa-card[style*="#E97A12"]{--t:#5E2600;background:#FF9F43}
 /* 7과 special class games */
 .sa-card[style*="#0B6B5A"]{--t:#053D33;background:#22C3A6}
+.sa-card[style*="#B07A1E"]{--t:#5A3A00;background:#F2C46D}
 .sa-card[style*="#3B3651"]{--t:var(--ink);background:#FFFFFF}
 /* teacher hub with the 7과 games: 6 x 2 */
 .sa-games[style*="repeat(6"]{gap:14px}
@@ -771,9 +772,9 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
   </sc-if>
   <div class="sa-games {{gamesCls}}" style="grid-template-columns: repeat({{gridCols}}, minmax(0, 1fr))">
     <sc-if value="{{notClass}}" hint-placeholder-val="{{ true }}">
-    <a href="special8.html" onClick="{{tileGo}}" class="tile sa-card sa-big7" style="--d: #0B6B5A; grid-row: span 2">
-      <div class="sa-art" style="background: #22C3A6"><div class="sa-art-in" style="height: 310px"><span class="sa-t" style="left: 14px; top: 20px; width: 96px; height: 96px; background: var(--sun); transform: rotate(-8deg); font-size: 56px;">🏅</span><span class="sa-t" style="left: 126px; top: 30px; width: 96px; height: 96px; background: #FFFFFF; transform: rotate(6deg); font-size: 56px;">⚽</span><span class="sa-t" style="left: 14px; top: 140px; width: 212px; height: 70px; background: var(--lime); transform: rotate(-3deg); font-size: 30px;">3 : 2 골인!</span><span class="sa-t" style="left: 50px; top: 236px; width: 140px; height: 64px; background: #FFFFFF; transform: rotate(3deg); font-size: 30px;">8과 ⭐</span></div></div>
-      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">8과 특별</div><div class="sa-gsub">Spezial · 3 Spiele</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
+    <a href="special9.html" onClick="{{tileGo}}" class="tile sa-card sa-big7" style="--d: #B07A1E; grid-row: span 2">
+      <div class="sa-art" style="background: #F2C46D"><div class="sa-art-in" style="height: 310px"><span class="sa-t" style="left: 14px; top: 20px; width: 96px; height: 96px; background: #FFFFFF; transform: rotate(-8deg); font-size: 56px;">✋</span><span class="sa-t" style="left: 126px; top: 30px; width: 96px; height: 96px; background: var(--sun); transform: rotate(6deg); font-size: 56px;">🪢</span><span class="sa-t" style="left: 14px; top: 140px; width: 212px; height: 70px; background: #FFFFFF; transform: rotate(-3deg); font-size: 30px;">⌨️ ㄱㅗㅇ → 공</span><span class="sa-t" style="left: 50px; top: 236px; width: 140px; height: 64px; background: var(--lime); transform: rotate(3deg); font-size: 30px;">9과 ⭐</span></div></div>
+      <div class="sa-foot"><div style="min-width: 0"><div class="sa-gname">9과 특별</div><div class="sa-gsub">Spezial · Tippen</div></div><span class="sa-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z" fill="#FFFFFF" stroke="#1C1838" stroke-width="2.4" stroke-linejoin="round"/></svg></span></div>
     </a>
     </sc-if>
     <sc-if value="{{allGames}}" hint-placeholder-val="{{ true }}">
