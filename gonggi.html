@@ -594,6 +594,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
 .tp-prompt.sa-prompt{width:360px;flex-shrink:0;height:128px !important;box-sizing:border-box;padding:8px 18px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center}
 .tp-de{font-family:'Jua',sans-serif;color:#FFFFFF;line-height:1.05;max-width:100%;overflow-wrap:break-word;hyphens:auto;-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;text-shadow:4px 4px 0 var(--ink)}
 .tp-cho{font-family:'Jua',sans-serif;font-size:22px;letter-spacing:4px;color:#16131F;background:#FFDD3C;border-radius:999px;padding:2px 14px;margin-top:2px}
+.tp-cho.word{font-size:30px;letter-spacing:1px;padding:2px 18px;background:#FFFFFF}
 .tp-bar{width:80%;height:9px;margin-top:5px;flex-shrink:0;border-radius:999px;background:rgba(255,255,255,.35);overflow:hidden}
 .tp-fill{height:100%;border-radius:999px;background:#FFDD3C;transform-origin:left center}
 .tp-typed{flex:1;min-width:0;border-radius:26px;padding:10px 20px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:4px}
@@ -713,7 +714,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
           <div class="tp-prompt sa-prompt {{okCls}}">
             <div class="sa-ask" style="font-size: 16px">{{askLabel}}</div>
             <div class="tp-de" lang="de" aria-live="polite" style="font-size: {{deFs}}px">{{promptDe}}</div>
-            <sc-if value="{{hintOn}}" hint-placeholder-val="{{ true }}"><div class="tp-cho" title="초성 · Anfangskonsonanten">{{hintText}}</div></sc-if>
+            <sc-if value="{{hintOn}}" hint-placeholder-val="{{ true }}"><div class="tp-cho {{hintCls}}" lang="ko">{{hintText}}</div></sc-if>
             <div class="tp-bar" aria-hidden="true" style="opacity: {{barOp}}"><div id="qbar-{{qid}}" class="tp-fill" style="animation: qbar {{qSecs}}s linear forwards; animation-play-state: {{barPlay}}"></div></div>
           </div>
           <div class="tp-typed frost {{typedCls}}">
@@ -848,8 +849,8 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
         </div>
         <div style="display: flex; align-items: center; gap: 16px">
           <div style="width: 150px; flex-shrink: 0; line-height: 1.15">
-            <div style="font-family: 'Jua', sans-serif; font-size: 21px">노란 키</div>
-            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Tasten-Hilfe</div>
+            <div style="font-family: 'Jua', sans-serif; font-size: 21px">도움</div>
+            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Hilfe</div>
           </div>
           <div style="flex: 1; display: flex; gap: 10px">
             <sc-for list="{{opt3}}" as="o" hint-placeholder-count="3">
@@ -902,7 +903,7 @@ class Component extends DCLogic {
     this.FLOOR = [[70, 96], [175, 62], [270, 116], [372, 74]];
     this.HAND = [[600, 120], [628, 104], [656, 120], [684, 104]];
     this.state = { all: null, setup: true, started: false, finished: false,
-      goal: 5, secs: 20, glow: 'on', turn: 'step',
+      goal: 3, secs: 30, help: 'easy', turn: 'step',
       prog: this.ROSTER.map(() => ({ dan: 0, picks: 0, years: 0 })),
       cur: 0, phase: 'idle', typ: null, qid: 0, banner: null, fly: 0, kk: null, wrong: {},
       kbShift: false, kbDown: null, kbIdle: 0,
@@ -917,7 +918,7 @@ class Component extends DCLogic {
   clearT() { clearTimeout(this._qT); clearTimeout(this._nT); clearTimeout(this._kkT); }
   typingOn() { const s = this.state; return s.started && !s.setup && !s.finished && (s.phase === 'type' || s.phase === 'kk'); }
   name(i) { return (this.ROSTER[i] || {}).name || ''; }
-  kkSecs() { return this.state.secs === 12 ? 12 : this.state.secs === 20 ? 18 : 25; }
+  kkSecs() { return this.state.secs === 12 ? 15 : this.state.secs === 20 ? 22 : 30; }
   startGame() {
     if (!this.state.all) return;
     this.clearT();
@@ -932,13 +933,13 @@ class Component extends DCLogic {
       msg: this.name(i) + ' 차례! 키보드를 받으면 Enter · Tastatur nehmen, dann Enter' });
   }
   fits(dan) {
-    return [w => w.tok <= 6, w => w.tok <= 8, w => w.tok <= 11, w => w.tok >= 7, w => w.tok <= 7][dan];
+    return [w => w.tok <= 5, w => w.tok <= 6, w => w.tok <= 8, w => w.tok >= 5 && w.tok <= 10, w => w.tok <= 6][dan];
   }
   newWord() {
     const s = this.state, p = s.prog[s.cur];
     const w = this.pickWord(this.fits(p.dan));
     const qid = s.qid + 1;
-    this.setState({ phase: 'type', qid, banner: null, msg: this.name(s.cur) + ': 독일어를 보고 한국어로! · Deutsch lesen, Koreanisch tippen' });
+    this.setState({ phase: 'type', qid, banner: null, msg: this.name(s.cur) + (s.help === 'easy' ? ': 흰 칸의 한국어를 보고 따라 쳐요 · Wort im weissen Feld abtippen' : ': 독일어를 보고 한국어로! · Deutsch lesen, Koreanisch tippen') });
     this.kbStart(w);
     clearTimeout(this._qT);
     if (s.secs > 0) this._qT = setTimeout(() => { if (this.state.qid === qid && this.state.phase === 'type') this.drop('time'); }, s.secs * 1000);
@@ -1041,7 +1042,7 @@ class Component extends DCLogic {
     const cur = this.ROSTER[s.cur] || this.ROSTER[0], p = s.prog[s.cur] || { dan: 0, picks: 0, years: 0 };
     const T = s.typ, live = this.typingOn();
     const kkOn = s.phase === 'kk' || s.phase === 'kk-wait';
-    const kv = this.kbView(s.glow);
+    const kv = this.kbView(this.glowOf(s.help));
     const de = T && live ? T.w.de : '';
     const dots = (d) => { const need = this.NEED[d] || 1; let o = ''; for (let k = 0; k < need; k++) o += (d < p.dan || (d === p.dan && k < p.picks)) ? '●' : '○'; return o; };
     const danSteps = this.DAN.map((lab, d) => ({ label: d < 4 ? lab + ' ' + dots(d) : (kkOn && s.kk ? '꺾기 ' + s.kk.caught + '/5' : '꺾기 🤚'),
@@ -1062,7 +1063,7 @@ class Component extends DCLogic {
       bannerOn: !!s.banner, bannerCls: s.banner ? s.banner.cls : '', bannerText: s.banner ? s.banner.text : '', bannerSub: s.banner ? s.banner.sub : '',
       askLabel: live ? (s.phase === 'kk' ? '꺾기! 빨리! · Schnell!' : '한국어로 쳐요 · Auf Koreanisch') : '준비 · Bereit?',
       promptDe: de || '🪨', deFs: this.wordFs(de, 40),
-      hintOn: live && !!T, hintText: T ? HangulKB.cho(T.target) : '',
+      hintOn: live && !!T && s.help !== 'hard', hintText: this.hintOf(T, s.help === 'easy' ? 'word' : 'cho'), hintCls: s.help === 'easy' ? 'word' : '',
       qid: s.qid, qSecs: timed || 1, barPlay: live && timed ? 'running' : 'paused', barOp: live && timed ? 1 : 0,
       okCls: '',
       typedFs: this.wordFs(kv.typedText, 54),
@@ -1086,7 +1087,7 @@ class Component extends DCLogic {
       poolNote: !s.all ? '단어장을 불러오는 중… · Lädt …' : ('9과 ' + s.all[9].length + '개 · 8과 ' + s.all[8].length + '개 · 독일어를 보고 한국어로 쳐요 · Deutsch sehen, Koreanisch tippen'),
       opt1: this.seg([{ v: 3, label: '3년', sub: 'kurz' }, { v: 5, label: '5년', sub: 'normal' }, { v: 10, label: '10년', sub: 'lang' }], s.goal, 'goal'),
       opt2: this.seg([{ v: 30, label: '🐢 30초', sub: 'pro Wort' }, { v: 20, label: '🙂 20초', sub: 'pro Wort' }, { v: 12, label: '⚡ 12초', sub: 'pro Wort' }, { v: 0, label: '∞', sub: 'ohne Zeit' }], s.secs, 'secs'),
-      opt3: this.seg([{ v: 'on', label: '항상', sub: 'immer zeigen' }, { v: 'auto', label: '막히면', sub: 'bei Fehler/Pause' }, { v: 'off', label: '없음', sub: 'nie' }], s.glow, 'glow'),
+      opt3: this.seg([{ v: 'easy', label: '쉬움 · 보고 치기', sub: 'Wort wird gezeigt' }, { v: 'mid', label: '보통 · 초성', sub: 'nur Anfangslaute' }, { v: 'hard', label: '어려움', sub: 'nur Deutsch' }], s.help, 'help'),
       opt4: this.seg([{ v: 'step', label: '한 단계씩', sub: 'nach jeder Stufe wechseln' }, { v: 'drop', label: '떨어질 때까지', sub: 'echte Regel' }], s.turn, 'turn'),
       setupNote: '1단 4개 → 2단 2개 → 3단 2개 → 4단 1개 → 꺾기! 꺾기에서 잡은 만큼 년(年)을 얻어요 · Wer zuerst das Ziel erreicht, gewinnt',
       roster: this.ROSTER.map(r => r.name).join(' → ')
@@ -1190,6 +1191,9 @@ class Component extends DCLogic {
       typedNote: live && T.bad ? '틀렸어요 → ⌫ 지우기 · Fehler → löschen' : (hi ? '노란 키를 눌러요 · Gelbe Taste drücken' : '한글로 쳐요 · Auf Koreanisch tippen')
     };
   }
+  // help level: easy = Korean word shown + yellow key always; mid = 초성 + yellow key when stuck; hard = German only
+  glowOf(level) { return level === 'easy' ? 'on' : level === 'mid' ? 'auto' : 'off'; }
+  hintOf(T, kind) { if (!T || !kind) return ''; return kind === 'word' ? T.target : HangulKB.cho(T.target); }
   wordFs(t, big) { const n = String(t || '').length; return n <= 8 ? big : n <= 14 ? Math.round(big * 0.82) : n <= 22 ? Math.round(big * 0.66) : n <= 32 ? Math.round(big * 0.52) : Math.round(big * 0.44); }
   loadHub() { try { return JSON.parse(localStorage.getItem('hangul_hub_v1') || 'null') || {}; } catch (e) { return {}; } }
   sfx(name) {
