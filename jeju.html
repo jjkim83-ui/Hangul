@@ -1,0 +1,1376 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="키움한글학교">
+<meta name="theme-color" content="#ECE8DE">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>11과 제주행 스피드런 · Flug nach Jeju</title>
+<link rel="stylesheet" href="shared/fonts/fonts.css?v=c03db033">
+<style>
+body{margin:0}
+a{color:#2B2C6B}a:hover{color:#2B2C6B}
+button:focus-visible,a:focus-visible{outline:4px solid #2B2C6B;outline-offset:5px}
+.puff{position:relative;background:linear-gradient(180deg,var(--c) 0%,var(--c) 58%,var(--d) 160%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.38),inset 0 -12px 16px -10px rgba(255,255,255,.6),inset 0 -2px 0 var(--dd),0 0 0 1.5px rgba(255,255,255,.55),0 4px 0 var(--d),0 14px 24px var(--sh),0 2px 4px rgba(43,44,107,.08)}
+.puff::before{content:"";position:absolute;left:5px;right:5px;top:4px;height:47%;border-radius:inherit;background:radial-gradient(circle at 86% 32%,rgba(255,255,255,.95) 0,rgba(255,255,255,.95) 2.5px,rgba(255,255,255,0) 4.5px),linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.2) 65%,rgba(255,255,255,.04) 100%);pointer-events:none}
+.puff::after{content:"";position:absolute;inset:2px;border-radius:inherit;border:3px solid transparent;border-top-color:rgba(255,255,255,.9);border-left-color:rgba(255,255,255,.35);filter:blur(1px);pointer-events:none}
+.p-white{--c:#FBFAFF;--d:#E7E3F6;--dd:rgba(120,110,180,.18);--sh:rgba(120,110,180,.24)}
+.p-lav{--c:#BBA8F6;--d:#9E88E9;--dd:rgba(100,70,200,.30);--sh:rgba(140,110,230,.38)}
+.p-coral{--c:#EE7466;--d:#D85B4E;--dd:rgba(160,40,30,.30);--sh:rgba(238,116,102,.42)}
+.p-mint{--c:#A6E5C9;--d:#84D2B0;--dd:rgba(30,140,100,.25);--sh:rgba(110,200,160,.38)}
+.p-butter{--c:#FBE18C;--d:#F1CD62;--dd:rgba(170,120,0,.22);--sh:rgba(230,190,70,.40)}
+.p-blue{--c:#A9CBF7;--d:#86B1EC;--dd:rgba(40,90,180,.25);--sh:rgba(110,160,230,.38)}
+.p-pink{--c:#F7B6CF;--d:#EC95B6;--dd:rgba(180,50,100,.22);--sh:rgba(240,150,190,.38)}
+.frost{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.32) 100%);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -12px 18px -12px rgba(255,255,255,.7),0 12px 30px rgba(70,50,150,.16),0 2px 4px rgba(43,44,107,.06)}
+.frost-strong{background:linear-gradient(180deg,#FBF9FF 0%,#F1EDFB 100%)}
+.blob{position:absolute;border-radius:50%;opacity:.88;-webkit-mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.6) 45%,transparent 100%);will-change:transform;animation:morph 14s ease-in-out infinite}
+.blob2{animation-delay:-6s;animation-duration:17s}
+.blob3{animation-delay:-11s;animation-duration:20s}
+@keyframes morph{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}25%{transform:translate(180px,-90px) scale(1.2) rotate(20deg)}50%{transform:translate(60px,110px) scale(.9) rotate(-10deg)}75%{transform:translate(-160px,40px) scale(1.12) rotate(12deg)}}
+.press{transition:transform .2s cubic-bezier(.3,1.6,.5,1),opacity .25s ease}
+.press:hover{transform:translateY(-4px) scale(1.02)}
+.press:active{transform:translateY(3px) scale(.97)}
+.dim{opacity:.5}
+.wobble{animation:wobble .45s ease}
+@keyframes wobble{0%,100%{translate:0 0}20%{translate:-8px 0}40%{translate:8px 0}60%{translate:-5px 0}80%{translate:4px 0}}
+.pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion: reduce){.blob,.pop,.wobble{animation:none}.press{transition:none}}
+.many-t > :first-child{padding:10px 14px 12px !important;gap:4px !important}.many-t > :first-child > span.puff:first-child{width:66px !important;height:66px !important}.many-t > :first-child > span.puff:first-child svg{width:56px;height:56px}.many-t > :first-child > div{font-size:28px !important}.many-t > :first-child > span.puff:not(:first-child){display:none !important}.many .plist{display:grid !important;grid-template-columns:1fr 1fr;gap:4px !important;overflow:visible !important;flex-shrink:0 !important}.many .plist > div{padding:3px 10px 3px 3px !important;gap:6px !important;border-radius:16px !important;min-width:0}.many .plist > div > span:first-child{width:32px !important;height:32px !important}.many .plist > div > span:first-child svg{width:32px;height:32px}.many .plist > div > span:nth-child(2){font-size:16px !important;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.many .plist > div > span:last-child{font-size:20px !important}
+
+@keyframes qbar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@keyframes flashok{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+.sr-dot{width:100%;aspect-ratio:1;border-radius:50%;background:#E2DED4;box-shadow:inset 0 0 0 2px rgba(22,19,31,.10)}
+.sr-dot.s1{background:#FFDD3C;box-shadow:none}
+.sr-dot.s2{background:#4CC46A;box-shadow:none}
+.sr-dot.now{box-shadow:0 0 0 3px #16131F}
+.sr-ok{animation:flashok .35s ease}
+/* upright phone: question first, answers compact, only the progress count below */
+.dc-portrait .sr-aside{order:2 !important}
+.dc-portrait .sr-aside .sr-dotsbox{display:none !important}
+.dc-portrait .sa-root:has(.sr-aside) .sa-prompt{height:230px !important}
+.dc-portrait .sa-root:has(.sr-aside) section > div[style*="grid-template-columns: repeat(2"]{grid-auto-rows:118px !important;gap:14px !important}
+/*SA-THEME*/
+/* ==========================================================================
+   한글 놀이터 — "문방구 Sticker Arcade" theme
+   Loaded after each page's own styles; restyles the shared building blocks
+   (.puff tiles/buttons, .frost panels, blobs, fonts) without touching markup.
+   ========================================================================== */
+:root{
+  --ink:#16131F; --paper:#FFFFFF; --mist:#F4F2EC; --violet:#6A47F2; --violet-d:#4C2BD6; --violet-l:#B9A8FF;
+  --red:#EC4027; --lime:#4CC46A; --sun:#FFDD3C; --sky:#4FB8FF; --gum:#F05AB4;
+  --b:3px solid var(--ink);
+}
+
+/* page background: dot grid instead of drifting blobs */
+.sa-root{background:var(--mist) !important;color:var(--ink) !important;isolation:isolate}
+/* poster decor: big flat shapes, hatching, polka dots, giant outlined type (behind everything) */
+.sa-decor{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.sa-decor i{position:absolute;display:block}
+.sa-decor .d-type{left:-40px;bottom:-150px;font-family:'Jua',sans-serif;font-weight:800;font-size:560px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(22,19,31,.16);letter-spacing:-20px;white-space:nowrap;font-style:normal}
+.sa-decor .d-blob{right:-120px;top:-150px;width:560px;height:470px;border-radius:58% 42% 55% 45%/48% 60% 40% 52%;background:repeating-linear-gradient(-45deg,var(--violet) 0 5px,transparent 5px 11px);opacity:.9;transform:rotate(-12deg)}
+.sa-decor .d-dots{left:-90px;bottom:-110px;width:430px;height:330px;background:var(--lime) radial-gradient(#FFFFFF 7px,transparent 7.5px) 0 0/34px 34px;transform:rotate(14deg);clip-path:polygon(0 18%,74% 0,100% 64%,30% 100%)}
+.sa-decor .d-star{left:20px;top:96px;width:250px;height:250px;background:var(--sun);clip-path:polygon(50% 0,59% 26%,85% 12%,73% 39%,100% 46%,74% 58%,90% 84%,62% 74%,52% 100%,42% 74%,14% 88%,28% 60%,0 50%,27% 40%,12% 14%,40% 25%);transform:rotate(8deg)}
+.sa-decor .d-tri{right:300px;bottom:-40px;width:140px;height:180px;background:var(--ink);clip-path:polygon(0 0,100% 60%,20% 100%)}
+.blob{display:none !important}
+
+/* fonts: display text heavy, never faux-bold */
+[style*="'Jua'"]{font-weight:800 !important;letter-spacing:-.2px}
+h1,h2{font-weight:800 !important}
+
+/* sticker surfaces */
+.puff{background:var(--c) !important;border:var(--b) !important;box-shadow:0 4px 0 var(--ink) !important;box-sizing:border-box}
+.puff::before,.puff::after{display:none !important}
+.puff .puff{box-shadow:0 2px 0 var(--ink) !important;border-width:2.5px !important}
+.p-white{--c:var(--paper)}
+.p-lav{--c:var(--violet-l)}
+.p-coral{--c:var(--red);color:#FFFFFF}
+.p-mint{--c:var(--lime)}
+.p-butter{--c:var(--sun)}
+.p-blue{--c:var(--sky)}
+.p-pink{--c:var(--gum)}
+.p-holo{--c:var(--lime)}
+.p-ghost,.p-ghost.puff{--c:transparent;border-color:transparent !important;box-shadow:none !important}
+.flat{box-shadow:none !important}
+.frost,.frost-strong{background:var(--paper) !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;border:var(--b) !important;box-shadow:0 6px 0 var(--ink) !important;box-sizing:border-box}
+.frost .frost{box-shadow:0 3px 0 var(--ink) !important}
+.ico{filter:none !important}
+.sw{box-shadow:0 0 0 3px var(--ink) !important}
+.sw-on{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink) !important}
+input[type="text"],input:not([type]),input[type="password"],input[type="tel"]{border:var(--b) !important;box-shadow:inset 0 3px 0 rgba(28,24,56,.08) !important;background:#FFFFFF !important}
+
+/* white text sits on colour: give it an ink outline so it stays readable */
+[style*="color: #FFFFFF"],[style*="color:#FFFFFF"],[style*="color: #fff;"]{-webkit-text-stroke:1.2px var(--ink);paint-order:stroke fill;text-shadow:2px 2px 0 var(--ink) !important}
+.p-coral{text-shadow:none}
+.p-coral > span,.p-coral{-webkit-text-stroke:0}
+
+/* gradient-clipped "glossy" display words become solid ink */
+[style*="background-clip: text"]{-webkit-text-fill-color:currentColor}
+
+/* motion: quick, tactile, no hover floating */
+.tile{transition:transform .14s cubic-bezier(.3,1.6,.6,1),box-shadow .14s !important}
+.tile:hover{transform:translateY(-4px) rotate(-.5deg) !important;box-shadow:0 8px 0 var(--ink) !important}
+.tile:active{transform:translateY(4px) !important;box-shadow:0 0 0 var(--ink) !important}
+.press{transition:transform .1s cubic-bezier(.3,1.6,.6,1),box-shadow .1s !important}
+.press:hover{transform:translateY(-2px) !important}
+.press:active{transform:translateY(3px) !important;box-shadow:0 1px 0 var(--ink) !important}
+.float,.float2{animation:none !important}
+
+/* focus ring */
+button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(--violet) !important;outline-offset:3px}
+
+/* ---------- hub (menu) ---------- */
+.sa-onv{color:var(--ink)}
+.sa-onv-sub{color:var(--ink);opacity:.65}
+.sa-violet h1{color:#FFFFFF;text-shadow:3px 3px 0 var(--ink)}
+.sa-violet h1 + * , .sa-violet .sa-sub-on{color:#FFFFFF}
+.sa-nolja{font-family:'Jua',sans-serif;font-weight:800;font-size:150px;line-height:1;color:var(--red);-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:8px 8px 0 var(--ink);transform:rotate(-4deg);letter-spacing:-3px;flex-shrink:0;margin-left:-6px}
+.sa-nolja-sm{font-size:118px;-webkit-text-stroke:4px var(--ink);text-shadow:6px 6px 0 var(--ink)}
+.sa-tag{height:38px;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;padding:0 13px;border:var(--b);border-radius:6px;background:var(--ink);color:#FFFFFF;font-weight:800;font-size:17px}
+.sa-tag[style*="background"]{color:var(--ink)}
+.sa-tag b{font-family:'Jua',sans-serif;font-size:19px}
+.sa-me{position:relative;width:330px;height:190px;flex-shrink:0;border:var(--b);border-radius:22px;background:var(--paper);box-shadow:0 6px 0 var(--ink);display:flex;align-items:center;gap:18px;padding:0 22px;box-sizing:border-box}
+.sa-me > div:first-child > span{background-color:var(--sky) !important}
+.sa-rank{position:absolute;right:-14px;top:-20px;width:80px;height:80px;border:var(--b);border-radius:50%;background:var(--lime);place-items:center;transform:rotate(10deg);box-shadow:0 4px 0 var(--ink);font-family:'Jua',sans-serif;font-size:28px}
+.sa-edit{position:absolute;right:-4px;bottom:-2px;z-index:3;width:40px;height:40px;border:var(--b);border-radius:50%;background:var(--sun);box-shadow:0 3px 0 var(--ink);display:grid;place-items:center;padding:0;cursor:pointer}
+.sa-games{flex:1;min-height:0;display:grid;gap:22px;padding-bottom:8px}
+.sa-card{position:relative;display:flex;flex-direction:column;border:var(--b);border-radius:22px;background:var(--paper);box-shadow:0 7px 0 var(--ink);overflow:hidden;text-decoration:none;color:var(--ink)}
+.sa-art{position:relative;flex:1;min-height:0;border-bottom:var(--b);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.sa-art-in{position:relative;width:240px;height:186px;flex-shrink:0}
+.sa-foot{height:92px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 16px 0 20px;box-sizing:border-box}
+.sa-gname{font-family:'Jua',sans-serif;font-weight:800;font-size:30px;line-height:1;white-space:nowrap}
+.sa-gsub{font-weight:650;font-size:15px;opacity:.6;margin-top:6px;white-space:nowrap}
+.sa-play{margin-left:auto;width:54px;height:54px;flex-shrink:0;border:var(--b);border-radius:50%;background:var(--red);display:grid;place-items:center;box-shadow:0 3px 0 var(--ink)}
+.sa-play svg{margin-left:3px}
+.sa-pips{position:absolute;right:12px;top:12px;gap:3px;background:var(--paper);border:var(--b);border-radius:10px;padding:4px 7px}
+.sa-t{position:absolute;display:grid;place-items:center;border:var(--b);border-radius:12px;box-shadow:0 5px 0 var(--ink);font-family:'Jua',sans-serif;font-weight:800;color:var(--ink);box-sizing:border-box}
+.sa-o{position:absolute;height:34px;border:var(--b);border-radius:9px;display:flex;align-items:center;gap:7px;padding:0 10px;font-family:'Archivo',sans-serif;font-weight:800;font-size:15px;white-space:nowrap;box-sizing:border-box}
+.sa-o i{font-style:normal;width:20px;height:20px;border-radius:5px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:'Jua',sans-serif;font-size:12px}
+.sa-ow{position:absolute;font-family:'Jua',sans-serif;font-weight:800;font-size:32px;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--ink);white-space:nowrap}
+/* class mode: 3 x 2 smaller cards */
+.sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:70px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:25px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gsub{font-size:13px;margin-top:4px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-play{width:46px;height:46px}
+.sa-games[style*="repeat(3"]:not(.one) .sa-art-in{transform:scale(.55)}
+
+/* welcome screen */
+.sa-welcome{background:var(--mist) !important}
+.sa-welcome h1{font-size:64px !important}
+
+/* ---------- games ---------- */
+.sa-prompt{position:relative;border:var(--b);border-radius:24px;box-shadow:0 7px 0 var(--ink);background:var(--violet) repeating-linear-gradient(-45deg,rgba(255,255,255,.09) 0 4px,transparent 4px 12px)}
+.sa-ask{font-family:'Jua',sans-serif;font-weight:800;font-size:20px;color:#FFFFFF}
+.sa-bigword{color:#FFFFFF;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink);letter-spacing:1px}
+.sa-key{width:58px;height:58px;flex-shrink:0;border-radius:12px;background:var(--ink);color:#FFFFFF;display:grid;place-items:center;font-family:'Jua',sans-serif;font-weight:800;font-size:28px;position:relative;z-index:1}
+.dim{opacity:1 !important;--c:#E9E7EF !important;color:rgba(22,19,31,.42) !important;box-shadow:0 2px 0 rgba(22,19,31,.35) !important;border-color:rgba(22,19,31,.35) !important}
+.dim .sa-key{background:rgba(22,19,31,.35)}
+.dim *{color:inherit !important}
+
+/* calmer decor on game pages: the menu keeps the full poster */
+.sa-root:not(.sa-hub) .sa-decor .d-dots,.sa-root:not(.sa-hub) .sa-decor .d-tri{display:none}
+.sa-root:not(.sa-hub) .sa-decor .d-star{left:auto;right:-60px;top:auto;bottom:-70px;width:220px;height:220px}
+
+/* ==========================================================================
+   v2 — no outlines on controls (client feedback):
+   colour blocks: flat fill + a darker base in their own colour (press-down affordance)
+   white surfaces: hairline + soft shadow on a slightly deeper paper background
+   white strips attached to colour cards: solid ink with white text
+   ink lines stay only on stickers (game art tiles), big outlined type, avatars, "selected"
+   ========================================================================== */
+:root{--mist:#ECE8DE; --paper-d:#D5CEBE; --hair:inset 0 0 0 1.5px rgba(22,19,31,.13); --soft:0 10px 22px -12px rgba(22,19,31,.32)}
+.p-white{--d:var(--paper-d)} .p-lav{--d:#8E78E8} .p-coral{--d:#B52A16} .p-mint{--d:#2F9A4C}
+.p-butter{--d:#D9B315} .p-blue{--d:#2A8DD6} .p-pink{--d:#C23A8C} .p-holo{--d:#2F9A4C}
+.puff{border:0 !important;box-shadow:0 5px 0 var(--d) !important}
+.puff.p-white{box-shadow:var(--hair),0 5px 0 var(--paper-d),var(--soft) !important}
+.puff .puff{box-shadow:none !important;border:0 !important}
+.puff .puff.p-white{box-shadow:var(--hair) !important}
+.frost,.frost-strong{border:0 !important;box-shadow:var(--hair),var(--soft) !important}
+.frost .frost{box-shadow:var(--hair) !important}
+input[type="text"],input:not([type]),input[type="password"],input[type="tel"]{border:0 !important;box-shadow:inset 0 0 0 2px rgba(22,19,31,.15),inset 0 3px 0 rgba(22,19,31,.05) !important}
+input:focus{box-shadow:inset 0 0 0 3px var(--violet) !important;outline:none !important}
+.tile:hover{box-shadow:0 9px 0 var(--d) !important}
+.tile:active{box-shadow:0 0 0 var(--d) !important}
+.press:active{box-shadow:0 0 0 var(--d) !important}
+.puff.p-white.press:active,.puff.p-white.tile:active{box-shadow:var(--hair) !important}
+/* selected / on states keep a ring so "chosen" is unmistakable */
+[aria-pressed="true"].puff{box-shadow:inset 0 0 0 3px var(--ink),0 5px 0 var(--d) !important}
+.puff.dim,.puff.p-white.dim,.dim{box-shadow:none !important;border:0 !important;--c:#E2DED4 !important}
+.sw{box-shadow:var(--hair) !important}
+.sw-on{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink) !important}
+/* white text on colour: lighter treatment now that blocks have no ink edge */
+[style*="color: #FFFFFF"],[style*="color:#FFFFFF"],[style*="color: #fff;"]{-webkit-text-stroke:0;text-shadow:0 2px 0 rgba(22,19,31,.35) !important}
+/* quiz + prompt panels */
+.sa-prompt{border:0;box-shadow:0 7px 0 var(--violet-d)}
+/* hub */
+.sa-card{border:0;box-shadow:0 8px 0 var(--d,#000);background:var(--ink)}
+.sa-card:hover{box-shadow:0 12px 0 var(--d,#000) !important}
+.sa-card:active{box-shadow:0 0 0 var(--d,#000) !important}
+.sa-art{border-bottom:0}
+.sa-foot{background:var(--ink);color:#FFFFFF}
+.sa-gsub{color:#FFFFFF;opacity:.62}
+.sa-play{border:0;box-shadow:0 4px 0 #B52A16}
+.sa-pips{border:0;background:var(--ink)}
+.sa-pipt{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#FFFFFF;white-space:nowrap;line-height:18px}
+.sa-me{border:0;box-shadow:var(--hair),0 6px 0 var(--paper-d),var(--soft)}
+.sa-rank{border:0;box-shadow:0 4px 0 #2F9A4C}
+.sa-edit{border:0;box-shadow:0 3px 0 #D9B315}
+.sa-tag{border:0}
+.sa-tag[style*="background"]{box-shadow:none}
+/* white things sitting on white panels (crossword squares, empty syllable slots, list rows) get a paper tint */
+.frost .puff.p-white{--c:#F2EFE7}
+.frost .puff.p-white[aria-pressed="true"]{--c:var(--paper)}
+/* empty syllable slots: dashed ink outline so kids can see where tiles go */
+.slot-empty{background:#F2EFE7 !important;box-shadow:inset 0 0 0 2.5px rgba(22,19,31,.35) !important;border:2.5px dashed rgba(22,19,31,.0) !important;outline:2.5px dashed rgba(22,19,31,.45);outline-offset:-6px}
+
+/*R2-PATCH*/
+/* P1-1 letterbox matches the paper */
+html,body{background:#ECE8DE !important}
+/* P1-2 retire old navy/lavender-grey text + icon strokes */
+[style*="color: #2B2C6B"],[style*="color:#2B2C6B"]{color:var(--ink) !important}
+[style*="color: #4A4C80"],[style*="color:#4A4C80"],[style*="color: #8486B5"]{color:rgba(22,19,31,.62) !important}
+svg[stroke="#2B2C6B"]{stroke:var(--ink)} svg[fill="#2B2C6B"]{fill:var(--ink)}
+/* P1-2b remaining legacy tints */
+[style*="color: #6A4A00"],[style*="color: #5B5DA8"],[style*="color: #3A3B78"],[style*="color: #2E4F45"],[style*="color: #5A4A12"],[style*="color: #5A5C8E"],[style*="color: #3A3C78"],[style*="color: #3A2E7A"],[style*="color: #1F4A3A"],[style*="color: #7E68E0"]{color:rgba(22,19,31,.72) !important}
+[style*="color: #B23A2E"],[style*="color: #E2685A"]{color:var(--red) !important}
+[style*="color: #2E7A57"]{color:#1F7A3D !important}
+a,a:hover{color:var(--ink) !important}
+input::placeholder{color:rgba(22,19,31,.42) !important}
+/* P1-3 icon "coins" inside controls: drop the nested circle, keep the bare icon */
+.frost > .puff[aria-hidden="true"][style*="border-radius: 50%"],
+.puff > .puff[aria-hidden="true"][style*="border-radius: 50%"]{background:transparent !important;box-shadow:none !important;width:28px !important}
+/* P1-4 pastel lavender -> saturated mid-violet (ink text 6.2:1) */
+:root{--violet-l:#9C84FF}
+.p-lav{--c:#9C84FF;--d:#7556F0}
+/* P1-5 selected = solid violet + white text (one meaning, everywhere) */
+[aria-pressed="true"].puff{--c:var(--violet) !important;--d:var(--violet-d) !important;color:#fff !important;box-shadow:0 5px 0 var(--violet-d) !important}
+[aria-pressed="true"].puff [style*="color"],[aria-pressed="true"].puff span,[aria-pressed="true"].puff div{color:#fff !important}
+[aria-pressed="true"].puff .puff,[aria-pressed="true"].puff .puff *{color:var(--ink) !important}
+[aria-pressed="true"].puff > svg,[aria-pressed="true"].puff > svg *{stroke:#fff !important}
+/* P1-6 overlay scrim: neutral ink, not navy-lavender */
+[style*="background: rgba(43,44,107"]{background:rgba(22,19,31,.55) !important}
+/* P1-7 text on red is white; text on sky/green is ink */
+.p-coral,.p-coral [style*="color"]{color:#fff !important}
+.p-blue [style*="color: #FFFFFF"],.p-mint [style*="color: #FFFFFF"],.p-blue[style*="color: #FFFFFF"],.p-mint[style*="color: #FFFFFF"]{color:var(--ink) !important;text-shadow:none !important}
+/* P1-8 no sticky hover on touch */
+@media (hover:none){.tile:hover,.press:hover,.sa-card:hover{transform:none !important}.tile:hover{box-shadow:0 5px 0 var(--d) !important}}
+/* P1-9 decor type: quieter, menu only */
+.sa-decor .d-type{-webkit-text-stroke-color:rgba(22,19,31,.07)}
+.sa-root:not(.sa-hub) .sa-decor .d-type{display:none}
+/* P1-10 result title: poster type, not gold gloss */
+span[style*="background-clip: text"][style*="#FFF8D9"]{display:none !important}
+span[style*="color: #F1CD62"]{color:var(--red) !important;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:7px 7px 0 var(--ink) !important}
+/*/R2-PATCH*/
+/*PHONE*/
+/* ==========================================================================
+   Phones (html.dc-phone — set by dc-runtime.js when the short side < 500px).
+   The 1280x720 stage renders at ~0.54x there, so this block
+   1) lets every page fill the widened stage (runtime matches it to the screen's aspect),
+   2) raises small type to >= ~19.5 design px (~10.5px on screen), keeping the order of sizes,
+   3) grows tap targets, and re-balances the few layouts that would otherwise overflow.
+   Nothing here applies on tablets / desktop.
+   ========================================================================== */
+
+/* ---- 1. fill the stage; trim vertical padding a little to give the game more room ---- */
+.dc-phone .sa-root{width:100% !important;padding-top:22px !important;padding-bottom:26px !important}
+
+/* ---- 2. type ramp (inline sizes from the page sources) ---- */
+.dc-phone [style*="font-size: 11px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 12px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 12.5px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 13px"]{font-size:19.5px !important}
+.dc-phone [style*="font-size: 14px"]{font-size:20px !important}
+.dc-phone [style*="font-size: 15px"]{font-size:20.5px !important}
+.dc-phone [style*="font-size: 16px"]{font-size:21px !important}
+.dc-phone [style*="font-size: 17px"]{font-size:21.5px !important}
+.dc-phone [style*="font-size: 18px"]{font-size:22px !important}
+.dc-phone [style*="font-size: 19px"]{font-size:22.5px !important}
+.dc-phone [style*="font-size: 20px"]{font-size:23px !important}
+.dc-phone [style*="font-size: 21px"]{font-size:24px !important}
+.dc-phone [style*="font-size: 22px"]{font-size:24.5px !important}
+/* theme classes */
+.dc-phone .sa-gsub{font-size:20px !important}
+.dc-phone .sa-pipt{font-size:19.5px;line-height:24px}
+.dc-phone .sa-pips{padding:4px 10px}
+.dc-phone .sa-tag{font-size:20px;height:44px}
+.dc-phone .sa-tag b{font-size:22px}
+.dc-phone .many .plist > div > span:nth-child(2){font-size:20px !important}
+
+/* ---- 3. tap targets: small pills grow to >= 50 design px (~27px on screen); small circles to 48-54 ---- */
+.dc-phone button[style^="height: 38px"],.dc-phone button[style*="; height: 38px"],.dc-phone a[style^="height: 38px"],.dc-phone a[style*="; height: 38px"]{height:50px !important}
+.dc-phone button[style^="height: 40px"],.dc-phone button[style*="; height: 40px"],.dc-phone a[style^="height: 40px"],.dc-phone a[style*="; height: 40px"]{height:52px !important}
+.dc-phone button[style^="height: 42px"],.dc-phone button[style*="; height: 42px"],.dc-phone a[style^="height: 42px"],.dc-phone a[style*="; height: 42px"]{height:54px !important}
+.dc-phone button[style^="height: 44px"],.dc-phone button[style*="; height: 44px"],.dc-phone a[style^="height: 44px"],.dc-phone a[style*="; height: 44px"]{height:54px !important}
+.dc-phone button[style^="height: 46px"],.dc-phone button[style*="; height: 46px"],.dc-phone a[style^="height: 46px"],.dc-phone a[style*="; height: 46px"]{height:56px !important}
+.dc-phone button[style*="width: 32px; height: 32px"]{width:48px !important;height:48px !important;min-width:48px}
+.dc-phone button[style*="width: 40px; height: 40px"]{width:54px !important;height:54px !important;min-width:54px}
+.dc-phone button[style*="width: 42px; height: 42px"]{width:54px !important;height:54px !important;min-width:54px}
+.dc-phone .sa-edit{width:54px;height:54px;right:-10px;bottom:-8px}
+.dc-phone .sw{width:60px !important;height:60px !important}
+.dc-phone .range{height:48px}
+
+/* ---- hub ---- */
+.dc-phone .sa-me{width:400px}
+.dc-phone .sa-foot{height:96px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:80px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-gsub{font-size:19.5px !important}
+
+/* settings overlay: use the extra width so the four sound cards fit without clipping */
+.dc-phone .frost-strong.pop[style*="width: 1120px; height: 640px"]{width:calc(100% - 100px) !important;max-width:1460px;height:calc(100% - 40px) !important}
+
+/* ---- on-screen Korean keyboard (crossword + chosung): wider, taller keys ---- */
+.dc-phone .frost-strong.pop[style*="width: 1000px"]{width:calc(100% - 120px) !important;max-width:1400px;padding:14px 28px 18px !important;gap:10px !important}
+.dc-phone button[style*="width: 68px; height: 56px"]{width:98px !important;height:68px !important;font-size:30px !important}
+.dc-phone button[style*="width: 96px; height: 56px"]{width:136px !important;height:68px !important}
+.dc-phone button[style*="width: 360px; height: 56px"]{width:520px !important;height:64px !important}
+.dc-phone button[style*="width: 250px; height: 56px"]{width:330px !important;height:64px !important}
+
+/* ---- memory: cards become wide tickets so the bigger words fit ---- */
+.dc-phone [style*="perspective: 1100px"]{width:100%;max-width:980px;grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+.dc-phone [style*="perspective: 1100px"]:has(> .card-btn:nth-child(17)){grid-template-columns:repeat(5,minmax(0,1fr)) !important;max-width:1060px}
+.dc-phone [style*="perspective: 1100px"]:has(> .card-btn:nth-child(21)){grid-template-columns:repeat(6,minmax(0,1fr)) !important;max-width:1100px}
+.dc-phone .card-btn{width:100% !important}
+.dc-phone .card-btn [style*="overflow-wrap: break-word"]{padding:0 14px !important;line-height:1.08 !important}
+/* ---- word pool ---- */
+.dc-phone section.frost[style*="width: 440px"]{width:500px !important}
+
+/* ---- teacher ---- */
+.dc-phone button[style*="width: 44px; height: 40px"]{width:56px !important;height:52px !important}
+.dc-phone .rowin:not(#t-pin){height:50px !important}
+
+/* ---- crossword: wider clue list + answer panel, aside takes what is left ---- */
+.dc-phone div[style*="width: 500px; flex-shrink: 0; display: flex; flex-direction: column; gap: 24px"]{width:560px !important}
+.dc-phone .frost[style*="width: 290px; flex-shrink: 0"]{width:450px !important}
+.dc-phone .frost[style*="width: 290px; flex-shrink: 0"] > button[style*="height: 50px"]{height:58px !important}
+.dc-phone .sa-root:has(#cw-answer) div[style*="font-size: 22px; white-space: nowrap"]{white-space:normal !important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.08}
+.dc-phone .sa-root:has(#cw-answer) .frost[style*="grid-auto-rows"]{padding:12px !important}
+.dc-phone .cell > span[style*="position: absolute"]{font-size:15px !important;top:1px !important}
+/*/PHONE*/
+
+/*MOTION*/
+/* punchier red (title, play buttons, red cards) */
+:root{--red:#FF2B2B}
+.sa-nolja{color:#FF2B2B}
+/* background: wobbly blobs + parallax (theme decor layers) */
+:root{--px:0;--py:0}
+.sa-decor .d-blob{animation:sa-wob 9s ease-in-out infinite;translate:calc(var(--px) * -26px) calc(var(--py) * -18px)}
+.sa-decor .d-dots{animation:sa-bob 7s ease-in-out infinite;translate:calc(var(--px) * 18px) calc(var(--py) * 14px)}
+.sa-decor .d-star{animation:sa-spin 14s ease-in-out infinite;translate:calc(var(--px) * -12px) calc(var(--py) * -10px)}
+.sa-decor .d-tri{animation:sa-bob 6s ease-in-out infinite reverse;translate:calc(var(--px) * 30px) calc(var(--py) * 22px)}
+.sa-decor .d-type{animation:sa-drift 18s ease-in-out infinite;translate:calc(var(--px) * 8px) calc(var(--py) * 6px)}
+@keyframes sa-wob{
+  0%,100%{border-radius:58% 42% 55% 45%/48% 60% 40% 52%;scale:1;rotate:0deg}
+  33%{border-radius:44% 56% 40% 60%/58% 42% 58% 42%;scale:1.05;rotate:4deg}
+  66%{border-radius:62% 38% 48% 52%/40% 55% 45% 60%;scale:.97;rotate:-3deg}}
+@keyframes sa-bob{0%,100%{scale:1;rotate:0deg}50%{scale:1.04;rotate:-3deg}}
+@keyframes sa-spin{0%,100%{rotate:0deg;scale:1}50%{rotate:14deg;scale:1.06}}
+@keyframes sa-drift{0%,100%{rotate:0deg}50%{rotate:-1.5deg;scale:1.02}}
+.dc-still .sa-decor i,.still .sa-decor i{animation:none !important;translate:none !important}
+@media (prefers-reduced-motion: reduce){.sa-decor i{animation:none !important;translate:none !important}}
+/*/MOTION*/
+
+/*CARDS*/
+/* game cards: one colour block, no ink band; name in a deep tone of the card colour */
+.sa-card{--t:var(--ink)}
+.sa-card[style*="#8E78E8"]{--t:#2B1784;background:var(--violet-l)}
+.sa-card[style*="#D9B315"]{--t:#6B4A00;background:var(--sun)}
+.sa-card[style*="#2F9A4C"]{--t:#0F5223;background:var(--lime)}
+.sa-card[style*="#C23A8C"]{--t:#6E0E47;background:var(--gum)}
+.sa-card[style*="#2A8DD6"]{--t:#0A3F73;background:var(--sky)}
+.sa-card[style*="#B52A16"]{--t:#6A0505;background:var(--red)}
+.sa-foot{background:transparent !important;color:var(--t) !important}
+.sa-gname{color:var(--t);font-size:32px;letter-spacing:-.5px}
+.sa-gsub{color:var(--t) !important;opacity:.78 !important;font-weight:800}
+.sa-play{background:var(--t) !important;box-shadow:0 4px 0 rgba(22,19,31,.28) !important}
+.sa-play path{stroke:transparent}
+.sa-games[style*="repeat(3"]:not(.one) .sa-gname{font-size:27px}
+/*/CARDS*/
+
+/*SIGN*/
+/* school sign, top left on every page */
+.sa-sign{display:inline-flex;align-items:center;flex-shrink:0;background:var(--red);color:#FFFFFF;font-family:'Jua',sans-serif;font-weight:800;font-size:26px;line-height:1;padding:9px 16px 10px;border-radius:12px;box-shadow:0 4px 0 #A80F0F;transform:rotate(-2.5deg);letter-spacing:-.3px;white-space:nowrap}
+.sa-sign.lg{font-size:40px;padding:12px 24px 14px;border-radius:16px;box-shadow:0 6px 0 #A80F0F}
+.sa-sign.sm{font-size:16px;padding:5px 9px 6px;border-radius:8px;box-shadow:0 3px 0 #A80F0F;transform:rotate(-2deg)}
+.sa-menu{font-family:'Jua',sans-serif;font-size:17px;white-space:nowrap}
+.dc-phone .sa-sign.sm{font-size:21px !important}
+.dc-phone .sa-menu{font-size:22px}
+/*/SIGN*/
+
+/*LAYOUT*/
+/* 2026-10 density pass (design review): calmer setup dialog, consistent gaps, readable edges */
+/* Korean never breaks inside a word (잘할수록 많 / 이!) */
+.sa-root{word-break:keep-all;overflow-wrap:anywhere}
+
+/* ---- setup dialog "게임 준비" (all six games) ---- */
+[role=dialog][aria-label^="게임 준비"] > .frost{flex-direction:row !important;flex-wrap:wrap;align-items:center;gap:10px 14px !important}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:first-child{display:contents !important}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:first-child > div{flex:0 0 auto !important;order:1}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:nth-child(2){order:2;flex:1 1 auto}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:first-child > a{order:3;margin-left:auto}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:last-child{order:4;flex-basis:100%}
+[role=dialog][aria-label^="게임 준비"] > .frost > div:last-child:empty{display:none}
+/* a row with only one choice is information, not a button */
+[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type{flex:0 0 auto !important;padding:0 26px !important;background:#FFFFFF !important;box-shadow:0 0 0 1px rgba(22,19,31,.10),0 4px 14px rgba(22,19,31,.08) !important;pointer-events:none;color:var(--ink) !important}
+[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type::before,[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type::after{display:none !important}
+[role=dialog][aria-label^="게임 준비"] button[aria-pressed]:only-of-type span{color:var(--ink) !important;text-shadow:none !important}
+/* phone: use the wider stage, tighter rhythm, secondary line stays secondary */
+.dc-phone [role=dialog][aria-label^="게임 준비"]{width:min(1040px,calc(100% - 120px)) !important;padding:20px 30px 22px !important;gap:12px !important;max-height:calc(100% - 24px);overflow:auto}
+.dc-phone [role=dialog][aria-label^="게임 준비"] > div > div[style*="width: 178px"]{width:200px !important}
+.dc-phone [role=dialog][aria-label^="게임 준비"] button[aria-pressed]{height:68px !important;white-space:nowrap}
+.dc-phone [role=dialog][aria-label^="게임 준비"] button[aria-pressed] > span:last-child{font-size:16px !important;opacity:.75;line-height:1.15}
+.dc-phone [role=dialog][aria-label^="게임 준비"] > div:last-child > div:first-child{font-size:17px !important;line-height:1.3 !important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* ---- hub ---- */
+/* shuffle blob: room around its label */
+button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !important}
+.dc-phone button[aria-label^="순서 섞기"]{width:132px !important;padding:8px 14px !important}
+/* student card a little narrower so the three tags stay on one line on laptops/tablets */
+.sa-me{width:296px;gap:16px;padding:0 20px}
+.sa-tag{padding:0 11px}
+/* phone class mode: breathing room between the who-is-here band and the six cards; art clear of the card top */
+.dc-phone .sa-games[style*="repeat(3"]:not(.one){margin-top:12px;gap:20px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-foot{height:72px}
+.dc-phone .sa-games[style*="repeat(3"]:not(.one) .sa-art-in{transform:scale(.48) translateY(10px)}
+/* ---- lists that scroll: fade at the bottom edge instead of a hard cut, last row clears the edge ---- */
+.frost[style*="width: 290px; flex-shrink: 0"]{-webkit-mask-image:linear-gradient(#000 calc(100% - 30px),transparent);mask-image:linear-gradient(#000 calc(100% - 30px),transparent);padding-bottom:30px !important}
+/* ---- snakes & ladders: the player whose turn it is gets a violet ring on the board ---- */
+.piece.on > span:first-child{box-shadow:0 0 0 2.5px #FFFFFF,0 0 0 6px var(--violet) !important}
+.frost.scroll,.sa-root:has(input[placeholder^="새 학생"]) .scroll[style*="flex-direction: column"]{-webkit-mask-image:linear-gradient(#000 calc(100% - 30px),transparent);mask-image:linear-gradient(#000 calc(100% - 30px),transparent);padding-bottom:30px !important}
+
+/* ---- teacher: the 16 lessons as one even 8 x 2 grid ---- */
+.sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"]{display:grid !important;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px !important}
+.sa-root:has(input[placeholder^="새 학생"]) aside > .frost > div[style*="flex-wrap: wrap; gap: 6px"] > button{width:auto !important;min-width:0 !important}
+/* ---- hub with 8 class games (4 x 2) and 5 student games (5 x 1) ---- */
+.sa-card[style*="#16131F"]{--t:var(--sun);background:var(--ink)}
+.sa-card[style*="#16131F"] .sa-play path{fill:var(--ink)}
+.sa-card[style*="#6A47F2"]{--t:#1B0A5E;background:var(--violet)}
+.sa-card[style*="#6A47F2"] .sa-gname{color:#FFFFFF}
+.sa-card[style*="#6A47F2"] .sa-gsub{color:#FFFFFF !important;opacity:.85 !important}
+.sa-card[style*="#E97A12"]{--t:#5E2600;background:#FF9F43}
+/* 7과 special class games */
+.sa-card[style*="#0B6B5A"]{--t:#053D33;background:#22C3A6}
+.sa-card[style*="#3B3651"]{--t:var(--ink);background:#FFFFFF}
+/* teacher hub with the 7과 games: 6 x 2 */
+.sa-games[style*="repeat(6"]{gap:14px}
+.sa-games[style*="repeat(6"] .sa-foot{height:60px;padding:0 10px 0 14px}
+.sa-games[style*="repeat(6"] .sa-gname{font-size:20px}
+.sa-games[style*="repeat(6"] .sa-gsub{font-size:12px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-games[style*="repeat(6"] .sa-play{width:38px;height:38px}
+.sa-games[style*="repeat(6"] .sa-art-in{transform:scale(.6) translateY(4px)}
+.sa-games[style*="repeat(6"] .sa-pips{right:8px;top:8px}
+.dc-phone .sa-games[style*="repeat(6"]{margin-top:12px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-foot{height:70px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-gname{font-size:23px}
+.dc-phone .sa-games[style*="repeat(6"] .sa-gsub{font-size:16px !important}
+.dc-phone .sa-games[style*="repeat(6"] .sa-art-in{transform:scale(.6) translateY(8px)}
+/* teacher hub: giant 7과 card spanning both rows */
+.sa-games .sa-big7 .sa-art-in{transform:scale(.82) translateY(4px) !important}
+.sa-games .sa-big7 .sa-gname{font-size:34px !important}
+.sa-games .sa-big7 .sa-foot{height:76px !important}
+.dc-phone .sa-games .sa-big7 .sa-art-in{transform:scale(.78) translateY(6px) !important}
+/* student hub with 6 homework games: 3 x 2 */
+.sa-games.one[style*="repeat(3"]{gap:18px}
+.sa-games.one[style*="repeat(3"] .sa-foot{height:72px}
+.sa-games.one[style*="repeat(3"] .sa-art-in{transform:scale(.5) translateY(2px)}
+.dc-phone .sa-games.one[style*="repeat(3"] .sa-foot{height:76px}
+.dc-phone .sa-games.one[style*="repeat(3"] .sa-art-in{transform:scale(.58) translateY(8px)}
+.sa-games[style*="repeat(4"] .sa-foot,.sa-games[style*="repeat(5"] .sa-foot{height:66px;padding:0 12px 0 16px}
+.sa-games[style*="repeat(4"] .sa-gname{font-size:24px}
+.sa-games[style*="repeat(5"] .sa-gname{font-size:23px}
+.sa-games[style*="repeat(4"] .sa-gsub,.sa-games[style*="repeat(5"] .sa-gsub{font-size:12.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-games[style*="repeat(4"] .sa-play,.sa-games[style*="repeat(5"] .sa-play{width:42px;height:42px}
+.sa-games[style*="repeat(4"]{gap:18px}
+.sa-games[style*="repeat(5"]{gap:16px}
+.sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.46) translateY(8px)}
+.sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.74)}
+.sa-games[style*="repeat(5"] .sa-pips{right:8px;top:8px}
+.dc-phone .sa-games[style*="repeat(4"]{margin-top:12px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-foot,.dc-phone .sa-games[style*="repeat(5"] .sa-foot{height:74px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-gname,.dc-phone .sa-games[style*="repeat(5"] .sa-gname{font-size:26px}
+.dc-phone .sa-games[style*="repeat(4"] .sa-gsub,.dc-phone .sa-games[style*="repeat(5"] .sa-gsub{font-size:18px !important}
+.dc-phone .sa-games[style*="repeat(4"] .sa-art-in{transform:scale(.44) translateY(14px)}
+.dc-phone .sa-games[style*="repeat(5"] .sa-art-in{transform:scale(.8)}
+/* 서보 hub: all 9 games, 5 x 2 small cards */
+.sa-games[style*="repeat(5"]:not(.one){gap:14px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(8px)}
+.sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:58px}
+.sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:21px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-art-in{transform:scale(.4) translateY(10px)}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-foot{height:66px}
+.dc-phone .sa-games[style*="repeat(5"]:not(.one) .sa-gname{font-size:24px}
+/*/LAYOUT*/
+
+/*PORTRAIT*/
+/* ==========================================================================
+   Upright phones (html.dc-portrait, set by dc-runtime.js on pages that allow it).
+   The stage is 720 design px wide and as tall as the screen; rows become columns.
+   ========================================================================== */
+.dc-portrait .sa-root{width:100% !important;height:100% !important;padding:26px 26px 30px !important;gap:20px !important;overflow-x:hidden !important;overflow-y:auto !important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+/* header: back/title on the first line, the pills wrap below */
+.dc-portrait .sa-root > header{height:auto !important;flex-wrap:wrap;row-gap:12px;column-gap:12px !important}
+.dc-portrait .sa-root > header > div[style*="flex: 1"]{flex:1 1 300px !important}
+.dc-portrait .sa-root > header span[style*="font-size: 14px; font-weight: 800; color: #2E4F45"]{display:none}
+/* game pages: main row becomes a column; progress strip on top */
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"]{flex-direction:column !important;gap:16px !important;flex:1 0 auto !important}
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"] > aside{width:100% !important;order:-1;gap:12px !important}
+.dc-portrait aside:has(.plist > :only-child) > .puff.p-blue,.dc-portrait aside:has(.plist > :only-child) > .plist{display:none !important}
+.dc-portrait aside > .frost:last-child{padding:10px 14px !important}
+/* game setup dialog */
+.dc-portrait [role=dialog][aria-label^="게임 준비"]{width:calc(100% - 32px) !important;padding:20px 20px 22px !important;border-radius:36px !important}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div[style*="gap: 16px"]{flex-direction:column;align-items:stretch !important;gap:8px !important}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div[style*="gap: 16px"] > div[style*="width: 178px"]{width:auto !important;display:flex;align-items:baseline;gap:10px}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div:last-child{flex-wrap:wrap}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div:last-child > div:first-child{flex-basis:100%}
+.dc-portrait [role=dialog][aria-label^="게임 준비"] > div:last-child > button{flex:1}
+
+/* ---- hub ---- */
+.dc-portrait .sa-root > header[style*="justify-content: space-between"]{flex-direction:column;align-items:flex-start !important}
+.dc-portrait .sa-root > header[style*="justify-content: space-between"] > div:last-child{flex-wrap:wrap;gap:10px !important}
+.dc-portrait .sa-root > header[style*="justify-content: space-between"] > div:last-child span[style*="font-size: 14px"]{display:none}
+.dc-portrait .sa-root > div[style*="height: 214px"]{height:auto !important;flex-wrap:wrap;gap:16px 18px !important}
+.dc-portrait .sa-root > div[style*="height: 214px"] > .sa-nolja{order:1;transform:scale(.72);transform-origin:left center;margin-right:-80px}
+.dc-portrait .sa-root > div[style*="height: 214px"] > .sa-me{order:2;flex:1 1 0;width:auto !important;min-width:0}
+.dc-portrait .sa-root > div[style*="height: 214px"] > div[style*="flex: 1"]{order:3;flex:1 1 100% !important}
+.dc-portrait .sa-games{flex:0 0 auto !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-auto-rows:300px;gap:18px !important;padding-bottom:20px}
+.dc-portrait .sa-games:not(.one){grid-auto-rows:230px}
+.dc-portrait .sa-games > .sa-card:last-child:nth-child(odd){grid-column:span 2}
+.dc-portrait .sa-games .sa-foot{height:78px !important}
+.dc-portrait .sa-games .sa-gname{font-size:28px !important}
+.dc-portrait .sa-games .sa-gsub{font-size:17px !important}
+.dc-portrait .sa-games .sa-play{width:52px !important;height:52px !important}
+.dc-portrait .sa-games .sa-art-in{transform:scale(.82) !important}
+.dc-portrait .sa-games:not(.one) .sa-art-in{transform:scale(.6) !important}
+/* welcome screen: the two big buttons stack */
+.dc-portrait .sa-welcome div[style*="display: flex; gap: 76px"]{flex-direction:column;gap:24px !important}
+.dc-portrait .sa-welcome div[style*="display: flex; gap: 76px"] > .tile{width:560px !important;height:230px !important}
+
+/* ---- 단어 퀴즈: answers one per row ---- */
+.dc-portrait .sa-root:has(.sa-prompt) section{flex:0 0 auto !important}
+.dc-portrait .sa-root:has(.sa-prompt) section > div[style*="grid-template-columns: repeat(2"]{flex:0 0 auto !important;grid-template-columns:1fr !important;grid-auto-rows:150px !important;gap:16px !important}
+.dc-portrait .sa-prompt{height:250px !important}
+
+/* ---- 산성비: tall sky, keyboard at the bottom ---- */
+.dc-portrait .sa-root:has(#rain-in) > div[style*="flex: 1; min-height: 0; display: flex; flex-direction: column"]{flex:1 1 auto !important}
+.dc-portrait .sa-root:has(#rain-in) > header > div[aria-label^="우산"]{order:5}
+.dc-portrait .rain-entry input{width:330px !important}
+.dc-portrait .rain-entry button{white-space:nowrap}
+.dc-portrait .rkb-row button{height:84px !important;font-size:34px !important;flex-basis:62px !important}
+.dc-portrait .rkb-row button.wide{flex-basis:96px !important}
+/* columns: every block takes the full width and its natural height (the page scrolls) */
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"] > *:not(aside){width:100% !important;flex:0 0 auto !important;min-height:0}
+.dc-portrait .sa-root > div[style*="flex: 1; min-height: 0; display: flex; gap"] .frost[style*="flex: 1; min-height: 0"]{flex:0 0 auto !important}
+.dc-portrait .sa-root:has(#cw-answer) .frost[style*="grid-auto-rows"]{padding:18px !important}
+.dc-portrait .sa-root:has(.ws-grid) section.frost{height:700px !important}
+.dc-portrait .ws-list{width:100% !important}
+.dc-portrait .sa-root:has(#cs-answer) section .frost{padding:22px 20px !important}
+/* hub overlays (avatar studio, settings, players): full screen, stacked, scrolling */
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"],.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"]{width:calc(100% - 24px) !important;max-width:none !important;height:calc(100% - 24px) !important;flex-direction:column !important;gap:16px !important;padding:22px 20px !important;overflow-y:auto;border-radius:36px !important}
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"] > section{width:100% !important;flex:0 0 auto !important}
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"] > section:first-child > .puff[style*="width: 290px"]{width:220px !important;height:220px !important}
+.dc-portrait .frost-strong.pop[style*="width: 1220px; height: 668px"] > section:first-child > .puff[style*="width: 290px"] svg{width:192px;height:192px}
+.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"] > div[style*="flex: 1; min-height: 0; display: flex"]{flex-direction:column !important;flex:0 0 auto !important}
+.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"] section{width:100% !important;flex:0 0 auto !important}
+.dc-portrait .frost-strong.pop[style*="width: 1120px; height: 640px"] section > div[style*="grid-template-rows"]{grid-template-columns:1fr !important;grid-template-rows:none !important}
+/*/PORTRAIT*/
+.dc-portrait span[style*="font-size: 11px; font-weight: 900; color: #4A4C80; margin-top: 2px"]{display:none!important}
+.dc-portrait .frost-strong.pop[style*="width: 900px; max-height: 600px"]{width:calc(100% - 24px)!important;max-height:calc(100% - 40px)!important;overflow-y:auto}
+
+/*/SA-THEME*/
+</style>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#ECE8DE}</style>
+<style>
+/* ---- 9과 shared: typing panel + 두벌식 keyboard ---- */
+.g9-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:14px}
+.g9-top{flex:1;min-height:0;display:flex;gap:28px}
+.g9-main{width:790px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;min-height:0}
+.g9-side{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;min-height:0}
+.g9-scene{position:relative;height:196px;flex-shrink:0;border-radius:26px;overflow:hidden}
+.tp{height:128px;flex-shrink:0;display:flex;gap:14px}
+.tp-prompt.sa-prompt{width:360px;flex-shrink:0;height:128px !important;box-sizing:border-box;padding:8px 18px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center}
+.tp-de{font-family:'Jua',sans-serif;color:#FFFFFF;line-height:1.05;max-width:100%;overflow-wrap:break-word;hyphens:auto;-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;text-shadow:4px 4px 0 var(--ink)}
+.tp-cho{font-family:'Jua',sans-serif;font-size:22px;letter-spacing:4px;color:#16131F;background:#FFDD3C;border-radius:999px;padding:2px 14px;margin-top:2px}
+.tp-cho.word{font-size:30px;letter-spacing:1px;padding:2px 18px;background:#FFFFFF}
+.tp-bar{width:80%;height:9px;margin-top:5px;flex-shrink:0;border-radius:999px;background:rgba(255,255,255,.35);overflow:hidden}
+.tp-fill{height:100%;border-radius:999px;background:#FFDD3C;transform-origin:left center}
+.tp-typed{flex:1;min-width:0;border-radius:26px;padding:10px 20px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.tp-lbl{font-size:14px;font-weight:900;color:#4A4C80}
+.tp-txt{font-family:'Jua',sans-serif;line-height:1.1;color:#16131F;white-space:nowrap;overflow:hidden;min-height:58px;display:flex;align-items:center}
+.tp-ph{color:rgba(43,44,107,.28)}
+.tp-caret{display:inline-block;width:4px;height:.9em;margin-left:4px;border-radius:2px;background:#6A47F2;animation:tpblink 1s steps(1) infinite;vertical-align:middle}
+.tp-bad .tp-txt{color:#FF2B2B}
+.tp-bad .tp-lbl{color:#FF2B2B}
+.tp-bad{box-shadow:inset 0 0 0 3px #FF2B2B !important}
+@keyframes tpblink{50%{opacity:0}}
+.kb{height:196px;flex-shrink:0;box-sizing:border-box;border-radius:26px;padding:8px 10px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.kb-row{display:flex;justify-content:center;gap:6px;height:40px}
+.kb-k{position:relative;height:40px;flex-shrink:0;border:none;border-radius:11px;padding:0;background:#FFFFFF;box-shadow:0 3px 0 rgba(43,44,107,.22);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:#2B2C6B;font-family:inherit;transition:transform .08s ease,background .12s ease}
+.kb-k.kb-v{background:#FFF4CC}
+.kb-m{font-family:'Jua',sans-serif;font-size:25px;line-height:1}
+.kb-s{font-size:12px;font-weight:900;color:#7A7CA8;line-height:1}
+.kb-c .kb-s,.kb-v .kb-s{position:absolute;right:7px;top:4px;font-family:'Jua',sans-serif;font-size:13px}
+.kb-fn{background:#E9E4F7}
+.kb-fn .kb-m{font-size:20px}
+.kb-on{background:#BBA8F6 !important}
+.kb-hi{background:#FFDD3C !important;box-shadow:0 0 0 4px #16131F,0 3px 0 #16131F;z-index:2;animation:kbpulse .9s ease-in-out infinite}
+.kb-hi .kb-s{color:#16131F}
+.kb-bad{background:#FF2B2B !important;color:#FFFFFF;box-shadow:0 0 0 4px #16131F;z-index:2;animation:kbpulse .9s ease-in-out infinite}
+.kb-bad .kb-s{color:#FFFFFF}
+.kb-down{transform:translateY(3px);box-shadow:none}
+@keyframes kbpulse{0%,100%{scale:1}50%{scale:1.07}}
+.g9-banner{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;border-radius:999px;padding:10px 32px;font-family:'Jua',sans-serif;font-size:48px;line-height:1;white-space:nowrap;color:#16131F;box-shadow:0 6px 0 #16131F;background:#FFDD3C}
+.g9-banner.bad{background:#FFFFFF}.g9-banner.big{background:#F05AB4;color:#FFFFFF}
+.g9-banner small{display:block;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;text-align:center;margin-top:4px}
+.g9-card{border-radius:28px;padding:10px 14px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.g9-av{position:relative;z-index:1;flex-shrink:0;border-radius:50%;overflow:hidden;display:block;box-shadow:0 0 0 2.5px #FFFFFF}
+.g9-list{border-radius:22px;padding:8px 12px;display:flex;flex-direction:column;gap:3px;min-height:0;overflow:hidden}
+.g9-li{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;line-height:1.25;border-radius:999px;padding:1px 8px}
+.g9-li.on{background:#16131F;color:#FFFFFF}
+.g9-li .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Jua',sans-serif;font-weight:400;font-size:17px}
+.g9-li .v{white-space:nowrap;font-variant-numeric:tabular-nums}
+.g9-msg{border-radius:20px;padding:8px 12px;font-size:14px;font-weight:800;line-height:1.35;box-sizing:border-box}
+.g9-btns{display:flex;gap:8px;flex-shrink:0}
+.g9-btn{flex:1;height:50px;border:none;border-radius:999px;padding:0 10px;cursor:pointer;color:#2B2C6B;font-family:inherit;line-height:1.05}
+.g9-btn b{position:relative;z-index:1;display:block;font-family:'Jua',sans-serif;font-weight:400;font-size:18px}
+.g9-btn small{position:relative;z-index:1;display:block;font-size:11px;font-weight:800;color:#4A4C80}
+.g9-go{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:5;border-radius:999px;padding:10px 26px;font-family:'Jua',sans-serif;font-size:24px;line-height:1.1;text-align:center;white-space:nowrap;color:#FFFFFF;background:#16131F;box-shadow:0 5px 0 rgba(22,19,31,.35);animation:gopulse 1.4s ease-in-out infinite}
+.g9-go small{display:block;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;opacity:.8}
+@keyframes gopulse{0%,100%{scale:1}50%{scale:1.05}}
+.g9-rank{display:flex;flex-direction:column;gap:6px;width:100%}
+.g9-rank .rk{display:flex;align-items:center;gap:12px;border-radius:999px;padding:6px 18px;font-size:17px;font-weight:800}
+.g9-rank .rk b{font-family:'Jua',sans-serif;font-weight:400;font-size:24px;min-width:56px;text-align:left}
+.g9-rank .rk .nm{flex:1;text-align:left;font-family:'Jua',sans-serif;font-weight:400;font-size:24px}
+@media (prefers-reduced-motion: reduce){.kb-hi,.kb-bad,.g9-go,.tp-caret{animation:none}}
+.g9-list.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:3px 6px}
+.g9-list.grid .g9-li{padding:1px 6px;gap:4px}
+.g9-list.grid .g9-li .nm{font-size:16px}
+.g9-list.grid .g9-li .v{font-size:12px}
+
+/* ---- 11과 제주행 스피드런 ---- */
+.jj-sky{background:radial-gradient(ellipse 90px 26px at 18% 30%,rgba(255,255,255,.9) 60%,transparent 62%),radial-gradient(ellipse 120px 30px at 62% 22%,rgba(255,255,255,.8) 60%,transparent 62%),radial-gradient(ellipse 70px 20px at 86% 44%,rgba(255,255,255,.85) 60%,transparent 62%),linear-gradient(180deg,#8FD3FF 0 70%,#4FB8FF 70% 100%)}
+.jj-route{position:absolute;left:40px;right:60px;top:122px;height:0;border-top:5px dashed rgba(22,19,31,.35)}
+.jj-stop{position:absolute;top:104px;width:68px;display:flex;flex-direction:column;align-items:center;gap:2px;z-index:2}
+.jj-stop .em{width:40px;height:40px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 3px 0 rgba(22,19,31,.3)}
+.jj-stop.done .em{background:#FFDD3C;box-shadow:0 0 0 3px #16131F}
+.jj-stop .nm{font-family:'Jua',sans-serif;font-size:16px;color:#16131F;white-space:nowrap}
+.jj-plane{position:absolute;top:56px;width:60px;height:60px;font-size:52px;line-height:60px;text-align:center;z-index:3;transition:left .9s cubic-bezier(.3,1.2,.5,1);filter:drop-shadow(0 4px 0 rgba(22,19,31,.3))}
+.jj-plane.fly{animation:jjbob 1.6s ease-in-out infinite}
+@keyframes jjbob{0%,100%{translate:0 0}50%{translate:0 -6px}}
+.jj-hud{position:absolute;left:14px;top:12px;display:flex;gap:8px;z-index:4}
+.jj-pill{border-radius:999px;padding:5px 14px;background:rgba(255,255,255,.85);font-family:'Jua',sans-serif;font-size:19px;color:#16131F;white-space:nowrap;font-variant-numeric:tabular-nums}
+.jj-pill.ink{background:#16131F;color:#FFFFFF;font-size:24px}
+.jj-best{position:absolute;right:14px;top:14px;z-index:4;font-size:13px;font-weight:900;color:#16131F;background:rgba(255,255,255,.7);border-radius:999px;padding:4px 12px}
+.jj-dots{font-size:18px;letter-spacing:2px;color:#16131F}
+.jj-pass{width:100%;display:flex;border-radius:28px;overflow:hidden;box-shadow:0 6px 0 #16131F;text-align:left}
+.jj-pass .main{flex:1;background:#FFFFFF;padding:14px 22px;display:flex;flex-direction:column;gap:6px}
+.jj-pass .stub{width:190px;background:#FFDD3C;border-left:4px dashed #16131F;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.jj-pass .lbl{font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4A4C80}
+.jj-pass .big{font-family:'Jua',sans-serif;font-size:40px;line-height:1;color:#16131F}
+.jj-pass .route{display:flex;align-items:center;gap:14px;font-family:'Archivo',sans-serif;font-weight:900;font-size:40px;color:#16131F}
+.jj-pass .route small{display:block;font-family:'Jua',sans-serif;font-weight:400;font-size:15px;color:#4A4C80}
+.jj-rank{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px;width:100%;max-height:170px;overflow:hidden}
+.jj-rank .rk{display:flex;align-items:center;gap:10px;border-radius:999px;padding:4px 14px;font-size:15px;font-weight:800}
+.jj-rank .rk b{position:relative;z-index:1;font-size:20px;min-width:26px}
+.jj-rank .rk .nm{position:relative;z-index:1;flex:1;text-align:left;font-family:'Jua',sans-serif;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jj-rank .rk span{position:relative;z-index:1}
+</style>
+</head>
+<body>
+<template id="dc-view">
+<div class="sa-root" style="position: relative; isolation: isolate; width: 1280px; height: 720px; box-sizing: border-box; padding: 30px 80px 44px; background: #E4DCF4; color: #2B2C6B; font-family: 'Nunito', 'Jua', system-ui, sans-serif; display: flex; flex-direction: column; gap: 26px; overflow: hidden">
+  <div class="sa-decor" aria-hidden="true"><i class="d-type">한글</i><i class="d-blob"></i><i class="d-dots"></i><i class="d-star"></i><i class="d-tri"></i></div>
+  <div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; overflow: hidden">
+    <span class="blob" style="left: -120px; top: -140px; width: 620px; height: 480px; background: #B49BF6"></span>
+    <span class="blob blob2" style="left: 620px; top: -160px; width: 600px; height: 440px; background: #FFA797"></span>
+    <span class="blob blob3" style="left: 260px; top: 330px; width: 640px; height: 420px; background: #8AD9B6"></span>
+    <span class="blob" style="left: 900px; top: 380px; width: 480px; height: 400px; background: #FFD46E; animation-delay: -11s"></span>
+  </div>
+
+  <header style="height: 60px; display: flex; align-items: center; gap: 20px">
+    <a href="index.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 8px; font-family: 'Jua', sans-serif; font-size: 20px">
+      <span class="puff p-lav" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2B2C6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: relative; z-index: 1"><polyline points="14 6 8 12 14 18"></polyline></svg>
+      </span>
+      <span class="sa-sign sm">키움한글학교</span><span class="sa-menu">메뉴</span></a>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-family: 'Jua', sans-serif; font-size: 34px; line-height: 1; white-space: nowrap">{{title}}</div>
+      <div style="font-size: 15px; font-weight: 800; color: #4A4C80; margin-top: 4px">{{subtitle}}</div>
+    </div>
+    <a href="special11.html" class="frost press" style="height: 56px; box-sizing: border-box; border-radius: 999px; padding: 0 20px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #2B2C6B"><span style="font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap">11과 특별</span><span style="font-size: 12px; font-weight: 800; color: #4A4C80">3 Spiele</span></a>
+    <button type="button" tabindex="-1" onClick="{{openSetup}}" class="frost press" style="height: 56px; box-sizing: border-box; border: none; border-radius: 999px; padding: 0 22px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: #2B2C6B; font-family: inherit">
+      <span style="font-family: 'Jua', sans-serif; font-size: 19px; white-space: nowrap">{{lenLabel}}</span>
+      <span style="font-size: 12px; font-weight: 800; color: #4A4C80">Einstellen</span>
+    </button>
+  </header>
+
+  <div class="g9-body">
+    <div class="g9-top">
+      <section class="g9-main">
+        <div class="g9-scene jj-sky">
+          <div class="jj-hud"><span class="jj-pill ink">⏱ {{clockText}}</span><span class="jj-pill">{{leftText}}</span><sc-if value="{{streakDots}}" hint-placeholder-val="{{ false }}"><span class="jj-pill"><span class="jj-dots">{{streakDots}}</span></span></sc-if></div>
+          <div class="jj-best">{{bestText}}</div>
+          <div class="jj-route" aria-hidden="true"></div>
+          <sc-for list="{{stops}}" as="st" hint-placeholder-count="5"><div class="jj-stop {{st.cls}}" style="left: {{st.x}}px"><span class="em">{{st.em}}</span><span class="nm">{{st.ko}}</span></div></sc-for>
+          <div class="jj-plane {{planeCls}}" aria-hidden="true" style="left: {{planeX}}px">✈️</div>
+          <sc-if value="{{bannerOn}}" hint-placeholder-val="{{ false }}">
+            <div class="g9-banner pop {{bannerCls}}" role="status">{{bannerText}}<small>{{bannerSub}}</small></div>
+          </sc-if>
+          <sc-if value="{{goOn}}" hint-placeholder-val="{{ false }}">
+            <div class="g9-go" role="status">{{goText}}<small>{{goSub}}</small></div>
+          </sc-if>
+        </div>
+        <div class="tp">
+          <div class="tp-prompt sa-prompt {{okCls}}">
+            <div class="sa-ask" style="font-size: 16px">{{askLabel}}</div>
+            <div class="tp-de" lang="de" aria-live="polite" style="font-size: {{deFs}}px">{{promptDe}}</div>
+            <sc-if value="{{hintOn}}" hint-placeholder-val="{{ true }}"><div class="tp-cho {{hintCls}}" lang="ko">{{hintText}}</div></sc-if>
+            <div class="tp-bar" aria-hidden="true" style="opacity: {{barOp}}"><div id="qbar-{{qid}}" class="tp-fill" style="animation: qbar {{qSecs}}s linear forwards; animation-play-state: {{barPlay}}"></div></div>
+          </div>
+          <div class="tp-typed frost {{typedCls}}">
+            <div class="tp-lbl">{{typedNote}}</div>
+            <div class="tp-txt" lang="ko" aria-live="polite" style="font-size: {{typedFs}}px"><span>{{typedText}}</span><sc-if value="{{typedEmpty}}" hint-placeholder-val="{{ false }}"><span class="tp-ph">여기에 써요</span></sc-if><i class="tp-caret"></i></div>
+          </div>
+        </div>
+      </section>
+      <aside class="g9-side">
+        <div class="g9-card puff p-blue">
+          <span class="g9-av" style="width: 58px; height: 58px; background: {{cur.inner}}"><svg viewBox="0 4 120 116" width="58" height="58" aria-hidden="true" style="display: block">
+              <path d="{{cur.hairBack}}" fill="{{cur.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="M53 68L53 92L67 92L67 68Z" fill="{{cur.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="M20 122C22 101 36 89 60 89C84 89 98 101 100 122Z" fill="{{cur.shirtCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.shirtLines}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="{{cur.ears}}" fill="{{cur.skin}}" stroke="#1E1E24" stroke-width="2.4"></path>
+              <path d="{{cur.head}}" fill="{{cur.skin}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.blush}}" fill="#F49AA8" opacity="0.6"></path>
+              <path d="{{cur.freckles}}" fill="#1E1E24" opacity="0.45"></path>
+              <path d="{{cur.brows}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+              <path d="{{cur.eyesFill}}" fill="#1E1E24"></path>
+              <path d="{{cur.eyesStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+              <path d="{{cur.eyesWhite}}" fill="#FFFFFF"></path>
+              <path d="{{cur.noseStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="{{cur.noseFill}}" fill="#1E1E24"></path>
+              <path d="{{cur.mouthFill}}" fill="#1E1E24" stroke="#1E1E24" stroke-width="1.6" stroke-linejoin="round"></path>
+              <path d="{{cur.mouthWhite}}" fill="#FFFFFF"></path>
+              <path d="{{cur.tongue}}" fill="#F27A8A"></path>
+              <path d="{{cur.mouthStroke}}" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"></path>
+              <path d="{{cur.hairFront}}" fill="{{cur.hairCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.glasses}}" fill="none" stroke="#1E1E24" stroke-width="2.2" stroke-linejoin="round"></path>
+              <path d="{{cur.accStroke}}" fill="none" stroke="#1E1E24" stroke-width="4" stroke-linecap="round"></path>
+              <path d="{{cur.accFill}}" fill="{{cur.accCol}}" stroke="#1E1E24" stroke-width="2.4" stroke-linejoin="round"></path>
+              <path d="{{cur.accFill2}}" fill="{{cur.acc2Col}}" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"></path>
+            </svg></span>
+          <div style="position: relative; z-index: 1; min-width: 0; line-height: 1.1">
+            <div style="font-size: 13px; font-weight: 900">{{curLine}}</div>
+            <div style="font-family: 'Jua', sans-serif; font-size: 28px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{cur.name}} 차례!</div>
+          </div>
+        </div>
+        <div class="frost g9-list grid" style="flex: 1">
+          <sc-for list="{{board}}" as="m" hint-placeholder-count="5"><div class="g9-li {{m.cls}}"><span class="nm">{{m.name}}</span><span class="v">{{m.v}}</span></div></sc-for>
+        </div>
+        <div class="frost g9-msg">{{msg}}</div>
+        <div class="g9-btns">
+          <button type="button" tabindex="-1" onClick="{{pass}}" class="g9-btn puff p-white press"><b>패스</b><small>Aufgeben · nächste/r</small></button>
+          <button type="button" tabindex="-1" onClick="{{endNow}}" class="g9-btn puff p-white press"><b>끝내기</b><small>Spiel beenden</small></button>
+        </div>
+      </aside>
+    </div>
+    <div class="kb frost" role="group" aria-label="한글 자판 · Koreanische Tastatur">
+      <sc-for list="{{kbRows}}" as="r" hint-placeholder-count="4">
+        <div class="kb-row">
+          <sc-for list="{{r.keys}}" as="k" hint-placeholder-count="10">
+            <button type="button" tabindex="-1" onClick="{{k.press}}" class="{{k.cls}}" style="width: {{k.w}}px"><span class="kb-m">{{k.main}}</span><span class="kb-s">{{k.sub}}</span></button>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+<sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; z-index: 6; background: rgba(43,44,107,.3); display: flex; align-items: center; justify-content: center">
+      <div class="frost frost-strong pop" style="width: 800px; max-height: 660px; box-sizing: border-box; border-radius: 48px; padding: 24px 44px 26px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+<div style="font-family: 'Jua', sans-serif; font-size: 46px; line-height: 1">{{winLine}}</div>
+        <div style="font-size: 16px; font-weight: 900; color: #4A4C80">{{winSub}}</div>
+        <div class="jj-pass">
+          <div class="main">
+            <div class="lbl">BOARDING PASS · 탑승권</div>
+            <div class="route"><span>BSL<small>바젤</small></span><span>✈</span><span>CJU<small>제주</small></span></div>
+            <div style="font-size: 14px; font-weight: 800">{{passSeat}} · {{passDate}}</div>
+          </div>
+          <div class="stub">
+            <div class="lbl">시간 · ZEIT</div>
+            <div class="big">{{passTime}}</div>
+            <div style="font-size: 13px; font-weight: 900">{{passRec}}</div>
+          </div>
+        </div>
+        <div class="jj-rank">
+          <sc-for list="{{rank}}" as="r" hint-placeholder-count="4"><div class="rk puff {{r.cls}}"><b>{{r.med}}</b><span class="nm">{{r.name}}</span><span>{{r.v}}</span></div></sc-for>
+        </div>
+<sc-if value="{{hardOn}}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div style="font-size: 15px; font-weight: 900">어려웠던 단어 · Schwierige Wörter</div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+              <sc-for list="{{hard}}" as="h" hint-placeholder-count="3">
+                <span class="puff p-white" style="border-radius: 999px; padding: 6px 14px; font-family: 'Jua', sans-serif; font-size: 18px"><span style="position: relative; z-index: 1">{{h.ko}} <small style="font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; color: #4A4C80">{{h.de}}</small></span></span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display: flex; gap: 14px; margin-top: 6px">
+          <button type="button" tabindex="-1" onClick="{{restart}}" class="puff p-white press" style="height: 60px; border: none; border-radius: 999px; padding: 0 26px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">한 번 더 · Nochmal</span></button>
+          <a href="tripsort.html" class="puff p-coral press" style="height: 60px; box-sizing: border-box; border-radius: 999px; padding: 0 28px; display: flex; align-items: center; text-decoration: none; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 22px"><span style="position: relative; z-index: 1">🧳 여행 순서 · weiter</span></a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+<sc-if value="{{setup}}" hint-placeholder-val="{{ true }}">
+    <div style="position: absolute; inset: 0; z-index: 7; background: rgba(43,44,107,.34); display: flex; align-items: center; justify-content: center">
+      <div class="frost frost-strong pop" role="dialog" aria-label="게임 준비 · Spiel einstellen" style="width: 800px; box-sizing: border-box; border-radius: 46px; padding: 24px 34px 26px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: baseline; gap: 14px">
+          <div style="font-family: 'Jua', sans-serif; font-size: 36px; line-height: 1">게임 준비</div>
+          <div style="font-size: 15px; font-weight: 800; color: #4A4C80">Spiel einstellen</div>
+        </div>
+        <div class="frost" style="border-radius: 30px; padding: 12px 16px 12px 20px; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{poolChips}}" as="ch" hint-placeholder-count="2">
+              <span class="puff {{ch.cls}}" style="border-radius: 999px; padding: 6px 14px; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">{{ch.label}}</span></span>
+            </sc-for>
+            <span class="puff p-lav" style="border-radius: 999px; padding: 6px 14px; font-family: 'Jua', sans-serif; font-size: 17px"><span style="position: relative; z-index: 1">⌨️ 블루투스 키보드 OK</span></span>
+          </div>
+          <div style="font-size: 13px; font-weight: 800; color: #4A4C80">{{poolNote}}</div>
+        </div>
+        <div style="font-size: 14px; font-weight: 800; color: #4A4C80">순서 · Reihenfolge: {{roster}}</div>
+        <div style="display: flex; align-items: center; gap: 16px">
+          <div style="width: 150px; flex-shrink: 0; line-height: 1.15">
+            <div style="font-family: 'Jua', sans-serif; font-size: 21px">길이</div>
+            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Länge</div>
+          </div>
+          <div style="flex: 1; display: flex; gap: 10px">
+            <sc-for list="{{opt1}}" as="o" hint-placeholder-count="3">
+              <button type="button" tabindex="-1" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 54px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
+                <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 19px">{{o.label}}</span>
+                <span style="position: relative; z-index: 1; display: block; font-size: 11px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px">
+          <div style="width: 150px; flex-shrink: 0; line-height: 1.15">
+            <div style="font-family: 'Jua', sans-serif; font-size: 21px">시간</div>
+            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Zeit pro Wort</div>
+          </div>
+          <div style="flex: 1; display: flex; gap: 10px">
+            <sc-for list="{{opt2}}" as="o" hint-placeholder-count="3">
+              <button type="button" tabindex="-1" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 54px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
+                <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 19px">{{o.label}}</span>
+                <span style="position: relative; z-index: 1; display: block; font-size: 11px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px">
+          <div style="width: 150px; flex-shrink: 0; line-height: 1.15">
+            <div style="font-family: 'Jua', sans-serif; font-size: 21px">도움</div>
+            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Hilfe</div>
+          </div>
+          <div style="flex: 1; display: flex; gap: 10px">
+            <sc-for list="{{opt3}}" as="o" hint-placeholder-count="3">
+              <button type="button" tabindex="-1" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 54px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
+                <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 19px">{{o.label}}</span>
+                <span style="position: relative; z-index: 1; display: block; font-size: 11px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px">
+          <div style="width: 150px; flex-shrink: 0; line-height: 1.15">
+            <div style="font-family: 'Jua', sans-serif; font-size: 21px">차례</div>
+            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Wechsel</div>
+          </div>
+          <div style="flex: 1; display: flex; gap: 10px">
+            <sc-for list="{{opt4}}" as="o" hint-placeholder-count="3">
+              <button type="button" tabindex="-1" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 54px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
+                <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 19px">{{o.label}}</span>
+                <span style="position: relative; z-index: 1; display: block; font-size: 11px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 2px">
+          <div style="flex: 1; font-size: 13px; font-weight: 800; color: #4A4C80; line-height: 1.4">{{setupNote}}</div>
+          <sc-if value="{{canClose}}" hint-placeholder-val="{{ false }}">
+            <button type="button" tabindex="-1" onClick="{{closeSetup}}" class="puff p-white press" style="height: 60px; border: none; border-radius: 999px; padding: 0 22px; cursor: pointer; color: #2B2C6B; font-family: 'Jua', sans-serif; font-size: 20px"><span style="position: relative; z-index: 1">계속하기 · Weiter</span></button>
+          </sc-if>
+          <button type="button" tabindex="-1" onClick="{{startGame}}" class="puff p-coral press" style="height: 60px; border: none; border-radius: 999px; padding: 0 28px; cursor: pointer; color: #FFFFFF; font-family: 'Jua', sans-serif; font-size: 23px; text-shadow: 0 2px 3px rgba(160,40,30,.35); line-height: 1.05"><span style="position: relative; z-index: 1; display: block">시작! · Los!</span><span style="position: relative; z-index: 1; display: block; font-size: 12px; font-family: 'Nunito', sans-serif; font-weight: 800">oder Enter ⏎</span></button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</template>
+<script src="shared/vendor/morphdom.min.js?v=d5851599"></script>
+<script src="shared/dc-runtime.js?v=4baf4e1f"></script>
+<script src="shared/class-config.js"></script>
+<script src="shared/class.js?v=e85f47d7"></script>
+<script src="content/textbook-4-1-vocab.js?v=ffccf5c7"></script>
+<script src="shared/hangulkb.js?v=30c8f2be"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.ROSTER = this.loadPlayers();
+    this.STOPS = [['바젤', 'Basel', '🏠'], ['취리히', 'Zürich', '🛫'], ['인천', 'Incheon', '🛬'], ['김포', 'Gimpo', '🛫'], ['제주', 'Jeju', '🍊']];
+    this.state = { all: null, setup: true, started: false, finished: false,
+      len: 20, speed: 1.3, help: 'easy', per: 3,
+      deck: [], learned: 0, total: 0, cur: 0, inTurn: 0, phase: 'idle', typ: null, qid: 0, qSecs: 8,
+      clock: 0, tick: 0, banner: null, wrong: {}, hits: this.ROSTER.map(() => 0), miss: this.ROSTER.map(() => 0),
+      best: null, record: false, kbShift: false, kbDown: null, kbIdle: 0,
+      msg: '모두 함께 제주도까지 날아가요! · Zusammen fliegen wir nach Jeju!' };
+  }
+  componentDidMount() {
+    this.guardStudent();
+    this.loadPool().then(all => this.setState({ all })).catch(() => this.setState({ all: { 9: [], 11: [] } }));
+    this.kbBind();
+  }
+  componentWillUnmount() { this.clearT(); this.kbUnbind(); }
+  clearT() { clearTimeout(this._qT); clearTimeout(this._nT); clearInterval(this._tick); }
+  typingOn() { const s = this.state; return s.started && !s.setup && !s.finished && s.phase === 'type'; }
+  name(i) { return (this.ROSTER[i] || {}).name || ''; }
+  bestKey() { const s = this.state; return s.len + '-' + s.speed + '-' + s.help; }
+  readBest() { try { const o = JSON.parse(localStorage.getItem('hangul_jeju_v1') || '{}'); return o[this.bestKey()] || null; } catch (e) { return null; } }
+  saveBest(t) { try { const o = JSON.parse(localStorage.getItem('hangul_jeju_v1') || '{}'); o[this.bestKey()] = t; localStorage.setItem('hangul_jeju_v1', JSON.stringify(o)); } catch (e) {} }
+  // the trip: len words, 11과 : 9과 = 65 : 35, each must be typed right twice in a row
+  buildDeck() {
+    const s = this.state, n11 = Math.round(s.len * 0.65);
+    const a = this.shuffle(s.all[11] || []).slice(0, n11), b = this.shuffle(s.all[9] || []).slice(0, s.len - a.length);
+    const out = [], q = this.shuffle(a.concat(b));
+    q.forEach(w => out.push({ w, streak: 0 }));
+    return out;
+  }
+  startGame() {
+    if (!this.state.all) return;
+    this.clearT();
+    const deck = this.buildDeck();
+    this.setState({ setup: false, started: true, finished: false, deck, learned: 0, total: deck.length, clock: 0, wrong: {}, banner: null, typ: null,
+      hits: this.ROSTER.map(() => 0), miss: this.ROSTER.map(() => 0), record: false, best: this.readBest() });
+    this.beginTurn(0);
+  }
+  beginTurn(i) {
+    this.stopClock();
+    this.setState({ cur: i, inTurn: 0, phase: 'wait', typ: null, banner: null,
+      msg: this.name(i) + ' 차례! 키보드를 받으면 Enter · Tastatur nehmen, dann Enter' });
+  }
+  onEnter() {
+    const s = this.state;
+    if (s.setup) { this.startGame(); return; }
+    if (!s.started || s.finished) return;
+    if (s.phase === 'wait') { this.sfx('select'); this.nextWord(); return; }
+    if (s.phase === 'type') this.setState({ msg: '아직이에요! 끝까지 쳐요 · Noch nicht fertig – weitertippen' });
+  }
+  runClock() {
+    clearInterval(this._tick); this._c0 = Date.now(); this._cBase = this.state.clock;
+    this._tick = setInterval(() => this.setState({ clock: this._cBase + (Date.now() - this._c0) / 1000 }), 100);
+  }
+  stopClock() {
+    if (this._tick) { clearInterval(this._tick); this._tick = null; this.setState({ clock: this._cBase + (Date.now() - this._c0) / 1000 }); }
+  }
+  helpNow() { const L = this.state.help; return L === 'easy' ? { glow: 'on', hint: 'word' } : L === 'mid' ? { glow: 'auto', hint: 'cho' } : { glow: 'off', hint: '' }; }
+  nextWord() {
+    const s = this.state, card = s.deck[0];
+    if (!card) { this.finish(); return; }
+    const secs = Math.max(6, Math.round((4 + card.w.tok * 1.4) * s.speed));
+    const qid = s.qid + 1;
+    this.setState({ phase: 'type', qid, qSecs: secs, banner: null,
+      msg: (card.streak ? '한 번 더! · Nochmal richtig, dann gelernt ✈️' : '새 단어 · Neues Wort') + ' · ' + secs + '초' });
+    this.kbStart(card.w);
+    this.runClock();
+    clearTimeout(this._qT);
+    this._qT = setTimeout(() => { if (this.state.qid === qid && this.state.phase === 'type') this.fail('time'); }, secs * 1000);
+  }
+  onSolved() {
+    const s = this.state, card = s.deck[0];
+    clearTimeout(this._qT); this.stopClock();
+    const deck = s.deck.slice(1), streak = card.streak + 1, hits = s.hits.slice(); hits[s.cur]++;
+    let learned = s.learned, banner;
+    if (streak >= 2) { learned++; banner = { cls: '', text: '✈️ 슝! ' + card.w.ko, sub: 'gelernt · ' + learned + ' / ' + s.total }; }
+    else { deck.splice(Math.min(3, deck.length), 0, { w: card.w, streak }); banner = { cls: '', text: '⭕ 좋아요!', sub: 'noch einmal richtig, dann gelernt' }; }
+    const done = learned >= s.total;
+    this.sfx(done ? 'win' : 'match');
+    this.setState({ deck, learned, hits, phase: 'show', banner: done ? { cls: 'big', text: '제주 도착! 🍊', sub: 'Gelandet in Jeju!' } : banner,
+      msg: '⭕ ' + card.w.ko + ' = ' + card.w.de });
+    this._nT = setTimeout(() => this.afterWord(done), done ? 2000 : 900);
+  }
+  fail(reason) {
+    const s = this.state; if (!s.typ) return;
+    clearTimeout(this._qT); this.stopClock();
+    const card = s.deck[0], deck = s.deck.slice(1);
+    deck.splice(Math.min(2, deck.length), 0, { w: card.w, streak: 0 });
+    const wrong = { ...s.wrong }; wrong[card.w.ko] = { ko: card.w.ko, de: card.w.de, n: ((wrong[card.w.ko] || {}).n || 0) + 1 };
+    const miss = s.miss.slice(); miss[s.cur]++;
+    this.sfx('miss');
+    this.setState({ deck, wrong, miss, phase: 'show',
+      banner: { cls: 'bad', text: reason === 'time' ? '⏰ 시간 끝!' : '🌀 난기류!', sub: 'Turbulenzen – das Wort kommt gleich wieder' },
+      msg: '정답 · Lösung: ' + card.w.ko + ' = ' + card.w.de });
+    this._nT = setTimeout(() => this.afterWord(false), 2400);
+  }
+  afterWord(done) {
+    const s = this.state;
+    if (done) { this.finish(); return; }
+    const inTurn = s.inTurn + 1;
+    if (inTurn >= s.per) { this.beginTurn((s.cur + 1) % this.ROSTER.length); return; }
+    this.setState({ inTurn });
+    this.nextWord();
+  }
+  finish() {
+    this.clearT(); this._tick = null;
+    const s = this.state, complete = s.learned >= s.total, t = Math.round(s.clock * 10) / 10;
+    let record = false;
+    if (complete && (!s.best || t < s.best)) { record = true; this.saveBest(t); }
+    this.sfx('win');
+    this.setState({ finished: true, phase: 'idle', typ: null, banner: null, record: complete && record, clock: t, best: complete && record ? t : s.best, prevBest: s.best });
+  }
+  fmt(t) { t = Math.max(0, t || 0); const m = Math.floor(t / 60), sec = t - m * 60; return m + ':' + (sec < 10 ? '0' : '') + sec.toFixed(1); }
+  renderVals() {
+    const s = this.state, T = s.typ, live = this.typingOn();
+    const cur = this.ROSTER[s.cur] || this.ROSTER[0];
+    const hp = this.helpNow(), kv = this.kbView(hp.glow);
+    const de = T && live ? T.w.de : '';
+    const p = s.total ? s.learned / s.total : 0;
+    // route: x from 40 to 730
+    const stops = this.STOPS.map((x, k) => { const f = k / (this.STOPS.length - 1); return { ko: x[0], em: x[2], x: 40 + f * 690 - 34, cls: p >= f - 0.001 ? 'done' : '' }; });
+    const card = s.deck[0];
+    const ranked = this.ROSTER.map((r, i) => ({ i, name: r.name, h: s.hits[i], m: s.miss[i] })).sort((a, b) => (b.h - a.h) || (a.m - b.m));
+    let place = 0, prev = null;
+    ranked.forEach((x, k) => { if (x.h !== prev) { place = k + 1; prev = x.h; } x.place = place; });
+    const hard = Object.values(s.wrong).sort((a, b) => b.n - a.n).slice(0, 6);
+    const complete = s.learned >= s.total && s.total > 0;
+    return {
+      title: '11과 제주행 스피드런 ✈️', subtitle: 'Flug nach Jeju · tippt jedes Wort zweimal richtig',
+      lenLabel: s.len + '단어 · ' + (s.speed > 1 ? '🐢' : s.speed < 1 ? '⚡' : '🙂'),
+      planeX: Math.round(40 + p * 690 - 30), planeCls: live ? 'fly' : '', stops,
+      clockText: this.fmt(s.clock), leftText: (s.total - s.learned) + '단어 남음',
+      bestText: s.best ? '최고 · Rekord ' + this.fmt(s.best) : '최고 기록 없음 · noch kein Rekord',
+      streakDots: card && live ? (card.streak ? '●○' : '○○') : '',
+      goOn: s.started && !s.finished && !s.setup && s.phase === 'wait',
+      goText: cur.name + ' 차례! ⏎ Enter', goSub: s.per + '단어 · Tastatur nehmen und Enter drücken',
+      bannerOn: !!s.banner, bannerCls: s.banner ? s.banner.cls : '', bannerText: s.banner ? s.banner.text : '', bannerSub: s.banner ? s.banner.sub : '',
+      askLabel: live ? (card && card.streak ? '한 번 더 · nochmal ✓' : '한국어로 쳐요 · auf Koreanisch') : '준비 · Bereit?',
+      promptDe: de || '✈️', deFs: this.wordFs(de, 40),
+      hintOn: live && !!hp.hint, hintText: this.hintOf(T, hp.hint), hintCls: hp.hint === 'word' ? 'word' : '',
+      qid: s.qid, qSecs: s.qSecs, barPlay: live ? 'running' : 'paused', barOp: live ? 1 : 0, okCls: '',
+      typedFs: this.wordFs(kv.typedText, 54),
+      ...kv,
+      cur: { ...this.build(cur.cfg || {}), name: cur.name },
+      curLine: '단어 ' + Math.min(s.inTurn + 1, s.per) + ' / ' + s.per + ' · Wort',
+      board: ranked.map(r => ({ name: r.name, v: '⭕' + r.h, cls: r.i === s.cur && s.started && !s.finished ? 'on' : '' })),
+      msg: s.msg,
+      pass: () => { if (this.state.phase === 'type') this.fail('pass'); },
+      endNow: () => { if (this.state.started && !this.state.finished) { this.stopClock(); this.finish(); } },
+      done: s.finished,
+      winLine: complete ? '제주 도착! 🍊' : '비행 중단 ✋',
+      winSub: complete ? 'Gelandet! ' + s.total + ' Wörter gelernt' : s.learned + ' / ' + s.total + ' Wörter gelernt',
+      passTime: this.fmt(s.clock), passRec: s.record ? (s.prevBest ? '🏅 신기록! · neuer Rekord (vorher ' + this.fmt(s.prevBest) + ')' : '🏅 첫 기록! · erster Rekord') : (s.prevBest && complete ? '기록 · Rekord ' + this.fmt(s.prevBest) : ''),
+      passDate: new Date().toISOString().slice(0, 10), passSeat: s.len + '단어 · ' + (s.help === 'easy' ? '쉬움' : s.help === 'mid' ? '보통' : '어려움'),
+      rank: ranked.map(r => ({ med: r.place <= 3 && r.h > 0 ? ['🥇', '🥈', '🥉'][r.place - 1] : '·', name: r.name, v: '⭕ ' + r.h + '  ✖ ' + r.m, cls: r.place === 1 && r.h > 0 ? 'p-butter' : 'p-white' })),
+      hard, hardOn: hard.length > 0,
+      restart: () => { this.clearT(); this.setState({ setup: true, started: false, finished: false, typ: null, banner: null, phase: 'idle', clock: 0 }); },
+      setup: s.setup, canClose: s.started && !s.finished,
+      openSetup: () => { this.clearT(); this.setState({ setup: true, typ: null, banner: null }); if (this.state.phase === 'type') this.setState({ phase: 'wait' }); },
+      closeSetup: () => { this.setState({ setup: false }); this.beginTurn(this.state.cur); },
+      startGame: () => this.startGame(),
+      poolChips: [{ label: '11과 여행 65%', cls: 'p-mint' }, { label: '9과 전통 놀이 35%', cls: 'p-butter' }],
+      poolNote: !s.all ? '단어장을 불러오는 중… · Lädt …' : ('11과 주요 어휘 ' + s.all[11].length + '개 · 9과 ' + s.all[9].length + '개 · jedes Wort zweimal hintereinander richtig = gelernt'),
+      opt1: this.seg([{ v: 12, label: '12단어', sub: 'kurzer Flug' }, { v: 20, label: '20단어', sub: 'ganzer Flug' }], s.len, 'len'),
+      opt2: this.seg([{ v: 1.3, label: '🐢 느리게', sub: 'mehr Zeit' }, { v: 1, label: '🙂 보통', sub: 'normal' }, { v: 0.8, label: '⚡ 빠르게', sub: 'weniger Zeit' }], s.speed, 'speed'),
+      opt3: this.seg([{ v: 'easy', label: '쉬움 · 보고 치기', sub: 'Wort wird gezeigt' }, { v: 'mid', label: '보통 · 초성', sub: 'nur Anfangslaute' }, { v: 'hard', label: '어려움', sub: 'nur Deutsch' }], s.help, 'help'),
+      opt4: this.seg([{ v: 1, label: '한 단어씩', sub: '1 Wort, dann weiter' }, { v: 3, label: '세 단어씩', sub: '3 Wörter' }, { v: 5, label: '다섯 단어씩', sub: '5 Wörter' }], s.per, 'per'),
+      setupNote: '틀린 단어는 두 문제 뒤에 다시 나와요. 시계는 칠 때만 가요 · Falsche Wörter kommen bald wieder. Die Uhr läuft nur beim Tippen.',
+      roster: this.ROSTER.map(r => r.name).join(' → ')
+    };
+  }
+  // ---------- 9과 shared: words, typing, keyboard ----------
+  shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  cp() { const c = window.ClassPlay; return c && c.studentMode && c.studentMode() ? c : null; }
+  seg(list, cur, key) {
+    return list.map(o => ({ label: o.label, sub: o.sub, pressed: o.v === cur ? 'true' : 'false', cls: o.v === cur ? 'p-lav' : 'p-white', pick: () => this.setState({ [key]: o.v }) }));
+  }
+  guardStudent() {
+    try { const C = window.ClassPlay; if (C && C.studentMode && C.studentMode() && !(C.isSuhbo && C.isSuhbo())) { window.location.href = 'index.html'; } } catch (e) {}
+  }
+  get CORE11() { return ['관광지', '촬영지', '방문하다', '유명하다', '관광하다', '구경하다', '준비하다', '출발하다', '도착하다', '해외여행', '국내 여행', '경치가 좋다', '가슴이 설레다']; }
+  loadPool() {
+    return fetch('content/textbook-4-1-vocab.json').then(r => r.json()).then(d => {
+      const out = { 9: [], 11: [] }, seen = {};
+      d.lessons.filter(L => L.n === 9 || L.n === 11).forEach(L => L.words.forEach(w => {
+        const meta = (w[4] && typeof w[4] === 'object') ? w[4] : {};
+        if (L.n === 11 && this.CORE11.indexOf(w[0]) < 0) return;   // 11과: only the 13 주요 어휘 words
+        if (meta.games && meta.games.indexOf('quiz') < 0) return;
+        const ko = String(meta.g || w[0]).trim();
+        if (/[\/()·,~]/.test(ko) || seen[ko]) return; seen[ko] = true;
+        out[L.n].push({ ko, de: w[1], lesson: L.n, tok: HangulKB.tokensFor(ko).length });
+      }));
+      return out;
+    });
+  }
+  queue() {
+    // 11과 : 9과 = 65 : 35
+    const a = this.shuffle(this.state.all[11] || []), b = this.shuffle(this.state.all[9] || []), out = [];
+    let acc = 0;
+    while (a.length || b.length) { acc += 0.35; if ((acc >= 1 && b.length) || !a.length) { acc -= 1; out.push(b.shift()); } else out.push(a.shift()); }
+    return out;
+  }
+  // take the next word that fits (fit(w) true), avoiding the last few words
+  pickWord(fit) {
+    if (!this._recent) this._recent = [];
+    if (!this._q || this._q.length < 12) this._q = (this._q || []).concat(this.queue());
+    const ok = (w) => this._recent.indexOf(w.ko) < 0;
+    let i = this._q.findIndex(w => ok(w) && (!fit || fit(w)));
+    if (i < 0) i = this._q.findIndex(ok);
+    if (i < 0) i = 0;
+    const w = this._q.splice(i, 1)[0];
+    this._recent.push(w.ko); if (this._recent.length > 8) this._recent.shift();
+    return w;
+  }
+  kbBind() {
+    this._kbKey = (e) => this.kbOnKey(e);
+    try { window.addEventListener('keydown', this._kbKey); } catch (e) {}
+  }
+  kbUnbind() {
+    clearTimeout(this._kbDT); clearTimeout(this._kbIT);
+    try { window.removeEventListener('keydown', this._kbKey); } catch (e) {}
+  }
+  kbOnKey(e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const c = e.code;
+    if (c === 'Enter' || c === 'NumpadEnter') { e.preventDefault(); if (!e.repeat) this.onEnter(); return; }
+    if (HangulKB.MAP[c] || c === 'Backspace' || c === 'Space') { e.preventDefault(); this.kbInput(c, e.shiftKey); }
+  }
+  kbStart(w) {
+    clearTimeout(this._kbIT);
+    this._kbIT = setTimeout(() => this.setState({ kbIdle: (this.state.kbIdle || 0) + 1 }), 4000);
+    this.setState({ typ: { w, target: w.ko, tokens: HangulKB.tokensFor(w.ko), typed: [], bad: false, errs: 0, last: Date.now() }, kbShift: false });
+  }
+  kbInput(code, shift) {
+    if (code === 'ShiftLeft') { this.setState({ kbShift: !this.state.kbShift }); return; }
+    if (code === 'Enter') { this.onEnter(); return; }
+    const T = this.state.typ;
+    if (!T || !this.typingOn()) return;
+    const typed = T.typed.slice();
+    if (code === 'Backspace') { if (!typed.length) return; typed.pop(); }
+    else if (code === 'Space') { if (!typed.length || typed[typed.length - 1] === ' ') return; typed.push(' '); }
+    else { const m = HangulKB.MAP[code]; if (!m) return; typed.push(m[(shift || this.state.kbShift) ? 1 : 0]); }
+    let ok = typed.length <= T.tokens.length;
+    for (let i = 0; ok && i < typed.length; i++) if (typed[i] !== T.tokens[i]) ok = false;
+    const fresh = !ok && !T.bad;
+    this.setState({ typ: { ...T, typed, bad: !ok, errs: T.errs + (fresh ? 1 : 0), last: Date.now() }, kbShift: false, kbDown: code });
+    clearTimeout(this._kbDT); this._kbDT = setTimeout(() => this.setState({ kbDown: null }), 150);
+    clearTimeout(this._kbIT); this._kbIT = setTimeout(() => this.setState({ kbIdle: (this.state.kbIdle || 0) + 1 }), 4000);
+    if (fresh) this.sfx('tap');
+    if (ok && typed.length === T.tokens.length) this.onSolved();
+  }
+  // mode: 'on' = always glow the next key, 'auto' = after a mistake or 4 s without typing, 'off' = never
+  kbView(mode) {
+    const T = this.state.typ, live = !!(T && this.typingOn());
+    let hi = null, hiShift = false;
+    if (live && !T.bad) {
+      const idle = Date.now() - T.last > 3800;
+      if (mode === 'on' || (mode === 'auto' && (idle || T.errs > 0))) {
+        const k = HangulKB.keyFor(T.tokens[T.typed.length]);
+        if (k) { hi = k.code; hiShift = k.shift; }
+      }
+    }
+    const rows = HangulKB.rows({ hi, hiShift, bad: live && T.bad, down: this.state.kbDown, shiftOn: this.state.kbShift, press: (c) => this.kbInput(c, false) });
+    rows.forEach(r => r.keys.forEach(k => { k.w = Math.round(92 * k.grow + 6 * (k.grow - 1)); }));
+    const txt = T && live ? HangulKB.compose(T.typed) : '';
+    return {
+      kbRows: rows,
+      typedText: txt, typedEmpty: !txt,
+      typedCls: live && T.bad ? 'tp-bad' : (live ? 'tp-live' : ''),
+      typedNote: live && T.bad ? '틀렸어요 → ⌫ 지우기 · Fehler → löschen' : (hi ? '노란 키를 눌러요 · Gelbe Taste drücken' : '한글로 쳐요 · Auf Koreanisch tippen')
+    };
+  }
+  // help level: easy = Korean word shown + yellow key always; mid = 초성 + yellow key when stuck; hard = German only
+  glowOf(level) { return level === 'easy' ? 'on' : level === 'mid' ? 'auto' : 'off'; }
+  hintOf(T, kind) { if (!T || !kind) return ''; return kind === 'word' ? T.target : HangulKB.cho(T.target); }
+  wordFs(t, big) { const n = String(t || '').length; return n <= 8 ? big : n <= 14 ? Math.round(big * 0.82) : n <= 22 ? Math.round(big * 0.66) : n <= 32 ? Math.round(big * 0.52) : Math.round(big * 0.44); }
+  loadHub() { try { return JSON.parse(localStorage.getItem('hangul_hub_v1') || 'null') || {}; } catch (e) { return {}; } }
+  sfx(name) {
+    const h = this.loadHub();
+    if (h.sound === false) return;
+    const vol = (typeof h.volume === 'number' ? h.volume : 70) / 100;
+    if (vol <= 0) return;
+    try {
+      if (!this._ac) { const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; this._ac = new AC(); }
+      const c = this._ac;
+      if (c.state === 'suspended') c.resume();
+      const t0 = c.currentTime + 0.01;
+      const N = (f, d, dur, type, peak, f2) => {
+        const o = c.createOscillator(), g = c.createGain(), t = t0 + d;
+        o.type = type; o.frequency.setValueAtTime(f, t);
+        if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur * 0.8);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak * vol), t + 0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.05);
+      };
+      const mallet = (f, d, p) => { N(f, d, 0.35, 'triangle', p); N(f * 4, d, 0.08, 'sine', p * 0.25); };
+      const bell = (f, d, p, dur) => { const L = dur || 0.9; N(f, d, L, 'sine', p); N(f * 1.006, d, L, 'sine', p * 0.7); N(f * 2.01, d, L * 0.5, 'sine', p * 0.25); };
+      const S = {
+        bubble: { tap: () => N(500, 0, 0.09, 'sine', 0.3, 820), select: () => { N(620, 0, 0.08, 'sine', 0.26, 990); N(880, 0.07, 0.1, 'sine', 0.22, 1250); }, match: () => [523, 659, 784].forEach((f, i) => N(f, i * 0.08, 0.16, 'sine', 0.3, f * 1.25)), miss: () => N(420, 0, 0.28, 'sine', 0.26, 200), win: () => [523, 659, 784, 1047, 1319].forEach((f, i) => N(f, i * 0.09, 0.22, 'sine', 0.28, f * 1.2)) },
+        xylo: { tap: () => mallet(1047, 0, 0.3), select: () => { mallet(784, 0, 0.28); mallet(1175, 0.08, 0.25); }, match: () => [784, 988, 1175].forEach((f, i) => mallet(f, i * 0.09, 0.28)), miss: () => { mallet(262, 0, 0.32); mallet(277, 0.02, 0.24); }, win: () => [523, 587, 659, 784, 880, 1047].forEach((f, i) => mallet(f, i * 0.08, 0.28)) },
+        retro: { tap: () => N(660, 0, 0.06, 'square', 0.12), select: () => { N(520, 0, 0.07, 'square', 0.12); N(780, 0.05, 0.08, 'square', 0.12); }, match: () => [523, 659, 784].forEach((f, i) => N(f, i * 0.09, 0.12, 'square', 0.13)), miss: () => N(320, 0, 0.25, 'sawtooth', 0.12, 140), win: () => [523, 659, 784, 1047].forEach((f, i) => N(f, i * 0.13, 0.2, 'square', 0.14)) },
+        glass: { tap: () => bell(1568, 0, 0.14, 0.35), select: () => { bell(1319, 0, 0.14, 0.5); bell(1760, 0.06, 0.12, 0.5); }, match: () => { bell(1319, 0, 0.16); bell(1661, 0.1, 0.14); bell(1976, 0.2, 0.14); }, miss: () => { bell(587, 0, 0.16, 0.6); bell(554, 0.08, 0.12, 0.6); }, win: () => [1047, 1319, 1568, 2093, 2637].forEach((f, i) => bell(f, i * 0.1, 0.14, 1.1)) }
+      };
+      const P = S[h.pack] || S.glass;
+      if (P[name]) P[name]();
+    } catch (e) {}
+  }
+  loadPlayers() {
+    const CC = this.cp();
+    if (CC) { const me = CC.me(); return [{ name: me.name, en: me.name, cfg: me.cfg }]; }
+    const DEF = [
+      { name: '지민', en: '지민', cfg: { head: 0, hair: 1, eyes: 3, brows: 0, nose: 0, mouth: 0, glasses: 0, shirt: 2, acc: 0, skin: 1, hairC: 0, shirtC: 0, accC: 3, blush: true, freckles: false, bg: 0 } },
+      { name: '서연', en: '서연', cfg: { head: 1, hair: 3, eyes: 1, brows: 2, nose: 2, mouth: 1, glasses: 1, shirt: 0, acc: 0, skin: 3, hairC: 1, shirtC: 2, accC: 5, blush: true, freckles: true, bg: 1 } }
+    ];
+    const h = this.loadHub();
+    if (!Array.isArray(h.roster) || !h.roster.length) return DEF;
+    const sel = h.sel || {};
+    const list = (h.order || []).filter(id => sel[id]).map(id => h.roster.find(p => p.id === id)).filter(Boolean);
+    if (!list.length) { try { const CPr = window.ClassPlay; if (CPr && CPr.roomOn && CPr.roomOn()) { window.location.href = 'index.html'; } } catch (e) {} }
+    return list.length ? list.map(p => ({ name: p.name, en: p.name, cfg: p.cfg })) : DEF;
+  }
+  avData() {
+    return {
+      SKIN: ['#FFE9DC', '#F9D7BE', '#EEC09A', '#D9A27A', '#B07A52', '#8A5A3A', '#6A4128', '#A6E5C9', '#A9CBF7'],
+      HAIR: ['#1E1E24', '#4A3326', '#7B4E2E', '#C99A4E', '#E5C27A', '#B4B4B8', '#E46B5A', '#7E6BD9', '#F05AB4', '#4FB8FF', '#4CC46A', '#FF9F43'],
+      CLOTH: ['#BBA8F6', '#EE7466', '#A6E5C9', '#FBE18C', '#A9CBF7', '#F7B6CF', '#FFFFFF', '#5B5DA8', '#EC4027', '#4CC46A', '#16131F', '#FF9F43'],
+      BADGE: ['p-lav', 'p-mint', 'p-butter', 'p-blue', 'p-pink', 'p-coral', 'p-butter', 'p-pink', 'p-blue', 'p-lav', 'p-mint', 'p-coral', 'p-blue', 'p-butter'],
+      BADGE_HEX: ['#BBA8F6', '#A6E5C9', '#FBE18C', '#A9CBF7', '#F7B6CF', '#EE7466',
+        'repeating-linear-gradient(45deg, #FFDD3C 0 7px, #FFF0A6 7px 14px)',
+        'radial-gradient(circle, #F05AB4 2.6px, transparent 3.2px) 0 0 / 13px 13px, #FFD9EF',
+        'repeating-conic-gradient(from 0deg at 50% 60%, #4FB8FF 0 15deg, #A8DBFF 15deg 30deg)',
+        'conic-gradient(#9C84FF 25%, #D4C9FF 0 50%, #9C84FF 0 75%, #D4C9FF 0) 0 0 / 18px 18px',
+        'radial-gradient(circle at 50% 120%, #FFDD3C 0 30%, #FF9F43 30% 48%, #EC4027 48% 64%, #6A47F2 64%)',
+        'repeating-linear-gradient(0deg, #4CC46A 0 6px, #B9EDC6 6px 12px)',
+        'radial-gradient(circle at 30% 30%, #FFFFFF 0 2px, transparent 2.5px) 0 0 / 16px 16px, radial-gradient(circle at 70% 70%, #FFDD3C 0 1.6px, transparent 2px) 0 0 / 22px 22px, #2B2C6B',
+        'linear-gradient(180deg, #8FD3FF 0 55%, #4CC46A 55% 72%, #2F9A4C 72%)'],
+      INNER: ['#EEE8FF', '#E6F8EF', '#FFF7D6', '#E8F1FF', '#FFEDF4', '#FFE7E3']
+    };
+  }
+  build(cfg) {
+    const C = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
+    const E = (x, y, rx, ry) => 'M' + (x - rx) + ' ' + y + 'a' + rx + ' ' + ry + ' 0 1 0 ' + (2 * rx) + ' 0a' + rx + ' ' + ry + ' 0 1 0 ' + (-2 * rx) + ' 0Z';
+    const STAR = (x, y, R, r) => { let p = ''; for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, q = i % 2 ? r : R; p += (i ? 'L' : 'M') + (x + Math.cos(a) * q).toFixed(1) + ' ' + (y + Math.sin(a) * q).toFixed(1); } return p + 'Z'; };
+    const HEART = (x, y, s) => 'M' + x + ' ' + (y + s * 0.9) + 'C' + (x - s * 1.4) + ' ' + (y - s * 0.1) + ' ' + (x - s * 0.7) + ' ' + (y - s * 1.1) + ' ' + x + ' ' + (y - s * 0.35) + 'C' + (x + s * 0.7) + ' ' + (y - s * 1.1) + ' ' + (x + s * 1.4) + ' ' + (y - s * 0.1) + ' ' + x + ' ' + (y + s * 0.9) + 'Z';
+    const NONE = 'M0 0';
+    const mono = !!(this.state && this.state.mono);
+    const D = this.avData();
+    const pick = (arr, i) => arr[Math.min(arr.length - 1, Math.max(0, i | 0))];
+    const CAP = 'M37 48C35 28 47 21 60 21C73 21 85 28 83 48C76 38 68 34 60 34C52 34 44 38 37 48Z';
+    const heads = [E(60, 52, 22, 26), E(60, 53, 24, 24), 'M38 46C38 30 48 24 60 24C72 24 82 30 82 46L82 58C82 72 72 80 60 80C48 80 38 72 38 58Z'];
+    const earX = cfg.head === 1 ? 23.5 : 21.5;
+    const hairs = [
+      { f: 'M36 50C34 30 46 20 60 20C76 20 86 30 84 50C80 41 74 37 66 39C60 33 50 35 46 41C42 41 38 45 36 50Z' },
+      { f: 'M33 50C33 26 46 18 60 18C74 18 87 26 87 50L88 74C82 77 77 75 76 70L78 48C70 41 55 35 42 48L44 70C43 75 38 77 32 74Z' },
+      { b: 'M35 42C35 22 47 15 60 15C73 15 85 22 85 42L88 100C76 104 44 104 32 100Z', f: 'M38 46C39 30 49 22 60 22C72 22 81 30 82 46C73 42 64 36 59 29C55 38 47 44 38 46Z' },
+      { f: C(60, 15, 9) + CAP },
+      { f: C(40, 42, 9) + C(45, 29, 10) + C(58, 22, 11) + C(71, 26, 10) + C(80, 37, 9) + C(84, 49, 7) + C(36, 53, 7) },
+      { f: 'M36 49L37 31L45 36L49 20L57 30L64 15L70 29L78 21L80 35L86 33L84 49C76 40 67 36 60 36C52 36 43 40 36 49Z' },
+      { f: 'M36 52C33 30 46 19 62 19C78 19 87 30 85 48C82 44 78 42 74 42C64 42 54 36 50 30C48 38 42 46 36 52Z' },
+      { b: 'M80 34C92 34 96 50 92 66C90 72 86 72 86 66C88 54 86 44 78 40Z', f: CAP },
+      { f: 'M38 44C40 29 50 24 60 24C70 24 80 29 82 44C74 38 46 38 38 44Z' },
+      // new styles
+      { f: C(40, 23, 10) + C(80, 23, 10) + CAP },                                                     // space buns
+      { b: 'M35 48C24 50 19 64 23 79C25 86 32 85 32 78C30 68 32 60 39 55ZM85 48C96 50 101 64 97 79C95 86 88 85 88 78C90 68 88 60 81 55Z', f: 'M36 50C34 28 47 19 61 19C76 19 87 29 84 50C80 42 72 36 62 35C56 40 46 44 36 50Z' },   // pigtails
+      { b: 'M34 44C34 22 47 16 60 16C73 16 86 22 86 44L91 106H29Z', f: 'M37 47C36 28 47 20 60 20C73 20 84 28 83 47L78 47L76 40L71 46L66 39L60 46L54 39L49 46L44 40L42 47Z' },   // long + bangs
+      { f: 'M53 40L51 9C56 6 64 6 69 9L67 40ZM38 50C37 40 42 34 48 32L48 42C44 44 40 46 38 50ZM82 50C83 40 78 34 72 32L72 42C76 44 80 46 82 50Z' },   // mohawk
+      { f: C(60, 28, 20) + C(42, 34, 13) + C(78, 34, 13) + C(36, 47, 9) + C(84, 47, 9) + C(50, 18, 11) + C(70, 18, 11) },   // afro
+      { b: 'M70 18C86 8 101 18 97 36C95 46 88 52 84 50C90 40 88 26 74 24Z', f: CAP + C(73, 20, 5) },   // high ponytail
+      { b: 'M34 46C34 24 46 16 60 16C74 16 86 24 86 46L88 76C82 80 76 78 76 72L78 48H42L44 72C44 78 38 80 32 76Z', f: 'M38 45C38 29 48 21 60 21C72 21 82 29 82 45Z' },   // bob + blunt fringe
+      { f: 'M36 50C34 28 47 18 62 18C78 18 88 30 84 48C78 40 70 34 58 34C50 36 44 44 42 54C40 54 37 52 36 50Z' },   // side swoop
+      { b: C(87, 57, 6) + C(88, 68, 6) + C(88, 79, 6) + C(87, 89, 5), f: CAP }                        // side braid
+    ];
+    const eyes = [
+      { fill: C(51, 55, 2.6) + C(69, 55, 2.6) },
+      { stroke: 'M47 56Q51 51 55 56M65 56Q69 51 73 56' },
+      { stroke: 'M47 55L55 55M65 55L73 55' },
+      { fill: C(51, 55, 3.8) + C(69, 55, 3.8), white: C(52.3, 53.8, 1.3) + C(70.3, 53.8, 1.3) },
+      { fill: C(51, 55, 2.6), stroke: 'M65 56Q69 51 73 56' },
+      { stroke: 'M47 54Q51 58 55 54M65 54Q69 58 73 54' },
+      { fill: C(51, 55, 2.8) + C(69, 55, 2.8), stroke: 'M46 51L48.5 53M50.5 49.5L51 52.2M55 50.5L53.6 52.7M74 51L71.5 53M69.5 49.5L69 52.2M65 50.5L66.4 52.7' },   // lashes
+      { fill: STAR(51, 55, 5, 2.2) + STAR(69, 55, 5, 2.2) },                                          // star eyes
+      { fill: C(51, 55, 4.6) + C(69, 55, 4.6), white: C(52.8, 53.3, 1.7) + C(70.8, 53.3, 1.7) + C(49.4, 57, 0.9) + C(67.4, 57, 0.9) },   // sparkle
+      { fill: C(51, 55, 1.6) + C(69, 55, 1.6), stroke: 'M47 55a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M65 55a4 4 0 1 0 8 0a4 4 0 1 0 -8 0' },   // surprised
+      { fill: HEART(51, 55, 4) + HEART(69, 55, 4) }                                                    // heart eyes
+    ];
+    const brows = ['M46 48Q51 44 56 47M64 47Q69 44 74 48', 'M46 47L56 46M64 46L74 47', 'M46 45Q51 41 56 44M64 44Q69 41 74 45', NONE,
+      'M46 44L56 48M64 48L74 44', 'M46 47L56 44M64 44L74 47', 'M45 47.5L57 45.5M45 46L57 44M63 45.5L75 47.5M63 44L75 46'];
+    const noses = [{ s: 'M60 55L57 64L61 64' }, { s: 'M61 56Q55 63 61 65' }, { f: C(60, 62, 1.6) }, {}, { s: 'M57 63Q60 66 63 63' }, { f: E(60, 62, 3, 2) }];
+    const mouths = [
+      { s: 'M53 70Q60 76 67 70' },
+      { f: 'M52 69Q60 81 68 69Z', t: E(60, 75, 3.4, 2) },
+      { f: E(60, 71, 3, 3.6) },
+      { s: 'M55 71L65 71' },
+      { s: 'M54 71Q62 74 68 68' },
+      { f: 'M51 68Q60 80 69 68Z', w: 'M54 69.5L66 69.5L65 72L55 72Z' },
+      { s: 'M52 69Q60 76 68 69', t: E(62, 75, 3.4, 4.2) },                                             // tongue out
+      { f: 'M49 66Q60 86 71 66Z', w: 'M51.5 66.8H68.5L67.4 70.4H52.6Z', t: E(60, 77, 4, 2.2) },          // big laugh
+      { f: E(60, 71, 2, 2.4) },                                                                       // small o
+      { s: 'M52 69Q56 74 60 69Q64 74 68 69' },                                                       // cat mouth
+      { s: 'M52 71L55 69L58 71L61 69L64 71L67 69' }                                                  // wobbly
+    ];
+    const glasses = [NONE, C(51, 55, 7) + C(69, 55, 7) + 'M58 55L62 55', 'M43 49H58V61H43ZM62 49H77V61H62ZM58 54H62',
+      HEART(51, 56, 7) + HEART(69, 56, 7) + 'M57 53L63 53', C(51, 55, 8.6) + C(69, 55, 8.6) + 'M59.6 55L60.4 55M42.4 54L38 52M77.6 54L82 52'];
+    const shirts = ['M52 90Q60 97 68 90', 'M50 90L56 101L60 92L64 101L70 90', 'M42 92Q60 105 78 92M56 98L55 109M64 98L65 109', 'M30 104L90 104M25 113L95 113',
+      'M31 101H89M26 109H94M23 117H97',                                                               // stripes
+      'M45 93L46 122M75 93L74 122M46 107H74V122',                                                      // overalls
+      'M50 90L56 98L60 93L64 98L70 90M60 94L57 105L60 115L63 105Z',                                     // collar + tie
+      STAR(60, 107, 9, 4),                                                                              // star print
+      HEART(60, 107, 8),                                                                                // heart print
+      'M60 91V122M52 92Q60 97 68 92M48 106H54M66 106H72',                                               // zip jacket
+      'M50 90Q60 96 70 90M37 100L43 122M83 100L77 122'                                                 // sport stripes
+    ];
+    const accs = [
+      {},
+      { f: 'M35 44C35 22 47 13 60 13C73 13 85 22 85 44ZM33 40Q33 36 37 36H83Q87 36 87 40V44Q87 48 83 48H37Q33 48 33 44Z' + C(60, 11, 5) },
+      { f: 'M36 42C36 24 48 17 60 17C72 17 84 24 84 42ZM60 40L96 42C97 46 84 47 60 45Z' },
+      { s: 'M34 54C32 20 88 20 86 54', f: 'M28 46H40V64H28ZM80 46H92V64H80Z' },
+      { f: C(80, 26, 4) + C(86, 22, 4) + C(88, 29, 4) + C(83, 34, 4) + C(77, 32, 4), f2: C(82, 28, 3) },
+      { f: 'M70 26L80 20L80 32ZM90 20L90 32L80 26Z', f2: C(80, 26, 2.6) },
+      { f: 'M41 31L43 14L52 24L60 9L68 24L77 14L79 31Z', f2: C(60, 21, 2.6) + C(48, 26, 1.8) + C(72, 26, 1.8) },   // crown
+      { f: 'M37 38L39 13L55 26ZM83 38L81 13L65 26Z', f2: 'M41 31L42 19L50 26ZM79 31L78 19L70 26Z' },            // cat ears
+      { f: E(49, 18, 6, 13) + E(71, 18, 6, 13), f2: E(49, 19, 3, 8.5) + E(71, 19, 3, 8.5) },                    // bunny ears
+      { f: 'M37 42C40 24 80 24 83 42L79 43C76 30 44 30 41 43Z' },                                               // headband
+      { f: 'M50 25L60 6L70 25Z', f2: C(60, 7, 3.2) + 'M54 19L66 19L64.5 15.5L55.5 15.5Z' },                    // party hat
+      { f: 'M42 31C38 23 40 16 44 11C46 19 48 24 51 27ZM78 31C82 23 80 16 76 11C74 19 72 24 69 27Z' },           // little horns
+      { f: STAR(79, 29, 8, 3.6), f2: C(79, 29, 2) },                                                            // star clip
+      { f: E(60, 10, 17, 5.5), f2: E(60, 10, 12.5, 2.6) }                                                       // halo
+    ];
+    const h = pick(hairs, cfg.hair), e = pick(eyes, cfg.eyes), n = pick(noses, cfg.nose), m = pick(mouths, cfg.mouth), a = pick(accs, cfg.acc);
+    return {
+      badge: mono ? 'p-white' : pick(D.BADGE, cfg.bg),
+      inner: mono ? '#FFFFFF' : (cfg.bg < 6 ? D.INNER[cfg.bg | 0] : pick(D.BADGE_HEX, cfg.bg)),
+      skin: mono ? '#FFFFFF' : pick(D.SKIN, cfg.skin),
+      hairCol: mono ? '#1E1E24' : pick(D.HAIR, cfg.hairC),
+      shirtCol: mono ? '#FFFFFF' : pick(D.CLOTH, cfg.shirtC),
+      accCol: mono ? '#1E1E24' : pick(D.CLOTH, cfg.accC),
+      acc2Col: mono ? '#FFFFFF' : '#FBE18C',
+      head: pick(heads, cfg.head), ears: C(60 - earX, 55, 5) + C(60 + earX, 55, 5),
+      hairBack: h.b || NONE, hairFront: h.f || NONE,
+      eyesFill: e.fill || NONE, eyesStroke: e.stroke || NONE, eyesWhite: e.white || NONE,
+      brows: pick(brows, cfg.brows),
+      noseStroke: n.s || NONE, noseFill: n.f || NONE,
+      mouthFill: m.f || NONE, mouthStroke: m.s || NONE, mouthWhite: m.w || NONE, tongue: m.t || NONE,
+      blush: (cfg.blush && !mono) ? E(46, 64, 4.5, 2.6) + E(74, 64, 4.5, 2.6) : NONE,
+      freckles: cfg.freckles ? C(45, 61, 0.9) + C(48, 63, 0.9) + C(72, 61, 0.9) + C(75, 63, 0.9) : NONE,
+      glasses: pick(glasses, cfg.glasses), shirtLines: pick(shirts, cfg.shirt),
+      accStroke: a.s || NONE, accFill: a.f || NONE, accFill2: a.f2 || NONE
+    };
+  }
+}
+DC.mount(Component);
+</script>
+</body>
+</html>
