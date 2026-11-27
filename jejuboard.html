@@ -929,7 +929,12 @@ class Component extends DCLogic {
     super(props);
     this.GAME = 'race';
     this.ROSTER = this.loadPlayers();
-    this.state = { pool: null, setup: true, started: false, len: 60, dir: 'mix', ...this.fresh(60, true) };
+    this.state = { pool: null, setup: true, started: false, len: this.autoLen(), dir: 'mix', ...this.fresh(this.autoLen(), true) };
+  }
+  autoLen() {
+    // about 200 tiles in total: kids x board length, rounded to the nearest board size
+    const want = 200 / Math.max(1, this.ROSTER.length);
+    return [20, 30, 40, 60, 80].reduce((b, v) => Math.abs(v - want) < Math.abs(b - want) ? v : b, 60);
   }
   shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   sampleWords() {
@@ -1066,10 +1071,10 @@ class Component extends DCLogic {
   rowOf(k, len) { const L = this.layout(len); return Math.min(L.rows - 1, Math.floor(k / ((len - 1) / L.rows + 1e-9))); }
   makeJumps(len) {
     // more, shorter jumps (about 10-12 tiles) and always one snake near the finish
-    const n = len <= 20 ? 2 : len <= 30 ? 3 : len <= 40 ? 5 : len <= 60 ? 7 : 9;   // ladders and snakes each
+    const n = len <= 20 ? 3 : len <= 30 ? 4 : len <= 40 ? 6 : len <= 60 ? 9 : 11;   // ladders and snakes each (11과: denser)
     const L0 = this.layout(len), cells = L0.cells;
     const best = { jumps: {}, count: -1 };
-    for (let attempt = 0; attempt < 40; attempt++) {
+    for (let attempt = 0; attempt < 120; attempt++) {
       const res = this.tryJumps(len, n, cells, L0);
       if (res.final && Object.keys(res.jumps).length > best.count) { best.jumps = res.jumps; best.count = Object.keys(res.jumps).length; }
       if (best.count >= 2 * n) break;
@@ -1092,18 +1097,18 @@ class Component extends DCLogic {
       return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0));
     };
     const cands = [];
-    const sMin = len <= 20 ? 4 : len <= 30 ? 6 : 8, sMax = len <= 20 ? 7 : len <= 30 ? 10 : 14;
+    const sMin = len <= 20 ? 3 : len <= 30 ? 4 : 6, sMax = len <= 20 ? 8 : len <= 30 ? 12 : 15;
     for (let lo = 2; lo < len - 2; lo++) for (let hi = lo + sMin; hi <= Math.min(len - 2, lo + sMax); hi++) {
       const A = cells[lo], B = cells[hi], dy = Math.abs(B.cy - A.cy), dx = Math.abs(B.cx - A.cx);
       if (dy < rowGap * 0.6 || dy > rowGap * 1.45 || dx > step * 6.5 || Math.hypot(dx, dy) < L0.dia * 2.1) continue;
-      if (cells.some((c, k) => k !== lo && k !== hi && near(c, A, B) < L0.dia * 0.42)) continue;
+      if (cells.some((c, k) => k !== lo && k !== hi && near(c, A, B) < L0.dia * 0.36)) continue;
       cands.push({ lo, hi, dx });
     }
     const ends = [0, len - 1], jumps = {}, segs = [];
     const fits = (c, up) => {
-      if (ends.some(e => Math.abs(e - c.lo) < 2 || Math.abs(e - c.hi) < 2)) return false;
+      if (ends.some(e => e === c.lo || e === c.hi)) return false;
       const A = cells[c.lo], B = cells[c.hi];
-      return !segs.some(sg => (sg[2] === up && cross(A, B, sg[0], sg[1])) || near(A, sg[0], sg[1]) < 18 || near(B, sg[0], sg[1]) < 18 || near(sg[0], A, B) < 18 || near(sg[1], A, B) < 18);
+      return !segs.some(sg => cross(A, B, sg[0], sg[1]) || near(A, sg[0], sg[1]) < 12 || near(B, sg[0], sg[1]) < 12 || near(sg[0], A, B) < 12 || near(sg[1], A, B) < 12);
     };
     const add = (c, up) => { ends.push(c.lo, c.hi); segs.push([cells[c.lo], cells[c.hi], up]); if (up) jumps[c.lo] = c.hi; else jumps[c.hi] = c.lo; };
     // 1. finale snake: head on one of the last 5 tiles before the goal (may lean more)
@@ -1621,11 +1626,11 @@ class Component extends DCLogic {
       startGame: () => this.startGame(),
       opt1Title: '판 크기', opt1Sub: 'Spielbrett',
       opt1: this.seg([
-        { v: 20, label: '20칸', sub: 'sehr kurz' },
-        { v: 30, label: '30칸', sub: 'kurz' },
-        { v: 40, label: '40칸', sub: 'mittel' },
-        { v: 60, label: '60칸', sub: 'lang' },
-        { v: 80, label: '80칸', sub: 'sehr lang' }
+        { v: 20, label: '20칸', sub: this.autoLen() === 20 ? '⭐ 추천 · ' + this.ROSTER.length + ' Kinder' : 'sehr kurz' },
+        { v: 30, label: '30칸', sub: this.autoLen() === 30 ? '⭐ 추천 · ' + this.ROSTER.length + ' Kinder' : 'kurz' },
+        { v: 40, label: '40칸', sub: this.autoLen() === 40 ? '⭐ 추천 · ' + this.ROSTER.length + ' Kinder' : 'mittel' },
+        { v: 60, label: '60칸', sub: this.autoLen() === 60 ? '⭐ 추천 · ' + this.ROSTER.length + ' Kinder' : 'lang' },
+        { v: 80, label: '80칸', sub: this.autoLen() === 80 ? '⭐ 추천 · ' + this.ROSTER.length + ' Kinder' : 'sehr lang' }
       ], s.len, 'len'),
       opt2Title: '문제', opt2Sub: 'Fragen',
       opt2: this.seg([
