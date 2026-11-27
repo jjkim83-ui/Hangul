@@ -851,25 +851,11 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
         </div>
         <div style="display: flex; align-items: center; gap: 16px">
           <div style="width: 150px; flex-shrink: 0; line-height: 1.15">
-            <div style="font-family: 'Jua', sans-serif; font-size: 21px">여행</div>
-            <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Reisen</div>
-          </div>
-          <div style="flex: 1; display: flex; gap: 10px">
-            <sc-for list="{{opt1}}" as="o" hint-placeholder-count="3">
-              <button type="button" tabindex="-1" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 54px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
-                <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 19px">{{o.label}}</span>
-                <span style="position: relative; z-index: 1; display: block; font-size: 11px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
-              </button>
-            </sc-for>
-          </div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 16px">
-          <div style="width: 150px; flex-shrink: 0; line-height: 1.15">
             <div style="font-family: 'Jua', sans-serif; font-size: 21px">시간</div>
             <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Zeit pro Reise</div>
           </div>
           <div style="flex: 1; display: flex; gap: 10px">
-            <sc-for list="{{opt2}}" as="o" hint-placeholder-count="3">
+            <sc-for list="{{opt1}}" as="o" hint-placeholder-count="3">
               <button type="button" tabindex="-1" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 54px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
                 <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 19px">{{o.label}}</span>
                 <span style="position: relative; z-index: 1; display: block; font-size: 11px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
@@ -883,7 +869,7 @@ button[aria-label^="순서 섞기"]{width:108px !important;padding:8px 12px !imp
             <div style="font-size: 13px; font-weight: 800; color: #4A4C80">Deutsch</div>
           </div>
           <div style="flex: 1; display: flex; gap: 10px">
-            <sc-for list="{{opt3}}" as="o" hint-placeholder-count="3">
+            <sc-for list="{{opt2}}" as="o" hint-placeholder-count="3">
               <button type="button" tabindex="-1" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" class="puff press {{o.cls}}" style="flex: 1; min-width: 0; height: 54px; border: none; border-radius: 999px; padding: 0 8px; cursor: pointer; color: #2B2C6B; font-family: inherit; line-height: 1.05">
                 <span style="position: relative; z-index: 1; display: block; font-family: 'Jua', sans-serif; font-size: 19px">{{o.label}}</span>
                 <span style="position: relative; z-index: 1; display: block; font-size: 11px; font-weight: 800; color: #4A4C80">{{o.sub}}</span>
@@ -914,8 +900,8 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.ROSTER = this.loadPlayers();
-    this.TRIPS = [["제주도 가족 여행", "🍊", [["🧳", "가방에 옷을 넣고 여행을 준비했어요.", "Ich habe Kleider eingepackt und die Reise vorbereitet."], ["💓", "여행 전날 밤, 가슴이 설레서 잠이 안 왔어요.", "Am Abend vor der Reise war ich so aufgeregt, dass ich nicht schlafen konnte."], ["🛫", "아침 일찍 김포 공항에서 출발했어요.", "Früh am Morgen sind wir vom Flughafen Gimpo abgeflogen."], ["🛬", "한 시간 후에 제주도에 도착했어요.", "Nach einer Stunde sind wir auf Jeju angekommen."], ["⛰️", "한라산에 올라가서 경치를 구경했어요.", "Wir sind auf den Hallasan gestiegen und haben die Aussicht angeschaut."]]], ["서울 할머니 댁", "🏯", [["🛂", "해외여행이라서 여권을 먼저 준비했어요.", "Weil es eine Auslandsreise war, habe ich zuerst den Pass bereitgelegt."], ["🛫", "취리히 공항에서 서울로 출발했어요.", "Wir sind vom Flughafen Zürich nach Seoul abgeflogen."], ["🛬", "열두 시간 후에 인천 공항에 도착했어요.", "Nach zwölf Stunden sind wir am Flughafen Incheon angekommen."], ["👵", "먼저 할머니 댁을 방문했어요.", "Zuerst haben wir Grossmutter besucht."], ["🏯", "다음 날에는 경복궁을 관광했어요.", "Am nächsten Tag haben wir den Gyeongbokgung-Palast besichtigt."]]], ["KTX 타고 부산", "🚄", [["🎒", "국내 여행이라서 짐을 조금만 준비했어요.", "Weil es eine Inlandsreise war, habe ich nur wenig Gepäck gepackt."], ["🚄", "서울역에서 KTX를 타고 출발했어요.", "Wir sind am Bahnhof Seoul mit dem KTX losgefahren."], ["🌊", "부산에 도착하니까 바다 냄새가 났어요.", "Als wir in Busan ankamen, roch es nach Meer."], ["🐟", "유명한 자갈치 시장을 구경했어요.", "Wir haben den berühmten Jagalchi-Fischmarkt angeschaut."], ["🏖️", "해운대 바닷가는 경치가 정말 좋았어요.", "Am Strand von Haeundae war die Aussicht wirklich schön."]]], ["드라마 촬영지", "🎬", [["📺", "좋아했던 드라마의 촬영지를 방문하고 싶었어요.", "Ich wollte den Drehort meiner Lieblingsserie besuchen."], ["🗺️", "버스 시간을 찾아보고 여행을 준비했어요.", "Ich habe die Buszeiten nachgeschaut und die Reise vorbereitet."], ["🚌", "아침 아홉 시에 버스를 타고 출발했어요.", "Um neun Uhr morgens bin ich mit dem Bus losgefahren."], ["🏝️", "드라마에서 봤던 바닷가에 도착했어요.", "Ich bin an dem Strand angekommen, den ich in der Serie gesehen hatte."], ["📸", "주인공처럼 서서 사진을 찍었어요.", "Ich habe mich wie die Hauptfigur hingestellt und ein Foto gemacht."]]], ["스위스 기차 여행", "🏔️", [["📝", "가족과 함께 국내 여행을 준비했어요.", "Mit der Familie habe ich eine Inlandsreise vorbereitet."], ["💓", "처음 가는 산이라서 가슴이 설렜어요.", "Es war ein Berg, auf dem ich noch nie war, deshalb freute ich mich riesig."], ["🚆", "바젤역에서 기차를 타고 출발했어요.", "Wir sind am Bahnhof Basel mit dem Zug losgefahren."], ["🛤️", "두 시간 후에 인터라켄에 도착했어요.", "Nach zwei Stunden sind wir in Interlaken angekommen."], ["🏔️", "산 위에서 본 경치가 정말 좋았어요.", "Die Aussicht oben auf dem Berg war wirklich schön."]]], ["경주 역사 여행", "🏛️", [["📚", "경주에 가기 전에 책을 읽으면서 준비했어요.", "Vor der Reise nach Gyeongju habe ich mich mit einem Buch vorbereitet."], ["🚗", "아빠 차를 타고 출발했어요.", "Wir sind mit Papas Auto losgefahren."], ["📍", "점심때 경주에 도착했어요.", "Zur Mittagszeit sind wir in Gyeongju angekommen."], ["🏛️", "유명한 불국사를 관광했어요.", "Wir haben den berühmten Tempel Bulguksa besichtigt."], ["🥮", "집에 와서도 경주에서 먹었던 빵이 생각났어요.", "Auch zu Hause musste ich noch an das Brot denken, das ich in Gyeongju gegessen hatte."]]]];
-    this.state = { setup: true, started: false, finished: false, nTrips: 4, secs: 60, deShow: 'after', mixed: false,
+    this.TRIPS = [["제주도 가족 여행", "🍊", [["🧳", "일주일 전에 가방에 옷을 넣고 여행을 준비했어요.", "Eine Woche vorher habe ich Kleider eingepackt und die Reise vorbereitet."], ["💓", "여행 전날 밤, 가슴이 설레서 잠이 안 왔어요.", "Am Abend vor der Reise war ich so aufgeregt, dass ich nicht schlafen konnte."], ["🛫", "다음 날 아침 일찍 김포 공항에서 출발했어요.", "Am nächsten Morgen sind wir früh vom Flughafen Gimpo abgeflogen."], ["🛬", "한 시간 후에 제주도에 도착했어요.", "Eine Stunde später sind wir auf Jeju angekommen."], ["⛰️", "그다음 날에는 한라산에 올라가서 경치를 구경했어요.", "Am Tag danach sind wir auf den Hallasan gestiegen und haben die Aussicht angeschaut."]]], ["서울 할머니 댁", "🏯", [["🛂", "해외여행이라서 출발하기 일주일 전에 여권을 준비했어요.", "Weil es eine Auslandsreise war, habe ich eine Woche vor der Abfahrt den Pass bereitgelegt."], ["🛫", "여행 날 아침, 취리히 공항에서 비행기를 타고 출발했어요.", "Am Reisetag sind wir morgens vom Flughafen Zürich abgeflogen."], ["🛬", "열두 시간 후에 인천 공항에 도착했어요.", "Zwölf Stunden später sind wir am Flughafen Incheon angekommen."], ["👵", "도착한 날 저녁에 할머니 댁을 방문했어요.", "Am Abend des Ankunftstages haben wir Grossmutter besucht."], ["🏯", "다음 날 아침에는 경복궁을 관광했어요.", "Am nächsten Morgen haben wir den Gyeongbokgung-Palast besichtigt."]]], ["KTX 타고 부산", "🚄", [["🎒", "국내 여행이라서 전날 밤에 짐을 조금만 준비했어요.", "Weil es eine Inlandsreise war, habe ich am Abend vorher nur wenig Gepäck gepackt."], ["🚄", "아침 일곱 시에 서울역에서 KTX를 타고 출발했어요.", "Um sieben Uhr morgens sind wir am Bahnhof Seoul mit dem KTX losgefahren."], ["🌊", "두 시간 반 후에 부산역에 도착했어요.", "Zweieinhalb Stunden später sind wir am Bahnhof Busan angekommen."], ["🐟", "점심에는 자갈치 시장을 구경하고 생선을 먹었어요.", "Zu Mittag haben wir den Jagalchi-Markt angeschaut und Fisch gegessen."], ["🌃", "저녁에는 해운대에 갔는데 밤 경치가 정말 좋았어요.", "Am Abend waren wir in Haeundae – die Aussicht bei Nacht war wunderschön."]]], ["드라마 촬영지", "🎬", [["📺", "좋아했던 드라마의 촬영지를 방문하고 싶었어요.", "Ich wollte den Drehort meiner Lieblingsserie besuchen."], ["🗺️", "그래서 버스 시간을 찾아보고 여행을 준비했어요.", "Deshalb habe ich die Buszeiten nachgeschaut und die Reise vorbereitet."], ["🚌", "다음 날 아침 아홉 시에 버스를 타고 출발했어요.", "Am nächsten Morgen um neun Uhr bin ich mit dem Bus losgefahren."], ["🏝️", "한 시간 후에 드라마에서 봤던 바닷가에 도착했어요.", "Eine Stunde später kam ich an dem Strand an, den ich in der Serie gesehen hatte."], ["📸", "도착하자마자 주인공처럼 서서 사진을 찍었어요.", "Gleich nach der Ankunft habe ich mich wie die Hauptfigur hingestellt und ein Foto gemacht."]]], ["스위스 기차 여행", "🏔️", [["📝", "지난주에 가족과 함께 국내 여행을 준비했어요.", "Letzte Woche habe ich mit der Familie eine Inlandsreise vorbereitet."], ["🚆", "토요일 아침에 바젤역에서 기차를 타고 출발했어요.", "Am Samstagmorgen sind wir am Bahnhof Basel mit dem Zug losgefahren."], ["💓", "기차 창밖으로 산이 보여서 가슴이 설렜어요.", "Aus dem Zugfenster sah ich die Berge und freute mich riesig."], ["🛤️", "두 시간 후에 인터라켄에 도착했어요.", "Zwei Stunden später sind wir in Interlaken angekommen."], ["🏔️", "오후에는 산 위에 올라가서 경치를 구경했어요.", "Am Nachmittag sind wir auf den Berg gefahren und haben die Aussicht angeschaut."]]], ["경주 역사 여행", "🏛️", [["📚", "경주에 가기 전에 책을 읽으면서 준비했어요.", "Vor der Reise nach Gyeongju habe ich mich mit einem Buch vorbereitet."], ["🚗", "여행 날 아침 여덟 시에 아빠 차를 타고 출발했어요.", "Am Reisetag um acht Uhr morgens sind wir mit Papas Auto losgefahren."], ["📍", "점심때 경주에 도착했어요.", "Zur Mittagszeit sind wir in Gyeongju angekommen."], ["🏛️", "오후에는 유명한 불국사를 관광했어요.", "Am Nachmittag haben wir den berühmten Tempel Bulguksa besichtigt."], ["🥮", "집에 와서도 경주에서 먹었던 빵이 생각났어요.", "Auch zu Hause musste ich noch an das Brot denken, das ich in Gyeongju gegessen hatte."]]], ["배 타고 우도", "🚢", [["🎫", "전날 저녁에 우도에 가는 배 시간을 확인하고 준비했어요.", "Am Abend vorher habe ich die Fährzeiten nach Udo nachgeschaut und alles vorbereitet."], ["⛴️", "아침 열 시에 성산항에서 배를 타고 출발했어요.", "Um zehn Uhr morgens sind wir im Hafen Seongsan mit der Fähre losgefahren."], ["🏝️", "십오 분 후에 우도에 도착했어요.", "Fünfzehn Minuten später sind wir auf Udo angekommen."], ["🚲", "도착해서 자전거를 빌려 타고 섬을 구경했어요.", "Nach der Ankunft haben wir Velos gemietet und die Insel angeschaut."], ["🍦", "집에 가는 배를 타기 전에 마지막으로 땅콩 아이스크림을 먹었어요.", "Bevor wir die Fähre zurück nahmen, haben wir zum Schluss Erdnuss-Glace gegessen."]]], ["독일 프라이부르크", "🇩🇪", [["🎒", "가까운 독일로 가는 해외여행이라서 짐을 조금만 준비했어요.", "Eine Auslandsreise ins nahe Deutschland – darum habe ich nur wenig gepackt."], ["🚆", "아침 아홉 시에 바젤역에서 기차를 타고 출발했어요.", "Um neun Uhr morgens sind wir am Bahnhof Basel mit dem Zug losgefahren."], ["📍", "한 시간 후에 프라이부르크에 도착했어요.", "Eine Stunde später sind wir in Freiburg angekommen."], ["🧺", "점심에는 대성당 앞에 있는 유명한 시장을 구경했어요.", "Zu Mittag haben wir den berühmten Markt vor dem Münster angeschaut."], ["📓", "저녁에 집에 와서 여행 일기를 썼어요.", "Am Abend, wieder zu Hause, habe ich ein Reisetagebuch geschrieben."]]]];
+    this.state = { setup: true, started: false, finished: false, secs: 60, deShow: 'after', mixed: false,
       teams: this.split(false), order: [], ti: 0, pool: [], placed: [], firstTry: true, slotOk: [], phase: 'idle',
       score: [0, 0], perfect: [0, 0], shake: -1, qid: 0, member: [0, 0], wrongs: {}, banner: null,
       msg: '그림 카드를 여행 순서대로 골라요! · Bringt die Reise in die richtige Reihenfolge!' };
@@ -938,18 +924,23 @@ class Component extends DCLogic {
     const m = /^(Digit|Numpad)([1-9])$/.exec(e.code);
     if (m && s.phase === 'play') { e.preventDefault(); const k = +m[2] - 1; const c = s.pool[k]; if (c) this.pick(c.id); }
   }
-  team() { return this.state.ti % 2; }
+  seq() { const T = this.state.teams, out = []; for (let k = 0; k < Math.max(T[0].length, T[1].length); k++) { if (T[0][k] !== undefined) out.push({ t: 0, i: T[0][k], k }); if (T[1][k] !== undefined) out.push({ t: 1, i: T[1][k], k }); } return out; }
+  turnAt(ti) { const q = this.seq(); return q[ti] || q[0] || { t: 0, i: 0, k: 0 }; }
+  team() { return this.turnAt(this.state.ti).t; }
   teamName(t) { return t ? '파랑 팀' : '빨강 팀'; }
-  member(t) { return Math.floor(this.state.ti / 2); }
-  player(t, k) { const L = this.state.teams[t]; return L.length ? this.ROSTER[L[k % L.length]] : null; }
+  member(t) { const cur = this.turnAt(this.state.ti); return cur.t === t ? cur.k : -1; }
+  player(t, k) { return this.ROSTER[this.turnAt(this.state.ti).i] || null; }
   startGame() {
     clearTimeout(this._qT);
-    const order = this.shuffle(this.TRIPS.map((x, i) => i)).slice(0, this.state.nTrips);
+    // one trip per person: every kid gets their own trip (repeats only with more kids than trips)
+    const n = this.seq().length, order = [];
+    while (order.length < n) order.push(...this.shuffle(this.TRIPS.map((x, i) => i)));
+    order.length = n;
     this.setState({ setup: false, started: true, finished: false, order, ti: 0, score: [0, 0], perfect: [0, 0], member: [0, 0], wrongs: {}, banner: null });
     this.prepTrip(0);
   }
   prepTrip(ti) {
-    const t = ti % 2, who = this.player(t, this.member(t));
+    const t = this.turnAt(ti).t, who = this.ROSTER[this.turnAt(ti).i];
     this.setState({ ti, phase: 'wait', pool: [], placed: [], slotOk: [], banner: null,
       msg: this.teamName(t) + ' · ' + (who ? who.name : '') + ' 차례! Enter로 시작 · Enter zum Start' });
   }
@@ -1015,7 +1006,7 @@ class Component extends DCLogic {
     const names = (k) => s.teams[k].map(i => this.ROSTER[i].name).join(' · ');
     return {
       title: '11과 여행 순서 맞추기 🧳', subtitle: 'Reise-Puzzle · Bildkarten in die richtige Reihenfolge',
-      lenLabel: s.nTrips + '여행 · ' + (s.secs ? s.secs + '초' : '∞'),
+      lenLabel: '1인 1여행 · ' + (s.secs ? s.secs + '초' : '∞'),
       tripTitle: trip ? trip[1] + ' ' + trip[0] : '🧳', tripNo: s.started ? (s.ti + 1) + ' / ' + s.order.length : '',
       slots, pool, poolOn: s.phase === 'play', waitOn: s.phase === 'wait' && !s.setup && !s.finished,
       goText: this.teamName(t) + ' · ' + (who ? who.name : '') + ' 차례! ⏎ Enter', goSub: '다음 여행 · nächste Reise',
@@ -1023,8 +1014,8 @@ class Component extends DCLogic {
       bannerOn: !!s.banner, bannerCls: s.banner ? s.banner.cls : '', bannerText: s.banner ? s.banner.text : '', bannerSub: s.banner ? s.banner.sub : '',
       redName: '🔴 빨강 팀', blueName: '🔵 파랑 팀', scoreA: s.score[0], scoreB: s.score[1],
       redOn: s.started && !s.finished && t === 0 ? 'on' : '', blueOn: s.started && !s.finished && t === 1 ? 'on' : '',
-      redMembers: s.teams[0].map((i, k) => ({ name: this.ROSTER[i].name, cls: t === 0 && s.started && k === this.member(0) % s.teams[0].length ? 'on' : '' })),
-      blueMembers: s.teams[1].map((i, k) => ({ name: this.ROSTER[i].name, cls: t === 1 && s.started && k === this.member(1) % s.teams[1].length ? 'on' : '' })),
+      redMembers: s.teams[0].map((i, k) => ({ name: this.ROSTER[i].name, cls: t === 0 && s.started && k === this.member(0) ? 'on' : '' })),
+      blueMembers: s.teams[1].map((i, k) => ({ name: this.ROSTER[i].name, cls: t === 1 && s.started && k === this.member(1) ? 'on' : '' })),
       cur: { ...this.build((who || {}).cfg || {}), name: who ? who.name : '' }, curLine: this.teamName(t), curPuff: t ? 'p-blue' : 'p-coral',
       msg: s.msg,
       nextTrip: () => { if (this.state.phase === 'read') this.nextTrip(); else if (this.state.phase === 'wait') this.startTrip(); },
@@ -1041,12 +1032,11 @@ class Component extends DCLogic {
       startGame: () => this.startGame(),
       mixTeams: () => this.setState({ teams: this.split(true) }),
       redList: names(0), blueList: names(1),
-      poolChips: [{ label: '11과 여행 · 6 Reisen', cls: 'p-mint' }, { label: '-았/었던 조금 · ein bisschen', cls: 'p-butter' }],
+      poolChips: [{ label: '11과 여행 · ' + this.TRIPS.length + ' Reisen', cls: 'p-mint' }, { label: '한 명에 한 여행 · 1 Reise pro Kind', cls: 'p-lav' }, { label: '-았/었던 조금 · ein bisschen', cls: 'p-butter' }],
       poolNote: '카드를 누르거나 숫자 키 1–5 · Karte antippen oder Zahl 1–5. 처음에 맞히면 +1, 완벽하면 +2 · erster Versuch +1, perfekte Reise +2',
-      opt1: this.seg([{ v: 2, label: '2여행', sub: 'je 1 pro Team' }, { v: 4, label: '4여행', sub: 'je 2 pro Team' }, { v: 6, label: '6여행', sub: 'alle' }], s.nTrips, 'nTrips'),
-      opt2: this.seg([{ v: 90, label: '90초', sub: 'viel Zeit' }, { v: 60, label: '60초', sub: 'normal' }, { v: 0, label: '∞', sub: 'ohne Uhr' }], s.secs, 'secs'),
-      opt3: this.seg([{ v: 'after', label: '나중에', sub: 'Deutsch am Ende' }, { v: 'always', label: '항상', sub: 'Deutsch immer' }, { v: 'never', label: '안 보여요', sub: 'kein Deutsch' }], s.deShow, 'deShow'),
-      setupNote: '팀이 번갈아 여행 하나씩 맞춰요. 끝나면 다 같이 소리 내어 읽어요 · Die Teams wechseln sich ab. Danach lesen alle laut vor.',
+      opt1: this.seg([{ v: 90, label: '90초', sub: 'viel Zeit' }, { v: 60, label: '60초', sub: 'normal' }, { v: 0, label: '∞', sub: 'ohne Uhr' }], s.secs, 'secs'),
+      opt2: this.seg([{ v: 'after', label: '나중에', sub: 'Deutsch am Ende' }, { v: 'always', label: '항상', sub: 'Deutsch immer' }, { v: 'never', label: '안 보여요', sub: 'kein Deutsch' }], s.deShow, 'deShow'),
+      setupNote: '한 명씩 자기 여행을 맞춰요 (빨강 → 파랑 → …). 끝나면 다 같이 소리 내어 읽어요 · Jedes Kind ordnet eine Reise, die Teams wechseln sich ab.',
       roster: ''
     };
   }
